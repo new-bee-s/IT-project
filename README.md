@@ -1,6 +1,6 @@
 # IT-project
 
-This is the project of COMP30019 IT-Project :)
+This is the project of COMP30019 IT-Project  :)
 
 
 It is completed by 5 students detailed below:
