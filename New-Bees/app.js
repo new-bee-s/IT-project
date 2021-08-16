@@ -1,5 +1,8 @@
 const express = require('express')
 const app = express();
+const cors = require('cors')
+const path = require('path')
+const port = process.env.PORT || 8000 
 
 app.get('/', (req, res) => {
     console.log('<h1>ththt</h1>')
