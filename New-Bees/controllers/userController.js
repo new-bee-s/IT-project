@@ -1,5 +1,5 @@
 // customerController will be written on next 
-const User  = require('../models/customerModel')
+const User  = require('../models/user.js')
 
 
 const userLogin = async (req,res) => {
@@ -13,10 +13,10 @@ const userLogin = async (req,res) => {
             if (user.password == req.body.password) {
                 res.status(200).json({success: true, 
                     user: {
-                        id: user.id,
-                        email: user.email,
-                        firstName: user.firstName,
-                        lastName: user.lastName
+                       
+                        email: user.emailAddress,
+                        firstName: user.givenName,
+                        lastName: user.familyName
                         
                     }})
                 
