@@ -4,8 +4,10 @@
   "description": "This is the project of COMP30019 IT-Project  :)",
   "main": "app.js",
   "scripts": {
+    "front-install": "cd New-Bees/front && npm install",
+    "front": "cd New-Bees/front && npm start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon cd New-Bees/app.js"
+    "start": "nodemon cd ../app.js"
   },
   "repository": {
     "type": "git",
