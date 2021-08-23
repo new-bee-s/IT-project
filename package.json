@@ -6,8 +6,7 @@
   "scripts": {
     "front-install": "cd New-Bees/front && npm install",
     "front": "cd New-Bees/front && npm start",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon cd ../app.js"
+    "start": "cd New-Bees && nodemon app.js"
   },
   "repository": {
     "type": "git",
