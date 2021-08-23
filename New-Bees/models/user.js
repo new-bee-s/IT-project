@@ -1,15 +1,15 @@
 const mongoose = require("mongoose")
 const bcrypt = require('bcrypt-nodejs')
 const userSchema = new mongoose.Schema({
-    givenName: { type: String, required: true },
-    familyName: { type: String, required: true },
-    emailAddress: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    givenName: { type: String, require: true },
+    familyName: { type: String, require: true },
+    emailAddress: { type: String, require: true },
+    password: { type: String, require: true },
     photo: {
         data: Buffer,
         contentType: String
     }
 })
 
-const user = mongoose.model('user', userSchema)
-module.exports = user
+const User = mongoose.model('User', userSchema)
+module.exports = User
