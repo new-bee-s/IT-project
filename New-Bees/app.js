@@ -1,14 +1,25 @@
 const express = require('express')
-const app = express();
 const cors = require('cors')
 const db = require('./db')
 const path = require('path')
+const User = require('./models/user')
+const userRouter = require('./routes/userRouter')
+const bodyParser = require('body-parser')
+const app = express();
+
+app.use(express.json())
+app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true })) // replaces body-parser
+app.use(express.static('public'))
+
+
+app.use('/', userRouter)
 
 app.get('/', (req, res) => {
-    console.log('<h1>ththt</h1>')
+    res.sendFile(__dirname + "/views/login.html")
 })
-const userRouter = require('./routes/userRouter')
-app.use('/user', userRouter)
+
+
 const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')

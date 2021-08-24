@@ -1,5 +1,5 @@
 // customerController will be written on next 
-const User  = require('../models/customerModel')
+const User = require('../models/user')
 
 
 const userLogin = async (req,res) => {
@@ -32,8 +32,6 @@ const userLogin = async (req,res) => {
     }
 }
 
-
-
 module.exports = {
-    userLogin
+    addUser
 }
