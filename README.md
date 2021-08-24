@@ -1,6 +1,8 @@
-# Welcome! **: )** This is the project of COMP30019 IT-Project  
-Website link: [new-bee crm](https://www.google.com/)  
-It is a website customer relationship managemenet system which is able to store, search, manage and share your address book for business easily!
+# Welcome to New-Bee CRM!!  😄   
+This is the project for Unimelb COMP30019 IT-Project.  
+Website link :arrow_forward: [New-Bee CRM](https://www.google.com/):arrow_backward:  
+It is a website customer relationship managemenet system, which is able to store, search, manage and share your address book for business easily!  
+
 Contributors:  
 **Ziyu Qian**   ziyuq@student.unimelb.edu.au  
 **Shengjun Su** shengjuns@student.unimelb.edu.au  
