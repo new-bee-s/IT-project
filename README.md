@@ -1,7 +1,7 @@
 # IT-project
 
 # Welcome! **: )** This is the project of COMP30019 IT-Project  
-Here is our website link: [new-bee crm] (https://www.google.com/)
+Here is our website link: [new-bee crm](https://www.google.com/)
 It 'will' be completed by 5 students detailed below:  
 #### **Ziyu Qian**   ziyuq@student.unimelb.edu.au  
 #### **Shengjun Su** shengjuns@student.unimelb.edu.au  
