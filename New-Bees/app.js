@@ -15,10 +15,14 @@ app.use(express.static('public'))
 
 app.use('/', userRouter)
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + "/views/login.html")
-})
-
+// // if in the production, server static assets
+// if (process.env.NODE_ENV === 'production') {
+//     // set static folder for it
+//     app.use(express.static('front'));
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.resolve(__dirname, 'front', 'index.html'))
+//     })
+// }
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {

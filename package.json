@@ -6,8 +6,13 @@
   "scripts": {
     "front-install": "cd New-Bees/front && npm install",
     "front": "cd New-Bees/front && npm start",
+<<<<<<< Updated upstream
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon cd ../app.js"
+=======
+    "dev": "concurrently \"npm run start\" \"npm run front\"",
+    "start": "cd New-Bees && nodemon app.js"
+>>>>>>> Stashed changes
   },
   "repository": {
     "type": "git",
