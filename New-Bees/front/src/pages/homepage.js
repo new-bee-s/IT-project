@@ -77,7 +77,7 @@ function Homepage(){
 
             <div className={classes.background}>
                 <ul className={classes.blocks}>
-                    <Button variant="contained" className={classes.button} >
+                    <Button variant="contained" className={classes.button} href={window.location.href + "login"}>
                     Get Start
                     </Button> 
                 </ul>
