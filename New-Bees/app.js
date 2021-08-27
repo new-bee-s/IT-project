@@ -13,8 +13,6 @@ app.use(express.urlencoded({ extended: true })) // replaces body-parser
 app.use(express.static('public'))
 
 
-app.use('/', userRouter)
-
 // // if in the production, server static assets
 // if (process.env.NODE_ENV === 'production') {
 //     // set static folder for it
