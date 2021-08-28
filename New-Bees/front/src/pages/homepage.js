@@ -4,50 +4,38 @@ import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles((theme) => ({
-
     header: {
-        background: '#0000FF',
-        position: '50%',
-        size: 'cover',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         overflow: 'hidden',
         width: '100%',
-        display: 'block',
         boxSizing: "border-box",
+        position: 'center',
+        marginTop: '100vh'
     },
     blocks: {
         height: 'auto',
         flexWrap: 'wrap',
         justifyContent: 'center',
         paddingLeft: 'unset',
-        paddingTop: '12vh',
+        paddingTop: '9vh',
         verticalAlign: 'middle',
         borderRadius: 3,
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         textAlign: 'center',
-    },
-    title: {
-        width: '100%',
-        textAlign: 'center',
-        paddingTop: '20px',
-        paddingBottom: '20px',
-        fontSize: 'calc(20px + 2vmin)',
-        color: 'E9DDC3',
-        fontWeight: 'bold',
+
     },
     background: {
-        height: '89vh',
         position: 'absolute',
-        backgroundImage: `url("https://unsplash.com/photos/pfpNGWxFd74")`,
-        backgroundPositionX: 'center',
-        backgroundPositionY: 'bottom',
-        backgroundSize: 'cover',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         verticalAlign: 'middle',
-        width: '100%'
+        width: '100%',
+        paddingTop: "20vh"
     },
     button: {
         width: "200px",
@@ -70,11 +58,9 @@ function Homepage() {
     console.log('jaosn');
 
     return (
-        <div style={{ background: '#E9DDC3' }}>
+        <div>
             <header className={classes.header}>
-                <h3 className={classes.title} style={{ color: "#E9DDC3", fontFamily: 'courier' }}>
-                    Welcome To New-Bees
-                </h3>
+                <img src="./pics/logo_full.png" alt="" height={150} />
             </header>
 
 
