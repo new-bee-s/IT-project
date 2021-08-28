@@ -12,7 +12,16 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         boxSizing: "border-box",
         position: 'center',
-        marginTop: '100vh'
+        marginTop: '15vh'
+    },
+    middle: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        verticalAlign: 'middle',
+        width: '100%',
+        marginTop: "5vh",
+        overflow: 'hidden'
     },
     blocks: {
         height: 'auto',
@@ -28,17 +37,8 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
 
     },
-    background: {
-        position: 'absolute',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        verticalAlign: 'middle',
-        width: '100%',
-        paddingTop: "20vh"
-    },
     button: {
-        width: "200px",
+        width: "250px",
         height: "50px",
         background: '#429CEF',
         borderRadius: '100px',
@@ -46,6 +46,15 @@ const useStyles = makeStyles((theme) => ({
         color: '#FFFFFF',
         fontFamily: 'Ubuntu',
         fontSize: "18px"
+    },
+    background: {
+        overflow: 'hidden',
+        width: '100%',
+        height: '315px',
+        backgroundImage: 'url("./pics/homepage_bottom.png")',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        marginTop: '4vh',
     }
 
 }));
@@ -58,13 +67,13 @@ function Homepage() {
     console.log('jaosn');
 
     return (
-        <div>
-            <header className={classes.header}>
+        <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
+            <div className={classes.header}>
                 <img src="./pics/logo_full.png" alt="" height={150} />
-            </header>
+            </div>
 
 
-            <div className={classes.background}>
+            <div className={classes.middle}>
                 <ul className={classes.blocks}>
                     <Button variant="contained" className={classes.button} href={window.location.href + "login"}>
                         Get Start
@@ -72,7 +81,8 @@ function Homepage() {
                 </ul>
 
             </div>
-
+            <div className={classes.background}>
+            </div>
         </div>
     )
 
