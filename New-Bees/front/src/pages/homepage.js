@@ -69,13 +69,15 @@ function Homepage() {
     return (
         <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
             <div className={classes.header}>
-                <img src="./pics/logo_full.png" alt="" height={150} />
+                <a href = "/">
+                <img src="./pics/logo_full.png" alt="logo pic" height={130} />
+                </a>
             </div>
 
 
             <div className={classes.middle}>
                 <ul className={classes.blocks}>
-                    <Button variant="contained" className={classes.button} href={window.location.href + "login"}>
+                    <Button variant="contained" className={classes.button} href={window.location.href + "sign_in"}>
                         Get Start
                     </Button>
                 </ul>
