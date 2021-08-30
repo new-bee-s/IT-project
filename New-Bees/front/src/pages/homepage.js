@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: 'url("./pics/homepage_bottom.png")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        marginTop: '4vh',
+        marginTop: '5.5vh',
     }
 
 }));
@@ -81,7 +81,6 @@ function Homepage() {
                         Get Start
                     </Button>
                 </ul>
-
             </div>
             <div className={classes.background}>
             </div>
