@@ -7,10 +7,16 @@ require('../config/passport')(passport);
 
 userRouter.get('/users', userController.users)
 
-userRouter.post('/users', passport.authenticate('user-signup', {
+userRouter.post('/register', passport.authenticate('user-signup', {
     successRedirect: '/', // redirect to the homepage
-    failureRedirect: '/addUser', // redirect to signup page
+    failureRedirect: '/register', // redirect to signup page
     failureFlash: true // allow flash messages
+}))
+
+userRouter.post('/signin', passport.authenticate('user-login', {
+    successRedirect: '/', // redirect to the homepage
+    failureRedirect: '/signin', // redirect to signup page
+    failureFlash: true
 }))
 
 module.exports = userRouter

@@ -20,38 +20,38 @@ module.exports = function (passport) {
     // strategy to login user
     // this method only takes in username and password, and the field names
     // should match of those in the login form
-    // passport.use('user-login', new LocalStrategy({
-    //     usernameField: 'email',
-    //     passwordField: 'password',
-    //     passReqToCallback: true
-    // }, // pass the req as the first arg to the callback for verification 
-    //     function (req, email, password, done) {
-    //         process.nextTick(function () {
-    //             // see if the user with the email exists
-    //             User.findOne({ 'email': email }, function (err, user) {
-    //                 // if there are errors, user is not found or password
-    //                 // does match, send back errors
-    //                 if (err) {
-    //                     return done(err);
-    //                 } else if (!user) {
-    //                     console.log("user login failed:", email, "NOT FOUND")
-    //                     return done(null, false, req.flash('loginMessage', 'Email address has not been registered.'));
-    //                 } else if (!user.validPassword(password)) {
-    //                     // false in done() indicates to the strategy that authentication has
-    //                     // failed
-    //                     console.log("user login failed:", email, "WRONG PASSWORD");
-    //                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-    //                 }
-    //                 // otherwise, we put the user's id in the session
-    //                 else {
-    //                     req.session.userId = user._id
-    //                     console.log('user logged in successfully: ', req.session.userId)
-    //                     return done(null, user);
-    //                 }
-    //             });
-    //         });
-    //     })
-    // );
+    passport.use('user-login', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    }, // pass the req as the first arg to the callback for verification 
+        function (req, email, password, done) {
+            process.nextTick(function () {
+                // see if the user with the email exists
+                User.findOne({ 'email': email }, function (err, user) {
+                    // if there are errors, user is not found or password
+                    // does match, send back errors
+                    if (err) {
+                        return done(err);
+                    } else if (!user) {
+                        console.log("user login failed:", email, "NOT FOUND")
+                        return done(null, false, req.flash('loginMessage', 'Email address has not been registered.'));
+                    } else if (!user.validPassword(password)) {
+                        // false in done() indicates to the strategy that authentication has
+                        // failed
+                        console.log("user login failed:", email, "WRONG PASSWORD");
+                        return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                    }
+                    // otherwise, we put the user's id in the session
+                    else {
+                        req.session.userId = user._id
+                        console.log('user logged in successfully: ', req.session.userId)
+                        return done(null, user);
+                    }
+                });
+            });
+        })
+    );
 
     passport.use('user-signup', new LocalStrategy({
         usernameField: 'email',
