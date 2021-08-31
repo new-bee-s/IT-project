@@ -8,7 +8,11 @@ const userSchema = new mongoose.Schema({
     photo: {
         data: Buffer,
         contentType: String
-    }
+    },
+    contact: [this],
+    totalContact: { type: Number },
+    tags: [{ type: mongoose.Types.ObjectId, ref: "Tag" }]
+
 })
 userSchema.methods.generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);

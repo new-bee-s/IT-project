@@ -80,6 +80,9 @@ module.exports = function (passport) {
                         newUser.familyName = req.body.familyName;
                         newUser.email = email;
                         newUser.password = newUser.generateHash(password);
+                        newUser.contact = [];
+                        newUser.tags = [];
+                        newUser.totalContact = 0;
                         // and save the user
                         newUser.save(function (err) {
                             if (err) {
