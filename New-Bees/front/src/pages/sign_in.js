@@ -155,17 +155,12 @@ function SignIn(){
                             autoComplete="current-password"
                             />
 
-<<<<<<< Updated upstream
                             <a href = {"register"} style={{float:'right'}}>
                                 New user? Click here
                             </a>
 
                             <blocks className={classes.blocks}>
                                 <Button variant="contained" className = {classes.button}href={window.location.href + "/"}>
-=======
-                            <blocks className={classes.blocks_signin}>
-                                <Button variant="contained" className = {classes.button}href={window.location.href}>
->>>>>>> Stashed changes
                                     Sign In
                                 </Button>
                                 
