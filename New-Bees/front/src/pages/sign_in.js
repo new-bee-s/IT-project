@@ -29,12 +29,41 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "5vh",
         overflow: 'hidden'
     },
-    blocks: {
+    blocks_signin: {
         height: 'auto',
         flexWrap: 'wrap',
         justifyContent: 'center',
         paddingLeft: 'unset',
         paddingTop: '3vh',
+        verticalAlign: 'middle',
+        borderRadius: 3,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    blocks_text: {
+        height: '3vh',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '1vh',
+        verticalAlign: 'middle',
+        borderRadius: 2,
+        display: 'flex',
+        fontFamily:'Ubuntu',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    blocks_google: {
+        height: 'auto',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '1.5vh',
         verticalAlign: 'middle',
         borderRadius: 3,
         display: 'flex',
@@ -50,6 +79,18 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '100px',
         border: 0,
         color: '#FFFFFF',
+        alignItems: 'center',
+        fontFamily: 'Ubuntu',
+        fontSize: "18px"
+    },
+    button_google: {
+        width: "250px",
+        height: "50px",
+        background: '#EA4335',
+        borderRadius: '100px',
+        border: 1,
+        color: '#FFFFFF',
+        alignItems: 'center',
         fontFamily: 'Ubuntu',
         fontSize: "18px"
     },
@@ -60,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: 'url("./pics/homepage_bottom.png")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        marginTop: '-1vh',
+        marginTop: '-1vh'
     }
 
 }));
@@ -98,6 +139,10 @@ function SignIn(){
                             autoFocus
                             />
 
+                            <a href = {"register"} style={{float:'right'}}>
+                                New user? Click here
+                            </a>
+
                             <TextField
                             variant="outlined"
                             margin="normal"
@@ -110,14 +155,37 @@ function SignIn(){
                             autoComplete="current-password"
                             />
 
+<<<<<<< Updated upstream
                             <a href = {"register"} style={{float:'right'}}>
                                 New user? Click here
                             </a>
 
                             <blocks className={classes.blocks}>
                                 <Button variant="contained" className = {classes.button}href={window.location.href + "/"}>
+=======
+                            <blocks className={classes.blocks_signin}>
+                                <Button variant="contained" className = {classes.button}href={window.location.href}>
+>>>>>>> Stashed changes
                                     Sign In
                                 </Button>
+                                
+                                {/* <Button onclick="google_login">
+                                    Login with Google
+                                </Button> */}
+                            </blocks>
+                            <blocks className={classes.blocks_text}>
+                                <p>
+                                    or
+                                </p>
+                            </blocks>
+                            <blocks className={classes.blocks_google}>
+
+                                <Button variant="contained" className = {classes.button_google}href={window.location.href}>
+                                    google
+                                </Button>
+                                {/* <Button onclick="google_login">
+                                    Login with Google
+                                </Button> */}
                             </blocks>
 
                         </form>
@@ -129,8 +197,40 @@ function SignIn(){
 
         </div>
     )
-  };
+};
+
+{/* <script src="https://apis.google.com/js/api:client.js"></script>
+
+function google_login() {
+    var googleUser = {};
+        gapi.load('auth2', function(){
+
+            // Retrieve the singleton for the GoogleAuth library and set up the client.
+            auth2 = gapi.auth2.init({
+                client_id: 'client_id',
+                cookiepolicy: 'single_host_origin',
+                scope: 'profile'
+            });
+            attachSignin(document.getElementById('google_button'));
+        }
+    );
+}
+
+function attachSignin(element) {
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+            var profile = auth2.currentUser.get().getBasicProfile();
+            console.log('ID: ' + profile.getId());
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+        }, function(error) {
+            console.log(JSON.stringify(error, undefined, 2));
+        }
+    );
+} */}
 
 
-
-  export default SignIn;
+export default SignIn;
