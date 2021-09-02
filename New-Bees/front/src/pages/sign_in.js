@@ -165,11 +165,13 @@ function SignIn(){
                                     Login with Google
                                 </Button> */}
                             </blocks>
+
                             <blocks className={classes.blocks_text}>
                                 <p>
                                     or
                                 </p>
                             </blocks>
+                            
                             <blocks className={classes.blocks_google}>
 
                                 <Button variant="contained" className = {classes.button_google}href={window.location.href}>
