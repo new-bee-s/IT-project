@@ -23,6 +23,7 @@ const UserLogin = async (req, res) => {
                             lastName: user.lastName,
                         }
                     })
+                    console.log("login");
                 } else {
                     res.status(409).json({ success: false, error: "Password incorrect" })
                 }

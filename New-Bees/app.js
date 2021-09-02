@@ -5,13 +5,14 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const app = express();
 const cors = require('cors')
-const passport = require('passport')
+
 const session = require('express-session')
 const flash = require('connect-flash-plus')
 
 //app.use(module)
 app.use(express.json())
 app.use(bodyParser.json())
+
 app.use(express.urlencoded({ extended: true })) // replaces body-parser
 app.use(express.static('public'))
 
@@ -26,9 +27,6 @@ app.use(session({
     saveUninitialized: true
 }))
 
-app.use(passport.initialize())
-
-app.use(passport.session())
 
 app.use(flash())
 
@@ -36,7 +34,8 @@ app.use(flash())
 const userRouter = require('./routes/userRouter')
 
 app.use('/', userRouter)
-const port = process.env.PORT || 3000
+
+const port = process.env.PORT || 8000
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')
 })

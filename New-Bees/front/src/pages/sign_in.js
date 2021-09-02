@@ -82,25 +82,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SignIn(props){
-        
+
+    console.log('sign');   
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const onSignIn = () => {
-        
+
         console.log(email,password);
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
-                user: res.data.user
+              props.history.push('/homepage',{
+                user:res.data.user
 
-            } else {
-            message.error(res.data.error)
+            })}
+             else {
+                //console.log(error.response.data.error)
+                message.error(res.data.error)
+
             }
+
         }).catch(error => {
             //console.log(error.response.data.error)
             message.error(error.response.data.error)
         })};
+        
     
     
 
