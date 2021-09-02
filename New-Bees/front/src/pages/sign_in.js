@@ -160,7 +160,7 @@ function SignIn(){
                             </a>
 
                             <blocks className={classes.blocks}>
-                                <Button variant="contained" className = {classes.button}href={window.location.href + "/"}>
+                                <Button variant="contained" className = {classes.button}href={window.location.href}>
                                     Sign In
                                 </Button>
                                 

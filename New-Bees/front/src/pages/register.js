@@ -115,7 +115,7 @@ function Register(){
                             />
 
                             <blocks className={classes.blocks}>
-                                <Button variant="contained" className = {classes.button}href={window.location.href + "/"}>
+                                <Button variant="contained" className = {classes.button}href={window.location.href}>
                                     Register
                                 </Button>
                             </blocks>

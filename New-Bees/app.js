@@ -2,7 +2,6 @@
 const express = require('express')
 const db = require('./db')
 const path = require('path')
-const userRouter = require('./routes/userRouter')
 const bodyParser = require('body-parser')
 const app = express();
 const cors = require('cors')
@@ -34,15 +33,9 @@ app.use(passport.session())
 app.use(flash())
 
 
-// // if in the production, server static assets
-// if (process.env.NODE_ENV === 'production') {
-//     // set static folder for it
-//     app.use(express.static('front'));
-//     app.get('*', (req, res) => {
-//         res.sendFile(path.resolve(__dirname, 'front', 'index.html'))
-//     })
-// }
+const userRouter = require('./routes/userRouter')
 
+app.use('/', userRouter)
 const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')
