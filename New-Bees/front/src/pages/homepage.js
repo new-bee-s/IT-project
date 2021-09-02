@@ -48,13 +48,16 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "18px"
     },
     background: {
+        display: 'flex',
         overflow: 'hidden',
         width: '100%',
-        height: '315px',
-        backgroundImage: 'url("./pics/homepage_bottom.png")',
+        height: '31%',
+        backgroundImage: 'url("./pics/homepage_bottom.svg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        marginTop: '5.5vh',
+        resizeMethod: 'cover',
+        position: 'absolute',
+        bottom: '0',
     }
 
 }));
@@ -67,7 +70,7 @@ function Homepage() {
     console.log('jaosn');
 
     return (
-        <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
+        <div style={{ width: '100vw', height: '100vw`, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
             <div className={classes.header}>
                 <a href="/">
                     <img src="./pics/logo_full.png" alt="logo pic" height={130} />
@@ -82,8 +85,8 @@ function Homepage() {
                     </Button>
                 </ul>
             </div>
-            <div className={classes.background}>
-            </div>
+
+            <div className={classes.background}></div>
         </div>
     )
 

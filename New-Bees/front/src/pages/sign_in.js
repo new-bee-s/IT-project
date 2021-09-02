@@ -24,13 +24,25 @@ const useStyles = makeStyles((theme) => ({
         position: 'center',
         marginTop: '5vh'
     },
-    middle: {
+    middle1: {
+        float: 'left',
+        display: 'felx',
+        justifyContent: 'center',
+        alignItems: 'center',
+        verticalAlign: 'middle',
+        width: '40%',
+        marginTop: "35vh",
+        overflow: 'hidden'
+        
+    },
+    middle2: {
+        float: 'right',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         verticalAlign: 'middle',
-        width: '100%',
-        marginTop: "5vh",
+        width: '50%',
+        marginTop: "30vh",
         overflow: 'hidden'
     },
     blocks: {
@@ -60,13 +72,13 @@ const useStyles = makeStyles((theme) => ({
     background: {
         overflow: 'hidden',
         width: '100%',
-        height: '315px',
-        backgroundImage: 'url("./pics/homepage_bottom.png")',
+        height: '18%',
+        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        marginTop: '-1vh',
+        position: 'absolute',
+        bottom:0,
     }
-
 }));
 
 function SignIn(props){
@@ -93,20 +105,28 @@ function SignIn(props){
     
 
     return (
-        <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
+        <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
 
-            <div className={classes.header}>
-                <a href = "/">
-                <img src="./pics/logo_full.png" alt="logo pic" height={90} />
-                </a>
-            </div>
 
-            <div className={classes.middle}>
+            <div className={classes.middle1}>
                 <Container component="main" maxWidth="xs">
+                    <a href = "/">
+                        <img src="./pics/logo_full.png" alt="logo pic" height={150} />
+                    </a>
                     <CssBaseline />
-                    <div >
-                        <Avatar > <LockOutlinedIcon /> </Avatar>
-                        <Typography  component="h1" variant="h5">Sign In</Typography>
+                </Container>
+            </div>
+            <div className={classes.middle2}>
+                <Container component="main" maxWidth="xs">
+                    <div>
+                        <Typography  component="h1" variant="h1" align = 'center'>Sign In</Typography>
+                    </div>
+                    <br/>
+                    <div>
+                        <Typography  component="h1" variant='body1' align = 'center'>Sign in and start managing your candidates!</Typography>
+                    </div>
+                    <br/>
+                    <div>
                         <form noValidate>
                             <TextField
                             variant="outlined"
@@ -133,7 +153,6 @@ function SignIn(props){
                             autoComplete="current-password"
                             onChange={e => setPassword(e.target.value)}
                             />
-
                             <a href = {"register"} style={{float:'right'}}>
                                 New user? Click here
                             </a>
@@ -147,13 +166,12 @@ function SignIn(props){
                                 </Button>
 
                             </blocks>
-
                         </form>
                     </div>
                 </Container>
             </div>
 
-            <div className={classes.background}></div>
+            <div className={classes.background} > </div>
 
         </div>
     )

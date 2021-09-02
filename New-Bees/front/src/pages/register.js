@@ -18,13 +18,25 @@ const useStyles = makeStyles((theme) => ({
         position: 'center',
         marginTop: '5vh'
     },
-    middle: {
+    middle1: {
+        float: 'left',
+        display: 'felx',
+        justifyContent: 'center',
+        alignItems: 'center',
+        verticalAlign: 'middle',
+        width: '40%',
+        marginTop: "35vh",
+        overflow: 'hidden'
+        
+    },
+    middle2: {
+        float: 'right',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         verticalAlign: 'middle',
-        width: '100%',
-        marginTop: "5vh",
+        width: '50%',
+        marginTop: "20vh",
         overflow: 'hidden'
     },
     blocks: {
@@ -54,13 +66,15 @@ const useStyles = makeStyles((theme) => ({
     background: {
         overflow: 'hidden',
         width: '100%',
-        height: '315px',
-        backgroundImage: 'url("./pics/homepage_bottom.png")',
+        height: '18%',
+        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        marginTop: '-1vh',
+        position: 'absolute',
+        bottom:0,
     }
 
+    
 }));
 
 function Register(){
@@ -71,25 +85,51 @@ function Register(){
     return (
         <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
 
-            <div className={classes.header}>
-                <a href = "/">
-                <img src="./pics/logo_full.png" alt="logo pic" height={90} />
-                </a>
-            </div>
-
-            <div className={classes.middle}>
+            <div className={classes.middle1}>
                 <Container component="main" maxWidth="xs">
+                    <a href = "/">
+                        <img src="./pics/logo_full.png" alt="logo pic" height={150} />
+                    </a>
                     <CssBaseline />
-                    <div >
-                        <Typography  component="h1" variant="h3">
-                            Welcome!
-                        </Typography>
-
-                        <Typography  component="h1" variant="h5">
+                </Container>
+            </div>
+            <div className={classes.middle2}>
+                <Container component="main" maxWidth="xs">
+                    <div>
+                        <Typography  component="h1" variant="h1" align = "center">
                             Register
                         </Typography>
-
+                        <br/>
+                        <Typography  component="h1" variant="h5" align = "center">
+                            Welcome to be the new menber!
+                        </Typography>
+                        <br/>
                         <form noValidate>
+                            <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="firstname"
+                            label="First Name"
+                            name="firstname"
+                            autoComplete="email"
+                            autoFocus
+                            />
+
+                            <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="lastname"
+                            label="Last Name"
+                            name="lastname"
+                            autoComplete="email"
+                            autoFocus
+                            />
+
+
                             <TextField
                             variant="outlined"
                             margin="normal"
@@ -114,8 +154,20 @@ function Register(){
                             autoComplete="current-password"
                             />
 
+                            <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="comfirmed password"
+                            label="Comfirmed Password"
+                            type="comfirmed password"
+                            id="comfirmed password"
+                            autoComplete="current-password"
+                            />
+
                             <blocks className={classes.blocks}>
-                                <Button variant="contained" className = {classes.button}href={window.location.href}>
+                                <Button variant="contained" className = {classes.button} href={window.location.href + "signin"}>
                                     Register
                                 </Button>
                             </blocks>
