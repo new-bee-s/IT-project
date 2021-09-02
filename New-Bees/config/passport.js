@@ -35,27 +35,27 @@ module.exports = function (passport) {
                         return done(err);
                     } else if (!user) {
                         console.log("user login failed:", email, "NOT FOUND")
-                        res.status(400).json({ success: false, error: "Email not found" })
+                        //res.status(400).json({ success: false, error: "Email not found" })
                         return done(null, false, req.flash('loginMessage', 'Email address has not been registered.'));
                     } else if (!user.validPassword(password)) {
                         // false in done() indicates to the strategy that authentication has
                         // failed
                         console.log("user login failed:", email, "WRONG PASSWORD");
-                        res.status(409).json({ success: false, error: "Password incorrect" })
+                        //res.status(409).json({ success: false, error: "Password incorrect" })
                         return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
                     }
                     // otherwise, we put the user's id in the session
                     else {
                         req.session.userId = user._id
                         console.log('user logged in successfully: ', req.session.userId)
-                        res.status(200).json({
-                            success: true, user: {
-                                id: user._id,
-                                email: user.email,
-                                firstName: user.firstName,
-                                givenName: user.givenName
-                            }
-                        })
+                        // res.status(200).json({
+                        //     success: true, user: {
+                        //         id: user._id,
+                        //         email: user.email,
+                        //         firstName: user.firstName,
+                        //         givenName: user.givenName
+                        //     }
+                        // })
                         return done(null, user);
                     }
                 });
