@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState } from 'react'
+import { message } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
@@ -8,6 +10,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import 'antd/dist/antd.css';
+import axios from '../commons/axios.js';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -65,10 +69,28 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function SignIn(){
+function SignIn(props){
         
     const classes = useStyles();
-    console.log('jaosn');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const onSignIn = () => {
+        
+        console.log(email,password);
+        axios.post('/signin', { email: email, password: password }).then(res => {
+            if (res.data.success) {
+                user: res.data.user
+
+            } else {
+            message.error(res.data.error)
+            }
+        }).catch(error => {
+            //console.log(error.response.data.error)
+            message.error(error.response.data.error)
+        })};
+    
+    
 
     return (
         <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
@@ -96,6 +118,7 @@ function SignIn(){
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            onChange={e => setEmail(e.target.value)}
                             />
 
                             <TextField
@@ -108,16 +131,21 @@ function SignIn(){
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            onChange={e => setPassword(e.target.value)}
                             />
 
                             <a href = {"register"} style={{float:'right'}}>
                                 New user? Click here
                             </a>
-
                             <blocks className={classes.blocks}>
-                                <Button variant="contained" className = {classes.button}href={window.location.href}>
+                                <Button 
+                                  variant="contained" 
+                                  onClick={onSignIn} 
+                                  className = {classes.button}
+                                  >
                                     Sign In
                                 </Button>
+
                             </blocks>
 
                         </form>
