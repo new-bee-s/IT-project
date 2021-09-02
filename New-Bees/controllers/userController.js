@@ -48,10 +48,12 @@ const UserSignup = async (req, res) => {
             res.status(400).json({ success: false, error: "Please enter your name!" })
         } else if (req.body.password == "" || req.body.password == null) {
             res.status(400).json({ success: false, error: "Please set your password!" })
+        } else if (req.body.confirmPassword == "" || req.body.confirmPassword == null) {
+            res.status.json({ success: false, error: "Please enter your confirmed password!" })
+        } else if (req.body.password != req.body.confirmPassword) {
+            res.status.json({ success: false, error: "Please confirm your password!" })
         } else if (req.body.password.length < 8) {
             res.status(400).json({ success: false, error: "Your password must be as least 8 characters!" })
-        } else if (!/\d/.test(req.body.password)) {
-            res.status(400).json({ success: false, error: "Your password must contain at least one numerical digit!" })
         } else {
             let hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null)
             const user = new User({

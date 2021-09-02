@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         width: '40%',
         marginTop: "35vh",
         overflow: 'hidden'
-        
+
     },
     middle2: {
         float: 'right',
@@ -77,27 +77,28 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         position: 'absolute',
-        bottom:0,
+        bottom: 0,
     }
 }));
 
-function SignIn(props){
+function SignIn(props) {
 
-    console.log('sign');   
+    console.log('sign');
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const onSignIn = () => {
 
-        console.log(email,password);
+        console.log(email, password);
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
-              props.history.push('/homepage',{
-                user:res.data.user
+                props.history.push('/homepage', {
+                    user: res.data.user
 
-            })}
-             else {
+                })
+            }
+            else {
                 //console.log(error.response.data.error)
                 message.error(res.data.error)
 
@@ -106,10 +107,9 @@ function SignIn(props){
         }).catch(error => {
             //console.log(error.response.data.error)
             message.error(error.response.data.error)
-        })};
-        
-    
-    
+        })
+    };
+
 
     return (
         <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
@@ -117,7 +117,7 @@ function SignIn(props){
 
             <div className={classes.middle1}>
                 <Container component="main" maxWidth="xs">
-                    <a href = "/">
+                    <a href="/">
                         <img src="./pics/logo_full.png" alt="logo pic" height={150} />
                     </a>
                     <CssBaseline />
@@ -126,49 +126,49 @@ function SignIn(props){
             <div className={classes.middle2}>
                 <Container component="main" maxWidth="xs">
                     <div>
-                        <Typography  component="h1" variant="h1" align = 'center'>Sign In</Typography>
+                        <Typography component="h1" variant="h1" align='center'>Sign In</Typography>
                     </div>
-                    <br/>
+                    <br />
                     <div>
-                        <Typography  component="h1" variant='body1' align = 'center'>Sign in and start managing your candidates!</Typography>
+                        <Typography component="h1" variant='body1' align='center'>Sign in and start managing your candidates!</Typography>
                     </div>
-                    <br/>
+                    <br />
                     <div>
                         <form noValidate>
                             <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            onChange={e => setEmail(e.target.value)}
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={e => setEmail(e.target.value)}
                             />
 
                             <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            onChange={e => setPassword(e.target.value)}
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                onChange={e => setPassword(e.target.value)}
                             />
-                            <a href = {"register"} style={{float:'right'}}>
+                            <a href={"register"} style={{ float: 'right' }}>
                                 New user? Click here
                             </a>
                             <blocks className={classes.blocks}>
-                                <Button 
-                                  variant="contained" 
-                                  onClick={onSignIn} 
-                                  className = {classes.button}
-                                  >
+                                <Button
+                                    variant="contained"
+                                    onClick={onSignIn}
+                                    className={classes.button}
+                                >
                                     Sign In
                                 </Button>
 
@@ -182,8 +182,8 @@ function SignIn(props){
 
         </div>
     )
-  };
+};
 
 
 
-  export default SignIn;
+export default SignIn;
