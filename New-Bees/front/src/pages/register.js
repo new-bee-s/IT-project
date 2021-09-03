@@ -23,26 +23,31 @@ const useStyles = makeStyles((theme) => ({
         position: 'center',
         marginTop: '5vh'
     },
-    middle1: {
-        float: 'left',
+    middle: {
         display: 'felx',
-        justifyContent: 'center',
         alignItems: 'center',
         verticalAlign: 'middle',
-        width: '40%',
-        marginTop: "35vh",
-        overflow: 'hidden'
-        
+        justifyContent: 'center',
+        marginTop: "5%",
+        boxSizing: "border-box",
+        width: '100%',
+    },
+    column:{
+        float: 'left',
+        width: "50%",
+        padding: "15px",
+        alignItems: 'center',
+        verticalAlign: 'middle',
+        display: 'flex',
+        marginTop: "8%",
     },
     middle2: {
-        float: 'right',
+        float: 'left',
+        width: "50%",
+        padding: "15px",
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
         verticalAlign: 'middle',
-        width: '50%',
-        marginTop: "20vh",
-        overflow: 'hidden'
     },
     blocks: {
         height: 'auto',
@@ -77,11 +82,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         position: 'absolute',
         bottom:0,
-    }
+    },
 
-    
 }));
-
 
 // register page
 function Register(){
@@ -92,10 +95,12 @@ function Register(){
     const [givenName, setGivenName] = useState('');
     const [familyName, setFamilyName] = useState('');
     const [confirmPassword,setComfPassword]= useState('');
-    
+
     //using on onchange
     const onSignUp = () => {
 
+        console.log(email, password)
+        
         //console.log(email, password)
         //use axios connect back-end and push personal information to back-end
         axios.post('/register', {
@@ -108,12 +113,11 @@ function Register(){
           if (res.data.success) {
             message.success("Registered successfully")
           } else { 
-            // if error
             message.error(res.data.error)
           }
         }).catch(error => {
-
             //console.log(error.response.data.error)
+            console.log(error.response.data.error)
             message.error(error.response.data.error)
         })
       }
@@ -121,105 +125,105 @@ function Register(){
 
     return (
         <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
+            <div className = {classes.middle}>
+                <div className={classes.column}>
+                    <Container component="main" maxWidth="md">
+                        <a href="/">
+                            <img src='./pics/logo_full.png' style = {{width: '100%'}}></img>
+                        </a>
+                        <CssBaseline />
+                    </Container>
+                </div>
+                <div className={classes.middle2}>
+                    <Container component="main" maxWidth="xs">
+                        <div>
+                            <Typography  component="h1" variant="h1" align = "center">
+                                Register
+                            </Typography>
+                            <br/>
+                            <Typography  component="h1" variant="h5" align = "center">
+                                Welcome to be the new menber!
+                            </Typography>
+                            <br/>
+                            <form noValidate>
+                                <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="givenName"
+                                label="First Name"
+                                name="firstname"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={e => setGivenName(e.target.value)}
+                                />
 
-            <div className={classes.middle1}>
-                <Container component="main" maxWidth="xs">
-                    <a href = "/">
-                        <img src="./pics/logo_full.png" alt="logo pic" height={150} />
-                    </a>
-                    <CssBaseline />
-                </Container>
+                                <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="familyName"
+                                label="Last Name"
+                                name="lastname"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={e => setFamilyName(e.target.value)}
+                                />
+
+                                <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={e => setEmail(e.target.value)}
+                                />
+
+                                <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                onChange={e => setPassword(e.target.value)}
+                                />
+
+                                <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="comfirmed password"
+                                label="Comfirmed Password"
+                                type="password"
+                                id="confirmPassword"
+                                autoComplete="current-password"
+                                onChange={e => setComfPassword(e.target.value)}
+                                />
+
+                                <blocks className={classes.blocks}>
+                                    <Button variant="contained" 
+                                        className = {classes.button} 
+                                        onClick={onSignUp}
+                                        >
+                                        Register
+                                    </Button>
+                                </blocks>
+                            </form>
+                        </div>
+                    </Container>
+                </div>
             </div>
-            <div className={classes.middle2}>
-                <Container component="main" maxWidth="xs">
-                    <div>
-                        <Typography  component="h1" variant="h1" align = "center">
-                            Register
-                        </Typography>
-                        <br/>
-                        <Typography  component="h1" variant="h5" align = "center">
-                            Welcome to be the new menber!
-                        </Typography>
-                        <br/>
-                        <form noValidate>
-                            <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="givenName"
-                            label="First Name"
-                            name="firstname"
-                            autoComplete="email"
-                            autoFocus
-                            onChange={e => setGivenName(e.target.value)}
-                            />
-
-                            <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="familyName"
-                            label="Last Name"
-                            name="lastname"
-                            autoComplete="email"
-                            autoFocus
-                            onChange={e => setFamilyName(e.target.value)}
-                            />
-
-                            <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            onChange={e => setEmail(e.target.value)}
-                            />
-
-                            <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            onChange={e => setPassword(e.target.value)}
-                            />
-
-                            <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="comfirmed password"
-                            label="Comfirmed Password"
-                            type="password"
-                            id="confirmPassword"
-                            autoComplete="current-password"
-                            onChange={e => setComfPassword(e.target.value)}
-                            />
-
-                            <blocks className={classes.blocks}>
-                                <Button variant="contained" 
-                                    className = {classes.button} 
-                                    onClick={onSignUp}
-                                    >
-                                    Register
-                                </Button>
-                            </blocks>
-                        </form>
-                    </div>
-                </Container>
-            </div>
-
             <div className={classes.background}></div>
 
         </div>

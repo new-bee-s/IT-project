@@ -23,26 +23,31 @@ const useStyles = makeStyles((theme) => ({
         position: 'center',
         marginTop: '5vh'
     },
-    middle1: {
-        float: 'left',
+    middle: {
         display: 'felx',
-        justifyContent: 'center',
         alignItems: 'center',
         verticalAlign: 'middle',
-        width: '40%',
-        marginTop: "35vh",
-        overflow: 'hidden'
-
+        justifyContent: 'center',
+        marginTop: "10%",
+        boxSizing: "border-box",
+        width: '100%',
+    },
+    column:{
+        float: 'left',
+        width: "50%",
+        padding: "15px",
+        alignItems: 'center',
+        verticalAlign: 'middle',
+        display: 'flex',
+        marginTop: "5%",
     },
     middle2: {
-        float: 'right',
+        float: 'left',
+        width: "50%",
+        padding: "15px",
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
         verticalAlign: 'middle',
-        width: '50%',
-        marginTop: "30vh",
-        overflow: 'hidden'
     },
     blocks: {
         height: 'auto',
@@ -77,6 +82,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         position: 'absolute',
         bottom: 0,
+    },
+    logo:{
+        width: 'auto',
+        height: 'auto',
     }
 }));
 
@@ -110,70 +119,70 @@ function SignIn(props) {
     return (
         <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
 
+            <div className = {classes.middle}>
+                <div className={classes.column}>
+                    <Container component="main" maxWidth="md">
+                        <a href="/">
+                            <img src='./pics/logo_full.png' style = {{width: '100%'}}></img>
+                        </a>
+                        <CssBaseline />
+                    </Container>
+                </div>
+                <div className={classes.middle2} verticalAlign = 'middle'>
+                    <Container component="main" maxWidth="sm">
+                        <div>
+                            <Typography component="h1" variant="h1" align='center'>Sign In</Typography>
+                        </div>
+                        <br />
+                        <div>
+                            <Typography component="h1" variant='body1' align='center'>Sign in and start managing your candidates!</Typography>
+                        </div>
+                        <br />
+                        <div>
+                            <form noValidate>
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    autoFocus
+                                    onChange={e => setEmail(e.target.value)}
+                                />
 
-            <div className={classes.middle1}>
-                <Container component="main" maxWidth="xs">
-                    <a href="/">
-                        <img src="./pics/logo_full.png" alt="logo pic" height={150} />
-                    </a>
-                    <CssBaseline />
-                </Container>
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                                <a href={"register"} style={{ float: 'right' }}>
+                                    New user? Click here
+                                </a>
+                                <blocks className={classes.blocks}>
+                                    <Button
+                                        variant="contained"
+                                        onClick={onSignIn}
+                                        className={classes.button}
+                                    >
+                                        Sign In
+                                    </Button>
+
+                                </blocks>
+                            </form>
+                        </div>
+                    </Container>
+                </div>
             </div>
-            <div className={classes.middle2}>
-                <Container component="main" maxWidth="xs">
-                    <div>
-                        <Typography component="h1" variant="h1" align='center'>Sign In</Typography>
-                    </div>
-                    <br />
-                    <div>
-                        <Typography component="h1" variant='body1' align='center'>Sign in and start managing your candidates!</Typography>
-                    </div>
-                    <br />
-                    <div>
-                        <form noValidate>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                                onChange={e => setEmail(e.target.value)}
-                            />
-
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                                onChange={e => setPassword(e.target.value)}
-                            />
-                            <a href={"register"} style={{ float: 'right' }}>
-                                New user? Click here
-                            </a>
-                            <blocks className={classes.blocks}>
-                                <Button
-                                    variant="contained"
-                                    onClick={onSignIn}
-                                    className={classes.button}
-                                >
-                                    Sign In
-                                </Button>
-
-                            </blocks>
-                        </form>
-                    </div>
-                </Container>
-            </div>
-
             <div className={classes.background} > </div>
 
         </div>
