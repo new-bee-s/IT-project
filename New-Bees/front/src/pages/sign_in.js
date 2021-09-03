@@ -93,9 +93,8 @@ function SignIn(props) {
         console.log(email, password);
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
-                props.history.push('/homepage', {
+                props.history.push('/dashboard', {
                     user: res.data.user
-
                 })
             }
             else {

@@ -6,6 +6,9 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import 'antd/dist/antd.css';
+import axios from '../commons/axios.js';
+import { useState } from 'react';
+import { message } from 'antd';
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -66,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
     background: {
         overflow: 'hidden',
         width: '100%',
-        height: '18%',
+        height: '10%',
         backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
@@ -78,9 +81,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Register(){
-        
+
     const classes = useStyles();
-    console.log('jaosn');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [givenName, setGivenName] = useState('');
+    const [familyName, setFamilyName] = useState('');
+    const [confirmPassword,setComfPassword]= useState('');
+
+    const onSignUp = () => {
+        console.log(email, password)
+        
+
+        axios.post('/register', {
+            email: email,
+            givenName: givenName,
+            familyName: familyName,
+            password: password,
+            confirmPassword: confirmPassword
+        }).then(res => { 
+          if (res.data.success) {
+            message.success("Registered successfully")
+          } else { 
+            message.error(res.data.error)
+          }
+        }).catch(error => {
+            console.log(error.response.data.error)
+            message.error(error.response.data.error)
+        })
+      }
+    
 
     return (
         <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
@@ -110,11 +140,12 @@ function Register(){
                             margin="normal"
                             required
                             fullWidth
-                            id="firstname"
+                            id="givenName"
                             label="First Name"
                             name="firstname"
                             autoComplete="email"
                             autoFocus
+                            onChange={e => setGivenName(e.target.value)}
                             />
 
                             <TextField
@@ -122,13 +153,13 @@ function Register(){
                             margin="normal"
                             required
                             fullWidth
-                            id="lastname"
+                            id="familyName"
                             label="Last Name"
                             name="lastname"
                             autoComplete="email"
                             autoFocus
+                            onChange={e => setFamilyName(e.target.value)}
                             />
-
 
                             <TextField
                             variant="outlined"
@@ -140,6 +171,7 @@ function Register(){
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            onChange={e => setEmail(e.target.value)}
                             />
 
                             <TextField
@@ -152,6 +184,7 @@ function Register(){
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            onChange={e => setPassword(e.target.value)}
                             />
 
                             <TextField
@@ -161,17 +194,20 @@ function Register(){
                             fullWidth
                             name="comfirmed password"
                             label="Comfirmed Password"
-                            type="comfirmed password"
-                            id="comfirmed password"
+                            type="password"
+                            id="confirmPassword"
                             autoComplete="current-password"
+                            onChange={e => setComfPassword(e.target.value)}
                             />
 
                             <blocks className={classes.blocks}>
-                                <Button variant="contained" className = {classes.button} href={window.location.href + "signin"}>
+                                <Button variant="contained" 
+                                    className = {classes.button} 
+                                    onClick={onSignUp}
+                                    >
                                     Register
                                 </Button>
                             </blocks>
-
                         </form>
                     </div>
                 </Container>
