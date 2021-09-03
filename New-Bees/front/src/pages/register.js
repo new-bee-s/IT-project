@@ -1,3 +1,4 @@
+// import libraries
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -10,6 +11,7 @@ import axios from '../commons/axios.js';
 import { useState } from 'react';
 import { message } from 'antd';
 
+//web page style design
 const useStyles = makeStyles((theme) => ({
     header: {
         display: 'flex',
@@ -80,6 +82,8 @@ const useStyles = makeStyles((theme) => ({
     
 }));
 
+
+// register page
 function Register(){
 
     const classes = useStyles();
@@ -88,11 +92,12 @@ function Register(){
     const [givenName, setGivenName] = useState('');
     const [familyName, setFamilyName] = useState('');
     const [confirmPassword,setComfPassword]= useState('');
-
+    
+    //using on onchange
     const onSignUp = () => {
-        console.log(email, password)
-        
 
+        //console.log(email, password)
+        //use axios connect back-end and push personal information to back-end
         axios.post('/register', {
             email: email,
             givenName: givenName,
@@ -103,10 +108,12 @@ function Register(){
           if (res.data.success) {
             message.success("Registered successfully")
           } else { 
+            // if error
             message.error(res.data.error)
           }
         }).catch(error => {
-            console.log(error.response.data.error)
+
+            //console.log(error.response.data.error)
             message.error(error.response.data.error)
         })
       }

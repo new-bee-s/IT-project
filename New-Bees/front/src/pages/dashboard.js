@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
+// dashboard style
 const useStyles = makeStyles((theme) => ({
     header: {
         display: 'flex',

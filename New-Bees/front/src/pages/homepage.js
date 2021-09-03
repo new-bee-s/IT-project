@@ -1,8 +1,9 @@
+//import libraries
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-
+// homepage style 
 const useStyles = makeStyles((theme) => ({
     header: {
         display: 'flex',
@@ -63,11 +64,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
+//  return homepage
 function Homepage() {
 
     const classes = useStyles();
-    console.log('jaosn');
 
     return (
         <div style={{ width: '100vw', height: '100vw`, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>

@@ -5,6 +5,7 @@ import SignIn from './pages/sign_in.js';
 import Register from './pages/register.js';
 import Dashboard from './pages/dashboard.js';
 
+// router switch 
 class Router extends React.Component {
     render() {
         return (

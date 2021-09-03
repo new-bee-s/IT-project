@@ -1,18 +1,17 @@
+//import libraries
 import React from 'react';
 import { useState } from 'react'
 import { message } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
-import Link from '@material-ui/core/Link';
 
+////web page style design
 const useStyles = makeStyles((theme) => ({
     header: {
         display: 'flex',
@@ -81,16 +80,17 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+// signin page
 function SignIn(props) {
 
-    console.log('sign');
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    //using on onchange
     const onSignIn = () => {
-
-        console.log(email, password);
+        
+        //put user input to back-end and return status
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
                 props.history.push('/dashboard', {
@@ -98,13 +98,10 @@ function SignIn(props) {
                 })
             }
             else {
-                //console.log(error.response.data.error)
+                // if error
                 message.error(res.data.error)
-
             }
-
         }).catch(error => {
-            //console.log(error.response.data.error)
             message.error(error.response.data.error)
         })
     };
