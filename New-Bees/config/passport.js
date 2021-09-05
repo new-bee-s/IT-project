@@ -64,7 +64,7 @@ module.exports = function (passport) {
 
                         // put the user's email in the session so that it can now be used for all
                         // communications between the client (browser) and the FoodBuddy app
-                        req.session.email = email;
+                        req.session.user = newUser._id;
                         console.log('User signed up and logged in successfully:', email)
                     }
                 });
@@ -118,6 +118,7 @@ module.exports = function (passport) {
                 }
                 // everything is fine, provide user instance to passport
                 else {
+                    req.session.user = user._id;
                     console.log('login successfully:', email)
                     return done(null, user);
                 }

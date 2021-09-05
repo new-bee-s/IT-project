@@ -5,36 +5,6 @@ const passport = require("passport");
 //const jwt = require("jsonwebtoken");
 require('../config/passport')(passport)
 const bcrypt = require('bcrypt-nodejs')
-const UserLogin = async (req, res) => {
-    try {
-        const user = await User.findOne({ email: req.body.email })
-        // To check if the email registered
-        if (user == null) {
-            // email not found in database
-            res.status(400).json({ success: false, error: "Email not registered" })
-        } else {
-            // To match the user password
-            bcrypt.compare(req.body.password, user.password, (err, match) => {
-                if (match) {
-                    res.status(200).json({
-                        success: true,
-                        user: {
-                            id: user.id,
-                            email: user.email,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                        }
-                    })
-                    console.log("login");
-                } else {
-                    res.status(409).json({ success: false, error: "Password incorrected" })
-                }
-            })
-        }
-    } catch (err) { // error occor
-        res.status(400).json({ success: false, error: "Database query failed" })
-    }
-}
 
 // create a new user
 const UserSignup = async (req, res) => {
@@ -84,7 +54,7 @@ const UserSignup = async (req, res) => {
 }
 
 
-const UserLoginI = async (req, res, next) => {
+const UserLogin = async (req, res, next) => {
     passport.authenticate('login', async (err, user, info) => {
         try {
             // if there were errors during executing the strategy
@@ -111,4 +81,33 @@ const UserLoginI = async (req, res, next) => {
         }
     })(req, res, next)
 }
-module.exports = { UserSignup, UserLoginI }
+
+const editInfo = async (req, res) => {
+    const userid = req.session.user;
+    try {
+        let user = await User.findOne({ _id: userid })
+        let givenName = req.body.givenName;
+        let familyName = req.body.familyName;
+        let password = req.body.password;
+
+        // udpate the information that customer has changed
+        if (givenName) {
+            await User.updateOne({ _id: customerid }, { $set: { givenName: givenName } })
+        }
+        if (familyName) {
+            await User.updateOne({ _id: customerid }, { $set: { familyName: familyName } })
+        }
+        if (password) {
+            await User.updateOne({ _id: customerid }, { $set: { password: customer.generateHash(req.body.password) } })
+        }
+
+        // get customer after updating
+        user = await User.findOne({ _id: customerid }, {})
+        res.status(200).json({ success: true, user })
+
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+module.exports = { UserSignup, UserLogin }
