@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         boxSizing: "border-box",
         width: '100%',
     },
-    column:{
+    column: {
         float: 'left',
         width: "50%",
         padding: "15px",
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         verticalAlign: 'middle',
     },
-    blocks: {
+    block: {
         height: 'auto',
         flexWrap: 'wrap',
         justifyContent: 'center',
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         bottom: 0,
     },
-    logo:{
+    logo: {
         width: 'auto',
         height: 'auto',
     }
@@ -98,7 +98,7 @@ function SignIn(props) {
 
     //using on onchange
     const onSignIn = () => {
-        
+
         //put user input to back-end and return status
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
@@ -119,16 +119,16 @@ function SignIn(props) {
     return (
         <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
 
-            <div className = {classes.middle}>
+            <div className={classes.middle}>
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' style = {{width: '100%'}}></img>
+                            <img src='./pics/logo_full.png' style={{ width: '100%' }}></img>
                         </a>
                         <CssBaseline />
                     </Container>
                 </div>
-                <div className={classes.middle2} verticalAlign = 'middle'>
+                <div className={classes.middle2} verticalAlign='middle'>
                     <Container component="main" maxWidth="sm">
                         <div>
                             <Typography component="h1" variant="h1" align='center'>Sign In</Typography>
@@ -168,7 +168,7 @@ function SignIn(props) {
                                 <a href={"register"} style={{ float: 'right' }}>
                                     New user? Click here
                                 </a>
-                                <blocks className={classes.blocks}>
+                                <blocks className={classes.block}>
                                     <Button
                                         variant="contained"
                                         onClick={onSignIn}

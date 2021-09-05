@@ -1,10 +1,18 @@
+//require('dotenv').config()    // for JWT password key
+// used to create our local strategy for authenticating
+// using username and password
+const LocalStrategy = require('passport-local').Strategy
 
-const LocalStrategy = require('passport-local').Strategy;
-//const cookieParser = require('cookie-parser');
 // our user model
 const User = require('../models/user')
 
+// JSON Web Tokens
+// const passportJWT = require("passport-jwt");
+// const JwtStrategy = passportJWT.Strategy;
+// const ExtractJwt = passportJWT.ExtractJwt;
+
 module.exports = function (passport) {
+
     // these two functions are used by passport to store information
     // in and retrieve data from sessions. We are using user's object id
     passport.serializeUser(function (user, done) {
@@ -17,57 +25,12 @@ module.exports = function (passport) {
         });
     });
 
-    // strategy to login user
-    // this method only takes in username and password, and the field names
-    // should match of those in the login form
-    passport.use('user-login', new LocalStrategy({
+    // for signup
+    passport.use('local-signup', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
-    }, // pass the req as the first arg to the callback for verification 
-        function (req, email, password, done) {
-            process.nextTick(function () {
-                // see if the user with the email exists
-                User.findOne({ 'email': email }, function (err, user) {
-                    // if there are errors, user is not found or password
-                    // does match, send back errors
-                    if (err) {
-                        return done(err);
-                    } else if (!user) {
-                        console.log("user login failed:", email, "NOT FOUND")
-                        //res.status(400).json({ success: false, error: "Email not found" })
-                        return done(null, false, req.flash('loginMessage', 'Email address has not been registered.'));
-                    } else if (!user.validPassword(password)) {
-                        // false in done() indicates to the strategy that authentication has
-                        // failed
-                        console.log("user login failed:", email, "WRONG PASSWORD");
-                        //res.status(409).json({ success: false, error: "Password incorrect" })
-                        return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-                    }
-                    // otherwise, we put the user's id in the session
-                    else {
-                        req.session.userId = user._id
-                        console.log('user logged in successfully: ', req.session.userId)
-                        // res.status(200).json({
-                        //     success: true, user: {
-                        //         id: user._id,
-                        //         email: user.email,
-                        //         firstName: user.firstName,
-                        //         givenName: user.givenName
-                        //     }
-                        // })
-                        return done(null, user);
-                    }
-                });
-            });
-        })
-    );
-
-    passport.use('user-signup', new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password',
-        passReqToCallback: true
-    }, // pass the req as the first arg to the callback for verification 
+    }, // pass the req as the first arg to the callback for verification
 
         function (req, email, password, done) {
             process.nextTick(function () {
@@ -80,34 +43,88 @@ module.exports = function (passport) {
                         return done(err);
                     }
                     if (existingUser) {
-                        console.log("User signup failed:", email, "ALREADY REGISTERED!");
-                        return done(null, false, req.flash('signupMessage', 'Email address is already registered.'));
-                    } else {
+                        console.log("Customer signup failed:", email, "ALREADY REGISTERED!");
+                        return done(null, false, req.flash('signupMessage', 'This email address is already taken.'));
+                    }
+                    else {
                         // otherwise
                         // create a new user
                         let newUser = new User();
-                        newUser.givenName = req.body.givenName;
-                        newUser.familyName = req.body.familyName;
                         newUser.email = email;
                         newUser.password = newUser.generateHash(password);
-                        newUser.contact = [];
-                        newUser.tags = [];
-                        newUser.totalContact = 0;
+                        newUser.familyName = req.body.familyName;
+                        newUser.givenName = req.body.givenName;
+
                         // and save the user
                         newUser.save(function (err) {
-                            if (err) {
+                            if (err)
                                 throw err;
-                            }
                             return done(null, newUser);
                         });
-                        // put the user's ema  ilAddress in the session so that it can now be used for all
+
+                        // put the user's email in the session so that it can now be used for all
                         // communications between the client (browser) and the FoodBuddy app
-                        req.session.userId = newUser._id;
-                        console.log("Customer signup successfully: ", email);
-                        console.log("Customer logged in successfully: ", req.session.userId);
+                        req.session.email = email;
+                        console.log('User signed up and logged in successfully:', email)
                     }
                 });
             });
-        })
-    );
+        }));
+
+    // depending on what data you store in your token, setup a strategy
+    // to verify that the token is valid. This strategy is used to check
+    // that the client has a valid token
+    // passport.use('jwt', new JwtStrategy({
+    //     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // client puts token in request header
+    //     secretOrKey: process.env.PASSPORT_KEY, // the key that was used to sign the token
+    //     passReqToCallback: true
+    // }, (req, jwt_payload, done) => { // passport will but the decrypted token in jwt_payload variable
+    //     User.findOne({ 'email': jwt_payload.body._id }, (err, user) => {
+    //         if (err) {
+    //             return done(err, false);
+    //         }
+    //         // if we found user, provide the user instance to passport
+    //         if (user) {
+    //             return done(null, user);
+    //         } else { // otherwise assign false to indicate that authentication failed
+    //             return done(null, false);
+    //         }
+    //     });
+    // }));
+
+    //Create a passport middleware to handle User login
+    // EXERCISE: Write the signup strategy
+
+    //Create a passport middleware to handle User login
+    passport.use('login', new LocalStrategy({
+        usernameField: 'email',     // get email and password
+        passwordField: 'password'
+    }, async (email, password, done) => {
+        try {
+            //Find the user associated with the email provided by the user
+            await User.findOne({ 'email': email }, function (err, user) {
+                // if user is not found or there are other errors
+                if (err) {
+                    return done(err, { message: "Database quest failed" });
+                }
+                if (!user) {
+                    console.log(email, ' not registered');
+                    return done(null, false, { message: 'Email not registered' });
+                }
+                // user is found but the password doesn't match
+                if (!user.validPassword(password)) {
+                    console.log('password incorrect:', email);
+                    return done(null, false, { message: 'Password incorrect' });
+                }
+                // everything is fine, provide user instance to passport
+                else {
+                    console.log('login successfully:', email)
+                    return done(null, user);
+                }
+            });
+        } catch (error) {
+            return done(error);
+        }
+    }));
+
 }
