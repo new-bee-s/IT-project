@@ -123,7 +123,7 @@ function SignIn(props) {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' style={{ width: '100%' }}></img>
+                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%' }}></img>
                         </a>
                         <CssBaseline />
                     </Container>
@@ -165,9 +165,11 @@ function SignIn(props) {
                                     autoComplete="current-password"
                                     onChange={e => setPassword(e.target.value)}
                                 />
+
                                 <a href={"register"} style={{ float: 'right' }}>
                                     New user? Click here
                                 </a>
+
                                 <blocks className={classes.block}>
                                     <Button
                                         variant="contained"
@@ -183,7 +185,7 @@ function SignIn(props) {
                     </Container>
                 </div>
             </div>
-            <div className={classes.background} > </div>
+            <div className={classes.background}> </div>
 
         </div>
     )
