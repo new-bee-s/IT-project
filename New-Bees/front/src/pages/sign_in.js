@@ -165,9 +165,11 @@ function SignIn(props) {
                                     autoComplete="current-password"
                                     onChange={e => setPassword(e.target.value)}
                                 />
+
                                 <a href={"register"} style={{ float: 'right' }}>
                                     New user? Click here
                                 </a>
+                                
                                 <blocks className={classes.block}>
                                     <Button
                                         variant="contained"
