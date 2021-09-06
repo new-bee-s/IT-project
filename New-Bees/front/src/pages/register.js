@@ -129,7 +129,7 @@ function Register() {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' style={{ width: '100%' }}></img>
+                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%' }}></img>
                         </a>
                         <CssBaseline />
                     </Container>

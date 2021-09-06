@@ -80,6 +80,9 @@ function Dashboard() {
                 <Menu.Item key="1">nav 1</Menu.Item>
                 <Menu.Item key="2">nav 2</Menu.Item>
                 <Menu.Item key="3">nav 3</Menu.Item>
+                <Menu.Item key="settings"> 
+                    <img src="./pics/settings_icon.png" alt="settings" height={40}/>
+                </Menu.Item>
                 
             </Menu>
             
@@ -127,6 +130,4 @@ function Dashboard() {
     
 };
 
-
-
-  export default Dashboard;
+export default Dashboard;
