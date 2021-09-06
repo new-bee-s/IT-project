@@ -12,38 +12,44 @@ const ExtractJwt = passportJWT.ExtractJwt;
 
 module.exports = function (passport) {
 
-    // these two functions are used by passport to store information
-    // in and retrieve data from sessions. We are using user's object id
-    passport.serializeUser(function (user, done) {
-        done(null, user._id);
-    });
-
-    passport.deserializeUser(function (_id, done) {
-        User.findById(_id, function (err, user) {
-            done(err, user);
-        });
-    });
-
     // for signup
-    passport.use('local-signup', new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password',
-        passReqToCallback: true
-    }, // pass the req as the first arg to the callback for verification
-
-        function (req, email, password, done) {
-            process.nextTick(function () {
-                User.findOne({ 'email': email }, function (err, existingUser) {
-                    // search a user by the username (email in our case)
+    passport.use('signup', new LocalStrategy({
+        usernameField: 'email',     // get email and password
+        passwordField: 'password'
+    },
+        async (email, password, done) => {
+            console.log('2')
+            try {
+                await User.findOne({ 'email': email }, function (err, existingUser) {
+                    // search a user by the email
                     // if user is not found or exists, exit with false indicating
                     // authentication failure
                     if (err) {
-                        console.log(err);
-                        return done(err);
+                        return done(err, false, { message: "Database query failed" });
                     }
                     if (existingUser) {
                         console.log("Customer signup failed:", email, "ALREADY REGISTERED!");
-                        return done(null, false, req.flash('signupMessage', 'This email address is already taken.'));
+                        return done(null, false, { message: "Email has already Registered" });
+                    }
+                    if (email == "" || email == null) {
+                        console.log("Please enter your email")
+                        return done(null, false, { message: "Please enter your email" });
+                    }
+                    else if (req.body.givenName == "" || req.body.familyName == "" ||
+                        req.body.givenName == null || req.body.familyName == null) {
+                        return done(null, false, { message: "Please enter you name " });
+                    }
+                    else if (password == "" || password == null) {
+                        return done(null, false, { message: "Please set your password" });
+                    }
+                    else if (req.body.confirmPassword == "" || req.body.confirmPassword == null) {
+                        return done(null, false, { message: "Please enter your confirmed password" });
+                    }
+                    else if (password != req.body.confirmPassword) {
+                        return done(null, false, { message: "Please enter the same password" });
+                    }
+                    else if (password.length < 8) {
+                        return done(null, false, { message: "Your password must be at least 8 characters" });
                     }
                     else {
                         // otherwise
@@ -53,6 +59,9 @@ module.exports = function (passport) {
                         newUser.password = newUser.generateHash(password);
                         newUser.familyName = req.body.familyName;
                         newUser.givenName = req.body.givenName;
+                        newUser.contact = [];
+                        newUser.totalContact = 0;
+                        newUser.tags = [];
 
                         // and save the user
                         newUser.save(function (err) {
@@ -61,14 +70,15 @@ module.exports = function (passport) {
                             return done(null, newUser);
                         });
 
-                        // put the user's email in the session so that it can now be used for all
                         // communications between the client (browser) and the FoodBuddy app
-                        req.session.user = newUser._id;
                         console.log('User signed up and logged in successfully:', email)
                     }
-                });
-            });
+                })
+            } catch (err) {
+                return done(err)
+            }
         }));
+
 
     // Setup a strategy
     // to verify that the token is valid. This strategy is used to check
@@ -92,19 +102,17 @@ module.exports = function (passport) {
     }));
 
     //Create a passport middleware to handle User login
-    // EXERCISE: Write the signup strategy
-
-    //Create a passport middleware to handle User login
     passport.use('login', new LocalStrategy({
         usernameField: 'email',     // get email and password
         passwordField: 'password'
     }, async (email, password, done) => {
+        console.log('1')
         try {
             //Find the user associated with the email provided by the user
             await User.findOne({ 'email': email }, function (err, user) {
                 // if user is not found or there are other errors
                 if (err) {
-                    return done(err, { message: "Database quest failed" });
+                    return done(err, false, { message: "Database query failed" });
                 }
                 if (!user) {
                     console.log(email, ' not registered');
