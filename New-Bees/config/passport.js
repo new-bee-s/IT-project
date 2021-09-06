@@ -1,15 +1,14 @@
-//require('dotenv').config()    // for JWT password key
+require('dotenv').config()    // for JWT password key
 // used to create our local strategy for authenticating
-// using username and password
+// using email and password
 const LocalStrategy = require('passport-local').Strategy
-
 // our user model
 const User = require('../models/user')
 
 // JSON Web Tokens
-// const passportJWT = require("passport-jwt");
-// const JwtStrategy = passportJWT.Strategy;
-// const ExtractJwt = passportJWT.ExtractJwt;
+const passportJWT = require("passport-jwt");
+const JwtStrategy = passportJWT.Strategy;
+const ExtractJwt = passportJWT.ExtractJwt;
 
 module.exports = function (passport) {
 
@@ -71,26 +70,26 @@ module.exports = function (passport) {
             });
         }));
 
-    // depending on what data you store in your token, setup a strategy
+    // Setup a strategy
     // to verify that the token is valid. This strategy is used to check
     // that the client has a valid token
-    // passport.use('jwt', new JwtStrategy({
-    //     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // client puts token in request header
-    //     secretOrKey: process.env.PASSPORT_KEY, // the key that was used to sign the token
-    //     passReqToCallback: true
-    // }, (req, jwt_payload, done) => { // passport will but the decrypted token in jwt_payload variable
-    //     User.findOne({ 'email': jwt_payload.body._id }, (err, user) => {
-    //         if (err) {
-    //             return done(err, false);
-    //         }
-    //         // if we found user, provide the user instance to passport
-    //         if (user) {
-    //             return done(null, user);
-    //         } else { // otherwise assign false to indicate that authentication failed
-    //             return done(null, false);
-    //         }
-    //     });
-    // }));
+    passport.use('jwt', new JwtStrategy({
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // client puts token in request header
+        secretOrKey: process.env.JWT_PASSWORD, // the key that was used to sign the token
+        passReqToCallback: true
+    }, (jwt_payload, done) => { // passport will but the decrypted token in jwt_payload variable
+        User.findOne({ 'email': jwt_payload.body._id }, (err, user) => {
+            if (err) {
+                return done(err, false);
+            }
+            // if we found user, provide the user instance to passport
+            if (user) {
+                return done(null, user);
+            } else { // otherwise assign false to indicate that authentication failed
+                return done(null, false);
+            }
+        });
+    }));
 
     //Create a passport middleware to handle User login
     // EXERCISE: Write the signup strategy
