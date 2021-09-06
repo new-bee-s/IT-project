@@ -117,7 +117,6 @@ module.exports = function (passport) {
                 }
                 // everything is fine, provide user instance to passport
                 else {
-                    req.session.user = user._id;
                     console.log('login successfully:', email)
                     return done(null, user);
                 }
