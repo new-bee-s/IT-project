@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
+import Cookies from 'universal-cookie';
 
 ////web page style design
 const useStyles = makeStyles((theme) => ({
@@ -103,8 +104,11 @@ function SignIn(props) {
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
                 props.history.push('/dashboard', {
+                    data: res.data.data,
                     user: res.data.user
                 })
+                const cookies = new Cookies();
+                cookies.set('userInfo', res.data.token, { path: '/', maxAge: 2592000 });
             }
             else {
                 // if error

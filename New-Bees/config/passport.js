@@ -19,7 +19,7 @@ module.exports = function (passport) {
         secretOrKey: process.env.JWT_PASSWORD, // the key that was used to sign the token
         passReqToCallback: true
     }, (jwt_payload, done) => { // passport will but the decrypted token in jwt_payload variable
-        User.findOne({ 'email': jwt_payload.body._id }, (err, user) => {
+        User.findOne({ '_id': jwt_payload.body._id }, (err, user) => {
             if (err) {
                 return done(err, false);
             }
@@ -114,6 +114,7 @@ module.exports = function (passport) {
                         newUser.contact = [];
                         newUser.totalContact = 0;
                         newUser.groups = [];
+                        newUser.information = "";
 
                         // and save the user
                         newUser.save(function (err) {
