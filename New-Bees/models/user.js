@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     },
     contact: [this],
     totalContact: { type: Number },
-    tags: [{ type: mongoose.Types.ObjectId, ref: "Tag" }]
+    groups: [{ type: mongoose.Types.ObjectId, ref: "Group" }]
 
 })
 userSchema.methods.generateHash = function (password) {

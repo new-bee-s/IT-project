@@ -11,75 +11,6 @@ const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
 
 module.exports = function (passport) {
-
-    // for signup
-    passport.use('signup', new LocalStrategy({
-        usernameField: 'email',     // get email and password
-        passwordField: 'password'
-    },
-        async (email, password, done) => {
-            console.log('2')
-            try {
-                await User.findOne({ 'email': email }, function (err, existingUser) {
-                    // search a user by the email
-                    // if user is not found or exists, exit with false indicating
-                    // authentication failure
-                    if (err) {
-                        return done(err, false, { message: "Database query failed" });
-                    }
-                    if (existingUser) {
-                        console.log("Customer signup failed:", email, "ALREADY REGISTERED!");
-                        return done(null, false, { message: "Email has already Registered" });
-                    }
-                    if (email == "" || email == null) {
-                        console.log("Please enter your email")
-                        return done(null, false, { message: "Please enter your email" });
-                    }
-                    else if (req.body.givenName == "" || req.body.familyName == "" ||
-                        req.body.givenName == null || req.body.familyName == null) {
-                        return done(null, false, { message: "Please enter you name " });
-                    }
-                    else if (password == "" || password == null) {
-                        return done(null, false, { message: "Please set your password" });
-                    }
-                    else if (req.body.confirmPassword == "" || req.body.confirmPassword == null) {
-                        return done(null, false, { message: "Please enter your confirmed password" });
-                    }
-                    else if (password != req.body.confirmPassword) {
-                        return done(null, false, { message: "Please enter the same password" });
-                    }
-                    else if (password.length < 8) {
-                        return done(null, false, { message: "Your password must be at least 8 characters" });
-                    }
-                    else {
-                        // otherwise
-                        // create a new user
-                        let newUser = new User();
-                        newUser.email = email;
-                        newUser.password = newUser.generateHash(password);
-                        newUser.familyName = req.body.familyName;
-                        newUser.givenName = req.body.givenName;
-                        newUser.contact = [];
-                        newUser.totalContact = 0;
-                        newUser.tags = [];
-
-                        // and save the user
-                        newUser.save(function (err) {
-                            if (err)
-                                throw err;
-                            return done(null, newUser);
-                        });
-
-                        // communications between the client (browser) and the FoodBuddy app
-                        console.log('User signed up and logged in successfully:', email)
-                    }
-                })
-            } catch (err) {
-                return done(err)
-            }
-        }));
-
-
     // Setup a strategy
     // to verify that the token is valid. This strategy is used to check
     // that the client has a valid token
@@ -102,11 +33,10 @@ module.exports = function (passport) {
     }));
 
     //Create a passport middleware to handle User login
-    passport.use('login', new LocalStrategy({
+    passport.use('local-login', new LocalStrategy({
         usernameField: 'email',     // get email and password
         passwordField: 'password'
     }, async (email, password, done) => {
-        console.log('1')
         try {
             //Find the user associated with the email provided by the user
             await User.findOne({ 'email': email }, function (err, user) {
@@ -134,4 +64,69 @@ module.exports = function (passport) {
         }
     }));
 
+    // for signup
+    passport.use('local-signup', new LocalStrategy({
+        usernameField: 'email',     // get email and password
+        passwordField: 'password',
+        passReqToCallback: true
+    }, async (req, email, password, done) => {
+        try {
+            await User.findOne({ 'email': email }, function (err, existingUser) {
+                // search a user by the email
+                // if user is not found or exists, exit with false indicating
+                // authentication failure
+                if (err) {
+                    return done(err, false, { message: "Database query failed" });
+
+                } else {
+                    if (email == "" || email == null) {
+                        console.log("Please enter your email")
+                        return done(null, false, { message: "Please enter your email" });
+                    }
+                    else if (req.body.givenName == "" || req.body.familyName == "" ||
+                        req.body.givenName == null || req.body.familyName == null) {
+                        return done(null, false, { message: "Please enter you name " });
+                    }
+                    else if (password == "" || password == null) {
+                        return done(null, false, { message: "Please set your password" });
+                    }
+                    else if (req.body.confirmPassword == "" || req.body.confirmPassword == null) {
+                        return done(null, false, { message: "Please enter your confirmed password" });
+                    }
+                    else if (existingUser) {
+                        console.log("Customer signup failed:", email, "ALREADY REGISTERED!");
+                        return done(null, false, { message: "Email has already Registered" });
+                    }
+                    else if (password != req.body.confirmPassword) {
+                        return done(null, false, { message: "Please enter the same password" });
+                    }
+                    else if (password.length < 8) {
+                        return done(null, false, { message: "Your password must be at least 8 characters" });
+                    }
+                    else {
+                        // otherwise
+                        // create a new user
+                        let newUser = new User();
+                        newUser.email = email;
+                        newUser.password = newUser.generateHash(password);
+                        newUser.familyName = req.body.familyName;
+                        newUser.givenName = req.body.givenName;
+                        newUser.contact = [];
+                        newUser.totalContact = 0;
+                        newUser.groups = [];
+
+                        // and save the user
+                        newUser.save(function (err) {
+                            if (err)
+                                throw err;
+                            return done(null, newUser);
+                        })
+                    }
+                }
+            })
+        } catch (err) {
+            return done(err)
+        }
+    }));
 }
+
