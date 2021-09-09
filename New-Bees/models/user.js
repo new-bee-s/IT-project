@@ -11,8 +11,7 @@ const userSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String
     },
-    contact: [this],
-    totalContact: { type: Number },
+    contact: [String],
     groups: [{ type: mongoose.Types.ObjectId, ref: "Group" }],
     introduction: { type: String }
 

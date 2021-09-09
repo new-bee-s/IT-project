@@ -30,10 +30,14 @@ app.use(session({
 
 app.use(flash())
 
-
+// Routers
 const userRouter = require('./routes/userRouter')
+const contactRouter = require('./routes/contactRouter')
 
+// Use Routers
 app.use('/', userRouter)
+app.use('/dashboard/', contactRouter)
+
 
 const port = process.env.PORT || 8000
 app.listen(port, () => {

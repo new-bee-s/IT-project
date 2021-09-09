@@ -17,14 +17,21 @@ const UserSignup = (req, res, next) => {
         }
         req.login(user, { session: false }, async (error) => {
             if (error) return next(error);
-            // const body = { _id: user.email };
+            const body = { _id: user._id };
+            const userSent = {
+                userID: user.userID,
+                givenName: user.givenName,
+                familyName: user.familyName,
+                email: user.email,
+                information: user.information
+            }
             //Sign the JWT token and populate the payload with the user email
-            // const token = jwt.sign({ body }, process.env.PASSPORT_KEY);
-            // //Send back the token to the client
-            // res.cookie('jwt', token, { httpOnly: false, sameSite: false, secure: true });
-            // res.cookie('_id', user.id, { maxAge: 30 * 24 * 60 * 60 * 1000 });
-            // const data = { _id: user.id };
-            return res.status(200).json({ success: true, user });
+            const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
+            //Send back the token to the client
+            res.cookie('jwt', token, { httpOnly: false, sameSite: false, secure: true });
+            res.cookie('_id', user.id, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+            const data = { _id: user.id };
+            return res.status(200).json({ success: true, data: data, token: token, user: userSent });
         });
     })(req, res, next)
 }
@@ -92,13 +99,30 @@ const SearchUserID = async (req, res) => {
     try {
         let user = await User.findOne({ _id: req.body._id }, { photo: true, givenName: true, familyName: true, email: true }).lean();
         if (user) {
-            res.status(200).json({ success: true, user: user })
+            return res.status(200).json({ success: true, user: user })
         }
         else {
-            res.status(400).json({ success: false, error: "User not found!" })
+            return res.status(400).json({ success: false, error: "User not found!" })
         }
     } catch (err) {
-        res.status(404).json({ success: false })
+        return res.status(404).json({ success: false })
     }
 }
-module.exports = { UserSignup, UserLogin }
+
+const addFriend = async (req, res) => {
+    try {
+        let contactList = await User.findOne({ _id: req.body.data }, { contact: true, _id: false })
+        let query = (contactList.contact.indexOf("turtles") > -1);
+        if (query == -1) {
+            await User.updateOne({ _id: req.body.data }, { $push: { contact: req.body.email } })
+            return res.status(200).json({ success: true })
+        }
+        else {
+            return res.status(200).json({ success: false, error: "You have added this user" })
+        }
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+module.exports = { UserSignup, UserLogin, addFriend }
