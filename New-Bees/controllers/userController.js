@@ -6,12 +6,13 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 require('../config/passport')(passport)
 
-// create a new user
+// Create a new user
 const UserSignup = (req, res, next) => {
     passport.authenticate('local-signup', (err, user, info) => {
         if (err) {
             return res.status(500).json({ success: false, error: info.message })
         }
+        // If the user is not found or there is some mistakes in password, return error message
         else if (!user) {
             return res.status(400).json({ success: false, error: info.message })
         }
@@ -36,10 +37,10 @@ const UserSignup = (req, res, next) => {
     })(req, res, next)
 }
 
+// User log in function
 const UserLogin = (req, res, next) => {
     passport.authenticate('local-login', (err, user, info) => {
-        // if there were errors during executing the strategy
-        // or the user was not found, we display and error
+        // If there were errors during executing the strategy or the user was not found, we display and error
         if (err) {
             return res.status(500).json({ success: false, error: info.message })
         } else if (!user) {
@@ -74,7 +75,7 @@ const editInfo = async (req, res) => {
         let familyName = req.body.familyName;
         let password = req.body.password;
 
-        // udpate the information that customer has changed
+        // Udpate the information that user has changed
         if (givenName) {
             await User.updateOne({ _id: customerid }, { $set: { givenName: givenName } })
         }
@@ -95,6 +96,7 @@ const editInfo = async (req, res) => {
     }
 }
 
+// Search the user by id and return photo, givenName, familyName and email to front end
 const SearchUserID = async (req, res) => {
     try {
         let user = await User.findOne({ _id: req.body._id }, { photo: true, givenName: true, familyName: true, email: true }).lean();
@@ -109,10 +111,11 @@ const SearchUserID = async (req, res) => {
     }
 }
 
+// Add friend according to email
 const addFriend = async (req, res) => {
     try {
         let contactList = await User.findOne({ _id: req.body.data }, { contact: true, _id: false })
-        let query = (contactList.contact.indexOf("turtles") > -1);
+        let query = (contactList.contact.indexOf("turtles") > -1); // If have that friend would return >=0, otherwise -1
         if (query == -1) {
             await User.updateOne({ _id: req.body.data }, { $push: { contact: req.body.email } })
             return res.status(200).json({ success: true })
@@ -125,4 +128,5 @@ const addFriend = async (req, res) => {
         console.log(err)
     }
 }
+
 module.exports = { UserSignup, UserLogin, addFriend }
