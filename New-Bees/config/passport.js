@@ -77,7 +77,6 @@ module.exports = function (passport) {
                 // authentication failure
                 if (err) {
                     return done(err, false, { message: "Database query failed" });
-
                 } else {
                     if (email == "" || email == null) {
                         console.log("Please enter your email")

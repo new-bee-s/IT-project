@@ -33,11 +33,11 @@ app.use(flash())
 // Routers
 const userRouter = require('./routes/userRouter')
 const contactRouter = require('./routes/contactRouter')
-
+const infoRouter = require('./routes/infoRouter')
 // Use Routers
 app.use('/', userRouter)
 app.use('/dashboard/', contactRouter)
-
+app.use('/dashboard/information', infoRouter)
 
 const port = process.env.PORT || 8000
 app.listen(port, () => {

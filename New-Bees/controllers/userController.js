@@ -68,26 +68,29 @@ const UserLogin = (req, res, next) => {
 }
 
 const editInfo = async (req, res) => {
-    const userid = req.session.user;
+    let userid = req.body.data
     try {
-        let user = await User.findOne({ _id: userid })
         let givenName = req.body.givenName;
         let familyName = req.body.familyName;
         let password = req.body.password;
+        let introduction = req.body.introduction;
 
         // Udpate the information that user has changed
         if (givenName) {
-            await User.updateOne({ _id: customerid }, { $set: { givenName: givenName } })
+            await User.updateOne({ _id: userid }, { $set: { givenName: givenName } })
         }
         if (familyName) {
-            await User.updateOne({ _id: customerid }, { $set: { familyName: familyName } })
+            await User.updateOne({ _id: userid }, { $set: { familyName: familyName } })
         }
         if (password) {
-            await User.updateOne({ _id: customerid }, { $set: { password: customer.generateHash(req.body.password) } })
+            await User.updateOne({ _id: userid }, { $set: { password: user.generateHash(password) } })
+        }
+        if (information) {
+            await User.updateOne({ _id: userid }, { $set: { introduction: introduction } })
         }
 
         // get customer after updating
-        user = await User.findOne({ _id: customerid }, {})
+        let user = await User.findOne({ _id: userid }, {})
         res.status(200).json({ success: true, user })
 
 
@@ -129,4 +132,4 @@ const addFriend = async (req, res) => {
     }
 }
 
-module.exports = { UserSignup, UserLogin, addFriend }
+module.exports = { UserSignup, UserLogin, addFriend, editInfo }
