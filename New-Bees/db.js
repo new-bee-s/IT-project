@@ -2,12 +2,12 @@ require('dotenv').config()
 const mongoose = require("mongoose")
 
 // Connect to MongoDB --- Replace this with your Connection String
-CONNECTION_STRING = "mongodb+srv://NEWBEES:oVHmx9MqoUtIVN6C@cluster0.ecrpe.mongodb.net/Newbees?retryWrites=true&w=majority"
+CONNECTION_STRING = "mongodb+srv://NEWBEES:<password>@cluster0.ecrpe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
-// MONGO_URL =
-//     CONNECTION_STRING.replace("<password>", process.env.MONGO_PASSWORD)
+MONGO_URL =
+    CONNECTION_STRING.replace("<username>", process.env.MONGO_USERNAME).replace("<password>", process.env.MONGO_PASSWORD)
 
-mongoose.connect(CONNECTION_STRING || "mongodb://", {
+mongoose.connect(MONGO_URL || "mongodb://", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -22,7 +22,7 @@ db.on("error", err => {
     process.exit(1)
 })
 
-db.once("open", async() => {
+db.once("open", async () => {
     console.log("Mongo connection started on " + db.host + ":" + db.port)
 })
 
