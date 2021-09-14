@@ -4,6 +4,7 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const Contact = require('../models/user')
 require('../config/passport')(passport)
 
 // Create a new user
@@ -68,26 +69,29 @@ const UserLogin = (req, res, next) => {
 }
 
 const editInfo = async (req, res) => {
-    const userid = req.session.user;
+    let userid = req.body.data
     try {
-        let user = await User.findOne({ _id: userid })
         let givenName = req.body.givenName;
         let familyName = req.body.familyName;
         let password = req.body.password;
+        let introduction = req.body.introduction;
 
         // Udpate the information that user has changed
         if (givenName) {
-            await User.updateOne({ _id: customerid }, { $set: { givenName: givenName } })
+            await User.updateOne({ _id: userid }, { $set: { givenName: givenName } })
         }
         if (familyName) {
-            await User.updateOne({ _id: customerid }, { $set: { familyName: familyName } })
+            await User.updateOne({ _id: userid }, { $set: { familyName: familyName } })
         }
         if (password) {
-            await User.updateOne({ _id: customerid }, { $set: { password: customer.generateHash(req.body.password) } })
+            await User.updateOne({ _id: userid }, { $set: { password: user.generateHash(password) } })
+        }
+        if (information) {
+            await User.updateOne({ _id: userid }, { $set: { introduction: introduction } })
         }
 
         // get customer after updating
-        user = await User.findOne({ _id: customerid }, {})
+        let user = await User.findOne({ _id: userid }, {})
         res.status(200).json({ success: true, user })
 
 
@@ -110,14 +114,40 @@ const SearchUserID = async (req, res) => {
         return res.status(404).json({ success: false })
     }
 }
-
+const returnContact = async (req, res) => {
+    try {
+        let contact = await User.findOne({ _id: req.body._id }, { contact: true });
+    } catch (err) {
+    }
+}
 // Add friend according to email
 const addFriend = async (req, res) => {
     try {
-        let contactList = await User.findOne({ _id: req.body.data }, { contact: true, _id: false })
-        let query = (contactList.contact.indexOf("turtles") > -1); // If have that friend would return >=0, otherwise -1
-        if (query == -1) {
-            await User.updateOne({ _id: req.body.data }, { $push: { contact: req.body.email } })
+        let contactList = await User.findOne({ _id: req.body.data }, { contact: true, _id: false, email: true })
+        let i;
+        let query = 1
+        console.log(contactList)
+        for (i = 0; i < contactList.contact.length; i++) {
+            if (contactList.contact[i].email == req.body.email) {
+                query = 0
+                break
+            }
+        } // If have that friend would return 0, otherwise 1
+        if (query) {
+            let newContact = new Contact({
+
+            })
+
+            console.log(newContact)
+            let newContact1 = new Contact({
+                email: contactList.email,
+                status: "pending"
+            })
+
+            // add to request-receiver
+            await User.updateOne({ email: req.body.email }, { $push: { contact: newContact1 } })
+            // add to request-sender
+            await User.updateOne({ _id: req.body.data }, { $push: { contact: newContact } })
             return res.status(200).json({ success: true })
         }
         else {
@@ -129,4 +159,4 @@ const addFriend = async (req, res) => {
     }
 }
 
-module.exports = { UserSignup, UserLogin, addFriend }
+module.exports = { UserSignup, UserLogin, addFriend, editInfo }

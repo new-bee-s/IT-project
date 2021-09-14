@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
 
 // signin page
 function SignIn(props) {
-    
+
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -104,10 +104,12 @@ function SignIn(props) {
         //put user input to back-end and return status
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
-                props.history.push('/dashboard', {
-                    data: res.data.data,
-                    user: res.data.user
-                })
+                let detail = { id: res.data.data, user: res.data.user }
+                let path = {
+                    pathname: '/dashboard',
+                    state: detail
+                }
+                props.history.push(path)
                 const cookies = new Cookies();
                 cookies.set('userInfo', res.data.token, { path: '/', maxAge: 2592000 });
             }
