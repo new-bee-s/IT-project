@@ -12,6 +12,7 @@ import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
 import Cookies from 'universal-cookie';
 
+
 ////web page style design
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     middle: {
         display: 'felx',
         alignItems: 'center',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
         justifyContent: 'center',
         marginTop: "10%",
         boxSizing: "border-box",
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         width: "50%",
         padding: "15px",
         alignItems: 'center',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
         display: 'flex',
         marginTop: "5%",
     },
@@ -48,15 +49,15 @@ const useStyles = makeStyles((theme) => ({
         padding: "15px",
         display: 'flex',
         alignItems: 'center',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
     },
-    block: {
+    blocks: {
         height: 'auto',
         flexWrap: 'wrap',
         justifyContent: 'center',
         paddingLeft: 'unset',
         paddingTop: '3vh',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
         borderRadius: 3,
         display: 'flex',
         flexDirection: 'row',
@@ -103,10 +104,12 @@ function SignIn(props) {
         //put user input to back-end and return status
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
-                props.history.push('/dashboard', {
-                    data: res.data.data,
-                    user: res.data.user
-                })
+                let detail = { id: res.data.data, user: res.data.user }
+                let path = {
+                    pathname: '/dashboard',
+                    state: detail
+                }
+                props.history.push(path)
                 const cookies = new Cookies();
                 cookies.set('userInfo', res.data.token, { path: '/', maxAge: 2592000 });
             }
@@ -132,7 +135,7 @@ function SignIn(props) {
                         <CssBaseline />
                     </Container>
                 </div>
-                <div className={classes.middle2} verticalAlign='middle'>
+                <div className={classes.middle2} verticalalign='middle'>
                     <Container component="main" maxWidth="sm">
                         <div>
                             <Typography component="h1" variant="h1" align='center'>Sign In</Typography>
@@ -174,7 +177,7 @@ function SignIn(props) {
                                     New user? Click here
                                 </a>
 
-                                <blocks className={classes.block}>
+                                <div className={classes.blocks}>
                                     <Button
                                         variant="contained"
                                         onClick={onSignIn}
@@ -183,7 +186,7 @@ function SignIn(props) {
                                         Sign In
                                     </Button>
 
-                                </blocks>
+                                </div>
                             </form>
                         </div>
                     </Container>

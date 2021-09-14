@@ -6,20 +6,16 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 // dashboard style
 const useStyles = makeStyles((theme) => ({
     header: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         overflow: 'hidden',
         width: '100%',
-        boxSizing: "border-box",
-        position: 'center',
-        marginTop: '5vh'
+        marginRight: '0',
+        marginLeft: '0',
     },
     middle: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
         width: '100%',
         marginTop: "5vh",
         overflow: 'hidden'
@@ -30,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         paddingLeft: 'unset',
         paddingTop: '3vh',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
         borderRadius: 3,
         display: 'flex',
         flexDirection: 'row',
@@ -57,79 +53,100 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         position: 'absolute',
         bottom: 0,
+    },
+
+    logo: {
+        float: 'left',
+        width: '50px',
+        height: '40px',
+        paddingTop: '1px'
+    },
+
+    user: {
+        float: 'right',
+        width: '120px',
+        height: '50px',
     }
-
-
 }));
+
+
 
 function Dashboard() {
 
+    const classes = useStyles();
     const { SubMenu } = Menu;
     const { Header, Content, Footer, Sider } = Layout;
 
+
     return (
-        <Layout>
-            <Header className="header">
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                    <Menu.Item key="logo">
-                        <a href="/dashboard">
-                            <img src="./pics/logo@0.715x.png" alt="logo@0.715x" height={60} />
-                        </a>
-                    </Menu.Item>
+        <Layout >
+            <Header style={{ padding: '0 10px' }}>
+                <a href="/dashboard">
+                    <div>
+                        <img src='./pics/logo_bee.png' alt='logo_bee' style={{ height: '100%' }} />
+                    </div>
+                </a>
+                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ display: 'flex' }}>
                     <Menu.Item key="1">nav 1</Menu.Item>
                     <Menu.Item key="2">nav 2</Menu.Item>
                     <Menu.Item key="3">nav 3</Menu.Item>
-                    <Menu.Item key="settings">
-                        <img src="./pics/settings_icon.png" alt="settings" height={40} />
+                    <Menu.Item key="6" style={{ float: 'right' }}>
+                        User
                     </Menu.Item>
-
                 </Menu>
-
+                <div className={classes.user}>
+                    user
+                </div>
             </Header>
-            <Content style={{ padding: '0 50px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
-                <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
-                    <Sider className="site-layout-background" width={200}>
-                        <Menu
-                            mode="inline"
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            style={{ height: '100%' }}
-                        >
-                            <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-                                <Menu.Item key="1">option1</Menu.Item>
-                                <Menu.Item key="2">option2</Menu.Item>
-                                <Menu.Item key="3">option3</Menu.Item>
-                                <Menu.Item key="4">option4</Menu.Item>
-                            </SubMenu>
-                            <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-                                <Menu.Item key="5">option5</Menu.Item>
-                                <Menu.Item key="6">option6</Menu.Item>
-                                <Menu.Item key="7">option7</Menu.Item>
-                                <Menu.Item key="8">option8</Menu.Item>
-                            </SubMenu>
-                            <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-                                <Menu.Item key="9">option9</Menu.Item>
-                                <Menu.Item key="10">option10</Menu.Item>
-                                <Menu.Item key="11">option11</Menu.Item>
-                                <Menu.Item key="12">option12</Menu.Item>
-                            </SubMenu>
-                        </Menu>
-                    </Sider>
-                    <Content style={{ padding: '0 24px', minHeight: 280 }}>Content</Content>
+            <Layout>
+                <Sider width={200} className="site-layout-background">
+                    <Menu
+                        mode="inline"
+                        defaultSelectedKeys={['1']}
+                        defaultOpenKeys={['sub1']}
+                        style={{ height: '100%', borderRight: 0 }}
+                    >
+                        <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
+                            <Menu.Item key="1">option1</Menu.Item>
+                            <Menu.Item key="2">option2</Menu.Item>
+                            <Menu.Item key="3">option3</Menu.Item>
+                            <Menu.Item key="4">option4</Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
+                            <Menu.Item key="5">option5</Menu.Item>
+                            <Menu.Item key="6">option6</Menu.Item>
+                            <Menu.Item key="7">option7</Menu.Item>
+                            <Menu.Item key="8">option8</Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
+                            <Menu.Item key="9">option9</Menu.Item>
+                            <Menu.Item key="10">option10</Menu.Item>
+                            <Menu.Item key="11">option11</Menu.Item>
+                            <Menu.Item key="12">option12</Menu.Item>
+                        </SubMenu>
+                    </Menu>
+                </Sider>
+                <Layout style={{ padding: '0 24px 24px' }}>
+                    <Breadcrumb style={{ margin: '16px 0' }}>
+                        <Breadcrumb.Item>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item>List</Breadcrumb.Item>
+                        <Breadcrumb.Item>App</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <Content
+                        className="site-layout-background"
+                        style={{
+                            padding: 24,
+                            margin: 0,
+                            minHeight: 280,
+                        }}
+                    >
+                        Content
+                    </Content>
                 </Layout>
-            </Content>
-            <Footer style={{ textAlign: 'center' }}></Footer>
+            </Layout>
         </Layout>
     );
 
 };
 
-function getUserInfo() {
-}
-
-export default { Dashboard, getUserInfo };
+export default Dashboard;
