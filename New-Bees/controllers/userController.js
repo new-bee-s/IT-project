@@ -1,9 +1,10 @@
 // userController will be written on next 
 require('dotenv').config()
-const User = require('../models/user');
+const { User } = require('../models/user');
 const mongoose = require('mongoose');
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const { Contact } = require('../models/user')
 require('../config/passport')(passport)
 
 // Create a new user
@@ -102,7 +103,7 @@ const editInfo = async (req, res) => {
 // Search the user by id and return photo, givenName, familyName and email to front end
 const SearchUserID = async (req, res) => {
     try {
-        let user = await User.findOne({ _id: req.body._id }, { photo: true, givenName: true, familyName: true, email: true }).lean();
+        let user = await User.findOne({ _id: req.body.id }, { photo: true, givenName: true, familyName: true, email: true }).lean();
         if (user) {
             return res.status(200).json({ success: true, user: user })
         }
@@ -113,14 +114,45 @@ const SearchUserID = async (req, res) => {
         return res.status(404).json({ success: false })
     }
 }
-
+const returnContact = async (req, res) => {
+    try {
+        let contact = await User.findOne({ _id: req.body.id }, { contact: true });
+    } catch (err) {
+    }
+}
 // Add friend according to email
 const addFriend = async (req, res) => {
     try {
-        let contactList = await User.findOne({ _id: req.body.data }, { contact: true, _id: false })
-        let query = (contactList.contact.indexOf("turtles") > -1); // If have that friend would return >=0, otherwise -1
-        if (query == -1) {
-            await User.updateOne({ _id: req.body.data }, { $push: { contact: req.body.email } })
+        let contactList = await User.findOne({ _id: req.body.id }, { contact: true, _id: false, email: true })
+        let i;
+        let query = 1
+        console.log(contactList)
+        for (i = 0; i < contactList.contact.length; i++) {
+            if (contactList.contact[i].email == req.body.email) {
+                query = 0
+                break
+            }
+        } // If have that friend would return 0, otherwise 1
+        if (query) {
+            let newContact = new Contact({
+                email: req.body.email,
+                status: "pending",
+                tag: "",
+                remark: ""
+            })
+
+            console.log(newContact)
+            let newContact1 = new Contact({
+                email: contactList.email,
+                status: "pending",
+                tag: "",
+                remark: ""
+            })
+
+            // add to request-receiver
+            await User.updateOne({ email: req.body.email }, { $push: { contact: newContact1 } })
+            // add to request-sender
+            await User.updateOne({ _id: req.body.id }, { $push: { contact: newContact } })
             return res.status(200).json({ success: true })
         }
         else {
