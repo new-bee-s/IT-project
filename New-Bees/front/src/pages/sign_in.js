@@ -229,7 +229,7 @@ function SignIn(props) {
                                 />
 
                                 
-                                <blocks className={classes.blocks_signin}>
+                                <div className={classes.blocks_signin}>
                                     <Button
                                         variant="contained"
                                         onClick={onSignIn}
@@ -238,15 +238,15 @@ function SignIn(props) {
                                         Sign In
                                     </Button>
 
-                                </blocks>
+                                </div>
 
-                                {/* <blocks className={classes.blocks_text}>
+                                {/* <div className={classes.blocks_text}>
                                     <p>
                                         or
                                     </p>
-                                </blocks>
+                                </div>
                                 
-                                <blocks className={classes.blocks_google}>
+                                <div className={classes.blocks_google}>
 
                                     <Button variant="contained" className = {classes.button_google}href={window.location.href}>
                                         google
@@ -254,7 +254,7 @@ function SignIn(props) {
                                     <Button onclick="google_login">
                                         Login with Google
                                     </Button>
-                                </blocks> */}
+                                </div> */}
                             </form>
                         </div>
                     </Container>
@@ -266,7 +266,7 @@ function SignIn(props) {
     )
 };
 
-{/* <script src="https://apis.google.com/js/api:client.js"></script>
+/* <script src="https://apis.google.com/js/api:client.js"></script>
 
 function google_login() {
     var googleUser = {};
@@ -297,7 +297,7 @@ function attachSignin(element) {
             console.log(JSON.stringify(error, undefined, 2));
         }
     );
-} */}
+} */
 
 
 export default SignIn;

@@ -6,6 +6,7 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 import { Row, Col } from 'antd';
 import { Input, Space } from 'antd';
 import { Avatar } from 'antd';
+import { AntDesignOutlined } from '@ant-design/icons';
 
 
 // dashboard style
@@ -100,18 +101,17 @@ function Dashboard() {
                                 <img src = './pics/user_icon.png' alt = 'profile_icon' style = {{height: '30px', padding: '6px'}} />
                                 <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Profile</span>
                             </Menu.Item>
-                            <Menu.Item key="2">Contact</Menu.Item>
+                            <Menu.Item key="2">
+                                Contact
+                            </Menu.Item>
                         </Menu>
                     </Col>
                     <Col span={4} offset={4}>
-                        <Search placeholder="input search text" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
+                        <Search placeholder="click to search" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
                     </Col>
                     <Col span={4} offset={1}>
-                        
                             <Avatar icon={<UserOutlined />} />
-                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>Email Address</span>
-
-
+                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>email address</span>
                     </Col>
                 </Row>
             </Header>
@@ -149,15 +149,17 @@ function Dashboard() {
                         <Breadcrumb.Item>List</Breadcrumb.Item>
                         <Breadcrumb.Item>App</Breadcrumb.Item>
                     </Breadcrumb>
-                    <Content
-                        className="site-layout-background"
-                        style={{
-                            padding: 24,
-                            margin: 0,
-                            minHeight: 280,
-                        }}
-                    >
-                        Content
+                    <Content className="site-layout-background" style={{ padding: 24, margin: 0, minHeight: 280,}}>
+                    
+                            <div>
+                            <Avatar size={90} icon={<UserOutlined />} />
+                            <span style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '20px', fontSize: '25px'}}>Name(f+l)</span>
+                            <ul>
+                            list
+
+                            </ul>
+
+                            </div>
                     </Content>
                 </Layout>
             </Layout>
