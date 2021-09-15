@@ -15,7 +15,7 @@ const deleteFriend = async (req, res) => {
 
 const acceptFriend = async (req, res) => {
     try {
-        await Contact.updateOne({ _id: req.body.contactid }, { $set: { status: "accepted" } })
+        await Contact.updateOne({ user: req.body.userid, friend: req.params._id }, { $set: { status: "accepted" } })
         let contact = new Contact({
             user: req.params._id,
             friend: req.body.userid,
@@ -51,5 +51,9 @@ const changeRemark = async (req, res) => {
     } catch { err } {
         return res.status(400).json({ success: false, error: "Database query failed" })
     }
+}
+
+const changeTag = async (req, res) => {
+
 }
 module.exports = { deleteFriend, acceptFriend, getContact, changeRemark }
