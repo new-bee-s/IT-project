@@ -15,9 +15,18 @@ const deleteFriend = async (req, res) => {
 
 const acceptFriend = async (req, res) => {
     try {
-        await Contact.updateOne({ user: req.params._id, friend: req.body._id }, { $set: { status: "accepted" } })
-
-        return res.status(200).json({ success: true })
+        await Contact.updateOne({ _id: req.body.contactid }, { $set: { status: "accepted" } })
+        let contact = new Contact({
+            user: req.params._id,
+            friend: req.body.userid,
+            status: 'accepted',
+            tag: "",
+            remark: ""
+        })
+        contact.save(err => {
+            if (err) throw err
+            return res.status(200).json({ success: true })
+        })
 
     } catch (err) {
         console.log(err)

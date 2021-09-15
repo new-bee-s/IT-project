@@ -55,7 +55,8 @@ const UserLogin = (req, res, next) => {
                 givenName: user.givenName,
                 familyName: user.familyName,
                 email: user.email,
-                information: user.information
+                information: user.information,
+                gender: user.gender,
             }
             //Sign the JWT token and populate the payload with the user email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
@@ -104,6 +105,9 @@ const SearchUserID = async (req, res) => {
     try {
         let user = await User.findOne({ userID: req.body.userID }, { photo: true, givenName: true, familyName: true, email: true });
         if (user) {
+            if (user._id == req.params._id) {
+                return res.status(200).json({ success: false, error: "You cannot search yourself" })
+            }
             return res.status(200).json({ success: true, user: user })
         }
         else {
@@ -116,7 +120,6 @@ const SearchUserID = async (req, res) => {
 // Add friend according to email
 const addFriend = async (req, res) => {
     try {
-        let friend = await User.findOne({ _id: req.body._id }, { givenName: true, familyName: true })
         let existingContact = await Contact.findOne({ friend: req.body._id, user: req.params._id })
         if (existingContact) {
             return res.status(200).json({ success: false, error: "You have added this user" })
