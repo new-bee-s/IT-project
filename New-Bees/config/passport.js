@@ -3,7 +3,7 @@ require('dotenv').config()    // for JWT password key
 // using email and password
 const LocalStrategy = require('passport-local').Strategy
 // our user model
-const User = require('../models/user')
+const { User } = require('../models/user')
 
 // JSON Web Tokens
 const passportJWT = require("passport-jwt");
@@ -59,8 +59,8 @@ module.exports = function (passport) {
                     return done(null, user);
                 }
             });
-        } catch (error) {
-            return done(error);
+        } catch (err) {
+            return done(err, false, { message: "Authenticate failed" });
         }
     }));
 
