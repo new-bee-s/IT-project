@@ -65,16 +65,6 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
 
     },
-    button: {
-        width: "250px",
-        height: "50px",
-        background: '#429CEF',
-        borderRadius: '100px',
-        border: 0,
-        color: '#FFFFFF',
-        fontFamily: 'Ubuntu',
-        fontSize: "18px"
-    },
     background: {
         overflow: 'hidden',
         width: '100%',
@@ -85,9 +75,70 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         bottom: 0,
     },
-    logo: {
-        width: 'auto',
+    blocks_signin: {
         height: 'auto',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '3vh',
+        verticalAlign: 'middle',
+        borderRadius: 3,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    blocks_text: {
+        height: '3vh',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '1vh',
+        verticalAlign: 'middle',
+        borderRadius: 2,
+        display: 'flex',
+        fontFamily:'Ubuntu',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    blocks_google: {
+        height: 'auto',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '1.5vh',
+        verticalAlign: 'middle',
+        borderRadius: 3,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    button: {
+        width: "250px",
+        height: "50px",
+        background: '#429CEF',
+        borderRadius: '100px',
+        border: 0,
+        color: '#FFFFFF',
+        alignItems: 'center',
+        fontFamily: 'Ubuntu',
+        fontSize: "18px"
+    },
+    button_google: {
+        width: "250px",
+        height: "50px",
+        background: '#EA4335',
+        borderRadius: '100px',
+        border: 1,
+        color: '#FFFFFF',
+        alignItems: 'center',
+        fontFamily: 'Ubuntu',
+        fontSize: "18px"
     }
 }));
 
@@ -160,6 +211,10 @@ function SignIn(props) {
                                     onChange={e => setEmail(e.target.value)}
                                 />
 
+                                <a href={"register"} style={{ float: 'right' }}>
+                                    New user? Click here
+                                </a>
+
                                 <TextField
                                     variant="outlined"
                                     margin="normal"
@@ -173,11 +228,8 @@ function SignIn(props) {
                                     onChange={e => setPassword(e.target.value)}
                                 />
 
-                                <a href={"register"} style={{ float: 'right' }}>
-                                    New user? Click here
-                                </a>
-
-                                <div className={classes.blocks}>
+                                
+                                <blocks className={classes.blocks_signin}>
                                     <Button
                                         variant="contained"
                                         onClick={onSignIn}
@@ -186,7 +238,23 @@ function SignIn(props) {
                                         Sign In
                                     </Button>
 
-                                </div>
+                                </blocks>
+
+                                {/* <blocks className={classes.blocks_text}>
+                                    <p>
+                                        or
+                                    </p>
+                                </blocks>
+                                
+                                <blocks className={classes.blocks_google}>
+
+                                    <Button variant="contained" className = {classes.button_google}href={window.location.href}>
+                                        google
+                                    </Button>
+                                    <Button onclick="google_login">
+                                        Login with Google
+                                    </Button>
+                                </blocks> */}
                             </form>
                         </div>
                     </Container>
@@ -198,6 +266,38 @@ function SignIn(props) {
     )
 };
 
+{/* <script src="https://apis.google.com/js/api:client.js"></script>
+
+function google_login() {
+    var googleUser = {};
+        gapi.load('auth2', function(){
+
+            // Retrieve the singleton for the GoogleAuth library and set up the client.
+            auth2 = gapi.auth2.init({
+                client_id: 'client_id',
+                cookiepolicy: 'single_host_origin',
+                scope: 'profile'
+            });
+            attachSignin(document.getElementById('google_button'));
+        }
+    );
+}
+
+function attachSignin(element) {
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+            var profile = auth2.currentUser.get().getBasicProfile();
+            console.log('ID: ' + profile.getId());
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+        }, function(error) {
+            console.log(JSON.stringify(error, undefined, 2));
+        }
+    );
+} */}
 
 
 export default SignIn;
