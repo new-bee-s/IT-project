@@ -95,19 +95,22 @@ function Dashboard() {
                         </a>
                     </Col>
                     <Col span={5} offset={2}>
-                        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+                        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style = {{height: '64px'}}>
                             <Menu.Item key="1"> 
-                                Profile
+                                <img src = './pics/user_icon.png' alt = 'profile_icon' style = {{height: '30px', padding: '6px'}} />
+                                <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Profile</span>
                             </Menu.Item>
                             <Menu.Item key="2">Contact</Menu.Item>
                         </Menu>
                     </Col>
                     <Col span={4} offset={4}>
-                        <Search placeholder="input search text" onSearch={onSearch} enterButton style = {{postition: "relative", paddingTop: "15px"}}/>
+                        <Search placeholder="input search text" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
                     </Col>
                     <Col span={4} offset={1}>
+                        
                             <Avatar icon={<UserOutlined />} />
-                            
+                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>Email Address</span>
+
 
                     </Col>
                 </Row>
