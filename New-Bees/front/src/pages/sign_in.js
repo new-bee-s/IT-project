@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         verticalalign: 'middle',
         justifyContent: 'center',
-        marginTop: "10%",
+        marginTop: "7%",
         boxSizing: "border-box",
         width: '100%',
     },
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         verticalalign: 'middle',
         display: 'flex',
-        marginTop: "5%",
+        marginTop: "8%",
     },
     middle2: {
         float: 'left',
@@ -182,7 +182,7 @@ function SignIn(props) {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle'}}></img>
+                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '90%', verticalAlign: 'middle', paddingLeft:'15vh'}}></img>
                         </a>
                         <CssBaseline />
                     </Container>

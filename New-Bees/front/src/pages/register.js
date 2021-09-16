@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         verticalAlign: 'middle',
         justifyContent: 'center',
-        marginTop: "5%",
+        marginTop: "7%",
         boxSizing: "border-box",
         width: '100%',
     },
@@ -135,13 +135,13 @@ function Register(props) {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle'}}></img>
+                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '90%', paddingLeft:'15vh', verticalAlign: 'middle'}}></img>
                         </a>
                         <CssBaseline />
                     </Container>
                 </div>
                 <div className={classes.background}></div>
-                <div className={classes.middle2} verticalAlign= 'middle'>
+                <div className={classes.middle2} verticalAlign= 'middle' style={{paddingRight:'15vh'}}>
                     <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align="center">
