@@ -4,6 +4,8 @@ import Homepage from './pages/homepage.js';
 import SignIn from './pages/sign_in.js';
 import Register from './pages/register.js';
 import Dashboard from './pages/dashboard.js';
+import Contact from './pages/contact.js';
+
 
 // router switch 
 class Router extends React.Component {
@@ -14,7 +16,12 @@ class Router extends React.Component {
                     <Route path='/' exact component={Homepage}></Route>
                     <Route path='/signin' exact component={SignIn}></Route>
                     <Route path='/register' exact component={Register}></Route>
+<<<<<<< Updated upstream
                     <Route path='/dashboard' exact component={Dashboard}></Route>
+=======
+                    <Route path='/dashboard/' exact component={Dashboard}></Route>
+                    <Route path='/dashboard/:_id/contact' exact component={Contact}></Route>
+>>>>>>> Stashed changes
                 </Switch>
             </BrowserRouter>
         )

@@ -7,5 +7,13 @@ const contactRouter = express.Router()
 contactRouter.post('/addFriend', userController.addFriend)
 
 // delete friend router
+<<<<<<< Updated upstream
 contactRouter.post('/deleteFriend', contactController.deleteFriend)
+=======
+contactRouter.post('/:_id/deleteFriend', contactController.deleteFriend)
+
+contactRouter.post('/:_id/acceptFriend', contactController.acceptFriend)
+
+contactRouter.get('/', contactController.getContact)
+>>>>>>> Stashed changes
 module.exports = contactRouter
