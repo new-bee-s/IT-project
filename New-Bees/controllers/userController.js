@@ -1,10 +1,10 @@
 // userController will be written on next 
 require('dotenv').config()
-const { User } = require('../models/user');
+const User = require('../models/user');
 const mongoose = require('mongoose');
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const { Contact } = require('../models/user')
+const Contact = require('../models/contact')
 require('../config/passport')(passport)
 
 // Create a new user
@@ -55,15 +55,15 @@ const UserLogin = (req, res, next) => {
                 givenName: user.givenName,
                 familyName: user.familyName,
                 email: user.email,
-                information: user.information
+                information: user.information,
+                gender: user.gender,
             }
             //Sign the JWT token and populate the payload with the user email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
             //Send back the token to the client
             res.cookie('jwt', token, { httpOnly: false, sameSite: false, secure: true });
             res.cookie('_id', user.id, { maxAge: 30 * 24 * 60 * 60 * 1000 });
-            const data = { _id: user.id };
-            return res.status(200).json({ success: true, data: data, token: token, user: userSent });
+            return res.status(200).json({ success: true, data: user.id, token: token, user: userSent });
         });
     })(req, res, next)
 }
@@ -103,8 +103,11 @@ const editInfo = async (req, res) => {
 // Search the user by id and return photo, givenName, familyName and email to front end
 const SearchUserID = async (req, res) => {
     try {
-        let user = await User.findOne({ _id: req.body.id }, { photo: true, givenName: true, familyName: true, email: true }).lean();
+        let user = await User.findOne({ userID: req.body.userID }, { photo: true, givenName: true, familyName: true, email: true });
         if (user) {
+            if (user._id == req.params._id) {
+                return res.status(200).json({ success: false, error: "You cannot search yourself" })
+            }
             return res.status(200).json({ success: true, user: user })
         }
         else {
@@ -114,50 +117,24 @@ const SearchUserID = async (req, res) => {
         return res.status(404).json({ success: false })
     }
 }
-const returnContact = async (req, res) => {
-    try {
-        let contact = await User.findOne({ _id: req.body.id }, { contact: true });
-    } catch (err) {
-    }
-}
 // Add friend according to email
 const addFriend = async (req, res) => {
     try {
-        let contactList = await User.findOne({ _id: req.body.id }, { contact: true, _id: false, email: true })
-        let i;
-        let query = 1
-        console.log(contactList)
-        for (i = 0; i < contactList.contact.length; i++) {
-            if (contactList.contact[i].email == req.body.email) {
-                query = 0
-                break
-            }
-        } // If have that friend would return 0, otherwise 1
-        if (query) {
-            let newContact = new Contact({
-                email: req.body.email,
-                status: "pending",
-                tag: "",
-                remark: ""
-            })
-
-            console.log(newContact)
-            let newContact1 = new Contact({
-                email: contactList.email,
-                status: "pending",
-                tag: "",
-                remark: ""
-            })
-
-            // add to request-receiver
-            await User.updateOne({ email: req.body.email }, { $push: { contact: newContact1 } })
-            // add to request-sender
-            await User.updateOne({ _id: req.body.id }, { $push: { contact: newContact } })
-            return res.status(200).json({ success: true })
-        }
-        else {
+        let existingContact = await Contact.findOne({ friend: req.body._id, user: req.params._id })
+        if (existingContact) {
             return res.status(200).json({ success: false, error: "You have added this user" })
         }
+        let newContact = new Contact({
+            user: req.params._id,
+            friend: req.body._id,
+            status: "pending",
+            tag: "",
+            remark: ""
+        })
+        newContact.save(err => {
+            if (err) throw err
+            return res.status(200).json({ success: true })
+        })
 
     } catch (err) {
         console.log(err)

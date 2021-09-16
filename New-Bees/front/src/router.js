@@ -16,12 +16,8 @@ class Router extends React.Component {
                     <Route path='/' exact component={Homepage}></Route>
                     <Route path='/signin' exact component={SignIn}></Route>
                     <Route path='/register' exact component={Register}></Route>
-<<<<<<< Updated upstream
                     <Route path='/dashboard' exact component={Dashboard}></Route>
-=======
-                    <Route path='/dashboard/' exact component={Dashboard}></Route>
                     <Route path='/dashboard/:_id/contact' exact component={Contact}></Route>
->>>>>>> Stashed changes
                 </Switch>
             </BrowserRouter>
         )

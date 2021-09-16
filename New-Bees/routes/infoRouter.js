@@ -4,7 +4,7 @@ const infoRouter = express.Router()
 const passport = require('passport')
 require('../config/passport')(passport)
 
-infoRouter.post('/editInfo',
+infoRouter.post(':userId/editInfo',
     passport.authenticate('jwt', { session: false }),
     (req, res) => userController.editInfo(req, res))
 

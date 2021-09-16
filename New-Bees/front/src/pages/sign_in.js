@@ -12,6 +12,7 @@ import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
 import Cookies from 'universal-cookie';
 
+
 ////web page style design
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     middle: {
         display: 'felx',
         alignItems: 'center',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
         justifyContent: 'center',
         marginTop: "10%",
         boxSizing: "border-box",
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         width: "50%",
         padding: "15px",
         alignItems: 'center',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
         display: 'flex',
         marginTop: "5%",
     },
@@ -48,14 +49,67 @@ const useStyles = makeStyles((theme) => ({
         padding: "15px",
         display: 'flex',
         alignItems: 'center',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
     },
-    block: {
+    blocks: {
         height: 'auto',
         flexWrap: 'wrap',
         justifyContent: 'center',
         paddingLeft: 'unset',
         paddingTop: '3vh',
+        verticalalign: 'middle',
+        borderRadius: 3,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    background: {
+        overflow: 'hidden',
+        width: '100%',
+        height: '18%',
+        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        position: 'absolute',
+        bottom: 0,
+    },
+    blocks_signin: {
+        height: 'auto',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '3vh',
+        verticalAlign: 'middle',
+        borderRadius: 3,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    blocks_text: {
+        height: '3vh',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '1vh',
+        verticalAlign: 'middle',
+        borderRadius: 2,
+        display: 'flex',
+        fontFamily:'Ubuntu',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    blocks_google: {
+        height: 'auto',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '1.5vh',
         verticalAlign: 'middle',
         borderRadius: 3,
         display: 'flex',
@@ -71,22 +125,20 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '100px',
         border: 0,
         color: '#FFFFFF',
+        alignItems: 'center',
         fontFamily: 'Ubuntu',
         fontSize: "18px"
     },
-    background: {
-        overflow: 'hidden',
-        width: '100%',
-        height: '18%',
-        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        position: 'absolute',
-        bottom: 0,
-    },
-    logo: {
-        width: 'auto',
-        height: 'auto',
+    button_google: {
+        width: "250px",
+        height: "50px",
+        background: '#EA4335',
+        borderRadius: '100px',
+        border: 1,
+        color: '#FFFFFF',
+        alignItems: 'center',
+        fontFamily: 'Ubuntu',
+        fontSize: "18px"
     }
 }));
 
@@ -103,10 +155,13 @@ function SignIn(props) {
         //put user input to back-end and return status
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
-                props.history.push('/dashboard', {
-                    data: res.data.data,
-                    user: res.data.user
-                })
+                console.log(res.data.data)
+                let detail = { id: res.data.data, user: res.data.user }
+                let path = {
+                    pathname: '/dashboard/' + res.data.data,
+                    state: detail
+                }
+                props.history.push(path)
                 const cookies = new Cookies();
                 cookies.set('userInfo', res.data.token, { path: '/', maxAge: 2592000 });
             }
@@ -115,7 +170,7 @@ function SignIn(props) {
                 message.error(res.data.error)
             }
         }).catch(error => {
-            message.error(error.response.data.error)
+            message.error(error.respond.data.error)
         })
     };
 
@@ -127,13 +182,13 @@ function SignIn(props) {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%' }}></img>
+                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle'}}></img>
                         </a>
                         <CssBaseline />
                     </Container>
                 </div>
-                <div className={classes.middle2} verticalAlign='middle'>
-                    <Container component="main" maxWidth="sm">
+                <div className={classes.middle2} verticalalign='middle'>
+                    <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align='center'>Sign In</Typography>
                         </div>
@@ -157,6 +212,10 @@ function SignIn(props) {
                                     onChange={e => setEmail(e.target.value)}
                                 />
 
+                                <a href={"register"} style={{ float: 'right' }}>
+                                    New user? Click here
+                                </a>
+
                                 <TextField
                                     variant="outlined"
                                     margin="normal"
@@ -170,11 +229,8 @@ function SignIn(props) {
                                     onChange={e => setPassword(e.target.value)}
                                 />
 
-                                <a href={"register"} style={{ float: 'right' }}>
-                                    New user? Click here
-                                </a>
-
-                                <blocks className={classes.block}>
+                                
+                                <div className={classes.blocks_signin}>
                                     <Button
                                         variant="contained"
                                         onClick={onSignIn}
@@ -183,7 +239,23 @@ function SignIn(props) {
                                         Sign In
                                     </Button>
 
-                                </blocks>
+                                </div>
+
+                                {/* <div className={classes.blocks_text}>
+                                    <p>
+                                        or
+                                    </p>
+                                </div>
+                                
+                                <div className={classes.blocks_google}>
+
+                                    <Button variant="contained" className = {classes.button_google}href={window.location.href}>
+                                        google
+                                    </Button>
+                                    <Button onclick="google_login">
+                                        Login with Google
+                                    </Button>
+                                </div> */}
                             </form>
                         </div>
                     </Container>
@@ -195,6 +267,38 @@ function SignIn(props) {
     )
 };
 
+/* <script src="https://apis.google.com/js/api:client.js"></script>
+
+function google_login() {
+    var googleUser = {};
+        gapi.load('auth2', function(){
+
+            // Retrieve the singleton for the GoogleAuth library and set up the client.
+            auth2 = gapi.auth2.init({
+                client_id: 'client_id',
+                cookiepolicy: 'single_host_origin',
+                scope: 'profile'
+            });
+            attachSignin(document.getElementById('google_button'));
+        }
+    );
+}
+
+function attachSignin(element) {
+    auth2.attachClickHandler(element, {},
+        function(googleUser) {
+            var profile = auth2.currentUser.get().getBasicProfile();
+            console.log('ID: ' + profile.getId());
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+        }, function(error) {
+            console.log(JSON.stringify(error, undefined, 2));
+        }
+    );
+} */
 
 
 export default SignIn;

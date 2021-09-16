@@ -10,6 +10,7 @@ import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
 import { useState } from 'react';
 import { message } from 'antd';
+import Cookies from 'universal-cookie';
 
 //web page style design
 const useStyles = makeStyles((theme) => ({
@@ -87,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // register page
-function Register() {
+function Register(props) {
 
     const classes = useStyles();
     const [email, setEmail] = useState('');
@@ -111,9 +112,14 @@ function Register() {
             confirmPassword: confirmPassword
         }).then(res => {
             if (res.data.success) {
-                message.success("Registered successfully")
-            } else {
-                message.error(res.data.error)
+                let detail = { id: res.data.data, user: res.data.user }
+                let path = {
+                    pathname: '/dashboard',
+                    state: detail
+                }
+                props.history.push(path)
+                const cookies = new Cookies();
+                cookies.set('userInfo', res.data.token, { path: '/', maxAge: 2592000 });
             }
         }).catch(error => {
             //console.log(error.response.data.error)
@@ -129,13 +135,13 @@ function Register() {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%' }}></img>
+                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle'}}></img>
                         </a>
                         <CssBaseline />
                     </Container>
                 </div>
                 <div className={classes.background}></div>
-                <div className={classes.middle2}>
+                <div className={classes.middle2} verticalAlign= 'middle'>
                     <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align="center">
