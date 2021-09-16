@@ -1,7 +1,7 @@
 import React from 'react'
 import contactBrief from '../components/contactBrief.js'
 
-export default function ContactList(props) {
+export default function contactList(props) {
 
     const renderContact = props.contacts.map((contact,index)=>{
         
