@@ -84,7 +84,10 @@ module.exports = function (passport) {
                     }
                     else if (req.body.givenName == "" || req.body.familyName == "" ||
                         req.body.givenName == null || req.body.familyName == null) {
-                        return done(null, false, { message: "Please enter you name " });
+                        return done(null, false, { message: "Please enter you name" });
+                    }
+                    else if (!/^[a-zA-Z]+$/.test(req.body.givenName) || !/^[a-zA-Z]+$/.test(req.body.familyName)) {
+                        return done(null, false, { message: "Your name must be alphabet letters" });
                     }
                     else if (password == "" || password == null) {
                         return done(null, false, { message: "Please set your password" });

@@ -155,9 +155,10 @@ function SignIn(props) {
         //put user input to back-end and return status
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
+                console.log(res.data.data)
                 let detail = { id: res.data.data, user: res.data.user }
                 let path = {
-                    pathname: '/dashboard',
+                    pathname: '/dashboard/' + res.data.data,
                     state: detail
                 }
                 props.history.push(path)
