@@ -12,4 +12,6 @@ contactRouter.post('/:_id/deleteFriend', contactController.deleteFriend)
 contactRouter.post('/:_id/acceptFriend', contactController.acceptFriend)
 
 contactRouter.get('/:_id/contact', contactController.getContact)
+
+contactRouter.get('/:_id', userController.getUserInfo)
 module.exports = contactRouter
