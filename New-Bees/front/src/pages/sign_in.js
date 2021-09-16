@@ -170,7 +170,7 @@ function SignIn(props) {
                 message.error(res.data.error)
             }
         }).catch(error => {
-            message.error(error.response.data.error)
+            message.error(error.respond.data.error)
         })
     };
 
@@ -182,13 +182,13 @@ function SignIn(props) {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%' }}></img>
+                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle'}}></img>
                         </a>
                         <CssBaseline />
                     </Container>
                 </div>
                 <div className={classes.middle2} verticalalign='middle'>
-                    <Container component="main" maxWidth="sm">
+                    <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align='center'>Sign In</Typography>
                         </div>

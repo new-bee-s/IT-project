@@ -135,13 +135,13 @@ function Register(props) {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%' }}></img>
+                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle'}}></img>
                         </a>
                         <CssBaseline />
                     </Container>
                 </div>
                 <div className={classes.background}></div>
-                <div className={classes.middle2}>
+                <div className={classes.middle2} verticalAlign= 'middle'>
                     <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align="center">
