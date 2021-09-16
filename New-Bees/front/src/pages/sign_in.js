@@ -182,7 +182,7 @@ function SignIn(props) {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '90%', verticalAlign: 'middle', paddingLeft:'15vh'}}></img>
+                            <img src='./pics/logo_full.png' alt="logo pic" title="go back to home page" style={{ width: '85%', verticalAlign: 'middle', paddingLeft:'15vh'}}></img>
                         </a>
                         <CssBaseline />
                     </Container>

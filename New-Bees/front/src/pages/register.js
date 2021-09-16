@@ -135,7 +135,7 @@ function Register(props) {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '90%', paddingLeft:'15vh', verticalAlign: 'middle'}}></img>
+                            <img src='./pics/logo_full.png' title="go back to home page" alt="logo pic" style={{ width: '85%', paddingLeft:'15vh', verticalAlign: 'middle'}}></img>
                         </a>
                         <CssBaseline />
                     </Container>
@@ -219,10 +219,7 @@ function Register(props) {
                                 />
 
                                 <blocks className={classes.blocks}>
-                                    <Button variant="contained"
-                                        className={classes.button}
-                                        onClick={onSignUp}
-                                    >
+                                    <Button variant="contained" className={classes.button} onClick={onSignUp}>
                                         Register
                                     </Button>
                                 </blocks>
@@ -231,8 +228,6 @@ function Register(props) {
                     </Container>
                 </div>
             </div>
-
-
         </div>
     )
 };
