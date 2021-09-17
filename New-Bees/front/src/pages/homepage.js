@@ -2,6 +2,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { Divider } from 'antd';
 
 // homepage style 
 const useStyles = makeStyles((theme) => ({
@@ -82,6 +83,14 @@ function Homepage() {
                 <ul className={classes.blocks}>
                     <Button variant="contained" className={classes.button} href={window.location.href + "signin"}>
                         Get Start
+                    </Button>
+                </ul>
+            </div>
+
+            <div className={classes.middle}>
+                <ul className={classes.blocks}>
+                    <Button variant="contained" className={classes.button} href={window.location.href + "add"}>
+                        Add Friend Demo
                     </Button>
                 </ul>
             </div>
