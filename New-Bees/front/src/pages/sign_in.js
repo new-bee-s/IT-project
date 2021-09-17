@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         verticalalign: 'middle',
         justifyContent: 'center',
-        marginTop: "7%",
+        marginTop: "10%",
         boxSizing: "border-box",
         width: '100%',
     },
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         verticalalign: 'middle',
         display: 'flex',
-        marginTop: "8%",
+        marginTop: "5%",
     },
     middle2: {
         float: 'left',
@@ -157,11 +157,7 @@ function SignIn(props) {
             if (res.data.success) {
                 console.log(res.data.data)
                 let detail = { id: res.data.data, user: res.data.user }
-                let path = {
-                    pathname: '/dashboard/' + res.data.data,
-                    state: detail
-                }
-                props.history.push(path)
+                props.history.push('/dashboard/' + detail.id)
                 const cookies = new Cookies();
                 cookies.set('userInfo', res.data.token, { path: '/', maxAge: 2592000 });
             }
@@ -182,7 +178,7 @@ function SignIn(props) {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" title="go back to home page" style={{ width: '85%', verticalAlign: 'middle', paddingLeft:'15vh'}}></img>
+                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle'}}></img>
                         </a>
                         <CssBaseline />
                     </Container>
