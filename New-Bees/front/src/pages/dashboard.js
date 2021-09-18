@@ -7,6 +7,7 @@ import { Row, Col } from 'antd';
 import { Input, Space, Spin } from 'antd';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
+import { classExpression } from '@babel/types';
 
 
 // dashboard style
@@ -72,6 +73,12 @@ const useStyles = makeStyles((theme) => ({
         float: 'right',
         width: '120px',
         height: '50px',
+    },
+
+    content: {
+        minHeight: '280px',
+        padding: '24px',
+        background: '#fff',
     }
 }));
 
@@ -108,9 +115,7 @@ export default class Dashboard extends React.Component {
         const onSearch = value => console.log(value);
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
-
         if (loading){
-            console.log(loading);
             return  <Space size="middle" style={{position:'relative', marginLeft:'50vw', marginTop:'50vh'}}>
                         <Spin size="large" />
                     </Space>;
@@ -127,31 +132,35 @@ export default class Dashboard extends React.Component {
                                 </div>
                             </a>
                         </Col>
-                        <Col span={5} offset={2}>
+                        <Col span={7} offset={2}>
                             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style = {{height: '64px'}}>
                                 <Menu.Item key="1"> 
-                                    <img src = '../pics/user_icon.png' alt = 'profile_icon' style = {{height: '24px'}} />
+                                    <img src = '../pics/user_icon.png' alt = 'profile_icon' style = {{height: '24px', verticalAlign: 'middle'}} />
                                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Profile</span>
                                 </Menu.Item>
                                 <Menu.Item key="2"> 
                                     <img src = '../pics/contact_icon.png' alt = 'contact_icon' style = {{height: '24px'}} />
                                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Contact</span>
                                 </Menu.Item>
+                                <Menu.Item key="3"> 
+                                    <img src = '../pics/AddFriend.png' alt = 'AddFrient' style = {{height: '19px'}} />
+                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Add Friend</span>
+                                </Menu.Item>
                             </Menu>
                         </Col>
-                        <Col span={4} offset={4}>
+                        <Col span={4} offset={2}>
                             <Search placeholder="click to search" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
                         </Col>
                         <Col span={4} offset={1}>
                                 <Avatar icon={<UserOutlined />} />
                                 <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                    {profile.email}@email.com
+                                    {profile.email}
                                 </span>
                         </Col>
                     </Row>
                 </Header>
                 <Layout>
-                    <Sider width={200} className="site-layout-background">
+                    {/* <Sider width={'12%'} className="site-layout-background">
                         <Menu
                             mode="inline"
                             defaultSelectedKeys={['1']}
@@ -177,34 +186,20 @@ export default class Dashboard extends React.Component {
                                 <Menu.Item key="12">option12</Menu.Item>
                             </SubMenu>
                         </Menu>
-                    </Sider>
-                    <Layout style={{ padding: '0 24px 24px' }}>
-                        <Breadcrumb style={{ margin: '16px 0' }}>
-                            <Breadcrumb.Item>Home</Breadcrumb.Item>
-                            <Breadcrumb.Item>List</Breadcrumb.Item>
-                            <Breadcrumb.Item>App</Breadcrumb.Item>
-                        </Breadcrumb>
-                        <Content className="site-layout-background" style={{ padding: 24, margin: 0, minHeight: 280,}}>
-                        
-                                <div>
-                                    <blocks style={{paddingLeft:30}}>
-                                    </blocks>
-                                
-                                    <Avatar size={130} icon={<UserOutlined />} />
-                                    <span style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '25px', fontSize: '30px'}}>
-                                        &nbsp;&nbsp;
-                                        {profile.givenName}
-                                        &nbsp;
-                                        {profile.familyName}
-                                        
-                                    </span>
-                                <ul>
-    
-                                </ul>
-    
-                                </div>
-                        </Content>
-                    </Layout>
+                    </Sider> */}
+                    <Content style={{ padding: '0 50px' }}>
+                        <div style={{minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px'}}>
+                                <Avatar size={130} icon={<UserOutlined />} />
+                                <span style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '25px', fontSize: '30px'}}>
+                                    &nbsp;&nbsp;
+                                    {profile.givenName}
+                                    &nbsp;
+                                    {profile.familyName}
+                                    
+                                </span>
+                        </div>
+                    </Content>
+                    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
                 </Layout>
             </Layout>
         );
