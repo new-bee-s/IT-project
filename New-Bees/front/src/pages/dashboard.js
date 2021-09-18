@@ -8,7 +8,7 @@ import { Input, Space } from 'antd';
 import { Avatar } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import axios from '../commons/axios.js';
-import { useState } from 'react'
+
 
 // dashboard style
 const useStyles = makeStyles((theme) => ({
@@ -82,35 +82,39 @@ export default class Dashboard extends React.Component {
 
     constructor(props){
         super(props)
-        //console.log(props.contact)
+        this.state = {profile: undefined, loading: true};
     }
     
     
-    getprofile = () =>{
+    componentDidMount(){
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
         axios.get(home).then(response=>{
+            console.log(response);
             if(response.data.success){
-                return response.data;
+                this.setState({profile: response.data.user, loading: false});
             }
         }).catch(error=>{
             console.log(error.response);
         })
     }
 
-
     
     render(){
         const { SubMenu } = Menu;
         const { Header, Content, Footer, Sider } = Layout;
         const { Search } = Input;
+        const { profile, loading } = this.state;
+        console.log(profile);
         const onSearch = value => console.log(value);
-
-        const profile = this.getprofile();
-        console.log (profile);
-
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
+
+        if (loading){
+            console.log(111);
+            return <h3>  Loading... </h3>;
+        }
+
         return (
             <Layout >
                 <Header style={{ padding: '0 10px' }}>
@@ -139,7 +143,9 @@ export default class Dashboard extends React.Component {
                         </Col>
                         <Col span={4} offset={1}>
                                 <Avatar icon={<UserOutlined />} />
-                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>{profile.user.email}</span>
+                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                    {profile.email}
+                                </span>
                         </Col>
                     </Row>
                 </Header>
