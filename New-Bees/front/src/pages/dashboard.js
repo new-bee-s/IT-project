@@ -142,10 +142,12 @@ export default class Dashboard extends React.Component {
                                     <img src = '../pics/contact_icon.png' alt = 'contact_icon' style = {{height: '24px'}} />
                                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Contact</span>
                                 </Menu.Item>
+                                <a href={window.location.href + "/addfriend"}>
                                 <Menu.Item key="3"> 
-                                    <img src = '../pics/AddFriend.png' alt = 'AddFrient' style = {{height: '19px'}} />
+                                    <img src = '../pics/AddFriend.png' alt = 'AddFriend' style = {{height: '19px'}} />
                                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Add Friend</span>
                                 </Menu.Item>
+                                </a>
                             </Menu>
                         </Col>
                         <Col span={4} offset={2}>
