@@ -193,7 +193,7 @@ export default class Dashboard extends React.Component {
                     </Sider> */}
                     <Content style={{ padding: '0 50px' }}>
                         <div style={{minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px'}}>
-                                <Avatar size={130} icon={<UserOutlined />} />
+                                <Avatar style={{paddingLeft:'30'}} size={130} icon={<UserOutlined />} />
                                 <span style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '25px', fontSize: '30px'}}>
                                     &nbsp;&nbsp;
                                     {profile.givenName}
