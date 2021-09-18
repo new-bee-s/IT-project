@@ -166,7 +166,9 @@ function SignIn(props) {
                 message.error(res.data.error)
             }
         }).catch(error => {
-            message.error(error.respond.data.error)
+            message.error(error.respond)
+            console.log(error.respond)
+            // or throw(error.respond)
         })
     };
 
@@ -237,21 +239,6 @@ function SignIn(props) {
 
                                 </div>
 
-                                {/* <div className={classes.blocks_text}>
-                                    <p>
-                                        or
-                                    </p>
-                                </div>
-                                
-                                <div className={classes.blocks_google}>
-
-                                    <Button variant="contained" className = {classes.button_google}href={window.location.href}>
-                                        google
-                                    </Button>
-                                    <Button onclick="google_login">
-                                        Login with Google
-                                    </Button>
-                                </div> */}
                             </form>
                         </div>
                     </Container>
@@ -262,39 +249,5 @@ function SignIn(props) {
         </div>
     )
 };
-
-/* <script src="https://apis.google.com/js/api:client.js"></script>
-
-function google_login() {
-    var googleUser = {};
-        gapi.load('auth2', function(){
-
-            // Retrieve the singleton for the GoogleAuth library and set up the client.
-            auth2 = gapi.auth2.init({
-                client_id: 'client_id',
-                cookiepolicy: 'single_host_origin',
-                scope: 'profile'
-            });
-            attachSignin(document.getElementById('google_button'));
-        }
-    );
-}
-
-function attachSignin(element) {
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-            var profile = auth2.currentUser.get().getBasicProfile();
-            console.log('ID: ' + profile.getId());
-            console.log('Full Name: ' + profile.getName());
-            console.log('Given Name: ' + profile.getGivenName());
-            console.log('Family Name: ' + profile.getFamilyName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail());
-        }, function(error) {
-            console.log(JSON.stringify(error, undefined, 2));
-        }
-    );
-} */
-
 
 export default SignIn;
