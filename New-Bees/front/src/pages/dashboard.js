@@ -4,9 +4,8 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import { Row, Col } from 'antd';
-import { Input, Space } from 'antd';
+import { Input, Space, Spin } from 'antd';
 import { Avatar } from 'antd';
-import { AntDesignOutlined } from '@ant-design/icons';
 import axios from '../commons/axios.js';
 
 
@@ -111,8 +110,10 @@ export default class Dashboard extends React.Component {
         const home = "/dashboard/" + id;
 
         if (loading){
-            console.log(111);
-            return <h3>  Loading... </h3>;
+            console.log(loading);
+            return  <Space size="middle" style={{position:'relative', marginLeft:'50vw', marginTop:'50vh'}}>
+                        <Spin size="large" />
+                    </Space>;
         }
 
         return (
@@ -144,7 +145,7 @@ export default class Dashboard extends React.Component {
                         <Col span={4} offset={1}>
                                 <Avatar icon={<UserOutlined />} />
                                 <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                    {profile.email}
+                                    {profile.email}@email.com
                                 </span>
                         </Col>
                     </Row>
@@ -186,10 +187,18 @@ export default class Dashboard extends React.Component {
                         <Content className="site-layout-background" style={{ padding: 24, margin: 0, minHeight: 280,}}>
                         
                                 <div>
-                                <Avatar size={90} icon={<UserOutlined />} />
-                                <span style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '20px', fontSize: '25px'}}>Name(f+l)</span>
+                                    <blocks style={{paddingLeft:30}}>
+                                    </blocks>
+                                
+                                    <Avatar size={130} icon={<UserOutlined />} />
+                                    <span style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '25px', fontSize: '30px'}}>
+                                        &nbsp;&nbsp;
+                                        {profile.givenName}
+                                        &nbsp;
+                                        {profile.familyName}
+                                        
+                                    </span>
                                 <ul>
-                                list
     
                                 </ul>
     
@@ -200,7 +209,5 @@ export default class Dashboard extends React.Component {
             </Layout>
         );
     }
-    // console.log(profile);
     
-
 };
