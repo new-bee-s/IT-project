@@ -8,5 +8,7 @@ userRouter.post('/register', userController.UserSignup)
 // signin router
 userRouter.post('/signin', userController.UserLogin)
 
+userRouter.post()
+
 
 module.exports = userRouter

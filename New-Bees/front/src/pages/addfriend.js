@@ -79,14 +79,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 //  return homepage
-function Addfriend() {
+function AddFriend() {
 
 
     const classes = useStyles();
     const { Search } = Input;
     const suffix = (
         <AudioOutlined
-          style={{
+            style={{
             fontSize: 16,
             color: '#1890ff',
           }}
@@ -170,4 +170,4 @@ function Addfriend() {
 
 };
 
-export default Addfriend;
+export default AddFriend;

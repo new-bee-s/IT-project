@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Homepage from './pages/homepage.js';
-import SignIn from './pages/sign_in.js';
+import SignIn from './pages/signin.js';
 import Register from './pages/register.js';
 import Dashboard from './pages/dashboard.js';
 import AddFriend from './pages/addfriend.js';
