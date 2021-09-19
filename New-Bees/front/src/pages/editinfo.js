@@ -133,7 +133,7 @@ export default class Dashboard extends React.Component {
                         </Col>
                         <Col span={7} offset={2}>
                             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style = {{height: '64px'}}>
-                                <Menu.Item key="1">
+                                <Menu.Item key="1"> 
                                     <img src = '../pics/user_icon.png' alt = 'profile_icon' style = {{height: '24px', verticalAlign: 'middle'}} />
                                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Profile</span>
                                 </Menu.Item>
@@ -197,40 +197,6 @@ export default class Dashboard extends React.Component {
                                     <Avatar size={140} icon={<UserOutlined />} />
                                 </div>
 
-                                <div id="right" style={{width:'80vw',float:'right',paddingTop:'5vh'}}>
-                                    <div style={{float:'right', paddingRight:'20px'}}>
-                                        <a href = {home+'/editInfo'}>
-                                        <Button type="primary" size='large'>change profile</Button>
-                                        </a>
-                                    </div>
-
-                                    <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '15px', fontSize: '47px'}}>
-                                        {/* Welcome!&nbsp;{profile.givenName}&nbsp;{profile.familyName} */}
-                                        Hi!&nbsp;Mr.&nbsp;New&nbsp;Bee
-                                    </div>
-
-                                    <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '27px', paddingLeft: '15px'}}>
-                                        {/* {profile.email} */}
-                                        new.bee@gmail.com
-                                    </div>
-
-                                    <div style={{fontSize:'27px', paddingTop:'10vh'}}>
-                                        <Row gutter={20}>
-                                            <Col span={20}>
-                                                <Statistic title="Active Users" size='large' value={112893} />
-                                            </Col>
-                                            <Col span={20}>
-                                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
-                                                <Button style={{ marginTop: 16 }} type="primary">
-                                                    Recharge
-                                                </Button>
-                                            </Col>
-                                            <Col span={20}>
-                                                <Statistic title="Active Users" value={112893} loading />
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </div>
                         </div>
                     </Content>
                 </Layout>
