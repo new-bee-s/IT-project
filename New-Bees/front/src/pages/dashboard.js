@@ -134,8 +134,10 @@ export default class Dashboard extends React.Component {
                         <Col span={7} offset={2}>
                             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style = {{height: '64px'}}>
                                 <Menu.Item key="1">
-                                    <img src = '../pics/user_icon.png' alt = 'profile_icon' style = {{height: '24px', verticalAlign: 'middle'}} />
-                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Profile</span>
+                                    <a href={home}>
+                                        <img src = '../pics/user_icon.png' alt = 'profile_icon' style = {{height: '24px', verticalAlign: 'middle'}} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Profile</span>
+                                    </a>
                                 </Menu.Item>
                                 <Menu.Item key="2"> 
                                     <img src = '../pics/contact_icon.png' alt = 'contact_icon' style = {{height: '24px'}} />
