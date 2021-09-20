@@ -13,7 +13,7 @@ const cookieParser = require('cookie-parser')
 app.use(express.json())
 app.use(bodyParser.json())
 
-app.use(express.urlencoded({ extended: true })) // replaces body-parser
+app.use(express.urlencoded({ extended: false })) // replaces body-parser
 app.use(express.static('public'))
 app.use(cookieParser())
 app.use(cors({
