@@ -104,7 +104,7 @@ function AddFriend() {
         <div style={{ width: '100vw', height: '100vw`, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
             <div className={classes.header}>
                 <a href="/">
-                    <img src="../pics/logo_full.png" alt="logo pic" style={{ height: '30px' }} />
+                    <img src="/../pics/logo_full.png" alt="logo pic" style={{ height: '30px' }} />
                 </a>
             </div>
             <div className={classes.middle}>

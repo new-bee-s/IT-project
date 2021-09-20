@@ -1,53 +1,28 @@
-// import libraries
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import 'antd/dist/antd.css';
+import { Layout, Menu, Breadcrumb } from 'antd';
+import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
-import { useState } from 'react';
-import { message } from 'antd';
-import Cookies from 'universal-cookie';
+import { Statistic, Row, Col, Button,Input, Space, Spin } from 'antd';
 
-//web page style design
+
 const useStyles = makeStyles((theme) => ({
     header: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         overflow: 'hidden',
         width: '100%',
-        boxSizing: "border-box",
-        position: 'center',
-        marginTop: '5vh'
+        marginRight: '0',
+        marginLeft: '0',
     },
     middle: {
-        display: 'felx',
-        alignItems: 'center',
-        verticalAlign: 'middle',
-        justifyContent: 'center',
-        boxSizing: "border-box",
-        width: '100%',
-    },
-    column: {
-        display:'flex',
-        float: 'left',
-        width: "50%",
-        padding: "15px",
-        alignItems: 'center',
-        verticalAlign: 'middle',
-        boxSizing: "border-box",
-        height: '100%',
-    },
-    middle2: {
-        float: 'left',
-        width: "50%",
-        padding: "15px",
         display: 'flex',
+        justifyContent: 'center',
         alignItems: 'center',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
+        width: '100%',
+        marginTop: "5vh",
+        overflow: 'hidden'
     },
     blocks: {
         height: 'auto',
@@ -55,13 +30,13 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         paddingLeft: 'unset',
         paddingTop: '3vh',
-        verticalAlign: 'middle',
+        verticalalign: 'middle',
         borderRadius: 3,
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         textAlign: 'center',
-            
+
     },
     button: {
         width: "250px",
@@ -84,149 +59,162 @@ const useStyles = makeStyles((theme) => ({
         bottom: 0,
     },
 
+    logo: {
+        float: 'left',
+        width: '50px',
+        height: '40px',
+        paddingTop: '1px'
+    },
+
+    user: {
+        float: 'right',
+        width: '120px',
+        height: '50px',
+    },
+
+    content: {
+        minHeight: '280px',
+        padding: '24px',
+        background: '#fff',
+    }
 }));
 
-// register page
-export default function EditInfo(props) {
 
-    const classes = useStyles();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [givenName, setGivenName] = useState('');
-    const [familyName, setFamilyName] = useState('');
-    const [confirmPassword, setComfPassword] = useState('');
+export default class EditInfo extends React.Component { 
 
-    //using on onchange
-    const onSignUp = () => {
-
-        console.log(email, password)
-
-        //console.log(email, password)
-        //use axios connect back-end and push personal information to back-end
-        axios.post('/register', {
-            email: email,
-            givenName: givenName,
-            familyName: familyName,
-            password: password,
-            confirmPassword: confirmPassword
-        }).then(res => {
-            if (res.data.success) {
-                let detail = { id: res.data.data, user: res.data.user }
-                let path = {
-                    pathname: '/dashboard',
-                    state: detail
-                }
-                props.history.push(path)
-                const cookies = new Cookies();
-                cookies.set('userInfo', res.data.token, { path: '/', maxAge: 2592000 });
+    constructor(props){
+        super(props)
+        this.state = {profile: undefined, loading: true};
+    }
+    
+    
+    componentDidMount(){
+        const id = this.props.match.params._id;
+        const home = "/dashboard/" + id;
+        axios.get(home).then(response=>{
+            console.log(response);
+            if(response.data.success){
+                this.setState({profile: response.data.user, loading: false});
             }
-        }).catch(error => {
-            //console.log(error.response.data.error)
-            console.log(error.response.data.error)
-            message.error(error.response.data.error)
+        }).catch(error=>{
+            console.log(error.response);
         })
     }
 
+    
+    render(){
+        const { SubMenu } = Menu;
+        const { Header, Content, Footer, Sider } = Layout;
+        const { Search } = Input;
+        const { profile, loading } = this.state;
+        console.log(profile);
+        const onSearch = value => console.log(value);
+        const id = this.props.match.params._id;
+        const home = "/dashboard/" + id;
+        if (loading){
+            return  <Space size="middle" style={{position:'relative', marginLeft:'50vw', marginTop:'50vh'}}>
+                        <Spin size="large" />
+                        <h3>Loading</h3>
+                    </Space>;
+        }
 
-    return (
-        <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
-            <div className={classes.middle}>
-                <div className={classes.column} style = {{textAlign: 'center', minHeight: '82vh'}}>
-                    <span> 
-                        <a href="/">
-                            <img src='./pics/logo_full.png' title="go back to home page" alt="logo pic" style={{ width: '75%'}}></img>
-                        </a>
-                    </span>
-                   
-                </div>
-                <div className={classes.background}></div>
-                <div className={classes.column} style={{textAlign: 'center', paddingRight:'15vh', minHeight: '82vh'}}>
-                    <Container component="main" maxWidth="xs">
-                        <div>
-                            <Typography component="h1" variant="h1" align="center">
-                                Register
-                            </Typography>
-                            <br />
-                            <Typography component="h1" variant="h5" align="center">
-                                Welcome to be the new menber!
-                            </Typography>
-                            <br />
-                            <form noValidate>
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="givenName"
-                                    label="First Name"
-                                    name="firstname"
-                                    autoComplete="email"
-                                    autoFocus
-                                    onChange={e => setGivenName(e.target.value)}
-                                />
+        return (
+            <Layout >
+                <Header style={{ padding: '0 10px' }}>
+                    <Row style = {{height: "64px"}}>
+                        <Col span={2} offset = {1}>
+                            <a href= {home}>
+                                <div>
+                                    <img src='/../pics/logo_bee.png' alt='logo_bee' style={{ height: '64px', padding: '6px'}} />
+                                </div>
+                            </a>
+                        </Col>
+                        <Col span={7} offset={2}>
+                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style = {{height: '64px'}}>
+                                <Menu.Item key="1">
+                                    <a href={home}>
+                                        <img src = '/../pics/user_icon.png' alt = 'profile_icon' style = {{height: '24px', verticalAlign: 'middle'}} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Profile</span>
+                                    </a>
+                                </Menu.Item>
+                                <Menu.Item key="2"> 
+                                    <img src = '/../pics/contact_icon.png' alt = 'contact_icon' style = {{height: '24px'}} />
+                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Contact</span>
+                                </Menu.Item>
+                                
+                                <Menu.Item key="3"> 
+                                    <a href={home+'/addFriend'}>
+                                        <img src = '/../pics/AddFriend.png' alt = 'AddFriend' style = {{height: '19px'}} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Add Friend</span>
+                                    </a>
+                                </Menu.Item>
+                                
+                            </Menu>
+                        </Col>
+                        <Col span={4} offset={2}>
+                            <Search placeholder="click to search" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
+                        </Col>
+                        <Col span={4} offset={1}>
+                                <Avatar icon={<UserOutlined />} />
+                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                    {profile.email}
+                                </span>
+                        </Col>
+                    </Row>
+                </Header>
+                <Layout>
+                    {/* <Sider width={'12%'} className="site-layout-background">
+                        <Menu
+                            mode="inline"
+                            defaultSelectedKeys={['1']}
+                            defaultOpenKeys={['sub1']}
+                            style={{ height: '100%', borderRight: 0 }}
+                        >
+                            <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
+                                <Menu.Item key="1">option1</Menu.Item>
+                                <Menu.Item key="2">option2</Menu.Item>
+                                <Menu.Item key="3">option3</Menu.Item>
+                                <Menu.Item key="4">option4</Menu.Item>
+                            </SubMenu>
+                            <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
+                                <Menu.Item key="5">option5</Menu.Item>
+                                <Menu.Item key="6">option6</Menu.Item>
+                                <Menu.Item key="7">option7</Menu.Item>
+                                <Menu.Item key="8">option8</Menu.Item>
+                            </SubMenu>
+                            <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
+                                <Menu.Item key="9">option9</Menu.Item>
+                                <Menu.Item key="10">option10</Menu.Item>
+                                <Menu.Item key="11">option11</Menu.Item>
+                                <Menu.Item key="12">option12</Menu.Item>
+                            </SubMenu>
+                        </Menu>
+                    </Sider> */}
+                    <Content style={{ padding: '0 50px' }}>
+                        <div style={{minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px'}}>
 
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="familyName"
-                                    label="Last Name"
-                                    name="lastname"
-                                    autoComplete="email"
-                                    autoFocus
-                                    onChange={e => setFamilyName(e.target.value)}
-                                />
+                                <div id="left" style={{width:'30px',float:'left',paddingLeft:'5vh', paddingTop:'3vh'}}>
+                                    <Avatar size={140} icon={<UserOutlined />} />
+                                </div>
 
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    autoFocus
-                                    onChange={e => setEmail(e.target.value)}
-                                />
+                                <div id="right" style={{width:'80vw',float:'right',paddingTop:'5vh'}}>
+                                    <div style={{float:'right', paddingRight:'20px'}}>
+                                        <a href = {home+'/editinfo'}>
+                                        <Button type="primary" size='large'>submit</Button>
+                                        </a>
+                                    </div>
 
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                    onChange={e => setPassword(e.target.value)}
-                                />
+                                    <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '15px', fontSize: '47px'}}>
+                                        {/* Welcome!&nbsp;{profile.givenName}&nbsp;{profile.familyName} */}
+                                        Type&nbsp;in&nbsp;your&nbsp;name: &nbsp;Mr.&nbsp;New&nbsp;Bee
+                                    </div>
 
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="comfirmed password"
-                                    label="Comfirmed Password"
-                                    type="password"
-                                    id="confirmPassword"
-                                    autoComplete="current-password"
-                                    onChange={e => setComfPassword(e.target.value)}
-                                />
-
-                                <blocks className={classes.blocks}>
-                                    <Button variant="contained" className={classes.button} onClick={onSignUp}>
-                                        edit
-                                    </Button>
-                                </blocks>
-                            </form>
+                                </div>
                         </div>
-                    </Container>
-                </div>
-            </div>
-        </div>
-    )
+                    </Content>
+                </Layout>
+            </Layout>
+        );
+    }
+    
 };

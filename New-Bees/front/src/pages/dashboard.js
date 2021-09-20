@@ -83,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default class Dashboard extends React.Component { 
 
-
     constructor(props){
         super(props)
         this.state = {profile: undefined, loading: true};
@@ -201,7 +200,7 @@ export default class Dashboard extends React.Component {
 
                                 <div id="right" style={{width:'80vw',float:'right',paddingTop:'5vh'}}>
                                     <div style={{float:'right', paddingRight:'20px'}}>
-                                        <a href = {home+'/editInfo'}>
+                                        <a href = {home+'/editinfo'}>
                                         <Button type="primary" size='large'>change profile</Button>
                                         </a>
                                     </div>
