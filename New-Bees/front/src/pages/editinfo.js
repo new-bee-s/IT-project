@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // register page
-function Register(props) {
+export default function EditInfo(props) {
 
     const classes = useStyles();
     const [email, setEmail] = useState('');
@@ -219,7 +219,7 @@ function Register(props) {
 
                                 <blocks className={classes.blocks}>
                                     <Button variant="contained" className={classes.button} onClick={onSignUp}>
-                                        Register
+                                        edit
                                     </Button>
                                 </blocks>
                             </form>
@@ -230,7 +230,3 @@ function Register(props) {
         </div>
     )
 };
-
-
-
-export default Register;

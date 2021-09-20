@@ -65,16 +65,6 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
 
     },
-    button: {
-        width: "250px",
-        height: "50px",
-        background: '#429CEF',
-        borderRadius: '100px',
-        border: 0,
-        color: '#FFFFFF',
-        fontFamily: 'Ubuntu',
-        fontSize: "18px"
-    },
     background: {
         overflow: 'hidden',
         width: '100%',
@@ -85,8 +75,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         bottom: 0,
     },
-    logo: {
-        width: 'auto',
+    blocks_signin: {
         height: 'auto',
         flexWrap: 'wrap',
         justifyContent: 'center',
@@ -166,8 +155,9 @@ function SignIn(props) {
         //put user input to back-end and return status
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
-                console.log(res.data.data)
+                // console.log(res.data.data)
                 let detail = { id: res.data.data, user: res.data.user }
+                props.history.push('/dashboard/' + detail.id)
                 const cookies = new Cookies();
                 cookies.set('token', res.data.token, { httpOnly: true, sameSite: false, secure: true, maxAge: 24 * 60 * 60 * 1000, path: '/' });
                 props.history.push('/dashboard/' + detail.id)
@@ -178,7 +168,9 @@ function SignIn(props) {
                 message.error(res.data.error)
             }
         }).catch(error => {
-            message.error(error.response.data.error)
+            message.error(error.respond)
+            console.log(error.respond)
+            // or throw(error.respond)
         })
     };
 
@@ -196,7 +188,7 @@ function SignIn(props) {
                     </Container>
                 </div>
                 <div className={classes.middle2} verticalalign='middle'>
-                    <Container component="main" maxWidth="sm">
+                    <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align='center'>Sign In</Typography>
                         </div>
@@ -219,6 +211,10 @@ function SignIn(props) {
                                     autoFocus
                                     onChange={e => setEmail(e.target.value)}
                                 />
+
+                                <a href={"register"} style={{ float: 'right' }}>
+                                    New user? Click here
+                                </a>
 
                                 <TextField
                                     variant="outlined"
@@ -244,6 +240,7 @@ function SignIn(props) {
                                     </Button>
 
                                 </div>
+
                             </form>
                         </div>
                     </Container>
@@ -254,7 +251,5 @@ function SignIn(props) {
         </div>
     )
 };
-
-
 
 export default SignIn;
