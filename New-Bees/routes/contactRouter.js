@@ -16,10 +16,7 @@ contactRouter.post('/:_id/acceptFriend', contactController.acceptFriend)
 contactRouter.get('/:_id/contact', contactController.getContact)
 
 contactRouter.get('/:_id',
-    passport.authenticate('jwt', { session: false }),
-    (req, res) =>
-        utilities.isLoggedIn(req, res), (req, res) =>
-    userController.getUserInfo(req, res)
+    userController.getUserInfo
 )
 
 module.exports = contactRouter
