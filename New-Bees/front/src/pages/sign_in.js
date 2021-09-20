@@ -88,6 +88,68 @@ const useStyles = makeStyles((theme) => ({
     logo: {
         width: 'auto',
         height: 'auto',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '3vh',
+        verticalAlign: 'middle',
+        borderRadius: 3,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    blocks_text: {
+        height: '3vh',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '1vh',
+        verticalAlign: 'middle',
+        borderRadius: 2,
+        display: 'flex',
+        fontFamily: 'Ubuntu',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    blocks_google: {
+        height: 'auto',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        paddingLeft: 'unset',
+        paddingTop: '1.5vh',
+        verticalAlign: 'middle',
+        borderRadius: 3,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        textAlign: 'center',
+
+    },
+    button: {
+        width: "250px",
+        height: "50px",
+        background: '#429CEF',
+        borderRadius: '100px',
+        border: 0,
+        color: '#FFFFFF',
+        alignItems: 'center',
+        fontFamily: 'Ubuntu',
+        fontSize: "18px"
+    },
+    button_google: {
+        width: "250px",
+        height: "50px",
+        background: '#EA4335',
+        borderRadius: '100px',
+        border: 1,
+        color: '#FFFFFF',
+        alignItems: 'center',
+        fontFamily: 'Ubuntu',
+        fontSize: "18px"
     }
 }));
 
@@ -106,13 +168,10 @@ function SignIn(props) {
             if (res.data.success) {
                 console.log(res.data.data)
                 let detail = { id: res.data.data, user: res.data.user }
-                let path = {
-                    pathname: '/dashboard/' + res.data.data,
-                    state: detail
-                }
-                props.history.push(path)
                 const cookies = new Cookies();
-                cookies.set('userInfo', res.data.token, { path: '/', maxAge: 2592000 });
+                cookies.set('token', res.data.token, { httpOnly: true, sameSite: false, secure: true, maxAge: 24 * 60 * 60 * 1000, path: '/' });
+                props.history.push('/dashboard/' + detail.id)
+
             }
             else {
                 // if error
@@ -131,7 +190,7 @@ function SignIn(props) {
                 <div className={classes.column}>
                     <Container component="main" maxWidth="md">
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%' }}></img>
+                            <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle' }}></img>
                         </a>
                         <CssBaseline />
                     </Container>
@@ -174,11 +233,8 @@ function SignIn(props) {
                                     onChange={e => setPassword(e.target.value)}
                                 />
 
-                                <a href={"register"} style={{ float: 'right' }}>
-                                    New user? Click here
-                                </a>
 
-                                <div className={classes.blocks}>
+                                <div className={classes.blocks_signin}>
                                     <Button
                                         variant="contained"
                                         onClick={onSignIn}

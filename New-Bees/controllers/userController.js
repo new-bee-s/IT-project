@@ -1,7 +1,6 @@
 // userController will be written on next 
 require('dotenv').config()
 const User = require('../models/user');
-const mongoose = require('mongoose');
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const Contact = require('../models/contact')
@@ -27,11 +26,11 @@ const UserSignup = (req, res, next) => {
                 email: user.email,
                 information: user.information
             }
+
             //Sign the JWT token and populate the payload with the user email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
             //Send back the token to the client
-            res.cookie('jwt', token, { httpOnly: false, sameSite: false, secure: true });
-            res.cookie('_id', user.id, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+            res.cookie('jwt', token, { httpOnly: false, sameSite: false, secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
             const data = { _id: user.id };
             return res.status(200).json({ success: true, data: data, token: token, user: userSent });
         });
@@ -61,9 +60,7 @@ const UserLogin = (req, res, next) => {
             //Sign the JWT token and populate the payload with the user email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
             //Send back the token to the client
-            res.cookie('jwt', token, { httpOnly: false, sameSite: false, secure: true });
-            res.cookie('_id', user.id, { maxAge: 30 * 24 * 60 * 60 * 1000 });
-            return res.status(200).json({ success: true, data: user.id, token: token, user: userSent });
+            return res.status(200).json({ success: true, data: user.id, token: token, user: user._id });
         });
     })(req, res, next)
 }

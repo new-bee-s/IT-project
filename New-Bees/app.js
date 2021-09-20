@@ -8,16 +8,16 @@ const cors = require('cors')
 
 const session = require('express-session')
 const flash = require('connect-flash-plus')
-
+const cookieParser = require('cookie-parser')
 //app.use(module)
 app.use(express.json())
 app.use(bodyParser.json())
 
 app.use(express.urlencoded({ extended: true })) // replaces body-parser
 app.use(express.static('public'))
-
+app.use(cookieParser())
 app.use(cors({
-    credentals: true,
+    credentials: true,
     origin: "http://localhost:3000"
 }))
 

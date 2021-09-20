@@ -3,7 +3,7 @@ require('dotenv').config()    // for JWT password key
 // using email and password
 const LocalStrategy = require('passport-local').Strategy
 // our user model
-const { User } = require('../models/user')
+const User = require('../models/user')
 
 // JSON Web Tokens
 const passportJWT = require("passport-jwt");
@@ -18,7 +18,8 @@ module.exports = function (passport) {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // client puts token in request header
         secretOrKey: process.env.JWT_PASSWORD, // the key that was used to sign the token
         passReqToCallback: true
-    }, (jwt_payload, done) => { // passport will but the decrypted token in jwt_payload variable
+    }, (req, jwt_payload, done) => {
+        // passport will but the decrypted token in jwt_payload variable
         User.findOne({ '_id': jwt_payload.body._id }, (err, user) => {
             if (err) {
                 return done(err, false);
