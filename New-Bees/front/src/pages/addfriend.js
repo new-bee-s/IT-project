@@ -91,10 +91,10 @@ function AddFriend() {
             color: '#1890ff',
           }}
         />
-      );
+    );
 
     const { Meta } = Card;
-    
+
     const onSearch = value => console.log(value);
     const { Title, Paragraph, Text, Link } = Typography;
 
@@ -104,65 +104,65 @@ function AddFriend() {
         <div style={{ width: '100vw', height: '100vw`, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
             <div className={classes.header}>
                 <a href="/">
-                    <img src="../pics/logo_full.png" alt="logo pic" height={30} />
+                    <img src="../pics/logo_full.png" alt="logo pic" style={{ height: '30px' }} />
                 </a>
             </div>
             <div className={classes.middle}>
                 <div>
                     <Typography component="h1" variant="h6" align='center'>Search anyone you wish to work with!</Typography>
                     <br />
-                <Search placeholder="Enter user id" onSearch={onSearch} enterButton style={{ width: 300 }} />
-                <Divider />
-                <Typography component="h1" variant="h6" align='center'> Opps... No user is found. </Typography>
-                
-                <Typography component="h1" variant="h6" align='center'> Try different user id! </Typography>
-                <Divider />
-                <Typography component="h1" variant="h6" align='left'>Sending a request to ... </Typography>
-                <Card
-                    style={{ width: 300, marginTop: 16 }}
-                    actions={[
-                        <EllipsisOutlined key="ellipsis" />,
-                        <EditOutlined key="edit" />,
-                        <UserAddOutlined key="add" />
-                    
-                    ]}
-                >
-                <Meta
-                    avatar={
-                    <Avatar size={48} icon={<UserOutlined />} />
-                    }
-                    title="FirstName LastName"
-                    description="This slogon is empty"
-                />
-                </Card>
-                <br />
-                <Divider />
-                <Typography component="h1" variant="h6" align='left'>Someone wants to add you... </Typography>
-                <Card
-                    style={{ width: 300, marginTop: 16 }}
-                    actions={[
-                        <EllipsisOutlined key="ellipsis" />,
-                        <EditOutlined key="edit" />,
-                        <CheckOutlined key="confirm" />,
-                    
-                    ]}
-                >
-                <Meta
-                    avatar={
-                    <Avatar size={48} icon={<UserOutlined />} />
-                    }
-                    title="FirstName LastName"
-                    description="This slogon is empty"
-                />
-                </Card>
-                
-                
-                </div>    
+                    <Search placeholder="Enter user id" onSearch={onSearch} enterButton style={{ width: 300 }} />
+                    <Divider />
+                    <Typography component="h1" variant="h6" align='center'> Opps... No user is found. </Typography>
+
+                    <Typography component="h1" variant="h6" align='center'> Try different user id! </Typography>
+                    <Divider />
+                    <Typography component="h1" variant="h6" align='left'>Sending a request to ... </Typography>
+                    <Card
+                        style={{ width: 300, marginTop: 16 }}
+                        actions={[
+                            <EllipsisOutlined key="ellipsis" />,
+                            <EditOutlined key="edit" />,
+                            <UserAddOutlined key="add" />
+
+                        ]}
+                    >
+                        <Meta
+                            avatar={
+                                <Avatar size={48} icon={<UserOutlined />} />
+                            }
+                            title="FirstName LastName"
+                            description="This slogon is empty"
+                        />
+                    </Card>
+                    <br />
+                    <Divider />
+                    <Typography component="h1" variant="h6" align='left'>Someone wants to add you... </Typography>
+                    <Card
+                        style={{ width: 300, marginTop: 16 }}
+                        actions={[
+                            <EllipsisOutlined key="ellipsis" />,
+                            <EditOutlined key="edit" />,
+                            <CheckOutlined key="confirm" />,
+
+                        ]}
+                    >
+                        <Meta
+                            avatar={
+                                <Avatar size={48} icon={<UserOutlined />} />
+                            }
+                            title="FirstName LastName"
+                            description="This slogon is empty"
+                        />
+                    </Card>
+
+
+                </div>
             </div>
 
 
 
-            
+
         </div>
 
 
