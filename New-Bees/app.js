@@ -5,9 +5,8 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const app = express();
 const cors = require('cors')
-
+const passport = require('passport')
 const session = require('express-session')
-const flash = require('connect-flash-plus')
 const cookieParser = require('cookie-parser')
 //app.use(module)
 app.use(express.json())
@@ -27,8 +26,10 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.use(passport.initialize())
 
-app.use(flash())
+app.use(passport.session())
+
 
 // Routers
 const userRouter = require('./routes/userRouter')

@@ -121,4 +121,4 @@ const getUserInfo = async (req, res) => {
     }
 }
 
-module.exports = { UserSignup, UserLogin, addFriend, editInfo, getUserInfo }
+module.exports = { UserSignup, UserLogin, addFriend, getUserInfo }
