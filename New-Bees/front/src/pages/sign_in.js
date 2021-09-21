@@ -156,7 +156,7 @@ function SignIn(props) {
         axios.post('/signin', { email: email, password: password }).then(res => {
             if (res.data.success) {
                 console.log(res.data.data)
-                let detail = { id: res.data.data, user: res.data.user }
+                let detail = { email: res.data.data, user: res.data.use }
                 let path = {
                     pathname: '/dashboard/' + res.data.data,
                     state: detail

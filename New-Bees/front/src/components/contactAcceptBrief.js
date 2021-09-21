@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from '../commons/axios.js'
 import { Menu } from 'antd';
-import { Avatar, Image } from 'antd';
+import { Avatar, Image ,} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 
@@ -11,7 +11,7 @@ import { UserOutlined } from '@ant-design/icons';
 export default class ContactBrief extends React.Component {
     constructor(props){
         super(props)
-        //console.log(props.contact)
+        console.log(props.contact)
     }
 
     //write friend info
@@ -20,10 +20,11 @@ export default class ContactBrief extends React.Component {
     }
 
     render() {
+        
         return(
             <Menu
                 onClick={this.handleClick}
-                style={{ width: 300 }}
+                style={{ width: '100vw' }}
                 defaultSelectedKeys={['1']}
                 defaultOpenKeys={['sub1']}
                 mode="inline"

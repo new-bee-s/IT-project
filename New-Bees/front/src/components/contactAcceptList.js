@@ -1,11 +1,12 @@
 import React from 'react'
-import ContactBrief from '../components/contactBrief.js'
+import ContactBrief from './contactAcceptBrief.js'
 
 export default function ContactList(props) {
     console.log(props.contacts)
     const renderContact = props.contacts.map((contact,index)=>{
         
         return (
+            
             <ContactBrief
                 key ={index}
                 contact = {contact}/> 
