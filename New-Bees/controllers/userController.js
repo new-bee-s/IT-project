@@ -141,4 +141,18 @@ const addFriend = async (req, res) => {
     }
 }
 
-module.exports = { UserSignup, UserLogin, addFriend, editInfo }
+const getUserInfo = async (req, res) => {
+    try {
+        let user = await User.findOne({ _id: req.params._id }, {})
+        if (user) {
+            return res.status(200).json({ success: true, user: user })
+        }
+        else {
+            return res.status(400).json({ success: false, error: 'user not found' })
+        }
+    } catch (err) {
+        return res.status(404).json({ success: false })
+    }
+}
+
+module.exports = { UserSignup, UserLogin, addFriend, editInfo, getUserInfo }

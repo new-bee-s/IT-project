@@ -2,7 +2,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -29,18 +28,18 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         verticalAlign: 'middle',
         justifyContent: 'center',
-        marginTop: "5%",
         boxSizing: "border-box",
         width: '100%',
     },
     column: {
+        display:'flex',
         float: 'left',
         width: "50%",
         padding: "15px",
         alignItems: 'center',
         verticalAlign: 'middle',
-        display: 'flex',
-        marginTop: "8%",
+        boxSizing: "border-box",
+        height: '100%',
     },
     middle2: {
         float: 'left',
@@ -62,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         alignItems: 'center',
         textAlign: 'center',
-
+            
     },
     button: {
         width: "250px",
@@ -132,16 +131,16 @@ function Register(props) {
     return (
         <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
             <div className={classes.middle}>
-                <div className={classes.column}>
-                    <Container component="main" maxWidth="md">
+                <div className={classes.column} style = {{textAlign: 'center', minHeight: '82vh'}}>
+                    <span> 
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle'}}></img>
+                            <img src='./pics/logo_full.png' title="go back to home page" alt="logo pic" style={{ width: '75%'}}></img>
                         </a>
-                        <CssBaseline />
-                    </Container>
+                    </span>
+                   
                 </div>
                 <div className={classes.background}></div>
-                <div className={classes.middle2} verticalAlign= 'middle'>
+                <div className={classes.column} style={{textAlign: 'center', paddingRight:'15vh', minHeight: '82vh'}}>
                     <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align="center">
@@ -219,10 +218,7 @@ function Register(props) {
                                 />
 
                                 <blocks className={classes.blocks}>
-                                    <Button variant="contained"
-                                        className={classes.button}
-                                        onClick={onSignUp}
-                                    >
+                                    <Button variant="contained" className={classes.button} onClick={onSignUp}>
                                         Register
                                     </Button>
                                 </blocks>
@@ -231,8 +227,6 @@ function Register(props) {
                     </Container>
                 </div>
             </div>
-
-
         </div>
     )
 };
