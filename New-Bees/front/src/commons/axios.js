@@ -7,7 +7,9 @@ const cookies = new Cookies()
 
 
 const axios = baseUrl => {
+    console.log(cookies.get('token'))
     const instance = _axios.create({
+
         baseURL: 'http://localhost:8000',
         withCredentials: true,
         headers: {

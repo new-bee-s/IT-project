@@ -11,6 +11,16 @@ const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
 
 module.exports = function (passport) {
+    passport.serializeUser(function (user, done) {
+        done(null, user._id);
+    });
+
+    passport.deserializeUser(function (_id, done) {
+        User.findById(_id, function (err, user) {
+            done(err, user);
+        });
+    });
+
     // Setup a strategy
     // to verify that the token is valid. This strategy is used to check
     // that the client has a valid token
@@ -20,7 +30,9 @@ module.exports = function (passport) {
         passReqToCallback: true
     }, (req, jwt_payload, done) => {
         // passport will but the decrypted token in jwt_payload variable
+        console.log(jwt_payload)
         User.findOne({ '_id': jwt_payload.body._id }, (err, user) => {
+
             if (err) {
                 return done(err, false);
             }
