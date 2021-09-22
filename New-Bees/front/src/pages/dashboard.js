@@ -158,7 +158,7 @@ export default class Dashboard extends React.Component {
                         </Col>
                         <Col span={4} offset={1}>
                             <Avatar icon={<UserOutlined />} />
-                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
                                 {profile.email}
                             </span>
                         </Col>
@@ -192,48 +192,49 @@ export default class Dashboard extends React.Component {
                             </SubMenu>
                         </Menu>
                     </Sider> */}
-                    <Content style={{ padding: '0 50px' }}>
-                        <div style={{ minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px' }}>
+                    <Content style={{ padding: '0 5vw' }}>
+                        <div style={{minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px'}}>
 
-                            <div id="left" style={{ width: '30px', float: 'left', paddingLeft: '5vh', paddingTop: '3vh' }}>
-                                <Avatar size={140} icon={<UserOutlined />} />
+                                <div id="left" style={{width:'10vw',float:'left',paddingLeft:'5vh', paddingTop:'3vh'}}>
+                                    <Avatar size={140} icon={<UserOutlined />} />
+                                </div>
+
+                                <div id="right" style={{width:'70vw',float:'right',paddingTop:'5vh'}}>
+                                    <div style={{float:'right', paddingRight:'20px'}}>
+                                        <a href = {home+'/editinfo'}>
+                                            <Button type="primary" size='large'>change profile</Button>
+                                        </a>
+                                    </div>
+
+                                    <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '15px', fontSize: '47px'}}>
+                                        {/* Welcome!&nbsp;{profile.givenName}&nbsp;{profile.familyName} */}
+                                        Hi!&nbsp;Mr.&nbsp;New&nbsp;Bee
+                                    </div>
+
+                                    <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '27px', paddingLeft: '15px'}}>
+                                        {/* {profile.email} */}
+                                        new.bee@gmail.com
+                                    </div>
+
+                                    <div style={{fontSize:'27px', paddingTop:'10vh'}}>
+                                        <Row gutter={20}>
+                                            <Col span={20}>
+                                                <Statistic title="Active Users" size='large' value={112893} />
+                                            </Col>
+                                            <Col span={20}>
+                                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                                                <Button style={{ marginTop: 16 }} type="primary">
+                                                    Recharge
+                                                </Button>
+                                            </Col>
+                                            <Col span={20}>
+                                                <Statistic title="Active Users" value={112893} loading />
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </div>
+
                             </div>
-
-                            <div id="right" style={{ width: '80vw', float: 'right', paddingTop: '5vh' }}>
-                                <div style={{ float: 'right', paddingRight: '20px' }}>
-                                    <a href={home + '/editinfo'}>
-                                        <Button type="primary" size='large'>change profile</Button>
-                                    </a>
-                                </div>
-
-                                <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '15px', fontSize: '47px' }}>
-                                    {/* Welcome!&nbsp;{profile.givenName}&nbsp;{profile.familyName} */}
-                                    Hi!&nbsp; Mr.&nbsp; New&nbsp; Bee
-                                </div>
-
-                                <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '27px', paddingLeft: '15px' }}>
-                                    {/* {profile.email} */}
-                                    new.bee @gmail.com
-                                </div>
-
-                                <div style={{ fontSize: '27px', paddingTop: '10vh' }}>
-                                    <Row gutter={20}>
-                                        <Col span={20}>
-                                            <Statistic title="Active Users" size='large' value={112893} />
-                                        </Col>
-                                        <Col span={20}>
-                                            <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
-                                            <Button style={{ marginTop: 16 }} type="primary">
-                                                Recharge
-                                            </Button>
-                                        </Col>
-                                        <Col span={20}>
-                                            <Statistic title="Active Users" value={112893} loading />
-                                        </Col>
-                                    </Row>
-                                </div>
-                            </div>
-                        </div>
                     </Content>
                 </Layout >
             </Layout >
