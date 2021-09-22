@@ -6,6 +6,7 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Statistic, Row, Col, Button,Input, Space, Spin } from 'antd';
+import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -193,14 +194,14 @@ export default class EditInfo extends React.Component {
                     <Content style={{ padding: '0 50px' }}>
                         <div style={{minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px'}}>
 
-                                <div id="left" style={{width:'30px',float:'left',paddingLeft:'5vh', paddingTop:'3vh'}}>
+                                <div id="left" style={{width:'10vw',float:'left',paddingLeft:'5vh', paddingTop:'3vh'}}>
                                     <Avatar size={140} icon={<UserOutlined />} />
                                 </div>
 
-                                <div id="right" style={{width:'80vw',float:'right',paddingTop:'5vh'}}>
+                                <div id="right" style={{width:'70vw',float:'right',paddingTop:'5vh'}}>
                                     <div style={{float:'right', paddingRight:'20px'}}>
                                         <a href = {home+'/editinfo'}>
-                                        <Button type="primary" size='large'>submit</Button>
+                                            <Button type="primary" size='large'>submit</Button>
                                         </a>
                                     </div>
 
@@ -209,6 +210,82 @@ export default class EditInfo extends React.Component {
                                         Type&nbsp;in&nbsp;your&nbsp;name: &nbsp;Mr.&nbsp;New&nbsp;Bee
                                     </div>
 
+                                    <div>
+                                        <form noValidate>
+                                            Your first name
+                                            <TextField
+                                                variant="outlined"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="givenName"
+                                                label="Firstname"
+                                                name="firstname"
+                                                autoComplete="email"
+                                                autoFocus
+                                                // onChange={e => setGivenName(e.target.value)}
+                                            />
+
+                                            Your Last name
+                                            <TextField
+                                                variant="outlined"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="familyName"
+                                                label="Last Name"
+                                                name="lastname"
+                                                autoComplete="email"
+                                                autoFocus
+                                                // onChange={e => setFamilyName(e.target.value)}
+                                            />
+
+                                            <TextField
+                                                variant="outlined"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="email"
+                                                label="Email Address"
+                                                name="email"
+                                                autoComplete="email"
+                                                autoFocus
+                                                // onChange={e => setEmail(e.target.value)}
+                                            />
+
+                                            <TextField
+                                                variant="outlined"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                name="password"
+                                                label="Password"
+                                                type="password"
+                                                id="password"
+                                                autoComplete="current-password"
+                                                // onChange={e => setPassword(e.target.value)}
+                                            />
+
+                                            <TextField
+                                                variant="outlined"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                name="comfirmed password"
+                                                label="Comfirmed Password"
+                                                type="password"
+                                                id="confirmPassword"
+                                                autoComplete="current-password"
+                                                // onChange={e => setComfPassword(e.target.value)}
+                                            />
+
+                                            <div>
+                                                {/* <Button variant="contained" onClick={onSignUp}>
+                                                    Register
+                                                </Button> */}
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                         </div>
                     </Content>
