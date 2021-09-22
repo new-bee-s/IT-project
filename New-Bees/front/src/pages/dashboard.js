@@ -1,11 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Dropdown } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Statistic, Row, Col, Button, Input, Space, Spin } from 'antd';
+import { Cookie } from 'express-session';
+import Cookies from 'universal-cookie';
 
 
 // dashboard style
@@ -94,22 +96,36 @@ export default class Dashboard extends React.Component {
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
         axios.get(home).then(response => {
-            console.log(response);
-            if (response.data.success) {
-                this.setState({ profile: response.data.user, loading: false });
+            if(response.data.success){
+                this.setState({profile: response.data.user, loading: false});
             }
         }).catch(error => {
-            console.log(error.response);
+            this.props.history.push('/signin');
         })
     }
 
 
+
     render() {
+        const OnLogOut = () => { 
+            const id = this.props.match.params._id;
+            const logout = '/' + id + '/logout';
+            axios.get(logout).then(response => {
+                if (response.data.success) {
+                    const cookies = new Cookies();
+                    cookies.remove('token');
+                    cookies.remove('connect.sid')
+                    this.props.history.push('/signin');
+                }
+            }).catch(error => {
+                console.log(error.response);
+            })
+    
+        }
         const { SubMenu } = Menu;
         const { Header, Content, Footer, Sider } = Layout;
         const { Search } = Input;
         const { profile, loading } = this.state;
-        console.log(profile);
         const onSearch = value => console.log(value);
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
@@ -119,6 +135,14 @@ export default class Dashboard extends React.Component {
                 <h3>Loading</h3>
             </Space>;
         }
+
+        const logout = (
+            <Menu>
+              <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
+            </Menu>
+          );
+
+
 
         return (
             <Layout >
@@ -156,12 +180,16 @@ export default class Dashboard extends React.Component {
                         <Col span={4} offset={2}>
                             <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
                         </Col>
-                        <Col span={4} offset={1}>
-                            <Avatar icon={<UserOutlined />} />
-                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                {profile.email}
-                            </span>
-                        </Col>
+                        <Dropdown overlay={logout}>
+                            <Col span={3} offset={1}>
+                                <a className="ant-dropdown-link">
+                                    <Avatar icon={<UserOutlined />} />
+                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                        {profile.email}
+                                    </span>
+                                </a>
+                            </Col>
+                        </Dropdown>,
                     </Row>
                 </Header>
                 <Layout>
