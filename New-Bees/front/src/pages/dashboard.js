@@ -5,7 +5,7 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
-import { Statistic, Row, Col, Button,Input, Space, Spin } from 'antd';
+import { Statistic, Row, Col, Button, Input, Space, Spin } from 'antd';
 
 
 // dashboard style
@@ -81,29 +81,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default class Dashboard extends React.Component { 
+export default class Dashboard extends React.Component {
 
-    constructor(props){
+
+    constructor(props) {
         super(props)
-        this.state = {profile: undefined, loading: true};
+        this.state = { profile: undefined, loading: true };
     }
-    
-    
-    componentDidMount(){
+
+
+    componentDidMount() {
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
-        axios.get(home).then(response=>{
+        axios.get(home).then(response => {
             console.log(response);
-            if(response.data.success){
-                this.setState({profile: response.data.user, loading: false});
+            if (response.data.success) {
+                this.setState({ profile: response.data.user, loading: false });
             }
-        }).catch(error=>{
+        }).catch(error => {
             console.log(error.response);
         })
     }
 
-    
-    render(){
+
+    render() {
         const { SubMenu } = Menu;
         const { Header, Content, Footer, Sider } = Layout;
         const { Search } = Input;
@@ -112,54 +113,54 @@ export default class Dashboard extends React.Component {
         const onSearch = value => console.log(value);
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
-        if (loading){
-            return  <Space size="middle" style={{position:'relative', marginLeft:'50vw', marginTop:'50vh'}}>
-                        <Spin size="large" />
-                        <h3>Loading</h3>
-                    </Space>;
+        if (loading) {
+            return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
+                <Spin size="large" />
+                <h3>Loading</h3>
+            </Space>;
         }
 
         return (
             <Layout >
                 <Header style={{ padding: '0 10px' }}>
-                    <Row style = {{height: "64px"}}>
-                        <Col span={2} offset = {1}>
-                            <a href= {home}>
+                    <Row style={{ height: "64px" }}>
+                        <Col span={2} offset={1}>
+                            <a href={home}>
                                 <div>
-                                    <img src='../pics/logo_bee.png' alt='logo_bee' style={{ height: '64px', padding: '6px'}} />
+                                    <img src='../pics/logo_bee.png' alt='logo_bee' style={{ height: '64px', padding: '6px' }} />
                                 </div>
                             </a>
                         </Col>
                         <Col span={7} offset={2}>
-                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style = {{height: '64px'}}>
+                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ height: '64px' }}>
                                 <Menu.Item key="1">
                                     <a href={home}>
-                                        <img src = '../pics/user_icon.png' alt = 'profile_icon' style = {{height: '24px', verticalAlign: 'middle'}} />
-                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Profile</span>
+                                        <img src='../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                                     </a>
                                 </Menu.Item>
-                                <Menu.Item key="2"> 
-                                    <img src = '../pics/contact_icon.png' alt = 'contact_icon' style = {{height: '24px'}} />
-                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Contact</span>
+                                <Menu.Item key="2">
+                                    <img src='../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
+                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
                                 </Menu.Item>
-                                
-                                <Menu.Item key="3"> 
-                                    <a href={home+'/addFriend'}>
-                                        <img src = '../pics/AddFriend.png' alt = 'AddFriend' style = {{height: '19px'}} />
-                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Add Friend</span>
+
+                                <Menu.Item key="3">
+                                    <a href={home + '/addFriend'}>
+                                        <img src='../pics/AddFriend.png' alt='AddFriend' style={{ height: '19px' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Add Friend</span>
                                     </a>
                                 </Menu.Item>
-                                
+
                             </Menu>
                         </Col>
                         <Col span={4} offset={2}>
-                            <Search placeholder="click to search" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
+                            <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
                         </Col>
                         <Col span={4} offset={1}>
-                                <Avatar icon={<UserOutlined />} />
-                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                    {profile.email}
-                                </span>
+                            <Avatar icon={<UserOutlined />} />
+                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                {profile.email}
+                            </span>
                         </Col>
                     </Row>
                 </Header>
@@ -192,51 +193,51 @@ export default class Dashboard extends React.Component {
                         </Menu>
                     </Sider> */}
                     <Content style={{ padding: '0 50px' }}>
-                        <div style={{minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px'}}>
+                        <div style={{ minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px' }}>
 
-                                <div id="left" style={{width:'30px',float:'left',paddingLeft:'5vh', paddingTop:'3vh'}}>
-                                    <Avatar size={140} icon={<UserOutlined />} />
-                                </div>
+                            <div id="left" style={{ width: '30px', float: 'left', paddingLeft: '5vh', paddingTop: '3vh' }}>
+                                <Avatar size={140} icon={<UserOutlined />} />
+                            </div>
 
-                                <div id="right" style={{width:'80vw',float:'right',paddingTop:'5vh'}}>
-                                    <div style={{float:'right', paddingRight:'20px'}}>
-                                        <a href = {home+'/editinfo'}>
+                            <div id="right" style={{ width: '80vw', float: 'right', paddingTop: '5vh' }}>
+                                <div style={{ float: 'right', paddingRight: '20px' }}>
+                                    <a href={home + '/editinfo'}>
                                         <Button type="primary" size='large'>change profile</Button>
-                                        </a>
-                                    </div>
-
-                                    <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '15px', fontSize: '47px'}}>
-                                        {/* Welcome!&nbsp;{profile.givenName}&nbsp;{profile.familyName} */}
-                                        Hi!&nbsp;Mr.&nbsp;New&nbsp;Bee
-                                    </div>
-
-                                    <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '27px', paddingLeft: '15px'}}>
-                                        {/* {profile.email} */}
-                                        new.bee@gmail.com
-                                    </div>
-
-                                    <div style={{fontSize:'27px', paddingTop:'10vh'}}>
-                                        <Row gutter={20}>
-                                            <Col span={20}>
-                                                <Statistic title="Active Users" size='large' value={112893} />
-                                            </Col>
-                                            <Col span={20}>
-                                                <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
-                                                <Button style={{ marginTop: 16 }} type="primary">
-                                                    Recharge
-                                                </Button>
-                                            </Col>
-                                            <Col span={20}>
-                                                <Statistic title="Active Users" value={112893} loading />
-                                            </Col>
-                                        </Row>
-                                    </div>
+                                    </a>
                                 </div>
+
+                                <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '15px', fontSize: '47px' }}>
+                                    {/* Welcome!&nbsp;{profile.givenName}&nbsp;{profile.familyName} */}
+                                    Hi!&nbsp; Mr.&nbsp; New&nbsp; Bee
+                                </div>
+
+                                <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '27px', paddingLeft: '15px' }}>
+                                    {/* {profile.email} */}
+                                    new.bee @gmail.com
+                                </div>
+
+                                <div style={{ fontSize: '27px', paddingTop: '10vh' }}>
+                                    <Row gutter={20}>
+                                        <Col span={20}>
+                                            <Statistic title="Active Users" size='large' value={112893} />
+                                        </Col>
+                                        <Col span={20}>
+                                            <Statistic title="Account Balance (CNY)" value={112893} precision={2} />
+                                            <Button style={{ marginTop: 16 }} type="primary">
+                                                Recharge
+                                            </Button>
+                                        </Col>
+                                        <Col span={20}>
+                                            <Statistic title="Active Users" value={112893} loading />
+                                        </Col>
+                                    </Row>
+                                </div>
+                            </div>
                         </div>
                     </Content>
-                </Layout>
-            </Layout>
+                </Layout >
+            </Layout >
         );
     }
-    
+
 };

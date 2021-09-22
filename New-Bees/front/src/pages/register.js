@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
     column: {
-        display:'flex',
+        display: 'flex',
         float: 'left',
         width: "50%",
         padding: "15px",
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         alignItems: 'center',
         textAlign: 'center',
-            
+
     },
     button: {
         width: "250px",
@@ -111,15 +111,13 @@ function Register(props) {
             confirmPassword: confirmPassword
         }).then(res => {
             if (res.data.success) {
+                // console.log(res.data.data)
                 let detail = { id: res.data.data, user: res.data.user }
-                let path = {
-                    pathname: '/dashboard',
-                    state: detail
-                }
-                props.history.push(path)
                 const cookies = new Cookies();
-                cookies.set('userInfo', res.data.token, { path: '/', maxAge: 2592000 });
+                cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60, path: '/' });
+                props.history.push('/dashboard/' + detail.id)
             }
+
         }).catch(error => {
             //console.log(error.response.data.error)
             console.log(error.response.data.error)
@@ -131,16 +129,16 @@ function Register(props) {
     return (
         <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
             <div className={classes.middle}>
-                <div className={classes.column} style = {{textAlign: 'center', minHeight: '82vh'}}>
-                    <span> 
+                <div className={classes.column} style={{ textAlign: 'center', minHeight: '82vh' }}>
+                    <span>
                         <a href="/">
-                            <img src='./pics/logo_full.png' title="go back to home page" alt="logo pic" style={{ width: '75%'}}></img>
+                            <img src='./pics/logo_full.png' title="go back to home page" alt="logo pic" style={{ width: '75%' }}></img>
                         </a>
                     </span>
-                   
+
                 </div>
                 <div className={classes.background}></div>
-                <div className={classes.column} style={{textAlign: 'center', paddingRight:'15vh', minHeight: '82vh'}}>
+                <div className={classes.column} style={{ textAlign: 'center', paddingRight: '15vh', minHeight: '82vh' }}>
                     <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align="center">
