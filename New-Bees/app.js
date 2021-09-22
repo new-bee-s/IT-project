@@ -38,7 +38,7 @@ const infoRouter = require('./routes/infoRouter')
 // Use Routers
 app.use('/', userRouter)
 app.use('/dashboard/', contactRouter)
-app.use('/dashboard/information', infoRouter)
+app.use('/dashboard/', infoRouter)
 
 const port = process.env.PORT || 8000
 app.listen(port, () => {
