@@ -157,11 +157,9 @@ function SignIn(props) {
             if (res.data.success) {
                 // console.log(res.data.data)
                 let detail = { id: res.data.data, user: res.data.user }
-                props.history.push('/dashboard/' + detail.id)
                 const cookies = new Cookies();
-                cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60 * 1000, path: '/' });
+                cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60, path: '/' });
                 props.history.push('/dashboard/' + detail.id)
-
             }
             else {
                 // if error

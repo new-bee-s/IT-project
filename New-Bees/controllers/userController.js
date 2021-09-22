@@ -3,7 +3,8 @@ require('dotenv').config()
 const User = require('../models/user');
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const Contact = require('../models/contact')
+const Contact = require('../models/contact');
+const { isLoggedIn } = require('../routes/utility');
 require('../config/passport')(passport)
 
 // Create a new user
@@ -18,13 +19,15 @@ const UserSignup = (req, res, next) => {
         }
         req.login(user, { session: false }, async (error) => {
             if (error) return next(error);
+            await User.updateOne({ "_id": user._id }, { $set: { 'isLoggedIn': true } })
             const body = { _id: user._id };
             const userSent = {
                 userID: user.userID,
                 givenName: user.givenName,
                 familyName: user.familyName,
                 email: user.email,
-                information: user.information
+                information: user.information,
+                isLoggedIn: true,
             }
 
             //Sign the JWT token and populate the payload with the user email
@@ -48,7 +51,10 @@ const UserLogin = (req, res, next) => {
         }
         req.login(user, { session: false }, async (error) => {
             if (error) return next(error);
+            await User.updateOne({ "_id": user._id }, { $set: { 'isLoggedIn': true } })
+
             const body = { _id: user._id };
+            console.log(body)
             const userSent = {
                 userID: user.userID,
                 givenName: user.givenName,
@@ -121,4 +127,12 @@ const getUserInfo = async (req, res) => {
     }
 }
 
-module.exports = { UserSignup, UserLogin, addFriend, getUserInfo }
+const logOut = async (req, res) => {
+    try {
+        await User.updateOne({ "_id": req.params._id }, { $set: { 'isLoggedIn': false } })
+        return res.status(200).json({ success: true })
+    } catch (err) {
+        return res.status(404).json({ success: false })
+    }
+}
+module.exports = { UserSignup, UserLogin, addFriend, getUserInfo, logOut }

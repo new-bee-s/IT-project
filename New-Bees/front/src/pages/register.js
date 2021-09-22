@@ -111,15 +111,13 @@ function Register(props) {
             confirmPassword: confirmPassword
         }).then(res => {
             if (res.data.success) {
+                // console.log(res.data.data)
                 let detail = { id: res.data.data, user: res.data.user }
-                let path = {
-                    pathname: '/dashboard',
-                    state: detail
-                }
-                props.history.push(path)
                 const cookies = new Cookies();
                 cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60 * 1000, path: '/' });
+                props.history.push('/dashboard/' + detail.id)
             }
+
         }).catch(error => {
             //console.log(error.response.data.error)
             console.log(error.response.data.error)

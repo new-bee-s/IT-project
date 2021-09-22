@@ -32,12 +32,11 @@ module.exports = function (passport) {
         // passport will but the decrypted token in jwt_payload variable
         console.log(jwt_payload)
         User.findOne({ '_id': jwt_payload.body._id }, (err, user) => {
-
             if (err) {
                 return done(err, false);
             }
             // if we found user, provide the user instance to passport
-            if (user) {
+            if (user && user.isLoggedIn) {
                 return done(null, user);
             } else { // otherwise assign false to indicate that authentication failed
                 return done(null, false);
@@ -45,37 +44,37 @@ module.exports = function (passport) {
         });
     }));
 
-    //Create a passport middleware to handle User login
+
     passport.use('local-login', new LocalStrategy({
-        usernameField: 'email',     // get email and password
-        passwordField: 'password'
-    }, async (email, password, done) => {
-        try {
-            //Find the user associated with the email provided by the user
-            await User.findOne({ 'email': email }, function (err, user) {
-                // if user is not found or there are other errors
-                if (err) {
-                    return done(err, false, { message: "Database query failed" });
-                }
-                if (!user) {
-                    console.log(email, ' not registered');
-                    return done(null, false, { message: 'Email not registered' });
-                }
-                // user is found but the password doesn't match
-                if (!user.validPassword(password)) {
-                    console.log('password incorrect:', email);
-                    return done(null, false, { message: 'Password incorrect' });
-                }
-                // everything is fine, provide user instance to passport
-                else {
-                    console.log('login successfully:', email)
-                    return done(null, user);
-                }
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    }, // pass the req as the first arg to the callback for verification 
+        function (req, email, password, done) {
+            process.nextTick(function () {
+                // see if the user with the emailAddress exists
+                User.findOne({ 'email': email }, function (err, user) {
+                    // if there are errors, user is not found or password
+                    // does match, send back errors
+                    if (err) {
+                        return done(err, false, { message: "Database query failed" });
+                    } else if (!user) {
+                        return done(null, false, { message: 'Email not registered' });
+                    } else if (!user.validPassword(password)) {
+                        // false in done() indicates to the strategy that authentication has
+                        // failed
+                        return done(null, false, { message: 'Password incorrect' });
+                    }
+                    // otherwise, we put the user's id in the session
+                    else {
+                        req.session.user = user._id
+                        return done(null, user);
+                    }
+                });
             });
-        } catch (err) {
-            return done(err, false, { message: "Authenticate failed" });
-        }
-    }));
+
+        }));
+
 
     // for signup
     passport.use('local-signup', new LocalStrategy({
