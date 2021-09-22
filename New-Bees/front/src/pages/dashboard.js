@@ -180,16 +180,20 @@ export default class Dashboard extends React.Component {
                         <Col span={4} offset={2}>
                             <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
                         </Col>
-                        <Dropdown overlay={logout}>
                             <Col span={3} offset={1}>
-                                <a className="ant-dropdown-link">
-                                    <Avatar icon={<UserOutlined />} />
-                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                        {profile.email}
-                                    </span>
-                                </a>
+                                <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                                    <Dropdown overlay={logout}>
+                                        <Menu.Item key="1">
+                                            <a className="ant-dropdown-link">
+                                                <Avatar icon={<UserOutlined />} />
+                                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                                    {profile.email}
+                                                </span>
+                                            </a>
+                                        </Menu.Item>
+                                    </Dropdown>
+                                </Menu>
                             </Col>
-                        </Dropdown>,
                     </Row>
                 </Header>
                 <Layout>
