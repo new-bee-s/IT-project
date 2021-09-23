@@ -91,11 +91,12 @@ export default function EditInfo (props) {
     const [ personalID, setPersonalID ] = useState('');
     const [ givenName, setGivenName] = useState('');
     const [ familyName, setFamilyName] = useState('');
-    const [ password, setPassword ] = useState('');
+    
 
     // store the input password
-    const [ ComfPassword, setComfPassword] = useState('');
-    const [ introduction, setIntroduction] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ confirmed, setConfirmedPassword ] = useState('');
+    const [ introduction, setIntroduction ] = useState('');
 
     // email cannot be updated because it is currently used as login username
     // const [ email, setEmail ] = useState('');

@@ -94,7 +94,7 @@ function Register(props) {
     const [password, setPassword] = useState('');
     const [givenName, setGivenName] = useState('');
     const [familyName, setFamilyName] = useState('');
-    const [confirmPassword, setComfPassword] = useState('');
+    const [confirmedPassword, ConfirmedPassword] = useState('');
 
     //using on onchange
     const onSignUp = () => {
@@ -108,7 +108,7 @@ function Register(props) {
             givenName: givenName,
             familyName: familyName,
             password: password,
-            confirmPassword: confirmPassword
+            confirmPassword: confirmedPassword
         }).then(res => {
             if (res.data.success) {
                 // console.log(res.data.data)
@@ -210,7 +210,7 @@ function Register(props) {
                                     type="password"
                                     id="confirmPassword"
                                     autoComplete="current-password"
-                                    onChange={e => setComfPassword(e.target.value)}
+                                    onChange={e => setConfirmedPassword(e.target.value)}
                                 />
 
                                 <blocks className={classes.blocks}>
