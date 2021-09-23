@@ -1,5 +1,4 @@
 const User = require('../models/user')
-const multer = require('multer')
 
 const editInfo = async (req, res) => {
     let userid = req.body.data
@@ -31,8 +30,4 @@ const editInfo = async (req, res) => {
         return res.status(404).json({ success: false, error: "Website cracked" })
     }
 }
-
-
-
-const uploadImage =
-    module.exports = { editInfo }
+module.exports = { editInfo }
