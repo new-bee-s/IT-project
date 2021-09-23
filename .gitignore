@@ -1,3 +1,7 @@
 # dependencies
 /node_modules/
 .DS_Store
+
+# Environment variables
+.env
+New-Bees/.DS_Store

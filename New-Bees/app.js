@@ -7,16 +7,16 @@ const app = express();
 const cors = require('cors')
 const passport = require('passport')
 const session = require('express-session')
-const flash = require('connect-flash-plus')
-
+const cookieParser = require('cookie-parser')
 //app.use(module)
 app.use(express.json())
 app.use(bodyParser.json())
-app.use(express.urlencoded({ extended: true })) // replaces body-parser
-app.use(express.static('public'))
 
+app.use(express.urlencoded({ extended: false })) // replaces body-parser
+app.use(express.static('public'))
+app.use(cookieParser())
 app.use(cors({
-    credentals: true,
+    credentials: true,
     origin: "http://localhost:3000"
 }))
 
@@ -30,13 +30,17 @@ app.use(passport.initialize())
 
 app.use(passport.session())
 
-app.use(flash())
 
-
+// Routers
 const userRouter = require('./routes/userRouter')
-
+const contactRouter = require('./routes/contactRouter')
+const infoRouter = require('./routes/infoRouter')
+// Use Routers
 app.use('/', userRouter)
-const port = process.env.PORT || 3000
+app.use('/dashboard/', contactRouter)
+app.use('/dashboard/', infoRouter)
+
+const port = process.env.PORT || 8000
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')
 })

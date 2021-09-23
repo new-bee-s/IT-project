@@ -1,12 +1,17 @@
+// import libraries
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import 'antd/dist/antd.css';
+import axios from '../commons/axios.js';
+import { useState } from 'react';
+import { message } from 'antd';
+import Cookies from 'universal-cookie';
 
+//web page style design
 const useStyles = makeStyles((theme) => ({
     header: {
         display: 'flex',
@@ -19,13 +24,30 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '5vh'
     },
     middle: {
-        display: 'flex',
-        justifyContent: 'center',
+        display: 'felx',
         alignItems: 'center',
         verticalAlign: 'middle',
+        justifyContent: 'center',
+        boxSizing: "border-box",
         width: '100%',
-        marginTop: "5vh",
-        overflow: 'hidden'
+    },
+    column: {
+        display: 'flex',
+        float: 'left',
+        width: "50%",
+        padding: "15px",
+        alignItems: 'center',
+        verticalAlign: 'middle',
+        boxSizing: "border-box",
+        height: '100%',
+    },
+    middle2: {
+        float: 'left',
+        width: "50%",
+        padding: "15px",
+        display: 'flex',
+        alignItems: 'center',
+        verticalAlign: 'middle',
     },
     blocks: {
         height: 'auto',
@@ -54,83 +76,157 @@ const useStyles = makeStyles((theme) => ({
     background: {
         overflow: 'hidden',
         width: '100%',
-        height: '315px',
-        backgroundImage: 'url("./pics/homepage_bottom.png")',
+        height: '18%',
+        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        marginTop: '-1vh',
-    }
+        position: 'absolute',
+        bottom: 0,
+    },
 
 }));
 
-function Register(){
-        
+// register page
+function Register(props) {
+
     const classes = useStyles();
-    console.log('jaosn');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [givenName, setGivenName] = useState('');
+    const [familyName, setFamilyName] = useState('');
+    const [confirmPassword, setComfPassword] = useState('');
+
+    //using on onchange
+    const onSignUp = () => {
+
+        console.log(email, password)
+
+        //console.log(email, password)
+        //use axios connect back-end and push personal information to back-end
+        axios.post('/register', {
+            email: email,
+            givenName: givenName,
+            familyName: familyName,
+            password: password,
+            confirmPassword: confirmPassword
+        }).then(res => {
+            if (res.data.success) {
+                // console.log(res.data.data)
+                let detail = { id: res.data.data, user: res.data.user }
+                const cookies = new Cookies();
+                cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60, path: '/' });
+                props.history.push('/dashboard/' + detail.id)
+            }
+
+        }).catch(error => {
+            //console.log(error.response.data.error)
+            console.log(error.response.data.error)
+            message.error(error.response.data.error)
+        })
+    }
+
 
     return (
         <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
-
-            <div className={classes.header}>
-                <a href = "/">
-                <img src="./pics/logo_full.png" alt="logo pic" height={90} />
-                </a>
-            </div>
-
             <div className={classes.middle}>
-                <Container component="main" maxWidth="xs">
-                    <CssBaseline />
-                    <div >
-                        <Typography  component="h1" variant="h3">
-                            Welcome!
-                        </Typography>
+                <div className={classes.column} style={{ textAlign: 'center', minHeight: '82vh' }}>
+                    <span>
+                        <a href="/">
+                            <img src='./pics/logo_full.png' title="go back to home page" alt="logo pic" style={{ width: '75%' }}></img>
+                        </a>
+                    </span>
 
-                        <Typography  component="h1" variant="h5">
-                            Register
-                        </Typography>
+                </div>
+                <div className={classes.background}></div>
+                <div className={classes.column} style={{ textAlign: 'center', paddingRight: '15vh', minHeight: '82vh' }}>
+                    <Container component="main" maxWidth="xs">
+                        <div>
+                            <Typography component="h1" variant="h1" align="center">
+                                Register
+                            </Typography>
+                            <br />
+                            <Typography component="h1" variant="h5" align="center">
+                                Welcome to be the new menber!
+                            </Typography>
+                            <br />
+                            <form noValidate>
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="givenName"
+                                    label="First Name"
+                                    name="firstname"
+                                    autoComplete="email"
+                                    autoFocus
+                                    onChange={e => setGivenName(e.target.value)}
+                                />
 
-                        <form noValidate>
-                            <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                            />
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="familyName"
+                                    label="Last Name"
+                                    name="lastname"
+                                    autoComplete="email"
+                                    onChange={e => setFamilyName(e.target.value)}
+                                />
 
-                            <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            />
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    onChange={e => setEmail(e.target.value)}
+                                />
 
-                            <blocks className={classes.blocks}>
-                                <Button variant="contained" className = {classes.button}href={window.location.href}>
-                                    Register
-                                </Button>
-                            </blocks>
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                    onChange={e => setPassword(e.target.value)}
+                                />
 
-                        </form>
-                    </div>
-                </Container>
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="comfirmed password"
+                                    label="Comfirmed Password"
+                                    type="password"
+                                    id="confirmPassword"
+                                    autoComplete="current-password"
+                                    onChange={e => setComfPassword(e.target.value)}
+                                />
+
+                                <blocks className={classes.blocks}>
+                                    <Button variant="contained" className={classes.button} onClick={onSignUp}>
+                                        Register
+                                    </Button>
+                                </blocks>
+                            </form>
+                        </div>
+                    </Container>
+                </div>
             </div>
-
-            <div className={classes.background}></div>
-
         </div>
     )
-  };
+};
 
 
 
-  export default Register;
+export default Register;
