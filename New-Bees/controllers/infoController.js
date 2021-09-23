@@ -10,31 +10,27 @@ const editInfo = async (req, res) => {
         let userID = req.body.userID
         let mobile = req.body.mobile
         let address = req.body.address
-        let email = req.body.email
         // Udpate the information that user has changed
         if (givenName) {
             await User.updateOne({ _id: userid }, { $set: { givenName: givenName } })
         }
-        else if (familyName) {
+        if (familyName) {
             await User.updateOne({ _id: userid }, { $set: { familyName: familyName } })
         }
-        else if (password) {
+        if (password) {
             await User.updateOne({ _id: userid }, { $set: { password: user.generateHash(password) } })
         }
-        else if (introduction) {
+        if (introduction) {
             await User.updateOne({ _id: userid }, { $set: { introduction: introduction } })
         }
-        else if (userID) {
+        if (userID) {
             await User.updateOne({ _id: userid }, { $set: { userID: userID } })
         }
-        else if (mobile) {
+        if (mobile) {
             await User.updateOne({ _id: userid }, { $set: { mobile: mobile } })
         }
-        else if (address) {
+        if (address) {
             await User.updateOne({ _id: userid }, { $set: { address: address } })
-        }
-        else if (email) {
-            await User.updateOne({ _id: userid }, { $set: { email: email } })
         }
 
         // get user after updating
