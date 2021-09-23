@@ -104,6 +104,7 @@ export default function EditInfo (props) {
                 console.log("profile:" + profile);
             }
         }).catch(error=>{
+            console.log("error:"+error.data)
         })
     },[])
 
