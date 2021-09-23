@@ -1,8 +1,8 @@
 import React, { createRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import { Layout, Menu} from 'antd';
+import { UserOutlined} from '@ant-design/icons';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Statistic, Row, Col, Button,Input, Space, Spin } from 'antd';
@@ -89,7 +89,7 @@ export default function EditInfo (props) {
     const id = props.match.params._id;
     const home = "/dashboard/" + id;
     const { SubMenu } = Menu;
-    const { Header, Content, Footer, Sider } = Layout;
+    const { Header, Content} = Layout;
     const { Search } = Input;
     const [ profile, setProfile ] = useState([]);
     const [ loading, setLoading ] = useState(true);
@@ -103,6 +103,7 @@ export default function EditInfo (props) {
             if(response.data.success){
                 setProfile(response.data.user);
                 console.log("profile:" + profile);
+                setLoading(false);
             }
         }).catch(error=>{
         })
@@ -116,8 +117,13 @@ export default function EditInfo (props) {
         console.log(id);
         console.log(personalID);
     }
-    
-    if (notChangePassword){
+    if (loading) {
+        return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
+            <Spin size="large" />
+            <h3>Loading</h3>
+        </Space>;
+    }
+    else if (notChangePassword){
         return (
             <Layout >
                 <Header style={{ padding: '0 10px' }}>
