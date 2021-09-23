@@ -172,7 +172,6 @@ function Register(props) {
                                     label="Last Name"
                                     name="lastname"
                                     autoComplete="email"
-                                    autoFocus
                                     onChange={e => setFamilyName(e.target.value)}
                                 />
 
@@ -185,7 +184,6 @@ function Register(props) {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
-                                    autoFocus
                                     onChange={e => setEmail(e.target.value)}
                                 />
 
