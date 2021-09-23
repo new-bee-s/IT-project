@@ -85,18 +85,22 @@ export default function EditInfo (props) {
     const home = "/dashboard/" + id;
     const { Header, Content} = Layout;
     const { Search } = Input;
+    
+    // get data to display
     const [ profile, setProfile ] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const [ notChangePassword, setNotChangePassword ] = useState(true);
+
+    // store input data for changing profile
     const [ personalID, setPersonalID ] = useState('');
     const [ givenName, setGivenName] = useState('');
     const [ familyName, setFamilyName] = useState('');
-    
-
-    // store the input password
-    const [ password, setPassword ] = useState('');
-    const [ confirmed, setConfirmedPassword ] = useState('');
     const [ introduction, setIntroduction ] = useState('');
+    
+    // store input password
+    const [ password, setPassword ] = useState('');
+    const [ confirmedPassword, setConfirmedPassword ] = useState('');
+    
 
     // email cannot be updated because it is currently used as login username
     // const [ email, setEmail ] = useState('');
@@ -127,7 +131,9 @@ export default function EditInfo (props) {
 
         axios.post(home+'/editInfo', { givenName: givenName, familyName: familyName, userID: personalID }).then(res => {
             if (res.data.success) {
-                console.log("success:"+email)
+                //console.log("success:"+email)
+                console.log("success changed profile")
+                message.success("success changed profile")
             }
             else {
                 // if error
@@ -285,7 +291,7 @@ export default function EditInfo (props) {
                                             onChange={e => setFamilyName(e.target.value)}
                                         />
                                         
-                                        <TextField
+                                        {/* <TextField
                                             variant="outlined"
                                             margin="normal"
                                             required
@@ -295,7 +301,7 @@ export default function EditInfo (props) {
                                             name="email"
                                             autoComplete="email"
                                             onChange={e => setEmail(e.target.value)}
-                                        />
+                                        /> */}
 
                                         <div>
                                             <a href = {home}>
@@ -402,7 +408,7 @@ export default function EditInfo (props) {
                                         type="password"
                                         id="confirmPassword"
                                         autoComplete="current-password"
-                                        onChange={e => setComfPassword(e.target.value)}
+                                        onChange={e => setConfirmedPassword(e.target.value)}
                                     />
 
                                     <div>

@@ -210,7 +210,7 @@ function Register(props) {
                                     type="password"
                                     id="confirmPassword"
                                     autoComplete="current-password"
-                                    onChange={e => setConfirmedPassword(e.target.value)}
+                                    onChange={e => ConfirmedPassword(e.target.value)}
                                 />
 
                                 <blocks className={classes.blocks}>

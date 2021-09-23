@@ -1,19 +1,12 @@
 //import libraries
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import { Divider } from 'antd';
 import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import 'antd/dist/antd.css';
-import axios from '../commons/axios.js';
-import Cookies from 'universal-cookie';
-import { UserOutlined, SearchOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import { Avatar } from 'antd';
-import { Input, Space } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Card, Input, Divider } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
-import { Skeleton, Switch, Card } from 'antd';
-import { CheckOutlined, UserAddOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { CheckOutlined, UserAddOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
 
 
 
