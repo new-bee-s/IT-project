@@ -8,8 +8,7 @@ require('../config/passport')(passport)
 infoRouter.post('/:_id/editInfo', infoController.editInfo)
 
 infoRouter.get('/:_id',
-    passport.authenticate('jwt'), (req, res) =>
-    userController.getUserInfo(req, res)
+    userController.getUserInfo
 )
 
 
