@@ -25,7 +25,7 @@ export default class ContactBrief extends React.Component {
     
     acceptFrined =()=>{
 
-        axios.post('/dashboard/' + '6140b212aefd2651a71281a5' + '/acceptFriend', {
+        axios.post('/dashboard/' + '614aea1a8cb22838c692a8de' + '/acceptFriend', {
             userid: this.props.contact.user._id
         }).then(response => { 
             if(response.status===200){
@@ -41,7 +41,7 @@ export default class ContactBrief extends React.Component {
     }
 
     rejectFriend = ()=>{
-        axios.post('/dashboard/' + '6140b212aefd2651a71281a5' + '/deleteFriend', {
+        axios.post('/dashboard/' + '614aea1a8cb22838c692a8de' + '/deleteFriend', {
             contactid: this.props.contact._id
         }).then(response => { 
             if(response.status===200){

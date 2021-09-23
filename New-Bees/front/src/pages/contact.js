@@ -16,10 +16,12 @@ export default function Contact(){
     const [acceptContact, setAcceptContacts] = useState([]);
     const [pendingContact, setPendingContact] = useState([]);
     const [length,setLength ]= useState('');
+    
+    
 
 
     useEffect(()=>{
-        axios.get('/dashboard/'+'6140b212aefd2651a71281a5'+'/contact').then(response=>{
+        axios.get('/dashboard/'+ '614aea1a8cb22838c692a8de'+'/contact').then(response=>{
             if(response.data.success){
                 console.log(response.data)
                 setAcceptContacts(response.data.accepted)
@@ -38,7 +40,7 @@ export default function Contact(){
     return(
         
         <Menu 
-            style={{ width: 300 }}
+            
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
             mode="inline"
