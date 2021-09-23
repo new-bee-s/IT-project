@@ -7,9 +7,7 @@ require('../config/passport')(passport)
 
 infoRouter.post('/:_id/editInfo', infoController.editInfo)
 
-infoRouter.get('/:_id',
-    userController.getUserInfo
-)
+infoRouter.get('/:_id', userController.getUserInfo)
 
 
 module.exports = infoRouter

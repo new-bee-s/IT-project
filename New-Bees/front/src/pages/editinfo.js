@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Avatar, Row, Col, Button,Input, Space, Spin } from 'antd';
+import { Layout, Menu, Avatar, Row, Col, Button,Input, Space, Spin, message } from 'antd';
 import { UserOutlined} from '@ant-design/icons';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
@@ -89,6 +89,10 @@ export default function EditInfo (props) {
     const [ loading, setLoading ] = useState(true);
     const [ notChangePassword, setNotChangePassword ] = useState(true);
     const [ personalID, setPersonalID ] = useState('');
+    const [ givenName, setGivenName] = useState('');
+    const [ familyName, setFamilyName] = useState('');
+    const [ password, setPassword] = useState('');
+    const [ information, setInformation] = useState('');
     const [ email, setEmail ] = useState('');
     const onSearch = value => console.log(value);
 
@@ -112,24 +116,18 @@ export default function EditInfo (props) {
     const changeInformation = () => {
         // console.log(personalID)
 
-        axios.post(id+'/editInfo', {
-            email: email,
-        //     givenName: givenName,
-        //     familyName: familyName,
-        //     password: password,
-        //     confirmPassword: confirmPassword
-        // }).then(res => {
-        //     if (res.data.success) {
-        //         // console.log(res.data.data)
-        //         let detail = { id: res.data.data, user: res.data.user }
-        //         const cookies = new Cookies();
-        //         cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60, path: '/' });
-        //         props.history.push('/dashboard/' + detail.id)
-        //     }
-
+        axios.post(home+'/editInfo', { givenName: email, familyName: email, introduction: email}).then(res => {
+            if (res.data.success) {
+                console.log("success:"+email)
+            }
+            else {
+                // if error
+                message.error(res.data.error)
+            }
         }).catch(error => {
-            //console.log(error.response.data.error)
+            message.error(error.response.data.error)
             console.log(error.response.data.error)
+            // or throw(error.respond)
         })
     }
     

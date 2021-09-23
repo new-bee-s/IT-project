@@ -15,10 +15,10 @@ const editInfo = async (req, res) => {
         if (familyName) {
             await User.updateOne({ _id: userid }, { $set: { familyName: familyName } })
         }
-        if (password) {
-            await User.updateOne({ _id: userid }, { $set: { password: user.generateHash(password) } })
-        }
-        if (information) {
+        // if (password) {
+        //     await User.updateOne({ _id: userid }, { $set: { password: user.generateHash(password) } })
+        // }
+        if (introduction) {
             await User.updateOne({ _id: userid }, { $set: { introduction: introduction } })
         }
 
@@ -27,6 +27,7 @@ const editInfo = async (req, res) => {
         res.status(200).json({ success: true, user })
 
     } catch (err) {
+        console.log(err);
         return res.status(404).json({ success: false, error: "Website cracked" })
     }
 }
