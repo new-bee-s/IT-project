@@ -92,10 +92,16 @@ export default function EditInfo (props) {
     const [ givenName, setGivenName] = useState('');
     const [ familyName, setFamilyName] = useState('');
     const [ password, setPassword ] = useState('');
+
+    // store the input password
+    const [ ComfPassword, setComfPassword] = useState('');
     const [ introduction, setIntroduction] = useState('');
-    const [ email, setEmail ] = useState('');
+
+    // email cannot be updated because it is currently used as login username
+    // const [ email, setEmail ] = useState('');
     const onSearch = value => console.log(value);
 
+    // get data from backend
     useEffect(()=>{
         axios.get(home).then(response=>{
             // console.log("data:" + response.data);
@@ -109,14 +115,16 @@ export default function EditInfo (props) {
         })
     },[home, profile])
 
+    // set the state to changing password state
     const changingPassword = () => {
         setNotChangePassword(false)
     }
 
+    // change personal infos
     const changeInformation = () => {
         // console.log(personalID)
 
-        axios.post(home+'/editInfo', { givenName: givenName, familyName: familyName, userID: personalID}).then(res => {
+        axios.post(home+'/editInfo', { givenName: givenName, familyName: familyName, userID: personalID }).then(res => {
             if (res.data.success) {
                 console.log("success:"+email)
             }
@@ -131,11 +139,13 @@ export default function EditInfo (props) {
         })
     }
 
+    // check whether the input email is valid
     // const checkEmail = (email) => {
     //     var correctEmail = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
     //     return correctEmail.test(email);
     // }
 
+    // change user's password
     const changePassword = () => {
         // console.log(personalID)
 
@@ -155,6 +165,7 @@ export default function EditInfo (props) {
         })
     }
 
+    // if the page is loading, draw a loading animation
     if (loading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
             <Spin size="large" />
@@ -162,6 +173,7 @@ export default function EditInfo (props) {
         </Space>;
     }
 
+    // display normal change info page
     else if (notChangePassword){
         return (
             <Layout >
@@ -299,6 +311,10 @@ export default function EditInfo (props) {
             </Layout>
         )
     };
+
+    // change password page
+    // if the change password buttun is clicked
+    // the status is now changing password mode
     return (
         <Layout >
             <Header style={{ padding: '0 10px' }}>
@@ -385,7 +401,7 @@ export default function EditInfo (props) {
                                         type="password"
                                         id="confirmPassword"
                                         autoComplete="current-password"
-                                        // onChange={e => setComfPassword(e.target.value)}
+                                        onChange={e => setComfPassword(e.target.value)}
                                     />
 
                                     <div>
@@ -401,8 +417,5 @@ export default function EditInfo (props) {
             </Layout>
         </Layout>
     )
-        
-
-    
 }
 
