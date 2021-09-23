@@ -91,7 +91,7 @@ export default function EditInfo (props) {
     const [ personalID, setPersonalID ] = useState('');
     const [ givenName, setGivenName] = useState('');
     const [ familyName, setFamilyName] = useState('');
-    const [ password, setPassword] = useState('');
+    const [ password, setPassword ] = useState('');
     const [ introduction, setIntroduction] = useState('');
     const [ email, setEmail ] = useState('');
     const onSearch = value => console.log(value);
@@ -130,12 +130,31 @@ export default function EditInfo (props) {
             // or throw(error.respond)
         })
     }
-    
-    const checkEmail = (email) => {
-        var correctEmail = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
-        return correctEmail.test(email);
+
+    // const checkEmail = (email) => {
+    //     var correctEmail = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
+    //     return correctEmail.test(email);
+    // }
+
+    const changePassword = () => {
+        // console.log(personalID)
+
+        axios.post(home+'/editInfo', { password: password }).then(res => {
+            if (res.data.success) {
+                console.log("success changed password")
+                message.success("success changed password")
+            }
+            else {
+                // if error
+                message.error(res.data.error)
+            }
+        }).catch(error => {
+            message.error(error.response.data.error)
+            console.log(error.response.data.error)
+            // or throw(error.respond)
+        })
     }
-    
+
     if (loading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
             <Spin size="large" />
@@ -353,7 +372,7 @@ export default function EditInfo (props) {
                                         type="password"
                                         id="password"
                                         autoComplete="current-password"
-                                        // onChange={e => setPassword(e.target.value)}
+                                        onChange={e => setPassword(e.target.value)}
                                     />
 
                                     <TextField
@@ -370,9 +389,9 @@ export default function EditInfo (props) {
                                     />
 
                                     <div>
-                                        <a href = {home+'/editinfo'}>
-                                            <Button type="primary" size='large'>submit</Button>
-                                        </a>
+                                        {/* <a href = {home+'/editinfo'}> */}
+                                            <Button type="primary" size='large' onClick={changePassword}>submit</Button>
+                                        {/* </a> */}
                                     </div>
                                 </form>
                             </div>
