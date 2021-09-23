@@ -92,7 +92,7 @@ export default function EditInfo (props) {
     const [ givenName, setGivenName] = useState('');
     const [ familyName, setFamilyName] = useState('');
     const [ password, setPassword] = useState('');
-    const [ information, setInformation] = useState('');
+    const [ introduction, setIntroduction] = useState('');
     const [ email, setEmail ] = useState('');
     const onSearch = value => console.log(value);
 
@@ -116,7 +116,7 @@ export default function EditInfo (props) {
     const changeInformation = () => {
         // console.log(personalID)
 
-        axios.post(home+'/editInfo', { givenName: email, familyName: email, introduction: email}).then(res => {
+        axios.post(home+'/editInfo', { givenName: givenName, familyName: familyName, userID: personalID}).then(res => {
             if (res.data.success) {
                 console.log("success:"+email)
             }
@@ -137,6 +137,7 @@ export default function EditInfo (props) {
             <h3>Loading</h3>
         </Space>;
     }
+
     else if (notChangePassword){
         return (
             <Layout >
@@ -228,17 +229,41 @@ export default function EditInfo (props) {
                                             margin="normal"
                                             required
                                             fullWidth
+                                            id="givenName"
+                                            label={'Your current givenName: '+profile.givenName}
+                                            name="givenName"
+                                            autoComplete="givenName"
+                                            onChange={e => setGivenName(e.target.value)}
+                                        />
+
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="familyName"
+                                            label={'Your current familyName: '+profile.familyName}
+                                            name="familyName"
+                                            autoComplete="familyName"
+                                            onChange={e => setFamilyName(e.target.value)}
+                                        />
+                                        
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
                                             id="email"
-                                            label={'Your current email: '+profile.familyName}
+                                            label={'Your current email: '+profile.email}
                                             name="email"
                                             autoComplete="email"
                                             onChange={e => setEmail(e.target.value)}
                                         />
 
                                         <div>
-                                            {/* <a href = {home+'/editinfo'}> */}
+                                            <a href = {home}>
                                                 <Button type="primary" size='large' style={{paddingLeft:'20px'}} onClick={changeInformation}>submit</Button>
-                                            {/* </a> */}
+                                            </a>
                                             
                                         </div>
                                     </form>
