@@ -89,6 +89,7 @@ export default function EditInfo (props) {
     const [ loading, setLoading ] = useState(true);
     const [ notChangePassword, setNotChangePassword ] = useState(true);
     const [ personalID, setPersonalID ] = useState('');
+    const [ email, setEmail ] = useState('');
     const onSearch = value => console.log(value);
 
     useEffect(()=>{
@@ -107,11 +108,31 @@ export default function EditInfo (props) {
     const changingPassword = () => {
         setNotChangePassword(false)
     }
-    
-    const changeID = (id) => {
-        console.log("id:"+id);
-        setPersonalID(id);
+
+    const changeInformation = () => {
+        // console.log(personalID)
+
+        axios.post(id+'/editInfo', {
+            email: email,
+        //     givenName: givenName,
+        //     familyName: familyName,
+        //     password: password,
+        //     confirmPassword: confirmPassword
+        // }).then(res => {
+        //     if (res.data.success) {
+        //         // console.log(res.data.data)
+        //         let detail = { id: res.data.data, user: res.data.user }
+        //         const cookies = new Cookies();
+        //         cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60, path: '/' });
+        //         props.history.push('/dashboard/' + detail.id)
+        //     }
+
+        }).catch(error => {
+            //console.log(error.response.data.error)
+            console.log(error.response.data.error)
+        })
     }
+    
     if (loading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
             <Spin size="large" />
@@ -201,7 +222,7 @@ export default function EditInfo (props) {
                                             label={'Your current id: '+profile.userID}
                                             name="firstname"
                                             autoComplete="email"
-                                            onChange={e => changeID(e.target.value)}
+                                            onChange={e => setPersonalID(e.target.value)}
                                         />
 
                                         <TextField
@@ -213,13 +234,13 @@ export default function EditInfo (props) {
                                             label={'Your current email: '+profile.familyName}
                                             name="email"
                                             autoComplete="email"
-                                            // onChange={e => setEmail(e.target.value)}
+                                            onChange={e => setEmail(e.target.value)}
                                         />
 
                                         <div>
-                                            <a href = {home+'/editinfo'}>
-                                                <Button type="primary" size='large' style={{paddingLeft:'20px'}}>submit</Button>
-                                            </a>
+                                            {/* <a href = {home+'/editinfo'}> */}
+                                                <Button type="primary" size='large' style={{paddingLeft:'20px'}} onClick={changeInformation}>submit</Button>
+                                            {/* </a> */}
                                             
                                         </div>
                                     </form>
