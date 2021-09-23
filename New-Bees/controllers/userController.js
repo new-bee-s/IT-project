@@ -88,7 +88,8 @@ const SearchUserID = async (req, res) => {
         return res.status(404).json({ success: false })
     }
 }
-// Add friend according to email
+
+// Add friend
 const addFriend = async (req, res) => {
     try {
         let existingContact = await Contact.findOne({ friend: req.body._id, user: req.params._id })
@@ -112,6 +113,7 @@ const addFriend = async (req, res) => {
     }
 }
 
+// Return user information to render in the website
 const getUserInfo = async (req, res) => {
     try {
         let user = await User.findOne({ _id: req.params._id }, {})

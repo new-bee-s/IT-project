@@ -1,8 +1,10 @@
 const User = require('../models/user')
 
+// Get the info from web and update the information if it is not empty
 const editInfo = async (req, res) => {
     try {
         let userid = req.params._id
+        let user = await User.findOne({ _id: userid })
         let givenName = req.body.givenName;
         let familyName = req.body.familyName;
         let password = req.body.password;
