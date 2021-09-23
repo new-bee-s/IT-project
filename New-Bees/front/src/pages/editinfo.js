@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from 'react';
+import React, { createRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Breadcrumb } from 'antd';
@@ -9,6 +9,7 @@ import { Statistic, Row, Col, Button,Input, Space, Spin } from 'antd';
 import TextField from '@material-ui/core/TextField';
 import { set } from 'mongoose';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -97,6 +98,7 @@ export default function EditInfo (props) {
     const personalID = createRef();
 
     useEffect(()=>{
+        console.log("111")
         axios.get(home).then(response=>{
             console.log("data:" + response.data);
             if(response.data.success){
@@ -104,7 +106,6 @@ export default function EditInfo (props) {
                 console.log("profile:" + profile);
             }
         }).catch(error=>{
-            console.log("error:"+error.data)
         })
     },[])
 
