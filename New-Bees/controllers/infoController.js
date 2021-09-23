@@ -1,7 +1,7 @@
 const User = require('../models/user')
 
 const editInfo = async (req, res) => {
-    let userid = req.body.data
+    let userid = req.params._id
     try {
         let givenName = req.body.givenName;
         let familyName = req.body.familyName;
