@@ -91,14 +91,13 @@ export default function EditInfo (props) {
     const { SubMenu } = Menu;
     const { Header, Content, Footer, Sider } = Layout;
     const { Search } = Input;
-    const { profile, setProfile } = useState([]);
-    const { loading, setLoading } = useState(true);
-    const { notChangePassword, setNotChangePassword} = useState(true);
+    const [ profile, setProfile ] = useState([]);
+    const [ loading, setLoading ] = useState(true);
+    const [ notChangePassword, setNotChangePassword ] = useState(true);
     const onSearch = value => console.log(value);
     const personalID = createRef();
 
     useEffect(()=>{
-        console.log("111")
         axios.get(home).then(response=>{
             console.log("data:" + response.data);
             if(response.data.success){
