@@ -131,6 +131,11 @@ export default function EditInfo (props) {
         })
     }
     
+    const checkEmail = (email) => {
+        var correctEmail = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
+        return correctEmail.test(email);
+    }
+    
     if (loading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
             <Spin size="large" />

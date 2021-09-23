@@ -243,7 +243,7 @@ export default class Dashboard extends React.Component {
                                     </div>
 
                                     <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '27px', paddingLeft: '15px'}}>
-                                        {profile.email}
+                                        {profile.introduction}
                                     </div>
 
                                     <div style={{fontSize:'27px', paddingTop:'10vh'}}>
