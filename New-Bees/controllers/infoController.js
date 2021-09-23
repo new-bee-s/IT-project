@@ -41,7 +41,6 @@ const editInfo = async (req, res) => {
         return res.status(200).json({ success: true })
 
     } catch (err) {
-        console.log(err)
         return res.status(404).json({ success: false, error: "Website cracked" })
     }
 }
