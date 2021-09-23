@@ -8,6 +8,7 @@ import axios from '../commons/axios.js';
 import { Statistic, Row, Col, Button,Input, Space, Spin } from 'antd';
 import TextField from '@material-ui/core/TextField';
 import { set } from 'mongoose';
+import { useState } from 'react';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -88,11 +89,6 @@ export default class EditInfo extends React.Component {
         super(props)
         this.state = {profile: undefined, loading: true, notChangePassword: true};
     }
-    
-    
-    // changePassword = () => {
-    //     this.setState({notChangePassword: false});
-    // };
 
     componentDidMount(){
         const id = this.props.match.params._id;
@@ -107,7 +103,7 @@ export default class EditInfo extends React.Component {
         })
     }
 
-
+    
     render(){
         const { SubMenu } = Menu;
         const { Header, Content, Footer, Sider } = Layout;
@@ -117,7 +113,17 @@ export default class EditInfo extends React.Component {
         const onSearch = value => console.log(value);
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
+        // const [personalID, setPersonalID] = useState('');
+        const changingPassword = () => {
+            this.setState({notChangePassword: false})
+        }
+    
+        
+        // const changeID = () => {
 
+        //     console.log(personalID)
+    
+        // }
         if (loading){
             return  (<Space size="middle" style={{position:'relative', marginLeft:'50vw', marginTop:'50vh'}}>
                         <Spin size="large" />
@@ -180,7 +186,7 @@ export default class EditInfo extends React.Component {
                                 </div>
 
                                 <div id="right" style={{float:'right', width:"15vw", paddingRight:'5vw', paddingTop:'8vh'}}>
-                                    <Button type="primary" size='large' variant="contained" onClick={()=>this.setState({notChangePassword: false})}>
+                                    <Button type="primary" size='large' variant="contained" onClick={changingPassword}>
                                         changePassword
                                     </Button> 
                                 </div>
@@ -204,11 +210,11 @@ export default class EditInfo extends React.Component {
                                                 margin="normal"
                                                 required
                                                 fullWidth
-                                                id="givenName"
+                                                id="personalID"
                                                 label={'Your current id: '+profile.userID}
                                                 name="firstname"
                                                 autoComplete="email"
-                                                // onChange={e => setGivenName(e.target.value)}
+                                                // onChange={e => setPersonalID(e.target.value)}
                                             />
 
                                             <TextField
