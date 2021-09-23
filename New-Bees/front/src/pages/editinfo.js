@@ -1,15 +1,10 @@
-import React, { createRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import 'antd/dist/antd.css';
-import { Layout, Menu} from 'antd';
+import { Layout, Menu, Avatar, Row, Col, Button,Input, Space, Spin } from 'antd';
 import { UserOutlined} from '@ant-design/icons';
-import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
-import { Statistic, Row, Col, Button,Input, Space, Spin } from 'antd';
 import TextField from '@material-ui/core/TextField';
-import { set } from 'mongoose';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -88,34 +83,34 @@ export default function EditInfo (props) {
     
     const id = props.match.params._id;
     const home = "/dashboard/" + id;
-    const { SubMenu } = Menu;
     const { Header, Content} = Layout;
     const { Search } = Input;
     const [ profile, setProfile ] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const [ notChangePassword, setNotChangePassword ] = useState(true);
+    const [ personalID, setPersonalID ] = useState('');
     const onSearch = value => console.log(value);
-    const personalID = createRef();
 
     useEffect(()=>{
         axios.get(home).then(response=>{
-            console.log("data:" + response.data);
+            // console.log("data:" + response.data);
             if(response.data.success){
                 setProfile(response.data.user);
-                console.log("profile:" + profile);
+                // console.log("profile:" + profile);
                 setLoading(false);
             }
         }).catch(error=>{
+            console.log("error: "+error.data)
         })
-    },[])
+    },[home, profile])
 
     const changingPassword = () => {
         setNotChangePassword(false)
     }
     
     const changeID = (id) => {
-        console.log(id);
-        console.log(personalID);
+        console.log("id:"+id);
+        setPersonalID(id);
     }
     if (loading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
