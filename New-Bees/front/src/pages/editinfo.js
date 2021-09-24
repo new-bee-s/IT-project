@@ -253,12 +253,16 @@ export default function EditInfo (props) {
                                 <div>
 
                                     <form noValidate>
-                                        Click to change your personal id.
-                                        <br/>
-                                        This id can be anything but it has to be unique.
-                                        <br/>
-                                        People can use this id to find you!
-                                        <br/>
+
+                                        <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px', color:'rgba(0,0,0,0.6)'}}>
+                                            Click to change your personal id.
+                                            <br/>
+                                            This id can be anything but it has to be unique.
+                                            <br/>
+                                            People can use this id to find you!
+                                            <br/>
+                                        </div>
+                                        
 
                                         <TextField
                                             variant="outlined"
