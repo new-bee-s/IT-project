@@ -89,6 +89,7 @@ export default function Contact(props){
                                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                                 </a>
                             </Menu.Item>
+                            
                             <Menu.Item key="2">
                                 <a href={home+'/contact'}>
                                     <img src='/../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />

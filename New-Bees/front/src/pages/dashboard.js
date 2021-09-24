@@ -163,9 +163,12 @@ export default class Dashboard extends React.Component {
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                                     </a>
                                 </Menu.Item>
+                                
                                 <Menu.Item key="2">
-                                    <img src='../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
-                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                    <a href={home+'/contact'}>
+                                        <img src='../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                    </a>
                                 </Menu.Item>
 
                                 <Menu.Item key="3">
