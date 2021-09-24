@@ -82,7 +82,7 @@ export default function Contact(props){
                         </a>
                     </Col>
                     <Col span={7} offset={2}>
-                        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ height: '64px' }}>
+                        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ height: '64px' }}>
                             <Menu.Item key="1">
                                 <a href={home}>
                                     <img src='/../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
@@ -90,8 +90,10 @@ export default function Contact(props){
                                 </a>
                             </Menu.Item>
                             <Menu.Item key="2">
-                                <img src='/../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
-                                <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                <a href={home+'/contact'}>
+                                    <img src='/../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
+                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                </a>
                             </Menu.Item>
 
                             <Menu.Item key="3">
