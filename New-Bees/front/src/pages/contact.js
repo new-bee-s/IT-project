@@ -1,8 +1,8 @@
 import React from 'react'
-import {useState,useEffect } from 'react'
+import {useState,useEffect} from 'react'
 import axios from '../commons/axios.js'
-import ContactAcceptList from '../components/contactAcceptList.js'
 import ContactPendingList from '../components/contactPendingList.js'
+import ContactBrief from '../components/contactAcceptBrief.js'
 import { Menu } from 'antd';
 import { Badge } from 'antd';
 import { UserOutlined,UserAddOutlined } from '@ant-design/icons';
@@ -19,13 +19,14 @@ export default function Contact(props){
     const [acceptContact, setAcceptContacts] = useState([]);
     const [pendingContact, setPendingContact] = useState([]);
     const [length,setLength ]= useState('');
-    const { Header, Content, Footer, Sider } = Layout;
+    const { Header, Content, Sider } = Layout;
+    const [isShowDetail, setShowState] = useState(false);
+    const [Detail, setDetail] = useState('');
     const { Search } = Input;
     const id = props.match.params._id;
     const home = "/dashboard/" + id;
     const [profile,setProfile ]= useState('');
     const onSearch = value => console.log(value);
-
 
     useEffect(()=>{
         axios.get(home +'/contact').then(response=>{
@@ -47,7 +48,6 @@ export default function Contact(props){
         
     },[])
 
-
     const OnLogOut = () => { 
         const logout = '/' + id + '/logout';
         axios.get(logout).then(response => {
@@ -65,11 +65,27 @@ export default function Contact(props){
 
     const logout = (
         <Menu>
-          <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
+            <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
         </Menu>
     );
+    
+    const renderContact = acceptContact.map((contact,index)=>{
+        if (Detail.id === undefined){
+            return (<> </>)
+        }
 
-  
+        if (contact.friend._id === Detail.id){
+            console.log(Detail.id)
+            return (
+                <ContactBrief
+                    key ={index}
+                    contact = {contact}/> 
+            )
+            
+        }
+        return (<> </>)
+    })
+
     return(
         <Layout>
             <Header style={{ padding: '0 10px' }}>
@@ -113,7 +129,7 @@ export default function Contact(props){
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key="1">
-                                        <a className="ant-dropdown-link">
+                                        <a>
                                             <Avatar icon={<UserOutlined />} />
                                             <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
                                                 {profile.email}
@@ -125,7 +141,7 @@ export default function Contact(props){
                         </Col>
                 </Row>
             </Header>
-            <Layout  style={{ padding: '2vh 2vw'}}>
+            <Layout  style={{ padding: '2vh 2vh', paddingRight:'2vh'}}>
                 <Sider width={'20vw'} style = {{background: '#fff'}}>
                     <Menu 
                         mode="inline"
@@ -137,15 +153,22 @@ export default function Contact(props){
                             <ContactPendingList contacts= {pendingContact}/>   
                             </SubMenu>
                             
-                            <SubMenu key="sub2" icon={<UserOutlined/>} title="My friend">
-                                
-                            <ContactAcceptList contacts={acceptContact}/>
-                            
-                            </SubMenu>
-                    
 
+                            <SubMenu key="sub2" icon={<UserOutlined/>} title="My friend">
+                                {acceptContact.map((contact, index) => <Menu.Item key = {index} icon = {
+                                    <Avatar icon={<UserOutlined />}/>
+                                }> 
+                                    <a onClick={
+                                        e => setDetail(e.target)} id = {contact.friend._id}>
+                                        {contact.friend.givenName}
+                                    </a>
+                                </Menu.Item>)}
+                            </SubMenu>    
                     </Menu>
                 </Sider>
+                <Content style={{minHeight: 280, background: '#fff', padding: '2vh 2vh' }}> 
+                    {renderContact}
+                </Content>
             </Layout>
         </Layout>
     )

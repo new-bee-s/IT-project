@@ -3,7 +3,6 @@ import ContactPendingBrief from './contactPendingBrief.js'
 
 
 export default function ContactList(props) {
-    console.log(props.contacts)
     const renderContact = props.contacts.map((contact,index)=>{
         
         return (

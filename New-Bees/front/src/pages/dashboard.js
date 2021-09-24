@@ -6,7 +6,7 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Statistic, Row, Col, Button, Input, Space, Spin } from 'antd';
-import { Cookie } from 'express-session';
+
 import Cookies from 'universal-cookie';
 
 
@@ -141,7 +141,7 @@ export default class Dashboard extends React.Component {
               <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
             </Menu>
           );
-
+        
 
 
         return (

@@ -14,8 +14,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 export default class ContactBrief extends React.Component {
     constructor(props){
-        super(props)
-        console.log(props.contact)
+        super(props);
     }
 
     //write friend info
