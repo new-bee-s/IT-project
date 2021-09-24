@@ -85,14 +85,14 @@ export default function EditInfo (props) {
     const home = "/dashboard/" + id;
     const { Header, Content} = Layout;
     const { Search } = Input;
-    
+
     // get data to display
     const [ profile, setProfile ] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const [ notChangePassword, setNotChangePassword ] = useState(true);
 
     // store input data for changing profile
-    const [ personalID, setPersonalID ] = useState('');
+    const [ userID, setUserID ] = useState('');
     const [ givenName, setGivenName] = useState('');
     const [ familyName, setFamilyName] = useState('');
     const [ introduction, setIntroduction ] = useState('');
@@ -127,9 +127,8 @@ export default function EditInfo (props) {
 
     // change personal infos
     const changeInformation = () => {
-        // console.log(personalID)
 
-        axios.post(home+'/editInfo', { givenName: givenName, familyName: familyName, userID: personalID }).then(res => {
+        axios.post(home+'/editInfo', { givenName: givenName, familyName: familyName, userID: userID, introduction: introduction}).then(res => {
             if (res.data.success) {
                 //console.log("success:"+email)
                 console.log("success changed profile")
@@ -154,7 +153,6 @@ export default function EditInfo (props) {
 
     // change user's password
     const changePassword = () => {
-        // console.log(personalID)
 
         axios.post(home+'/editInfo', { password: password }).then(res => {
             if (res.data.success) {
@@ -201,6 +199,7 @@ export default function EditInfo (props) {
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Profile</span>
                                     </a>
                                 </Menu.Item>
+
                                 <Menu.Item key="2"> 
                                     <img src = '/../pics/contact_icon.png' alt = 'contact_icon' style = {{height: '24px'}} />
                                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Contact</span>
@@ -215,9 +214,11 @@ export default function EditInfo (props) {
                                 
                             </Menu>
                         </Col>
+
                         <Col span={4} offset={2}>
                             <Search placeholder="click to search" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
                         </Col>
+
                         <Col span={4} offset={1}>
                                 <Avatar icon={<UserOutlined />} />
                                 <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
@@ -242,12 +243,15 @@ export default function EditInfo (props) {
                             </div>
 
                             <div id="middle" style={{width:'55vw',float:'middle',paddingTop:'5vh', paddingLeft:'18vw'}}>
+
                                 <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px'}}>
                                     Manage Your Profile
                                 </div>
+                                
                                 <br/>
                                 <br/>
                                 <div>
+
                                     <form noValidate>
                                         Click to change your personal id.
                                         <br/>
@@ -255,17 +259,31 @@ export default function EditInfo (props) {
                                         <br/>
                                         People can use this id to find you!
                                         <br/>
+
                                         <TextField
                                             variant="outlined"
                                             margin="normal"
                                             required
                                             fullWidth
-                                            id="personalID"
+                                            id="userID"
                                             label={'Your current id: '+profile.userID}
-                                            name="firstname"
-                                            autoComplete="email"
-                                            onChange={e => setPersonalID(e.target.value)}
+                                            name="userID"
+                                            autoComplete="UserID"
+                                            onChange={e => setUserID(e.target.value)}
                                         />
+
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="introduction"
+                                            label={'Introduce yourself: '+profile.introduction}
+                                            name="introduction"
+                                            autoComplete="introduction"
+                                            onChange={e => setIntroduction(e.target.value)}
+                                        />
+
 
                                         <TextField
                                             variant="outlined"
@@ -310,6 +328,7 @@ export default function EditInfo (props) {
                                             
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
@@ -335,12 +354,14 @@ export default function EditInfo (props) {
                     </Col>
                     <Col span={7} offset={2}>
                         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style = {{height: '64px'}}>
+
                             <Menu.Item key="1">
                                 <a href={home}>
                                     <img src = '/../pics/user_icon.png' alt = 'profile_icon' style = {{height: '24px', verticalAlign: 'middle'}} />
                                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Profile</span>
                                 </a>
                             </Menu.Item>
+                            
                             <Menu.Item key="2"> 
                                 <img src = '/../pics/contact_icon.png' alt = 'contact_icon' style = {{height: '24px'}} />
                                 <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Contact</span>
@@ -360,6 +381,7 @@ export default function EditInfo (props) {
                     </Col>
                     <Col span={4} offset={1}>
                             <Avatar icon={<UserOutlined />} />
+
                             <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
                                 {profile.email}
                             </span>
@@ -374,9 +396,11 @@ export default function EditInfo (props) {
                         <div id="left" style={{width:'15vw',float:'left',paddingLeft:'5vh', paddingTop:'3vh'}}>
                             <Avatar size={140} icon={<UserOutlined />} />
                         </div>
+
                         <div id="right" style={{float:'right', width:"15vw", paddingRight:'5vw', paddingTop:'8vh'}}>
-                            
+                            <button>go back</button>
                         </div>
+
                         <div id="middle" style={{width:'55vw',float:'middle',paddingTop:'5vh', paddingLeft:'18vw'}}>
                             <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '13px', fontSize: '47px'}}>
                                 Change your password here

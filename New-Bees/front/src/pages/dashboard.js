@@ -239,10 +239,12 @@ export default class Dashboard extends React.Component {
                                     </div>
 
                                     <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '15px', fontSize: '47px'}}>
-                                        Welcome!&nbsp;{profile.givenName}&nbsp;{profile.familyName}
+                                        Hi!&nbsp;{profile.givenName}&nbsp;{profile.familyName}
                                     </div>
 
-                                    <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '27px', paddingLeft: '15px'}}>
+                                    <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '23px', paddingLeft: '15px'}}>
+                                        email:&nbsp;{profile.email}
+                                        <br/>
                                         {profile.introduction}
                                     </div>
 
