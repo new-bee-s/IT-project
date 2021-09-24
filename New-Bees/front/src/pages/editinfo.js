@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Avatar, Row, Col, Button,Input, Space, Spin, message } from 'antd';
+import { Layout, Menu, Avatar, Row, Col, Button, Input, Space, Spin, message, Tooltip } from 'antd';
 import { UserOutlined} from '@ant-design/icons';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
@@ -170,6 +170,10 @@ export default function EditInfo (props) {
         })
     }
 
+    const cancelChangingPassword = () => {
+        setNotChangePassword(true);
+    }
+
     // if the page is loading, draw a loading animation
     if (loading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
@@ -238,7 +242,7 @@ export default function EditInfo (props) {
 
                             <div id="right" style={{float:'right', width:"15vw", paddingRight:'5vw', paddingTop:'8vh'}}>
                                 <Button type="primary" size='large' variant="contained" onClick={changingPassword}>
-                                    changePassword
+                                    Change your password
                                 </Button> 
                             </div>
 
@@ -247,34 +251,36 @@ export default function EditInfo (props) {
                                 <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px'}}>
                                     Manage Your Profile
                                 </div>
-                                
                                 <br/>
-                                <br/>
-                                <div>
 
+                                <div>
                                     <form noValidate>
 
-                                        <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px', color:'rgba(0,0,0,0.6)'}}>
-                                            Click to change your personal id.
-                                            <br/>
-                                            This id can be anything but it has to be unique.
-                                            <br/>
-                                            People can use this id to find you!
-                                            <br/>
-                                        </div>
-                                        
+                                        <Tooltip title={
+                                            <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px'}}>
+                                                Click to change your personal id.
+                                                <br/>
+                                                This id can be anything but it has to be unique.
+                                                <br/>
+                                                People can use this id to find you!
+                                                <br/>
+                                            </div>}
+                                            placement="right"
+                                            color="blue">
 
-                                        <TextField
-                                            variant="outlined"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="userID"
-                                            label={'Your current id: '+profile.userID}
-                                            name="userID"
-                                            autoComplete="UserID"
-                                            onChange={e => setUserID(e.target.value)}
-                                        />
+                                            <TextField
+                                                variant="outlined"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="userID"
+                                                label={'Your current id: '+profile.userID}
+                                                name="userID"
+                                                autoComplete="UserID"
+                                                onChange={e => setUserID(e.target.value)}
+                                            />
+                                        </Tooltip>
+                                        
 
                                         <TextField
                                             variant="outlined"
@@ -325,9 +331,10 @@ export default function EditInfo (props) {
                                             onChange={e => setEmail(e.target.value)}
                                         /> */}
 
-                                        <div>
+
+                                        <div style={{paddingTop:'3vh'}}>
                                             <a href = {home}>
-                                                <Button type="primary" size='large' style={{paddingLeft:'20px'}} onClick={changeInformation}>submit</Button>
+                                                <Button type="primary" size='large' style={{paddingLeft:'20px'}} onClick={changeInformation}>Submit</Button>
                                             </a>
                                             
                                         </div>
@@ -402,7 +409,7 @@ export default function EditInfo (props) {
                         </div>
 
                         <div id="right" style={{float:'right', width:"15vw", paddingRight:'5vw', paddingTop:'8vh'}}>
-                            <button>go back</button>
+                            {/* <button>go back</button> */}
                         </div>
 
                         <div id="middle" style={{width:'55vw',float:'middle',paddingTop:'5vh', paddingLeft:'18vw'}}>
@@ -439,9 +446,17 @@ export default function EditInfo (props) {
                                         onChange={e => setConfirmedPassword(e.target.value)}
                                     />
 
-                                    <div>
+                                    <div style={{paddingTop:'3vh'}}>
                                         {/* <a href = {home+'/editinfo'}> */}
-                                            <Button type="primary" size='large' onClick={changePassword}>submit</Button>
+                                            <Button type="primary" size='large' onClick={changePassword}>
+                                                Submit
+                                            </Button>
+                                            <blocks>
+                                                &nbsp;&nbsp;
+                                            </blocks>
+                                            <Button type="primary" size='large' onClick={cancelChangingPassword}>
+                                                Cancel
+                                            </Button>
                                         {/* </a> */}
                                     </div>
                                 </form>
