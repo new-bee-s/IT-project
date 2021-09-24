@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from '../commons/axios.js'
-import { Avatar, Image ,Drawer, List, Divider, Col, Row} from 'antd';
+import { Avatar, Image ,Drawer, List, Divider, Col, Row,message,Button} from 'antd';
+import {DeleteOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 
 
@@ -16,6 +17,23 @@ export default function ContactBrief(props) {
   
   
   const { Content } = Layout;
+  
+
+  const rejectFriend = ()=>{
+    axios.post('/dashboard/' + '614aea1a8cb22838c692a8de' + '/deleteFriend', {
+        contactid: props.contact._id
+    }).then(response => { 
+        if(response.status===200){
+            message.success("reject successful1")
+        }
+        else{
+            message.error("Please reject again!")
+        }
+    }).catch(error => {
+        
+        })
+
+}
 
 
   return(
@@ -65,6 +83,14 @@ export default function ContactBrief(props) {
         </Row>
         <Row>
         </Row>
+        <Button  
+          shape="round" 
+          icon={<DeleteOutlined/>} 
+          size='large'
+          onClick={rejectFriend()}
+        >
+          Delete Friend
+        </Button>
 
     </Content>
 
