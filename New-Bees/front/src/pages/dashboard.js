@@ -225,25 +225,29 @@ export default class Dashboard extends React.Component {
                         </Menu>
                     </Sider> */}
                     <Content style={{ padding: '0 5vw' }}>
-                        <div style={{minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px'}}>
+                        <div style={{minHeight: '100vh', background: '#fff', padding: '2vw', marginTop: '2vh'}}>
 
-                                <div id="left" style={{width:'10vw',float:'left',paddingLeft:'5vh', paddingTop:'3vh'}}>
+                                <div id="left" style={{width:'20vw',float:'left',paddingLeft:'5vw', paddingTop:'5vh'}}>
                                     <Avatar size={140} icon={<UserOutlined />} />
                                 </div>
 
-                                <div id="right" style={{width:'70vw',float:'right',paddingTop:'5vh'}}>
-                                    <div style={{float:'right', paddingRight:'20px'}}>
-                                        <a href = {home+'/editinfo'}>
-                                            <Button type="primary" size='large'>change profile</Button>
-                                        </a>
+                                <span id="right" style={{width:"15vw", float:'right', paddingRight:'5vw', paddingTop:'8vh'}}>
+                                    <a href = {home+'/editinfo'}>
+                                        <Button type="primary" size='large'>change profile</Button>
+                                    </a>
+                                </span>
+
+                                <div style={{width:'50vw',paddingTop:'5vh', margin:'0 auto'}}>
+                                    
+                                    <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px'}}>
+                                        Hi!&nbsp;{profile.givenName}&nbsp;{profile.familyName}
                                     </div>
 
-                                    <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '15px', fontSize: '47px'}}>
-                                        Welcome!&nbsp;{profile.givenName}&nbsp;{profile.familyName}
-                                    </div>
+                                    <div style={{ verticalAlign: 'middle', fontSize: '18px', color:'rgba(0,0,0,0.6)'}}>
+                                        ID:&nbsp;{profile.userID}
+                                        <br/>
+                                        Introduction:&nbsp;{profile.introduction}
 
-                                    <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '27px', paddingLeft: '15px'}}>
-                                        {profile.email}
                                     </div>
 
                                     <div style={{fontSize:'27px', paddingTop:'10vh'}}>

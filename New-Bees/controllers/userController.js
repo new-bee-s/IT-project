@@ -33,9 +33,8 @@ const UserSignup = (req, res, next) => {
             //Sign the JWT token and populate the payload with the user email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
             //Send back the token to the client
-            res.cookie('jwt', token, { httpOnly: false, sameSite: false, secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
             const data = { _id: user.id };
-            return res.status(200).json({ success: true, data: data, token: token, user: userSent });
+            return res.status(200).json({ success: true, data: user.id, token: token, user: userSent });
         });
     })(req, res, next)
 }
@@ -89,7 +88,8 @@ const SearchUserID = async (req, res) => {
         return res.status(404).json({ success: false })
     }
 }
-// Add friend according to email
+
+// Add friend
 const addFriend = async (req, res) => {
     try {
         let existingContact = await Contact.findOne({ friend: req.body._id, user: req.params._id })
@@ -113,6 +113,7 @@ const addFriend = async (req, res) => {
     }
 }
 
+// Return user information to render in the website
 const getUserInfo = async (req, res) => {
     try {
         let user = await User.findOne({ _id: req.params._id }, {})
@@ -130,7 +131,7 @@ const getUserInfo = async (req, res) => {
 const logOut = async (req, res) => {
     try {
         await User.updateOne({ "_id": req.params._id }, { $set: { 'isLoggedIn': false } })
-        return res.status(200).json({ success: true })
+        return res.clearCookie('connect.sid', { path: '/' }).status(200).json({ success: true })
     } catch (err) {
         return res.status(404).json({ success: false })
     }

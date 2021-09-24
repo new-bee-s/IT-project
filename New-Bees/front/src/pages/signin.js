@@ -166,8 +166,8 @@ function SignIn(props) {
                 message.error(res.data.error)
             }
         }).catch(error => {
-            message.error(error.respond)
-            console.log(error.respond)
+            message.error(error.response.data.error)
+            console.log(error.response.data.error)
             // or throw(error.respond)
         })
     };
