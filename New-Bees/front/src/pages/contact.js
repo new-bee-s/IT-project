@@ -2,6 +2,8 @@ import React from 'react'
 import {useState,useEffect} from 'react'
 import axios from '../commons/axios.js'
 import ContactPendingList from '../components/contactPendingList.js'
+import ContactPendingBrief from '../components/contactPendingBrief.js'
+
 import ContactBrief from '../components/contactAcceptBrief.js'
 import { Menu } from 'antd';
 import { Badge } from 'antd';
@@ -34,7 +36,7 @@ export default function Contact(props){
                 setAcceptContacts(response.data.accepted)
                 setPendingContact(response.data.pending)
                 setLength(response.data.pending.length)
-
+                
             }
         }).catch(error=>{
         })
@@ -129,12 +131,10 @@ export default function Contact(props){
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key="1">
-                                        <a>
-                                            <Avatar icon={<UserOutlined />} />
-                                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                                {profile.email}
-                                            </span>
-                                        </a>
+                                        <Avatar icon={<UserOutlined />} />
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                            {profile.email}
+                                        </span>
                                     </Menu.Item>
                                 </Dropdown>
                             </Menu>
@@ -150,18 +150,24 @@ export default function Contact(props){
                             <SubMenu key="sub1" icon={<Badge count={length} size="small" offset={[2,-1]}> 
                                                     <UserAddOutlined/> 
                                                     </Badge>} title="New friend" >
-                            <ContactPendingList contacts= {pendingContact}/>   
+                                {pendingContact.map((contact, index) => <Menu.Item key = {contact._id} icon = {
+                                    <Avatar icon={<UserOutlined />} />}  style = {{paddingLeft: '20px', height:'100px'}}  > 
+                                    <ContactPendingBrief
+                                    key ={contact._id}
+                                    contact = {contact}/>
+                                </Menu.Item>)}
+                                
                             </SubMenu>
                             
 
                             <SubMenu key="sub2" icon={<UserOutlined/>} title="My friend">
                                 {acceptContact.map((contact, index) => <Menu.Item key = {index} icon = {
                                     <Avatar icon={<UserOutlined />}/>
-                                }> 
-                                    <a onClick={
+                                } style = {{paddingLeft: '20px'}}> 
+                                    <div onClick={
                                         e => setDetail(e.target)} id = {contact.friend._id}>
                                         {contact.friend.givenName}
-                                    </a>
+                                    </div>
                                 </Menu.Item>)}
                             </SubMenu>    
                     </Menu>

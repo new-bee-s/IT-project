@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from '../commons/axios.js'
-import { Menu, message,Button,List} from 'antd';
-import { Avatar} from 'antd';
+import { Menu, message,Button,List, Row, Col} from 'antd';
+import { Divider} from 'antd';
 import { UserOutlined, CheckOutlined, CloseOutlined} from '@ant-design/icons';
 import {IconButton} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -56,33 +56,37 @@ export default class ContactBrief extends React.Component {
     }
 
     render() {
-        
+        console.log(this.props.contact.user);
         return(
-            <Menu
-                onClick={this.handleClick}
-                style={{ width: '100vw',display: 'flex', Margin :'0px 0px'}}
-                defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
-                mode="inline"
-            >
-                    <List.Item >
-                        <Avatar icon={<UserOutlined />} />
-                            {' Given name: '+this.props.contact.user.givenName+'  email: '+this.props.contact.user.email}
-                            <IconButton 
-                                onClick={()=>this.acceptFrined()}      
-                            >
-                                <AddIcon/>
-                            </IconButton>
-                            <IconButton 
-                                onClick={()=>this.rejectFriend()}
-                            >
-                                <DeleteIcon/>
-                            </IconButton >
+            <Row>
+                <Col span={19} style = {{verticalAlign: 'middle', display: 'inline-block'}}>
+                    
+                    <List.Item  style = {{paddingTop: '20px'}}>
+                        <List.Item.Meta
+                        title= {this.props.contact.user.givenName + ' ' + this.props.contact.user.familyName}
+                        description= {this.props.contact.user.email}
+                        />
                     </List.Item>
-            </Menu>
-                
 
-    )
+                </Col>
+                <Col span={5}>
+                    <div style = {{height: '50%'}}> 
+                        <IconButton 
+                            onClick={()=>this.acceptFrined()}      
+                        >
+                            <AddIcon/>
+                        </IconButton>
+                    </div>
+                    <div style = {{height: '50%'}}> 
+                        <IconButton 
+                            onClick={()=>this.rejectFriend()}
+                        >
+                            <DeleteIcon/>
+                        </IconButton >
+                    </div>
+                </Col>
+            </Row>
+        )
 
     }
 }
