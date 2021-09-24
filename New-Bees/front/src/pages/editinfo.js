@@ -225,28 +225,27 @@ export default function EditInfo (props) {
 
                         <Col span={4} offset={1}>
                                 <Avatar icon={<UserOutlined />} />
+
                                 <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
                                     {profile.email}
                                 </span>
                         </Col>
                     </Row>
                 </Header>
+
                 <Layout>
-
                     <Content style={{ padding: '0 50px' }}>
-                        <div style={{minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px'}}>
+                        <div style={{minHeight: '100vh', background: '#fff', padding: '2vw', marginTop: '2vh'}}>
 
-                            <div id="left" style={{width:'15vw',float:'left',paddingLeft:'5vh', paddingTop:'3vh'}}>
+                            <span id="left" style={{width:'15vw', float:'left', paddingLeft:'5vw', paddingTop:'5vh'}}>
                                 <Avatar size={140} icon={<UserOutlined />} />
-                            </div>
+                            </span>
 
-                            <div id="right" style={{float:'right', width:"15vw", paddingRight:'5vw', paddingTop:'8vh'}}>
-                                <Button type="primary" size='large' variant="contained" onClick={changingPassword}>
-                                    Change your password
-                                </Button> 
-                            </div>
+                            <span id="right" style={{width:"15vw", float:'right', paddingRight:'5vw', paddingTop:'8vh'}}>
+                                
+                            </span>
 
-                            <div id="middle" style={{width:'55vw',float:'middle',paddingTop:'5vh', paddingLeft:'18vw'}}>
+                            <div id="middle" style={{width:'45vw',paddingTop:'5vh', margin:'0 auto'}}>
 
                                 <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px'}}>
                                     Manage Your Profile
@@ -257,14 +256,13 @@ export default function EditInfo (props) {
                                     <form noValidate>
 
                                         <Tooltip title={
-                                            <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px'}}>
-                                                Click to change your personal id.
-                                                <br/>
-                                                This id can be anything but it has to be unique.
-                                                <br/>
-                                                People can use this id to find you!
-                                                <br/>
-                                            </div>}
+                                                <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px'}}>
+                                                    This ID can be anything but it has to be unique.
+                                                    <br/>
+                                                    People can use it to find you!
+                                                    <br/>
+                                                </div>
+                                            }
                                             placement="right"
                                             color="blue">
 
@@ -334,9 +332,24 @@ export default function EditInfo (props) {
 
                                         <div style={{paddingTop:'3vh'}}>
                                             <a href = {home}>
-                                                <Button type="primary" size='large' style={{paddingLeft:'20px'}} onClick={changeInformation}>Submit</Button>
+                                                <Button type="primary" size='large' onClick={changeInformation}>Submit</Button>
                                             </a>
-                                            
+
+                                            <blocks>
+                                                &nbsp;&nbsp;
+                                            </blocks>
+
+                                            <a href = {home}>
+                                                <Button type="primary" size='large'>Cancel</Button>
+                                            </a>
+
+                                            <blocks>
+                                                &nbsp;&nbsp;
+                                            </blocks>
+
+                                            <Button type="primary" size='large' variant="contained" onClick={changingPassword} style={{float:'right'}}>
+                                                Change password
+                                            </Button> 
                                         </div>
                                     </form>
 
@@ -402,19 +415,19 @@ export default function EditInfo (props) {
             <Layout>
 
                 <Content style={{ padding: '0 50px' }}>
-                    <div style={{minHeight: '100vh', background: '#fff', padding: '24px', marginTop: '24px'}}>
+                    <div style={{minHeight: '100vh', background: '#fff', padding: '2vw', marginTop: '2vh'}}>
 
-                        <div id="left" style={{width:'15vw',float:'left',paddingLeft:'5vh', paddingTop:'3vh'}}>
-                            <Avatar size={140} icon={<UserOutlined />} />
+                        <div id="left" style={{width:'15vw',float:'left',paddingLeft:'5vw', paddingTop:'5vh'}}>
+                            {/* <Avatar size={140} icon={<UserOutlined />} /> */}
                         </div>
 
                         <div id="right" style={{float:'right', width:"15vw", paddingRight:'5vw', paddingTop:'8vh'}}>
                             {/* <button>go back</button> */}
                         </div>
 
-                        <div id="middle" style={{width:'55vw',float:'middle',paddingTop:'5vh', paddingLeft:'18vw'}}>
+                        <div id="middle" style={{width:'45vw', paddingTop:'5vh', margin:'0 atuo'}}>
                             <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '13px', fontSize: '47px'}}>
-                                Change your password here
+                                Change your password
                             </div>
                             
 
@@ -451,9 +464,11 @@ export default function EditInfo (props) {
                                             <Button type="primary" size='large' onClick={changePassword}>
                                                 Submit
                                             </Button>
+
                                             <blocks>
                                                 &nbsp;&nbsp;
                                             </blocks>
+
                                             <Button type="primary" size='large' onClick={cancelChangingPassword}>
                                                 Cancel
                                             </Button>
