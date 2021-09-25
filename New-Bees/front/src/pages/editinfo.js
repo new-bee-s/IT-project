@@ -210,9 +210,9 @@ export default function EditInfo (props) {
                                 </Menu.Item>
                                 
                                 <Menu.Item key="3"> 
-                                    <a href={home+'/addFriend'}>
+                                    <a href={home+'/search'}>
                                         <img src = '/../pics/AddFriend.png' alt = 'AddFriend' style = {{height: '19px'}} />
-                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Add Friend</span>
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Search</span>
                                     </a>
                                 </Menu.Item>
                                 
