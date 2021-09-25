@@ -15,5 +15,5 @@ contactRouter.post('/:_id/acceptFriend', contactController.acceptFriend)
 
 contactRouter.get('/:_id/contact', contactController.getContact)
 
-
+contactRouter.post('/:_id/changeRemark', contactController.changeRemark)
 module.exports = contactRouter
