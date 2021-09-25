@@ -7,6 +7,7 @@ import Dashboard from './pages/dashboard.js';
 import AddFriend from './pages/addfriend.js';
 import EditInfo from './pages/editinfo.js';
 
+
 // router switch 
 class Router extends React.Component {
     render() {
