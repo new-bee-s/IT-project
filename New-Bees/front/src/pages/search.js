@@ -215,8 +215,12 @@ export default class AddFriend extends React.Component {
                             <br />
                             
                             <Divider /> 
+
                             <div align='center'>
-                                <Search align='center' placeholder="Enter ID" onSearch={onSearch} enterButton style={{ width: 800 }} />
+                                <img src="/../pics/telescope.png" alt="telescope" style={{ height: '300px', padding: '6px' }} />
+                                <br />
+                                <br />
+                                <Search align='center' placeholder="Enter ID" onSearch={onSearch} enterButton style={{ width: 800}} />
                             </div>
                             
                             <br />
