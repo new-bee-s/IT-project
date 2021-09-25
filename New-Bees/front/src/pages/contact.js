@@ -3,11 +3,9 @@ import {useState,useEffect} from 'react'
 import axios from '../commons/axios.js'
 import ContactPendingList from '../components/contactPendingList.js'
 import ContactPendingBrief from '../components/contactPendingBrief.js'
-
 import ContactBrief from '../components/contactAcceptBrief.js'
-import { Menu } from 'antd';
-import { Badge } from 'antd';
-import { UserOutlined,UserAddOutlined } from '@ant-design/icons';
+import { Menu,Badge,Typography } from 'antd';
+import { UserOutlined,UserAddOutlined,HighlightOutlined } from '@ant-design/icons';
 import { Layout, Dropdown } from 'antd';
 import { Statistic, Row, Col, Button, Input, Space, Spin } from 'antd';
 import Cookies from 'universal-cookie';
@@ -16,7 +14,7 @@ import { Avatar } from 'antd';
 
 
 export default function Contact(props){
-    
+    const { Text } = Typography;
     const { SubMenu } = Menu;
     const [acceptContact, setAcceptContacts] = useState([]);
     const [pendingContact, setPendingContact] = useState([]);
@@ -29,7 +27,7 @@ export default function Contact(props){
     const home = "/dashboard/" + id;
     const [profile,setProfile ]= useState('');
     const onSearch = value => console.log(value);
-
+    console.log(props)
     useEffect(()=>{
         axios.get(home +'/contact').then(response=>{
             if(response.data.success){
@@ -49,7 +47,7 @@ export default function Contact(props){
         })
         
     },[])
-
+    
     const OnLogOut = () => { 
         const logout = '/' + id + '/logout';
         axios.get(logout).then(response => {
@@ -164,9 +162,18 @@ export default function Contact(props){
                                 {acceptContact.map((contact, index) => <Menu.Item key = {index} icon = {
                                     <Avatar icon={<UserOutlined />}/>
                                 } style = {{paddingLeft: '20px'}}> 
-                                    <div onClick={
-                                        e => setDetail(e.target)} id = {contact.friend._id}>
+                                    <div 
+                                     onClick={e => setDetail(e.target)} 
+                                     id = {contact.friend._id}
+                                    >
                                         {contact.friend.givenName}
+                                    <Text 
+                                      type="secondary"
+                                      style={{margin:'5px'}}
+                                    >
+                                        {contact.remark}
+                                    </Text>
+                                        
                                     </div>
                                 </Menu.Item>)}
                             </SubMenu>    
