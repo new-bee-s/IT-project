@@ -4,6 +4,7 @@ import Homepage from './pages/homepage.js';
 import SignIn from './pages/signin.js';
 import Register from './pages/register.js';
 import Dashboard from './pages/dashboard.js';
+import Contact from './pages/contact.js';
 import AddFriend from './pages/addfriend.js';
 import EditInfo from './pages/editinfo.js';
 
@@ -18,6 +19,7 @@ class Router extends React.Component {
                     <Route path='/signin' exact component={SignIn}></Route>
                     <Route path='/register' exact component={Register}></Route>
                     <Route path='/dashboard/:_id' exact component={Dashboard}></Route>
+                    <Route path='/dashboard/:_id/contact' exact component={Contact}></Route>
                     <Route path='/dashboard/:_id/addfriend' exact component={AddFriend}></Route>
                     <Route path='/dashboard/:_id/editinfo' exact component={EditInfo}></Route>
                 </Switch>

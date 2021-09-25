@@ -6,7 +6,7 @@ import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Statistic, Row, Col, Button, Input, Space, Spin } from 'antd';
-import { Cookie } from 'express-session';
+
 import Cookies from 'universal-cookie';
 
 
@@ -141,7 +141,7 @@ export default class Dashboard extends React.Component {
               <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
             </Menu>
           );
-
+        
 
 
         return (
@@ -163,9 +163,12 @@ export default class Dashboard extends React.Component {
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                                     </a>
                                 </Menu.Item>
+                                
                                 <Menu.Item key="2">
-                                    <img src='../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
-                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                    <a href={home+'/contact'}>
+                                        <img src='../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                    </a>
                                 </Menu.Item>
 
                                 <Menu.Item key="3">
