@@ -146,6 +146,7 @@ export default class AddFriend extends React.Component {
 
 
         return (
+            
             <Layout >
                 <Header style={{ padding: '0 10px' }}>
                     <Row style={{ height: "64px" }}>
@@ -165,15 +166,16 @@ export default class AddFriend extends React.Component {
                                     </a>
                                 </Menu.Item>
                                 <Menu.Item key="2">
-
-                                    <img src="/../pics/contact_icon.png" alt='contact_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
-                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                    <a href={home+'/contact'}>
+                                        <img src="/../pics/contact_icon.png" alt='contact_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                    </a>
                                 </Menu.Item>
 
                                 <Menu.Item key="3">
-                                    <a href={home + '/addFriend'}>
+                                    <a href={home + '/search'}>
                                         <img src="/../pics/AddFriend.png" alt="AddFriend" style={{ height: '19px' }} />
-                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Add Friend</span>
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
                                     </a>
                                 </Menu.Item>
 
