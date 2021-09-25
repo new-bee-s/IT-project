@@ -15,6 +15,7 @@ import AddIcon from '@material-ui/icons/Add';
 export default class ContactBrief extends React.Component {
     constructor(props){
         super(props);
+        //console.log(props.contact.friend.user)
     }
 
     //write friend info
@@ -22,9 +23,12 @@ export default class ContactBrief extends React.Component {
       console.log('click ', e);
     }
     
-    acceptFrined =()=>{
+    acceptFriend =()=>{
 
-        axios.post('/dashboard/' + '614aea1a8cb22838c692a8de' + '/acceptFriend', {
+        const userId = this.props.contact.friend
+        //console.log(this.props.contact.user._id)
+        //console.log(userId)
+        axios.post('/dashboard/' + userId+ '/acceptFriend', {
             userid: this.props.contact.user._id
         }).then(response => { 
             if(response.status===200){
@@ -40,14 +44,16 @@ export default class ContactBrief extends React.Component {
     }
 
     rejectFriend = ()=>{
-        axios.post('/dashboard/' + '614aea1a8cb22838c692a8de' + '/deleteFriend', {
+        const userId = this.props.contact.friend
+
+        axios.post('/dashboard/' + userId + '/deleteFriend', {
             contactid: this.props.contact._id
         }).then(response => { 
             if(response.status===200){
-                message.success("reject successful1")
+                message.success("Reject successfull !")
             }
             else{
-                message.error("Please reject again!")
+                message.error("Please reject again !")
             }
         }).catch(error => {
             
@@ -56,7 +62,7 @@ export default class ContactBrief extends React.Component {
     }
 
     render() {
-        console.log(this.props.contact.user);
+        //console.log(this.props.contact.user);
         return(
             <Row>
                 <Col span={19} style = {{verticalAlign: 'middle', display: 'inline-block'}}>
@@ -72,7 +78,7 @@ export default class ContactBrief extends React.Component {
                 <Col span={5}>
                     <div style = {{height: '50%'}}> 
                         <IconButton 
-                            onClick={()=>this.acceptFrined()}      
+                            onClick={()=>this.acceptFriend()}      
                         >
                             <AddIcon/>
                         </IconButton>

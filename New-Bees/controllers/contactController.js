@@ -54,6 +54,7 @@ const getContact = async (req, res) => {
 const changeRemark = async (req, res) => {
     try {
         await Contact.updateOne({ _id: req.body.contactid }, { $set: { remark: req.body.remark } })
+        return res.status(200).json({ success: true })
     } catch { err } {
         return res.status(400).json({ success: false, error: "Database query failed" })
     }
