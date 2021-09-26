@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, PureComponent } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Avatar, Row, Col, Button, Input, Space, Spin, message, Tooltip } from 'antd';
@@ -101,6 +101,12 @@ export default function EditInfo (props) {
     const [ password, setPassword ] = useState('');
     const [ confirmedPassword, setConfirmedPassword ] = useState('');
     
+    // image
+    // const { Fragement } = React;
+    // const saveStoreZeroCharge = global.constants.website + "/feiyangshop-admin-react/saveStoreZeroCharge";
+    // const [ file, setFile] = useState('');
+    // const [ showImg, setShowImage ] = useState('none');
+
 
     // email cannot be updated because it is currently used as login username
     // const [ email, setEmail ] = useState('');
@@ -334,7 +340,9 @@ export default function EditInfo (props) {
 
                                         <div style={{paddingTop:'3vh'}}>
                                             <a href = {home}>
-                                                <Button type="primary" size='large' onClick={changeInformation}>Submit</Button>
+                                                <Button type="primary" size='large' onClick={changeInformation}>
+                                                    Submit
+                                                </Button>
                                             </a>
 
                                             <blocks>
@@ -342,7 +350,9 @@ export default function EditInfo (props) {
                                             </blocks>
 
                                             <a href = {home}>
-                                                <Button type="primary" size='large'>Cancel</Button>
+                                                <Button type="primary" size='large'>
+                                                    Cancel
+                                                </Button>
                                             </a>
 
                                             <blocks>
@@ -351,7 +361,17 @@ export default function EditInfo (props) {
 
                                             <Button type="primary" size='large' variant="contained" onClick={changingPassword} style={{float:'right'}}>
                                                 Change password
-                                            </Button> 
+                                            </Button>
+
+                                            <blocks>
+                                                &nbsp;&nbsp;
+                                            </blocks>
+
+                                            <a href = {home+'/image'}>
+                                                <Button type="primary" size='large'>
+                                                    Change avatar
+                                                </Button>
+                                            </a>
                                         </div>
                                     </form>
 
