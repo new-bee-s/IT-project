@@ -87,14 +87,6 @@ function Homepage() {
                 </ul>
             </div>
 
-            <div className={classes.middle}>
-                <ul className={classes.blocks}>
-                    <Button variant="contained" className={classes.button} href={window.location.href + "add"}>
-                        Add Friend Demo
-                    </Button>
-                </ul>
-            </div>
-
             <div className={classes.background}></div>
         </div>
     )

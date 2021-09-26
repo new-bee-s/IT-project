@@ -158,7 +158,7 @@ export default class AddFriend extends React.Component {
                     console.log(res.data.user)
                     console.log("success search")
                     message.success("success search")
-                    return <div> </div>;
+                    //return <div> </div>;
                 }
                 else {
                     // if error
