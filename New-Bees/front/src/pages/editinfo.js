@@ -205,8 +205,10 @@ export default function EditInfo (props) {
                                 </Menu.Item>
 
                                 <Menu.Item key="2"> 
-                                    <img src = '/../pics/contact_icon.png' alt = 'contact_icon' style = {{height: '24px'}} />
-                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Contact</span>
+                                    <a href={home+'/contact'}>
+                                        <img src='/../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                    </a>
                                 </Menu.Item>
                                 
                                 <Menu.Item key="3"> 
@@ -387,14 +389,16 @@ export default function EditInfo (props) {
                             </Menu.Item>
                             
                             <Menu.Item key="2"> 
-                                <img src = '/../pics/contact_icon.png' alt = 'contact_icon' style = {{height: '24px'}} />
-                                <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Contact</span>
+                                <a href={home+'/contact'}>
+                                    <img src='/../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
+                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                </a>
                             </Menu.Item>
                             
                             <Menu.Item key="3"> 
                                 <a href={home+'/addFriend'}>
                                     <img src = '/../pics/AddFriend.png' alt = 'AddFriend' style = {{height: '19px'}} />
-                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Add Friend</span>
+                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px'}}>Search</span>
                                 </a>
                             </Menu.Item>
                             
