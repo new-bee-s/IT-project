@@ -131,9 +131,9 @@ export default class Dashboard extends React.Component {
         const home = "/dashboard/" + id;
         if (loading) {
             return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
-                <Spin size="large" />
-                <h3>Loading</h3>
-            </Space>;
+                        <Spin size="large" />
+                        <h3>Loading</h3>
+                    </Space>;
         }
 
         const logout = (
