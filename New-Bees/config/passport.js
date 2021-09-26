@@ -3,7 +3,7 @@ require('dotenv').config()    // for JWT password key
 // using email and password
 const LocalStrategy = require('passport-local').Strategy
 // our user model
-const { User } = require('../models/user')
+const User = require('../models/user')
 
 // JSON Web Tokens
 const passportJWT = require("passport-jwt");
@@ -11,6 +11,16 @@ const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
 
 module.exports = function (passport) {
+    passport.serializeUser(function (user, done) {
+        done(null, user._id);
+    });
+
+    passport.deserializeUser(function (_id, done) {
+        User.findById(_id, function (err, user) {
+            done(err, user);
+        });
+    });
+
     // Setup a strategy
     // to verify that the token is valid. This strategy is used to check
     // that the client has a valid token
@@ -18,13 +28,14 @@ module.exports = function (passport) {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // client puts token in request header
         secretOrKey: process.env.JWT_PASSWORD, // the key that was used to sign the token
         passReqToCallback: true
-    }, (jwt_payload, done) => { // passport will but the decrypted token in jwt_payload variable
+    }, (req, jwt_payload, done) => {
+        // passport will but the decrypted token in jwt_payload variable
         User.findOne({ '_id': jwt_payload.body._id }, (err, user) => {
             if (err) {
                 return done(err, false);
             }
             // if we found user, provide the user instance to passport
-            if (user) {
+            if (user && user.isLoggedIn && user._id == req.params._id) {
                 return done(null, user);
             } else { // otherwise assign false to indicate that authentication failed
                 return done(null, false);
@@ -32,37 +43,37 @@ module.exports = function (passport) {
         });
     }));
 
-    //Create a passport middleware to handle User login
+
     passport.use('local-login', new LocalStrategy({
-        usernameField: 'email',     // get email and password
-        passwordField: 'password'
-    }, async (email, password, done) => {
-        try {
-            //Find the user associated with the email provided by the user
-            await User.findOne({ 'email': email }, function (err, user) {
-                // if user is not found or there are other errors
-                if (err) {
-                    return done(err, false, { message: "Database query failed" });
-                }
-                if (!user) {
-                    console.log(email, ' not registered');
-                    return done(null, false, { message: 'Email not registered' });
-                }
-                // user is found but the password doesn't match
-                if (!user.validPassword(password)) {
-                    console.log('password incorrect:', email);
-                    return done(null, false, { message: 'Password incorrect' });
-                }
-                // everything is fine, provide user instance to passport
-                else {
-                    console.log('login successfully:', email)
-                    return done(null, user);
-                }
+        usernameField: 'email',
+        passwordField: 'password',
+        passReqToCallback: true
+    }, // pass the req as the first arg to the callback for verification 
+        function (req, email, password, done) {
+            process.nextTick(function () {
+                // see if the user with the emailAddress exists
+                User.findOne({ 'email': email }, function (err, user) {
+                    // if there are errors, user is not found or password
+                    // does match, send back errors
+                    if (err) {
+                        return done(err, false, { message: "Database query failed" });
+                    } else if (!user) {
+                        return done(null, false, { message: 'Email not registered' });
+                    } else if (!user.validPassword(password)) {
+                        // false in done() indicates to the strategy that authentication has
+                        // failed
+                        return done(null, false, { message: 'Password incorrect' });
+                    }
+                    // otherwise, we put the user's id in the session
+                    else {
+                        req.session.user = user._id
+                        return done(null, user);
+                    }
+                });
             });
-        } catch (err) {
-            return done(err, false, { message: "Authenticate failed" });
-        }
-    }));
+
+        }));
+
 
     // for signup
     passport.use('local-signup', new LocalStrategy({
@@ -114,10 +125,8 @@ module.exports = function (passport) {
                         newUser.familyName = req.body.familyName;
                         newUser.givenName = req.body.givenName;
                         newUser.contact = [];
-                        newUser.totalContact = 0;
                         newUser.groups = [];
                         newUser.information = "";
-
                         // and save the user
                         newUser.save(function (err) {
                             if (err)

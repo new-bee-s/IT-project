@@ -13,9 +13,11 @@ const deleteFriend = async (req, res) => {
     }
 }
 
+// Accept friend
 const acceptFriend = async (req, res) => {
     try {
         await Contact.updateOne({ user: req.body.userid, friend: req.params._id }, { $set: { status: "accepted" } })
+        // Creat a new contact 
         let contact = new Contact({
             user: req.params._id,
             friend: req.body.userid,
@@ -34,9 +36,12 @@ const acceptFriend = async (req, res) => {
     }
 }
 
+// Return the contact list
 const getContact = async (req, res) => {
     try {
+        // Return pending list with requester info
         let pendingList = await Contact.find({ friend: req.params._id, status: "pending" }, {}).populate('user')
+        // Return accetped list with requested info
         let acceptedList = await Contact.find({ user: req.params._id, status: "accepted" }, {}).populate('friend')
         return res.status(200).json({ success: true, pending: pendingList, accepted: acceptedList })
     } catch (err) { // error occors
@@ -45,15 +50,31 @@ const getContact = async (req, res) => {
     }
 }
 
+// Edit the contact remark
 const changeRemark = async (req, res) => {
     try {
         await Contact.updateOne({ _id: req.body.contactid }, { $set: { remark: req.body.remark } })
-    } catch { err } {
+        return res.status(200).json({ success: true })
+    } catch (err) {
         return res.status(400).json({ success: false, error: "Database query failed" })
     }
 }
 
-const changeTag = async (req, res) => {
-
+const addTag = async (req, res) => {
+    try {
+        await Contact.updateOne({ _id: req.body.contactid }, { $push: { tag: req.body.tag } })
+        return res.status(200).json({ success: true })
+    } catch (err) {
+        return res.status(400).json({ success: false, error: "Database query failed" })
+    }
 }
-module.exports = { deleteFriend, acceptFriend, getContact, changeRemark }
+
+const deleteTag = async (req, res) => {
+    try {
+        await Contact.updateOne({ _id: req.body.contactid }, { $pull: { tag: req.body.tag } })
+        return res.status(200).json({ success: true })
+    } catch (err) {
+        return res.status(400).json({ success: false, error: "Database query failed" })
+    }
+}
+module.exports = { deleteFriend, acceptFriend, getContact, changeRemark, addTag, deleteTag }

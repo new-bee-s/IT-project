@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema({
         contentType: String
     },
     gender: { type: String, enum: ["Male", "Female", "Prefer not to say"] },
-    introduction: { type: String }
+    introduction: { type: String },
+    mobile: { type: String },
+    address: { city: String, state: String, country: String },
+    isLoggedIn: { type: Boolean },
+
 })
 
 userSchema.methods.generateHash = function (password) {

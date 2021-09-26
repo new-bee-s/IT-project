@@ -2,7 +2,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -29,18 +28,18 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         verticalAlign: 'middle',
         justifyContent: 'center',
-        marginTop: "5%",
         boxSizing: "border-box",
         width: '100%',
     },
     column: {
+        display: 'flex',
         float: 'left',
         width: "50%",
         padding: "15px",
         alignItems: 'center',
         verticalAlign: 'middle',
-        display: 'flex',
-        marginTop: "8%",
+        boxSizing: "border-box",
+        height: '100%',
     },
     middle2: {
         float: 'left',
@@ -95,7 +94,7 @@ function Register(props) {
     const [password, setPassword] = useState('');
     const [givenName, setGivenName] = useState('');
     const [familyName, setFamilyName] = useState('');
-    const [confirmPassword, setComfPassword] = useState('');
+    const [confirmedPassword, ConfirmedPassword] = useState('');
 
     //using on onchange
     const onSignUp = () => {
@@ -109,18 +108,16 @@ function Register(props) {
             givenName: givenName,
             familyName: familyName,
             password: password,
-            confirmPassword: confirmPassword
+            confirmPassword: confirmedPassword
         }).then(res => {
             if (res.data.success) {
+                // console.log(res.data.data)
                 let detail = { id: res.data.data, user: res.data.user }
-                let path = {
-                    pathname: '/dashboard',
-                    state: detail
-                }
-                props.history.push(path)
                 const cookies = new Cookies();
-                cookies.set('userInfo', res.data.token, { path: '/', maxAge: 2592000 });
+                cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60, path: '/' });
+                props.history.push('/dashboard/' + detail.id)
             }
+
         }).catch(error => {
             //console.log(error.response.data.error)
             console.log(error.response.data.error)
@@ -132,16 +129,16 @@ function Register(props) {
     return (
         <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
             <div className={classes.middle}>
-                <div className={classes.column}>
-                    <Container component="main" maxWidth="md">
+                <div className={classes.column} style={{ textAlign: 'center', minHeight: '82vh' }}>
+                    <span>
                         <a href="/">
-                            <img src='./pics/logo_full.png' alt="logo pic" style={{ width: '100%' }}></img>
+                            <img src='./pics/logo_full.png' title="go back to home page" alt="logo pic" style={{ width: '75%' }}></img>
                         </a>
-                        <CssBaseline />
-                    </Container>
+                    </span>
+
                 </div>
                 <div className={classes.background}></div>
-                <div className={classes.middle2}>
+                <div className={classes.column} style={{ textAlign: 'center', paddingRight: '15vh', minHeight: '82vh' }}>
                     <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align="center">
@@ -175,7 +172,6 @@ function Register(props) {
                                     label="Last Name"
                                     name="lastname"
                                     autoComplete="email"
-                                    autoFocus
                                     onChange={e => setFamilyName(e.target.value)}
                                 />
 
@@ -188,7 +184,6 @@ function Register(props) {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
-                                    autoFocus
                                     onChange={e => setEmail(e.target.value)}
                                 />
 
@@ -215,14 +210,11 @@ function Register(props) {
                                     type="password"
                                     id="confirmPassword"
                                     autoComplete="current-password"
-                                    onChange={e => setComfPassword(e.target.value)}
+                                    onChange={e => ConfirmedPassword(e.target.value)}
                                 />
 
                                 <blocks className={classes.blocks}>
-                                    <Button variant="contained"
-                                        className={classes.button}
-                                        onClick={onSignUp}
-                                    >
+                                    <Button variant="contained" className={classes.button} onClick={onSignUp}>
                                         Register
                                     </Button>
                                 </blocks>
@@ -231,8 +223,6 @@ function Register(props) {
                     </Container>
                 </div>
             </div>
-
-
         </div>
     )
 };

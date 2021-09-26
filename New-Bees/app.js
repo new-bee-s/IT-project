@@ -5,19 +5,18 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const app = express();
 const cors = require('cors')
-
+const passport = require('passport')
 const session = require('express-session')
-const flash = require('connect-flash-plus')
-
+const cookieParser = require('cookie-parser')
 //app.use(module)
 app.use(express.json())
 app.use(bodyParser.json())
 
-app.use(express.urlencoded({ extended: true })) // replaces body-parser
+app.use(express.urlencoded({ extended: false })) // replaces body-parser
 app.use(express.static('public'))
-
+app.use(cookieParser())
 app.use(cors({
-    credentals: true,
+    credentials: true,
     origin: "http://localhost:3000"
 }))
 
@@ -27,8 +26,10 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.use(passport.initialize())
 
-app.use(flash())
+app.use(passport.session())
+
 
 // Routers
 const userRouter = require('./routes/userRouter')
@@ -37,7 +38,7 @@ const infoRouter = require('./routes/infoRouter')
 // Use Routers
 app.use('/', userRouter)
 app.use('/dashboard/', contactRouter)
-app.use('/dashboard/information', infoRouter)
+app.use('/dashboard/', infoRouter)
 
 const port = process.env.PORT || 8000
 app.listen(port, () => {
