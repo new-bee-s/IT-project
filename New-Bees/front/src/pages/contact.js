@@ -139,7 +139,8 @@ export default function Contact(props){
                         </Col>
                 </Row>
             </Header>
-            <Layout  style={{ padding: '2vh 2vh', paddingRight:'2vh'}}>
+
+            <Layout  style={{ padding: '2vh 2vh', paddingRight:'2vh', backgroundImage:'url("/../pics/background1.jpg")'}}>
                 <Sider width={'20vw'} style = {{background: '#fff'}}>
                     <Menu 
                         mode="inline"
@@ -179,7 +180,7 @@ export default function Contact(props){
                             </SubMenu>    
                     </Menu>
                 </Sider>
-                <Content style={{minHeight: 280, background: '#fff', padding: '2vh 2vh' }}> 
+                <Content style={{minHeight: 280, backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw 2vw'}}> 
                     {renderContact}
                 </Content>
             </Layout>
