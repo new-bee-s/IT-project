@@ -201,7 +201,7 @@ export default class AddFriend extends React.Component {
                             </Col>
                     </Row>
                 </Header>
-                <Layout>
+                <Layout style={{ padding: '2vh 2vh', paddingRight:'2vh', backgroundImage:'url("/../pics/background23.jpg")'}}>
                     
 
                     <Content style={{ padding: '0 5vw' }}>
