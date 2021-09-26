@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Dropdown, Card, Divider } from 'antd';
+import { Layout, Menu, Dropdown, Card, Divider, message} from 'antd';
+
 
 import { UserOutlined, CheckOutlined, UserAddOutlined, EditOutlined, EllipsisOutlined} from '@ant-design/icons';
 import { Avatar } from 'antd';
@@ -115,7 +116,7 @@ export default class AddFriend extends React.Component {
                     const cookies = new Cookies();
                     cookies.remove('token');
                     cookies.remove('connect.sid')
-                    this.props.history.push('/signin');
+                    this.props.history.push( '/signin');
                 }
             }).catch(error => {
                 console.log(error.response);
@@ -127,7 +128,9 @@ export default class AddFriend extends React.Component {
         const { Meta } = Card;
         const { Search } = Input;
         const { profile, loading } = this.state;
-        const onSearch = value => console.log(value);
+
+
+        
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
         if (loading) {
@@ -142,6 +145,37 @@ export default class AddFriend extends React.Component {
               <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
             </Menu>
           );
+
+
+        
+        
+
+        //const onSearch = value => console.log(value);
+        const onSearch = searchID => {
+            console.log(searchID);
+            axios.post(home+'/search', {userID: searchID}).then(res => {
+                if (res.data.success) {
+                    console.log(res.data.user)
+                    console.log("success search")
+                    message.success("success search")
+                    //return <div> </div>;
+                }
+                else {
+                    // if error
+                    console.log("failed search")
+                    message.error(res.data.error)
+                }
+            }).catch(error => {
+                message.error(error.response.data.error)
+                console.log(error.response.data.error)
+                // or throw(error.respond)
+            })
+
+            
+
+        }
+
+        
 
 
 
