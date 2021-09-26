@@ -145,7 +145,7 @@ export default class Dashboard extends React.Component {
 
 
         return (
-            <Layout >
+            <Layout>
                 <Header style={{ padding: '0 10px' }}>
                     <Row style={{ height: "64px" }}>
                         <Col span={2} offset={1}>
@@ -227,8 +227,8 @@ export default class Dashboard extends React.Component {
                             </SubMenu>
                         </Menu>
                     </Sider> */}
-                    <Content style={{ padding: '0 5vw' }}>
-                        <div style={{minHeight: '100vh', background: '#fff', padding: '2vw', marginTop: '2vh'}}>
+                    <Content style={{ padding: '0 5vw', backgroundImage:'url("../pics/background4.jpg")'}}>
+                        <div style={{minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh'}}>
 
                                 <div id="left" style={{width:'20vw',float:'left',paddingLeft:'5vw', paddingTop:'5vh'}}>
                                     <Avatar size={140} icon={<UserOutlined />} />

@@ -234,8 +234,8 @@ export default function EditInfo (props) {
                 </Header>
 
                 <Layout>
-                    <Content style={{ padding: '0 50px' }}>
-                        <div style={{minHeight: '100vh', background: '#fff', padding: '2vw', marginTop: '2vh'}}>
+                    <Content style={{ padding: '0 5vw', backgroundImage:'url("/../pics/background4.jpg")'}}>
+                        <div style={{minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh'}}>
 
                             <span id="left" style={{width:'15vw', float:'left', paddingLeft:'5vw', paddingTop:'5vh'}}>
                                 <Avatar size={140} icon={<UserOutlined />} />
@@ -414,8 +414,8 @@ export default function EditInfo (props) {
             </Header>
             <Layout>
 
-                <Content style={{ padding: '0 50px' }}>
-                    <div style={{minHeight: '100vh', background: '#fff', padding: '2vw', marginTop: '2vh'}}>
+                <Content style={{ padding: '0 5vw', backgroundImage:'url("/../pics/background4.jpg")'}}>
+                    <div style={{minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh'}}>
 
                         <div id="left" style={{width:'15vw',float:'left',paddingLeft:'5vw', paddingTop:'5vh'}}>
                             {/* <Avatar size={140} icon={<UserOutlined />} /> */}
