@@ -129,6 +129,7 @@ export default class AddFriend extends React.Component {
         const { Search } = Input;
         const { profile, loading } = this.state;
 
+
         
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
@@ -146,14 +147,18 @@ export default class AddFriend extends React.Component {
           );
 
 
+        
+        
+
         //const onSearch = value => console.log(value);
         const onSearch = searchID => {
             console.log(searchID);
             axios.post(home+'/search', {userID: searchID}).then(res => {
                 if (res.data.success) {
-                    //console.log("success:"+email)
+                    console.log(res.data.user)
                     console.log("success search")
                     message.success("success search")
+                    return <div> </div>;
                 }
                 else {
                     // if error
@@ -165,9 +170,12 @@ export default class AddFriend extends React.Component {
                 console.log(error.response.data.error)
                 // or throw(error.respond)
             })
+
             
 
         }
+
+        
 
 
 
