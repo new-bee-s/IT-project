@@ -200,9 +200,9 @@ export default function EditInfo (props) {
     // if the page is loading, draw a loading animation
     if (loading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
-            <Spin size="large" />
-            <h3>Loading</h3>
-        </Space>;
+                    <Spin size="large" />
+                    <h3>Loading</h3>
+                </Space>;
     }
 
     // display normal change info page

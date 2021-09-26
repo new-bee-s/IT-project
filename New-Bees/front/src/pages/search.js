@@ -6,9 +6,9 @@ import { Layout, Menu, Dropdown, Card, Divider, message} from 'antd';
 
 
 import { UserOutlined, CheckOutlined, UserAddOutlined, EditOutlined, EllipsisOutlined} from '@ant-design/icons';
-import { Avatar } from 'antd';
+import { Avatar, Radio, Drawer } from 'antd';
 import axios from '../commons/axios.js';
-import { Statistic, Row, Col, Button, Input, Space, Spin } from 'antd';
+import { Statistic, Row, Col, Button, Input, Space, Spin} from 'antd';
 import { Cookie } from 'express-session';
 import Cookies from 'universal-cookie';
 
@@ -91,7 +91,7 @@ export default class AddFriend extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { profile: undefined, loading: true };
+        this.state = { profile: undefined, loading: true, result: undefined, visible: false};
     }
 
 
@@ -127,10 +127,9 @@ export default class AddFriend extends React.Component {
         const { Header, Content, Footer, Sider } = Layout;
         const { Meta } = Card;
         const { Search } = Input;
-        const { profile, loading } = this.state;
+        const { profile, loading, result, visible } = this.state;
 
 
-        
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
         if (loading) {
@@ -144,21 +143,19 @@ export default class AddFriend extends React.Component {
             <Menu>
               <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
             </Menu>
-          );
-
-
-        
-        
+        );
 
         //const onSearch = value => console.log(value);
         const onSearch = searchID => {
             console.log(searchID);
             axios.post(home+'/search', {userID: searchID}).then(res => {
                 if (res.data.success) {
-                    console.log(res.data.user)
-                    console.log("success search")
-                    message.success("success search")
-                    //return <div> </div>;
+                    console.log("user"+res.data.user)
+                    console.log("success search!")
+                    // message.success("success search")
+                    this.setState({result: res.data.user});
+                    // console.log("result:"+{result});
+                    this.setState({visible:true})
                 }
                 else {
                     // if error
@@ -170,14 +167,49 @@ export default class AddFriend extends React.Component {
                 console.log(error.response.data.error)
                 // or throw(error.respond)
             })
-
-            
-
         }
 
+        const showResult = ((result) => {
+
+            if (result.userID === undefined) {
+                console.log(999999999);
+                return (<> </>);
+            } 
+            else {
+                console.log(52246356356);
+                return <Card
+                            style={{ width: 300, marginTop: 16 }}
+                            actions={[
+                                <EllipsisOutlined key="ellipsis" />,
+                                <EditOutlined key="edit" />,
+                                <UserAddOutlined key="add" />
+                            ]}       
+                        >
+                            <Meta
+                                avatar={
+                                    <Avatar size={48} icon={<UserOutlined />} />
+                                }
+                                title="FirstName LastName"
+                                description="This slogon is empty"
+                            />
+                    
+                        </Card>;
+            }
+        })
+
+        const showDrawer = () => {
+            this.setState({
+                visible: true,
+            });
+        };
         
-
-
+        const onClose = () => {
+            this.setState({
+                visible: false,
+            });
+        };
+        
+        
 
         return (
             
@@ -251,7 +283,7 @@ export default class AddFriend extends React.Component {
                             <Divider /> 
 
                             <div align='center'>
-                                <img src="/../pics/telescope.png" alt="telescope" style={{ height: '300px', padding: '6px' }} />
+                                <img src="/../pics/telescope.png" alt="telescope pic" style={{ height: '300px', padding: '6px' }} />
                                 <br />
                                 <br />
                                 <Search align='center' placeholder="Enter ID" onSearch={onSearch} enterButton style={{ width: 800}} />
@@ -259,25 +291,9 @@ export default class AddFriend extends React.Component {
                             
                             <br />
 
-                            <div align='center'>
-                            <Card
-                                style={{ width: 300, marginTop: 16 }}
-                                actions={[
-                                    <EllipsisOutlined key="ellipsis" />,
-                                    <EditOutlined key="edit" />,
-                                    <UserAddOutlined key="add" />
-                                ]}       
-                            >
-                                <Meta
-                                    avatar={
-                                        <Avatar size={48} icon={<UserOutlined />} />
-                                    }
-                                    title="FirstName LastName"
-                                    description="This slogon is empty"
-                                />
-                        
-                            </Card>
-                            </div>
+                            {/* <div align='center'>
+                                {showResult}
+                            </div> 
 
                             <Typography component="h1" variant="h6" align='center'>Someone wants to add you... </Typography>
                             
@@ -298,9 +314,32 @@ export default class AddFriend extends React.Component {
                                 description="This slogon is empty"
                             />
                             </Card>
-                            </div>
-                            
-                        
+                            </div> */}
+                            <Drawer
+                                title="Result"
+                                placement={'bottom'}
+                                closable={false}
+                                onClose={onClose}
+                                visible={visible}
+                                key={'bottom'}
+                                >
+                                <Card
+                                    style={{ width: 300, marginTop: 16 }}
+                                    actions={[
+                                        <EllipsisOutlined key="ellipsis" />,
+                                        <EditOutlined key="edit" />,
+                                        <CheckOutlined key="confirm" />,
+                                    ]}
+                                >
+                                <Meta
+                                    avatar={
+                                        <Avatar size={48} icon={<UserOutlined />} />
+                                    }
+                                    title={getName}
+                                    description='1'
+                                />
+                                </Card>
+                            </Drawer>
 
                                 
 
@@ -319,3 +358,11 @@ export default class AddFriend extends React.Component {
     }
 
 };
+function getName(){
+    if (this.result.userID === undefined) {
+        return "1";
+    }
+    else {
+        return this.result.givenName;
+    }
+}
