@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Avatar, Row, Col, Button, Input, Space, Spin, message, Tooltip } from 'antd';
+import { Layout, Menu, Avatar, Row, Col, Button, Input, Space, Spin, message, Tooltip, Dropdown } from 'antd';
 import { UserOutlined} from '@ant-design/icons';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
+import Cookies from 'universal-cookie';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -125,6 +126,28 @@ export default function EditInfo (props) {
         setNotChangePassword(false)
     }
 
+    // logout
+    const OnLogOut = () => { 
+        const logout = '/' + id + '/logout';
+        axios.get(logout).then(response => {
+            if (response.data.success) {
+                const cookies = new Cookies();
+                cookies.remove('token');
+                cookies.remove('connect.sid')
+                this.props.history.push('/signin');
+            }
+        }).catch(error => {
+            console.log(error.response);
+        })
+
+    }
+
+    const logout = (
+        <Menu>
+            <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
+        </Menu>
+    );
+
     // change personal infos
     const changeInformation = () => {
 
@@ -225,12 +248,17 @@ export default function EditInfo (props) {
                             <Search placeholder="click to search" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
                         </Col>
 
-                        <Col span={4} offset={1}>
-                                <Avatar icon={<UserOutlined />} />
-
-                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                    {profile.email}
-                                </span>
+                        <Col span={3} offset={1}>
+                            <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                                <Dropdown overlay={logout}>
+                                    <Menu.Item key="1">
+                                        <Avatar icon={<UserOutlined />} />
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                            {profile.email}
+                                        </span>
+                                    </Menu.Item>
+                                </Dropdown>
+                            </Menu>
                         </Col>
                     </Row>
                 </Header>
@@ -407,12 +435,17 @@ export default function EditInfo (props) {
                     <Col span={4} offset={2}>
                         <Search placeholder="click to search" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
                     </Col>
-                    <Col span={4} offset={1}>
-                            <Avatar icon={<UserOutlined />} />
-
-                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                {profile.email}
-                            </span>
+                    <Col span={3} offset={1}>
+                        <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                            <Dropdown overlay={logout}>
+                                <Menu.Item key="1">
+                                    <Avatar icon={<UserOutlined />} />
+                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                        {profile.email}
+                                    </span>
+                                </Menu.Item>
+                            </Dropdown>
+                        </Menu>
                     </Col>
                 </Row>
             </Header>
