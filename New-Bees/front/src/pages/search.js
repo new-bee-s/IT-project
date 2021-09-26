@@ -209,7 +209,14 @@ export default class AddFriend extends React.Component {
             });
         };
         
-        
+        const getName = () =>{
+            if(result.userID===undefined) {
+                return "admin";
+            }
+            else {
+                return result.givenName;
+            }
+        }
 
         return (
             
@@ -358,11 +365,3 @@ export default class AddFriend extends React.Component {
     }
 
 };
-function getName(){
-    if (this.result.userID === undefined) {
-        return "1";
-    }
-    else {
-        return this.result.givenName;
-    }
-}
