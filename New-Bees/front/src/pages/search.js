@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Dropdown, Card, Divider, message } from 'antd';
+import TextField from '@material-ui/core/TextField';
 
 
 import { UserOutlined, CheckOutlined, UserAddOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
@@ -92,7 +93,7 @@ export default class AddFriend extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { profile: undefined, loading: true, result: undefined, visible: false };
+        this.state = { profile: undefined, loading: true, result: undefined, visible: false, myremark: ""};
     }
 
 
@@ -101,7 +102,7 @@ export default class AddFriend extends React.Component {
         const home = "/dashboard/" + id;
         axios.get(home).then(response => {
             if (response.data.success) {
-                this.setState({ profile: response.data.user, loading: false });
+                this.setState({ profile: response.data.user, loading: false});
             }
         }).catch(error => {
             this.props.history.push('/signin');
@@ -129,6 +130,7 @@ export default class AddFriend extends React.Component {
         const { Meta } = Card;
         const { Search } = Input;
         const { profile, loading, result, visible } = this.state;
+        
 
 
         const id = this.props.match.params._id;
@@ -147,7 +149,7 @@ export default class AddFriend extends React.Component {
         );
 
         //const onSearch = value => console.log(value);
-        const onSearch = searchID => {
+        const onSearch = searchID => {;
             console.log(searchID);
             axios.post(home + '/search', { userID: searchID }).then(res => {
                 if (res.data.success) {
@@ -196,6 +198,20 @@ export default class AddFriend extends React.Component {
             })
 
         }
+
+        const setRemark = event => {
+            console.log("detect remark")
+            this.setState({
+                myremark: event.target.value
+              });
+
+            //console.log(this.myremark)
+            //console.log(event.target.value)
+
+            //this.setState({ visible: true })
+
+        }
+        
 
         const showResult = ((result) => {
 
@@ -331,6 +347,24 @@ export default class AddFriend extends React.Component {
                                 <br />
                                 <br />
                                 <br />
+                                <TextField
+                                                variant="outlined"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="remark"
+                                                label={'Set a remark for your new frined: '}
+                                                name="remark"
+                                                autoComplete="aaa"
+                                                onChange = {setRemark}
+                                                //onChange={(e) => this.setState({myremark: e.target.value})}
+                                                
+                                                //onChange={e => setUserID(e.target.value)}
+
+                                                
+                                                
+                                            />
+
                                 <Button type="primary" size='large' variant="contained" onClick={sendRequest} style={{ float: 'middle' }}>
                                     Send Request
                                 </Button>
