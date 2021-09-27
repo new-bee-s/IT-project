@@ -185,48 +185,39 @@ export default function EditInfo (props) {
             return;
         }
 
-        axios.get(home).then(response=>{
-            if(response.data.success){
-                console.log(response.data.user.password)
-                if (response.data.user.password === password) {
-                    console.log("same password");
-                    message.success("You input the same password!");
-                }
-            }
-        }).catch(error=>{
-            console.log("error: "+error.data)
-        })
-
         axios.post(home+'/editInfo', { password: password }).then(res => {
             if (res.data.success) {
                 console.log("success changed password");
                 message.success("success changed password");
+
+                // if success
+                // logout and clear cookies
+                // go back to sign in page
+                const logout = '/' + id + '/logout';
+                axios.get(logout).then(response => {
+                    if (response.data.success) {
+                        const cookies = new Cookies();
+                        cookies.remove('token');
+                        cookies.remove('connect.sid')
+                        props.history.push('/signin');
+                    }
+                }).catch(error => {
+                    console.log("logout error: "+error.response);
+                })
             }
             else {
                 // if error
                 message.error(res.data.error)
+                return;
             }
 
         }).catch(error => {
             message.error(error.response.data.error)
             console.log(error.response.data.error)
             // or throw(error.respond)
+            return;
         })
-
-        // if success
-        // logout and clear cookies
-        // go back to sign in page
-        // const logout = '/' + id + '/logout';
-        // axios.get(logout).then(response => {
-        //     if (response.data.success) {
-        //         const cookies = new Cookies();
-        //         cookies.remove('token');
-        //         cookies.remove('connect.sid')
-        //         props.history.push('/signin');
-        //     }
-        // }).catch(error => {
-        //     console.log("logout error: "+error.response);
-        // })
+        
     }
 
     const cancelChangingPassword = () => {
