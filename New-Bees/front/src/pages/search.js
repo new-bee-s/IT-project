@@ -121,8 +121,8 @@ export default class AddFriend extends React.Component {
             }).catch(error => {
                 console.log(error.response);
             })
-    
         }
+
         const { SubMenu } = Menu;
         const { Header, Content, Footer, Sider } = Layout;
         const { Meta } = Card;
@@ -155,7 +155,7 @@ export default class AddFriend extends React.Component {
                     // message.success("success search")
                     this.setState({result: res.data.user});
                     // console.log("result:"+{result});
-                    this.setState({visible:true})
+                    this.setState({visible: true})
                 }
                 else {
                     // if error
@@ -323,15 +323,17 @@ export default class AddFriend extends React.Component {
                             </Card>
                             </div> */}
                             <Drawer
-                                title="Result"
+                                title="You have find a user"
                                 placement={'bottom'}
-                                closable={false}
+                                closable={true}
                                 onClose={onClose}
                                 visible={visible}
                                 key={'bottom'}
+                                align='center'
+                                //style={{ height: 256}}
                                 >
-                                <Card
-                                    style={{ width: 300, marginTop: 16 }}
+                                <Card 
+                                    style={{ width: 400, height: 500, marginTop: 16 }}
                                     actions={[
                                         <EllipsisOutlined key="ellipsis" />,
                                         <EditOutlined key="edit" />,
@@ -342,7 +344,7 @@ export default class AddFriend extends React.Component {
                                     avatar={
                                         <Avatar size={48} icon={<UserOutlined />} />
                                     }
-                                    title={getName}
+                                    title={getName }
                                     description='1'
                                 />
                                 </Card>
