@@ -181,7 +181,7 @@ export default function EditInfo (props) {
 
         if(password!==confirmedPassword) {
             console.log("input different password");
-            message.success("You input a different confirmed password!");
+            message.error("You input a different confirmed password!");
             return;
         }
 
