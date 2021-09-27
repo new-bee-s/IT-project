@@ -175,7 +175,7 @@ export default class AddFriend extends React.Component {
         const sendRequest = () => {
             console.log("friend id: " + result._id);
             console.log("my id: " + profile._id);
-            axios.post(home+'/search', {friend: "123456"}).then(res => {
+            axios.post(home+'/search', {friend: result._id}).then(res => {
                 if (res.data.success) {  
                     //console.log(res.data.user)
                     console.log("success request!")
