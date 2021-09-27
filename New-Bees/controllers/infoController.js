@@ -4,7 +4,6 @@ const User = require('../models/user')
 const editInfo = async (req, res) => {
     try {
         let userid = req.params._id
-        let user = await User.findOne({ _id: userid })
         let givenName = req.body.givenName;
         let familyName = req.body.familyName;
         let password = req.body.password;
@@ -20,7 +19,14 @@ const editInfo = async (req, res) => {
             await User.updateOne({ _id: userid }, { $set: { familyName: familyName } })
         }
         if (password) {
-            await User.updateOne({ _id: userid }, { $set: { password: user.generateHash(password) } })
+
+            let user = await User.findOne({ _id: userid })
+            if (user.validPassword(password)) {
+                return res.status(400).json({ success: false, error: "Same Password" })
+            }
+            else {
+                await User.updateOne({ _id: userid }, { $set: { password: user.generateHash(password) } })
+            }
         }
         if (introduction) {
             await User.updateOne({ _id: userid }, { $set: { introduction: introduction } })
@@ -39,6 +45,7 @@ const editInfo = async (req, res) => {
         return res.status(200).json({ success: true })
 
     } catch (err) {
+        console.log(err)
         return res.status(404).json({ success: false, error: "Website cracked" })
     }
 }
