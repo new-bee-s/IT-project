@@ -209,6 +209,8 @@ export default class AddFriend extends React.Component {
             });
         };
         
+        
+
         const getName = () =>{
             if(result.userID===undefined) {
                 return "admin";
@@ -322,48 +324,51 @@ export default class AddFriend extends React.Component {
                             />
                             </Card>
                             </div> */}
-                            <Drawer
-                                title="You have find a user"
-                                placement={'bottom'}
-                                closable={true}
-                                onClose={onClose}
-                                visible={visible}
-                                key={'bottom'}
-                                align='center'
-                                //style={{ height: 256}}
-                                >
-                                <Card 
-                                    style={{ width: 400, height: 500, marginTop: 16 }}
-                                    actions={[
-                                        <EllipsisOutlined key="ellipsis" />,
-                                        <EditOutlined key="edit" />,
-                                        <CheckOutlined key="confirm" />,
-                                    ]}
-                                >
-                                <Meta
-                                    avatar={
-                                        <Avatar size={48} icon={<UserOutlined />} />
-                                    }
-                                    title={getName }
-                                    description='1'
-                                />
-                                </Card>
-                            </Drawer>
 
-                                
-
-
-
-                                
-
-                              
-                                
-
+                            
+                            {aaa()}
                         </div>
                     </Content>
                 </Layout >
             </Layout >
         );
+        
+        function aaa() {
+            // console.log({result})
+            if (!visible) {
+                // console.log('isssss undefined')
+                return;
+            }
+            return (<div><Drawer
+                title="You have find a user"
+                placement={'bottom'}
+                closable={true}
+                onClose={onClose}
+                visible={visible}
+                key={'bottom'}
+                align='center'
+                //style={{ height: 256}}
+                >
+                <Card 
+                    style={{ width: 400, height: 500, marginTop: 16 }}
+                    actions={[
+                        <EllipsisOutlined key="ellipsis" />,
+                        <EditOutlined key="edit" />,
+                        <CheckOutlined key="confirm" />,
+                    ]}
+                >
+                <Meta
+                    avatar={
+                        <Avatar size={48} icon={<UserOutlined />} />
+                    }
+                    title={result.givenName}
+                    description={result.introduction}
+                />
+                </Card>
+            </Drawer>
+            </div>);
+        }
     }
+    
 
 };
