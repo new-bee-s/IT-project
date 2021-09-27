@@ -136,4 +136,4 @@ const logOut = async (req, res) => {
         return res.status(404).json({ success: false })
     }
 }
-module.exports = { UserSignup, UserLogin, addFriend, getUserInfo, logOut }
+module.exports = { UserSignup, UserLogin, addFriend, getUserInfo, logOut, SearchUserID }
