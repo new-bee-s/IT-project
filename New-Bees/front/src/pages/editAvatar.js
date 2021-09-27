@@ -57,13 +57,14 @@ class Operation extends React.PureComponent {
         console.log('file name: ',file);
         console.log('result: ',reader.result);
         this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
+            file: file,
+            imagePreviewUrl: reader.result
         });
         }
         
         reader.readAsDataURL(file)
     }
+
     chargeFunc= (e) => { 
         console.log("file name: ",this.state.file);
         const formData = new FormData();
@@ -79,8 +80,8 @@ class Operation extends React.PureComponent {
             headers:{'Content-Type': 'multipart/form-data'}
         }
         axios.post(saveStoreZeroCharge,formData,config).then((res) => {
-            if (res.data.msg === '用户登陆已过期') {
-                alert("请重新登录");
+            if (res.data.msg === 'user login expired') {
+                alert("please re-sign up");
                 return false;
             }
             if (res.data.status === 200) {
