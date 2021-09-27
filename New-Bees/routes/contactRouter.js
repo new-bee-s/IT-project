@@ -6,7 +6,6 @@ const passport = require('passport')
 require('../config/passport')(passport)
 const utilities = require("./utility")
 // add friend router
-contactRouter.post('/:_id/addFriend', userController.addFriend)
 
 // delete friend router
 contactRouter.post('/:_id/deleteFriend', contactController.deleteFriend)
