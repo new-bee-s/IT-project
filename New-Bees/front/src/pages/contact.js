@@ -55,7 +55,7 @@ export default function Contact(props){
                 const cookies = new Cookies();
                 cookies.remove('token');
                 cookies.remove('connect.sid')
-                this.props.history.push('/signin');
+                props.history.push('/signin');
             }
         }).catch(error => {
             console.log(error.response);
