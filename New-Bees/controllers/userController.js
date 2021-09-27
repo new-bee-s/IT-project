@@ -101,7 +101,7 @@ const addFriend = async (req, res) => {
             friend: req.body.friend,
             status: "pending",
             tag: "",
-            remark: ""
+            remark: req.body.remark
         })
         newContact.save(err => {
             if (err) throw err
