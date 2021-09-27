@@ -25,7 +25,7 @@ export default class ContactBrief extends React.Component {
     
     acceptFriend =()=>{
 
-        const userId = this.props.contact.friend
+        const userId = this.props.contact.user
         //console.log(this.props.contact.user._id)
         //console.log(userId)
         axios.post('/dashboard/' + userId+ '/acceptFriend', {
@@ -44,7 +44,7 @@ export default class ContactBrief extends React.Component {
     }
 
     rejectFriend = ()=>{
-        const userId = this.props.contact.friend
+        const userId = this.props.contact.user
 
         axios.post('/dashboard/' + userId + '/deleteFriend', {
             contactid: this.props.contact._id
