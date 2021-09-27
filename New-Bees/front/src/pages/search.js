@@ -11,6 +11,7 @@ import axios from '../commons/axios.js';
 import { Statistic, Row, Col, Button, Input, Space, Spin} from 'antd';
 import { Cookie } from 'express-session';
 import Cookies from 'universal-cookie';
+import { createQualifiedName } from 'typescript';
 
 
 // addFriend style
@@ -149,8 +150,10 @@ export default class AddFriend extends React.Component {
         const onSearch = searchID => {
             console.log(searchID);
             axios.post(home+'/search', {userID: searchID}).then(res => {
-                if (res.data.success) {
-                    console.log("user"+res.data.user)
+                if (res.data.success) {  
+
+
+                    console.log(res.data.user)
                     console.log("success search!")
                     // message.success("success search")
                     this.setState({result: res.data.user});
@@ -167,6 +170,31 @@ export default class AddFriend extends React.Component {
                 console.log(error.response.data.error)
                 // or throw(error.respond)
             })
+        }
+
+        const sendRequest = () => {
+            console.log("friend id: " + result._id);
+            console.log("my id: " + profile._id);
+            axios.post(home+'/search', {friend: result._id, user: profile._id}).then(res => {
+                if (res.data.success) {  
+                    console.log(res.data.user)
+                    console.log("success request!")
+                    //this.setState({result: res.data.user});
+                    // console.log("result:"+{result});
+                    //this.setState({visible: true})
+                }
+                else {
+                    // if error
+                    console.log("failed request!")
+                    //message.error(res.data.error)
+                }
+            }).catch(error => {
+                //message.error(error.response.data.error)
+                //console.log(error.response.data.error)
+                console.log("WTF")
+                // or throw(error.respond)
+            })
+            
         }
 
         const showResult = ((result) => {
@@ -208,6 +236,7 @@ export default class AddFriend extends React.Component {
                 visible: false,
             });
         };
+
         
         
 
@@ -296,9 +325,20 @@ export default class AddFriend extends React.Component {
                                 <br />
                                 <br />
                                 <Search align='center' placeholder="Enter ID" onSearch={onSearch} enterButton style={{ width: 800}} />
-                            </div>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <Button type="primary" size='large' variant="contained" onClick = {sendRequest} style={{float:'middle'}}>
+                                    Send Request
+                                </Button> 
                             
                             <br />
+                            </div>
+
+                            
 
                             {/* <div align='center'>
                                 {showResult}
@@ -361,7 +401,7 @@ export default class AddFriend extends React.Component {
                     avatar={
                         <Avatar size={48} icon={<UserOutlined />} />
                     }
-                    title={result.givenName}
+                    title={result._id}
                     description={result.introduction}
                 />
                 </Card>

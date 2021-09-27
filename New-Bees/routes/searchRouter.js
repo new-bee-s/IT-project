@@ -5,4 +5,6 @@ const searchRouter = express.Router()
 
 searchRouter.post('/:_id/search', userController.SearchUserID)
 
+searchRouter.post('/:_id/search', userController.addFriend)
+
 module.exports = searchRouter
