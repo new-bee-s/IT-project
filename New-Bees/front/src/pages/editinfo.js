@@ -119,7 +119,8 @@ export default function EditInfo (props) {
         }).catch(error=>{
             console.log("error: "+error.data)
         })
-    },[home, profile])
+    },[home])
+
 
     // set the state to changing password state
     const changingPassword = () => {
@@ -152,7 +153,7 @@ export default function EditInfo (props) {
     // change personal infos
     const changeInformation = () => {
 
-        axios.post(home+'/editInfo', { givenName: givenName, familyName: familyName, userID: userID, introduction: introduction}).then(res => {
+        axios.post(home+'/editInfo', { givenName: givenName, familyName: familyName, userID: userID, introduction: introduction }).then(res => {
             if (res.data.success) {
                 //console.log("success:"+email)
                 console.log("success changed profile")
@@ -178,32 +179,46 @@ export default function EditInfo (props) {
     // change user's password
     const changePassword = () => {
 
+        axios.get(home).then(response=>{
+            if(response.data.success){
+                if (response.data.user.password === password) {
+                    console.log("same password");
+                    message.success("You input the same password!");
+                }
+            }
+        }).catch(error=>{
+            console.log("error: "+error.data)
+        })
+
         axios.post(home+'/editInfo', { password: password }).then(res => {
             if (res.data.success) {
                 console.log("success changed password");
                 message.success("success changed password");
-
-                // logout
-                const logout = '/' + id + '/logout';
-                axios.get(logout).then(response => {
-                    if (response.data.success) {
-                        const cookies = new Cookies();
-                        cookies.remove('token');
-                        cookies.remove('connect.sid')
-                        props.history.push('/signin');
-                    }
-                }).catch(error => {
-                    console.log(error.response);
-                })
             }
             else {
                 // if error
                 message.error(res.data.error)
             }
+
         }).catch(error => {
             message.error(error.response.data.error)
             console.log(error.response.data.error)
             // or throw(error.respond)
+        })
+
+        // if success
+        // logout and clear cookies
+        // go back to sign in page
+        const logout = '/' + id + '/logout';
+        axios.get(logout).then(response => {
+            if (response.data.success) {
+                const cookies = new Cookies();
+                cookies.remove('token');
+                cookies.remove('connect.sid')
+                props.history.push('/signin');
+            }
+        }).catch(error => {
+            console.log("logout error: "+error.response);
         })
     }
 
@@ -379,17 +394,17 @@ export default function EditInfo (props) {
                                                 <Button type="primary" size='large' onClick={changeInformation}>Submit</Button>
                                             </a>
 
-                                            <blocks>
+                                            <span>
                                                 &nbsp;&nbsp;
-                                            </blocks>
+                                            </span>
 
                                             <a href = {home}>
                                                 <Button type="primary" size='large'>Cancel</Button>
                                             </a>
 
-                                            <blocks>
+                                            <span>
                                                 &nbsp;&nbsp;
-                                            </blocks>
+                                            </span>
 
                                             <Button type="primary" size='large' variant="contained" onClick={changingPassword} style={{float:'right'}}>
                                                 Change password
@@ -516,9 +531,9 @@ export default function EditInfo (props) {
                                                 Submit
                                             </Button>
 
-                                            <blocks>
+                                            <span>
                                                 &nbsp;&nbsp;
-                                            </blocks>
+                                            </span>
 
                                             <Button type="primary" size='large' onClick={cancelChangingPassword}>
                                                 Cancel
