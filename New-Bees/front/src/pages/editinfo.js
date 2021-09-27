@@ -179,8 +179,15 @@ export default function EditInfo (props) {
     // change user's password
     const changePassword = () => {
 
+        if(password!==confirmedPassword) {
+            console.log("input different password");
+            message.success("You input a different confirmed password!");
+            return;
+        }
+
         axios.get(home).then(response=>{
             if(response.data.success){
+                console.log(response.data.user.password)
                 if (response.data.user.password === password) {
                     console.log("same password");
                     message.success("You input the same password!");
@@ -209,17 +216,17 @@ export default function EditInfo (props) {
         // if success
         // logout and clear cookies
         // go back to sign in page
-        const logout = '/' + id + '/logout';
-        axios.get(logout).then(response => {
-            if (response.data.success) {
-                const cookies = new Cookies();
-                cookies.remove('token');
-                cookies.remove('connect.sid')
-                props.history.push('/signin');
-            }
-        }).catch(error => {
-            console.log("logout error: "+error.response);
-        })
+        // const logout = '/' + id + '/logout';
+        // axios.get(logout).then(response => {
+        //     if (response.data.success) {
+        //         const cookies = new Cookies();
+        //         cookies.remove('token');
+        //         cookies.remove('connect.sid')
+        //         props.history.push('/signin');
+        //     }
+        // }).catch(error => {
+        //     console.log("logout error: "+error.response);
+        // })
     }
 
     const cancelChangingPassword = () => {
