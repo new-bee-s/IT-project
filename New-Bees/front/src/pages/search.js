@@ -425,18 +425,14 @@ export default class AddFriend extends React.Component {
             >
                 <Card
                     style={{ width: 400, height: 500, marginTop: 16 }}
-                    actions={[
-                        <EllipsisOutlined key="ellipsis" />,
-                        <EditOutlined key="edit" />,
-                        <CheckOutlined key="confirm" />,
-                    ]}
                 >
+                    You have find a user!
                     <Meta
                         avatar={
                             <Avatar size={48} icon={<UserOutlined />} />
                         }
-                        title={result._id}
-                        description={result.introduction}
+                        title={result.givenName}
+                        description={result.familyName}
                     />
                 </Card>
             </Drawer>
