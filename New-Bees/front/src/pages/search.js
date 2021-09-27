@@ -189,8 +189,10 @@ export default class AddFriend extends React.Component {
                     message.error(res.data.error)
                 }
             }).catch(error => {
-                message.error(error.response.data.error)
-
+                //message.error(error.response.data.error)
+                console.log(error.response.data.error)
+                console.log("WTF")
+                // or throw(error.respond)
             })
 
         }
