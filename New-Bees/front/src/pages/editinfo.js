@@ -180,8 +180,21 @@ export default function EditInfo (props) {
 
         axios.post(home+'/editInfo', { password: password }).then(res => {
             if (res.data.success) {
-                console.log("success changed password")
-                message.success("success changed password")
+                console.log("success changed password");
+                message.success("success changed password");
+
+                // logout
+                const logout = '/' + id + '/logout';
+                axios.get(logout).then(response => {
+                    if (response.data.success) {
+                        const cookies = new Cookies();
+                        cookies.remove('token');
+                        cookies.remove('connect.sid')
+                        props.history.push('/signin');
+                    }
+                }).catch(error => {
+                    console.log(error.response);
+                })
             }
             else {
                 // if error
