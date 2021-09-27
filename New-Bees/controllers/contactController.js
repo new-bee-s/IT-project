@@ -60,21 +60,14 @@ const changeRemark = async (req, res) => {
     }
 }
 
-const addTag = async (req, res) => {
+const editTag = async (req, res) => {
     try {
-        await Contact.updateOne({ _id: req.body.contactid }, { $push: { tag: req.body.tag } })
+        await Contact.updateOne({ _id: req.body.contactid }, { $set: { tag: req.body.tag } })
         return res.status(200).json({ success: true })
     } catch (err) {
         return res.status(400).json({ success: false, error: "Database query failed" })
     }
 }
 
-const deleteTag = async (req, res) => {
-    try {
-        await Contact.updateOne({ _id: req.body.contactid }, { $pull: { tag: req.body.tag } })
-        return res.status(200).json({ success: true })
-    } catch (err) {
-        return res.status(400).json({ success: false, error: "Database query failed" })
-    }
-}
-module.exports = { deleteFriend, acceptFriend, getContact, changeRemark, addTag, deleteTag }
+
+module.exports = { deleteFriend, acceptFriend, getContact, changeRemark, editTag }
