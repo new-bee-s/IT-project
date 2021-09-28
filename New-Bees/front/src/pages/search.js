@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Dropdown, Card, Divider, message } from 'antd';
 import TextField from '@material-ui/core/TextField';
@@ -12,7 +11,6 @@ import axios from '../commons/axios.js';
 import { Statistic, Row, Col, Button, Input, Space, Spin } from 'antd';
 import { Cookie } from 'express-session';
 import Cookies from 'universal-cookie';
-import { createQualifiedName } from 'typescript';
 
 
 // addFriend style
@@ -205,7 +203,7 @@ export default class AddFriend extends React.Component {
                 myremark: event.target.value
               });
 
-            console.log({myremark})
+            console.log(this.myremark)
             //console.log(event.target.value)
 
             //this.setState({ visible: true })
