@@ -129,7 +129,7 @@ export default class AddFriend extends React.Component {
         const { Header, Content, Footer, Sider } = Layout;
         const { Meta } = Card;
         const { Search } = Input;
-        const { profile, loading, result, visible } = this.state;
+        const { profile, loading, result, visible, myremark} = this.state;
         
 
 
@@ -205,7 +205,7 @@ export default class AddFriend extends React.Component {
                 myremark: event.target.value
               });
 
-            //console.log(this.myremark)
+            console.log({myremark})
             //console.log(event.target.value)
 
             //this.setState({ visible: true })
