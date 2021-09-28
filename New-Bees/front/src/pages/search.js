@@ -175,7 +175,7 @@ export default class AddFriend extends React.Component {
         const sendRequest = () => {
             console.log("friend id: " + result._id);
             console.log("my id: " + profile._id);
-            axios.post(home + '/addFriend', { friend: result._id }).then(res => {
+            axios.post(home + '/addFriend', { friend: result._id, remark: myremark}).then(res => {
                 if (res.data.success) {
                     //console.log(res.data.user)
                     console.log("success request!")
@@ -203,7 +203,7 @@ export default class AddFriend extends React.Component {
                 myremark: event.target.value
               });
 
-            console.log(this.myremark)
+            console.log(myremark)
             //console.log(event.target.value)
 
             //this.setState({ visible: true })
