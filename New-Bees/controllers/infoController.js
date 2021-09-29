@@ -1,5 +1,6 @@
 const User = require('../models/user')
-
+const fs = require('fs');
+const path = require('path')
 // Get the info from web and update the information if it is not empty
 const editInfo = async (req, res) => {
     try {
@@ -52,9 +53,14 @@ const editInfo = async (req, res) => {
 
 const uploadImage = async (req, res) => {
     try {
-        await User.updateOne({ _id: req.params._id }, { $set: { photo: req.body.photo } })
+        let photo = {
+            data: fs.readFileSync(path.resolve(__dirname + '/uploads/' + req.file.filename)),
+            contentType: "image"
+        }
+        await User.updateOne({ _id: req.params._id }, { $set: { photo: photo } })
         return res.status(200).json({ success: true })
     } catch (err) {
+        console.log(err)
         return res.status(400).json({ success: false, error: "upload image error, failed" })
     }
 
