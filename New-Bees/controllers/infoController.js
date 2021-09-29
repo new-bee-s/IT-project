@@ -55,7 +55,7 @@ const uploadImage = async (req, res) => {
         await User.updateOne({ _id: req.params._id }, { $set: { photo: req.body.photo } })
         return res.status(200).json({ success: true })
     } catch (err) {
-        return res.status(400).json({ success: false })
+        return res.status(400).json({ success: false, error: "upload image error, failed" })
     }
 
 }
