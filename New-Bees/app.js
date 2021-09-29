@@ -35,10 +35,12 @@ app.use(passport.session())
 const userRouter = require('./routes/userRouter')
 const contactRouter = require('./routes/contactRouter')
 const infoRouter = require('./routes/infoRouter')
+const searchRouter = require('./routes/searchRouter')
 // Use Routers
 app.use('/', userRouter)
 app.use('/dashboard/', contactRouter)
 app.use('/dashboard/', infoRouter)
+app.use('/dashboard/', searchRouter)
 
 const port = process.env.PORT || 8000
 app.listen(port, () => {

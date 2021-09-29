@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Avatar, Row, Col, Button, Input, Space, Spin, message, Tooltip } from 'antd';
+import { Layout, Menu, Avatar, Row, Col, Button, Input, Space, Spin, message, Tooltip, Dropdown } from 'antd';
 import { UserOutlined} from '@ant-design/icons';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
+import Cookies from 'universal-cookie';
 
 
 export default function EditInfo (props) { 
@@ -49,17 +50,41 @@ export default function EditInfo (props) {
         }).catch(error=>{
             console.log("error: "+error.data)
         })
-    },[home, profile])
+    },[home])
+
 
     // set the state to changing password state
     const changingPassword = () => {
         setNotChangePassword(false)
     }
 
+    // logout
+    const OnLogOut = () => { 
+        const logout = '/' + id + '/logout';
+        axios.get(logout).then(response => {
+            if (response.data.success) {
+                const cookies = new Cookies();
+                cookies.remove('token');
+                cookies.remove('connect.sid')
+                props.history.push('/signin');
+            }
+        }).catch(error => {
+            console.log(error.response);
+        })
+
+    }
+
+    const logout = (
+        <Menu>
+            <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
+        </Menu>
+    );
+
+
     // change personal infos
     const changeInformation = () => {
 
-        axios.post(home+'/editInfo', { givenName: givenName, familyName: familyName, userID: userID, introduction: introduction}).then(res => {
+        axios.post(home+'/editInfo', { givenName: givenName, familyName: familyName, userID: userID, introduction: introduction }).then(res => {
             if (res.data.success) {
                 //console.log("success:"+email)
                 console.log("success changed profile")
@@ -85,19 +110,43 @@ export default function EditInfo (props) {
     // change user's password
     const changePassword = () => {
 
+        if(password!==confirmedPassword) {
+            console.log("input different password");
+            message.error("You input a different confirmed password!");
+            return;
+        }
+
         axios.post(home+'/editInfo', { password: password }).then(res => {
             if (res.data.success) {
-                console.log("success changed password")
-                message.success("success changed password")
+                console.log("success changed password");
+                message.success("success changed password");
+
+                // if success
+                // logout and clear cookies
+                // go back to sign in page
+                const logout = '/' + id + '/logout';
+                axios.get(logout).then(response => {
+                    if (response.data.success) {
+                        const cookies = new Cookies();
+                        cookies.remove('token');
+                        cookies.remove('connect.sid')
+                        props.history.push('/signin');
+                    }
+                }).catch(error => {
+                    console.log("logout error: "+error.response);
+                })
             }
             else {
                 // if error
                 message.error(res.data.error)
+                return;
             }
+
         }).catch(error => {
             message.error(error.response.data.error)
             console.log(error.response.data.error)
             // or throw(error.respond)
+            return;
         })
         
     }
@@ -118,7 +167,7 @@ export default function EditInfo (props) {
         
         reader.readAsDataURL(file);
 
-        axios.post(home+'/editInfo', { a: file }).then(res => {
+        axios.post(home+'/uploadImage', { phtoto: file }).then(res => {
             if (res.data.success) {
                 console.log("success changed avatar");
                 message.success("success changed avatar");
@@ -140,19 +189,19 @@ export default function EditInfo (props) {
         setNotChangePassword(true);
     }
 
-    if (file) {
+    if (profile.photo) {
         console.log(file)
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
-                    <img style={{width:'80px',height:'80px'}} src={file} />
+                    <img style={{width:'80px',height:'80px'}} src={profile.photo} />
                 </Space>;
     }
 
     // if the page is loading, draw a loading animation
     if (loading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
-            <Spin size="large" />
-            <h3>Loading</h3>
-        </Space>;
+                    <Spin size="large" />
+                    <h3>Loading</h3>
+                </Space>;
     }
 
     // display normal change info page
@@ -198,12 +247,17 @@ export default function EditInfo (props) {
                             <Search placeholder="click to search" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
                         </Col>
 
-                        <Col span={4} offset={1}>
-                                <Avatar icon={<UserOutlined />} />
-
-                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                    {profile.email}
-                                </span>
+                        <Col span={3} offset={1}>
+                            <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                                <Dropdown overlay={logout}>
+                                    <Menu.Item key="1">
+                                        <Avatar icon={<UserOutlined />} />
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                            {profile.email}
+                                        </span>
+                                    </Menu.Item>
+                                </Dropdown>
+                            </Menu>
                         </Col>
                     </Row>
                 </Header>
@@ -335,9 +389,9 @@ export default function EditInfo (props) {
                                                 &nbsp;&nbsp;
                                             </span>
 
-                                            <a href = {home+'/image'}>
+                                            <a href = {home+'/EditAvatar'}>
                                                 <Button type="primary" size='large'>
-                                                    Change avatar
+                                                    avatar change page
                                                 </Button>
                                             </a>
 
@@ -407,12 +461,17 @@ export default function EditInfo (props) {
                     <Col span={4} offset={2}>
                         <Search placeholder="click to search" onSearch={onSearch} enterButton style = {{postition: 'relative', paddingTop: '15px'}}/>
                     </Col>
-                    <Col span={4} offset={1}>
-                            <Avatar icon={<UserOutlined />} />
-
-                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                {profile.email}
-                            </span>
+                    <Col span={3} offset={1}>
+                        <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                            <Dropdown overlay={logout}>
+                                <Menu.Item key="1">
+                                    <Avatar icon={<UserOutlined />} />
+                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                        {profile.email}
+                                    </span>
+                                </Menu.Item>
+                            </Dropdown>
+                        </Menu>
                     </Col>
                 </Row>
             </Header>

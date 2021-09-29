@@ -92,16 +92,16 @@ const SearchUserID = async (req, res) => {
 // Add friend
 const addFriend = async (req, res) => {
     try {
-        let existingContact = await Contact.findOne({ friend: req.body._id, user: req.params._id })
+        let existingContact = await Contact.findOne({ friend: req.body.friend, user: req.params._id })
         if (existingContact) {
             return res.status(200).json({ success: false, error: "You have added this user" })
         }
         let newContact = new Contact({
             user: req.params._id,
-            friend: req.body._id,
+            friend: req.body.friend,
             status: "pending",
             tag: "",
-            remark: ""
+            remark: req.body.remark
         })
         newContact.save(err => {
             if (err) throw err
@@ -136,4 +136,4 @@ const logOut = async (req, res) => {
         return res.status(404).json({ success: false })
     }
 }
-module.exports = { UserSignup, UserLogin, addFriend, getUserInfo, logOut }
+module.exports = { UserSignup, UserLogin, addFriend, getUserInfo, logOut, SearchUserID }

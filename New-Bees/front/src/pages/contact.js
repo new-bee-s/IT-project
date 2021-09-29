@@ -55,7 +55,7 @@ export default function Contact(props){
                 const cookies = new Cookies();
                 cookies.remove('token');
                 cookies.remove('connect.sid')
-                this.props.history.push('/signin');
+                props.history.push('/signin');
             }
         }).catch(error => {
             console.log(error.response);
@@ -125,18 +125,18 @@ export default function Contact(props){
                     <Col span={4} offset={2}>
                         <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
                     </Col>
-                        <Col span={3} offset={1}>
-                            <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
-                                <Dropdown overlay={logout}>
-                                    <Menu.Item key="1">
-                                        <Avatar icon={<UserOutlined />} />
-                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
-                                            {profile.email}
-                                        </span>
-                                    </Menu.Item>
-                                </Dropdown>
-                            </Menu>
-                        </Col>
+                    <Col span={3} offset={1}>
+                        <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                            <Dropdown overlay={logout}>
+                                <Menu.Item key="1">
+                                    <Avatar icon={<UserOutlined />} />
+                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                        {profile.email}
+                                    </span>
+                                </Menu.Item>
+                            </Dropdown>
+                        </Menu>
+                    </Col>
                 </Row>
             </Header>
 

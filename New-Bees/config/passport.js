@@ -125,10 +125,8 @@ module.exports = function (passport) {
                         newUser.familyName = req.body.familyName;
                         newUser.givenName = req.body.givenName;
                         newUser.contact = [];
-                        newUser.totalContact = 0;
                         newUser.groups = [];
                         newUser.information = "";
-
                         // and save the user
                         newUser.save(function (err) {
                             if (err)

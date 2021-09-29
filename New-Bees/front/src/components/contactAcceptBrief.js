@@ -1,51 +1,132 @@
-import React, { useState } from 'react'
+import React from 'react'
 import axios from '../commons/axios.js'
-import {  Divider, Col, Row,message,Button,Typography} from 'antd';
-import {DeleteOutlined,CheckOutlined} from '@ant-design/icons';
+import {  Divider, Col, Row,message,Button,Typography,Tag, Input, Tooltip } from 'antd';
+import {DeleteOutlined,CheckOutlined,PlusOutlined} from '@ant-design/icons';
 import { Layout } from 'antd';
 
-const { Text } = Typography;
-
-const DescriptionItem = ({ title, content }) => (
-  <div className="site-description-item-profile-wrapper">
-    <Text strong className="site-description-item-profile-p-label">{title}: </Text>
-    {content}
-  </div>
-);
 
 
-export default function ContactBrief(props) {
-  
-  
-  const { Content } = Layout;
-  const userId = props.contact.friend.user
-  const [changeRemark,setChangeRemark]=useState(props.contact.remark);
-  console.log(props.contact)
-  
-  const editRemark=()=>{
-        axios.post('/dashboard/' + userId+'/changeRemark',{
-          remark: changeRemark,
-          contactid: props.contact._id
-        }).then(response=>{
-          if(response.status===200){
-            message.success("Edit successful1")
-            
-        }
-        else{
-            message.error("Edit error!")
-        }
-    }).catch(error => {
 
-        })
-  
+export default class ContactBrief extends React.Component {
+  constructor(props){
+      super(props);
+      console.log(props.contact)
+      console.log(this.props.contact)
   }
 
-  const rejectFriend = ()=>{
+  state={
+    changeRemark: this.props.contact.remark,
+    tags:this.props.contact.tag,
+    inputVisible: false,
+    inputValue: '',
+    editInputIndex: -1,
+    editInputValue: '',
+
+  }
+  // set edit remark 
+  editRemarkF = e => {
+    this.setState({ changeRemark: e });
+  };
+
+  handleClose = removedTag => {
+    const tags = this.state.tags.filter(tag => tag !== removedTag);
+    console.log(tags);
+    this.setState({ tags });
+    message.success('Delete successfull!')
+  };
+
+  showInput = () => {
+    this.setState({ inputVisible: true }, () => this.input.focus());
+  };
+
+  handleInputChange = e => {
+    this.setState({ inputValue: e.target.value });
+  };
+
+  handleInputConfirm = () => {
+    const { inputValue } = this.state;
+    let { tags } = this.state;
+    if (inputValue && tags.indexOf(inputValue) === -1) {
+      tags = [...tags, inputValue];
+    }
+    console.log(tags);
+    this.setState({
+      tags,
+      inputVisible: false,
+      inputValue: '',
+    });
+  };
+
+  handleEditInputChange = e => {
+    this.setState({ editInputValue: e.target.value });
+  };
+
+  handleEditInputConfirm = () => {
+    this.setState(({ tags, editInputIndex, editInputValue }) => {
+      const newTags = [...tags];
+      newTags[editInputIndex] = editInputValue;
+
+      return {
+        tags: newTags,
+        editInputIndex: -1,
+        editInputValue: '',
+      };
+    });
+  };
+
+  saveInputRef = input => {
+    this.input = input;
+  };
+
+  saveEditInputRef = input => {
+    this.editInput = input;
+  };
+  
+  editRemark=()=>{
+    const userId = this.props.contact.user
+    axios.post('/dashboard/' + userId+'/changeRemark',{
+      remark: this.state.changeRemark,
+      contactid: this.props.contact._id
+    }).then(response=>{
+      if(response.status===200){
+        message.success("Edit successfull!")
+              
+      }
+      else{
+        message.error("Edit error!")
+      }
+    }).catch(error => {
+
+    })
+    
+  }
+  editTags=()=>{
+    const userId = this.props.contact.user
+    axios.post('/dashboard/' + userId+'/editTag',{
+      tag: this.state.tags,
+      contactid: this.props.contact._id
+    }).then(response=>{
+      if(response.status===200){
+        message.success("Edit successfull!")
+              
+      }
+      else{
+        message.error("Edit error!")
+      }
+    }).catch(error => {
+
+    })
+    
+  }
+
+
+  rejectFriend = ()=>{
+    const userId = this.props.contact.user
     axios.post('/dashboard/' + userId + '/deleteFriend', {
-        contactid: props.contact._id
+        contactid: this.props.contact._id
     }).then(response => { 
         if(response.status===200){
-            message.success("Reject successful1")
+            message.success("Reject successfull!")
             
         }
         else{
@@ -57,6 +138,17 @@ export default function ContactBrief(props) {
 
 }
 
+  render(){
+    const { Text } = Typography;
+    const { Content } = Layout;
+    const { tags, inputVisible, inputValue, editInputIndex, editInputValue } = this.state;
+
+    const DescriptionItem = ({ title, content }) => (
+      <div className="site-description-item-profile-wrapper">
+        <Text strong className="site-description-item-profile-p-label">{title}: </Text>
+        {content}
+      </div>
+    );
 
   return(
 
@@ -67,31 +159,31 @@ export default function ContactBrief(props) {
         <h2>Personal</h2>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="Gven Name" content={ props.contact.friend.givenName} />
+            <DescriptionItem title="Gven Name" content={ this.props.contact.friend.givenName} />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="Family Name" content={ props.contact.friend.familyName} />
-          </Col>
-        </Row>
-        <Row style={{ marginTop: 24 }}>
-          <Col span={12}>
-            <DescriptionItem title="User id" content={ props.contact.friend.userID} />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="Birthday" content={props.contact.friend.birthday} />
+            <DescriptionItem title="Family Name" content={ this.props.contact.friend.familyName} />
           </Col>
         </Row>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="County" content={props.contact.friend.country} />
+            <DescriptionItem title="User id" content={ this.props.contact.friend.userID} />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="City" content={props.contact.friend.city} />
+            <DescriptionItem title="Birthday" content={this.props.contact.friend.birthday} />
+          </Col>
+        </Row>
+        <Row style={{ marginTop: 24 }}>
+          <Col span={12}>
+            <DescriptionItem title="County" content={this.props.contact.friend.country} />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="City" content={this.props.contact.friend.city} />
           </Col>
         </Row>
         <Row style={{ marginTop: 24 }}>
           <Col span={24}>
-            <DescriptionItem title="Address" content={props.contact.friend.address} />
+            <DescriptionItem title="Address" content={this.props.contact.friend.address} />
           </Col>
         </Row>
         <Divider/>
@@ -104,10 +196,10 @@ export default function ContactBrief(props) {
                 style={{margin:"0px 0px 0px 0px"}}
                 editable={{
                 tooltip: 'click to edit text',
-                onChange: setChangeRemark
+                onChange:this.editRemarkF
                 }} 
               >
-                {changeRemark}
+                {this.state.changeRemark}
               </Text>
           </Col>
           <Col span={12}>
@@ -116,7 +208,7 @@ export default function ContactBrief(props) {
               shape="circle"
               type= "primary"
               icon={<CheckOutlined />}
-              onClick={editRemark}
+              onClick={this.editRemark}
             />  
           
           </Col>
@@ -126,15 +218,95 @@ export default function ContactBrief(props) {
         
       <Divider />
         <h2>Tag</h2>
+        
+          {tags.map((tag, index) => {
+            if (editInputIndex === index) {
+              return (
+                <Input
+                  ref={this.saveEditInputRef}
+                  key={tag}
+                  size="small"
+                  className="tag-input"
+                  value={editInputValue}
+                  onChange={this.handleEditInputChange}
+                  onBlur={this.handleEditInputConfirm}
+                  onPressEnter={this.handleEditInputConfirm}
+                />
+              );
+            }
+
+            const isLongTag = tag.length > 20;
+
+            const tagElem = (
+             
+                <Tag
+                  color="#2db7f5"
+                  className="edit-tag"
+                  key={tag}
+                  closable={index !== 0}
+                  onClose={() => this.handleClose(tag)}
+                >
+                  <span
+                    onDoubleClick={e => {
+                      if (index ) {
+                        this.setState({ editInputIndex: index, editInputValue: tag }, () => {
+                          this.editInput.focus();
+                        });
+                        e.preventDefault();
+                      }
+                    }}
+                  >
+                    {isLongTag ? `${tag.slice(0, 20)}...` : tag}
+                  </span>
+                </Tag>
+             
+            );
+            return isLongTag ? (
+              <Tooltip title={tag} key={tag}>
+                {tagElem}
+              </Tooltip>
+            ) : (
+              tagElem
+            );
+          })}
+          {inputVisible && (
+            <Input
+              color="blue"
+              ref={this.saveInputRef}
+              type="text"
+              size="small"
+              className="tag-input"
+              value={inputValue}
+              onChange={this.handleInputChange}
+              onBlur={this.handleInputConfirm}
+              onPressEnter={this.handleInputConfirm}
+            />
+          )}
+          {!inputVisible && (
+            <Tag className="site-tag-plus" onClick={this.showInput}>
+              <PlusOutlined /> New Tag
+            </Tag>
+          )}
+       
+        
+          <Button 
+                style={{margin:"-10px 0px 0px 0px"}}
+                shape="circle"
+                type= "primary"
+                icon={<CheckOutlined />}
+                onClick={this.editTags}
+              />
+        
+     
 
       <Divider />
       <h2>Contacts</h2>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="Phone Number" content={props.contact.friend.phoneNumber} />
+            <DescriptionItem title="Phone Number" content={this.props.contact.friend.phoneNumber} />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="Email" content={props.contact.friend.email} />
+            <DescriptionItem title="Email" content={this.props.contact.friend.email} />
           </Col>
         </Row>
         <Row>
@@ -146,7 +318,7 @@ export default function ContactBrief(props) {
           icon={<DeleteOutlined/>} 
           size='large'
           danger
-          onClick={()=>rejectFriend()}
+          onClick={()=>this.rejectFriend()}
         >
           Delete Friend
         </Button>
@@ -154,4 +326,5 @@ export default function ContactBrief(props) {
     </Content>
 
   )
+ }
 }
