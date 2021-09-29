@@ -5,15 +5,15 @@ import { Layout, Menu, Dropdown, Card, Divider, message } from 'antd';
 import TextField from '@material-ui/core/TextField';
 
 
-import { UserOutlined, CheckOutlined, UserAddOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons';
-import { Avatar, Radio, Drawer } from 'antd';
+import { UserOutlined, SearchOutlined, UserAddOutlined, EditOutlined, EllipsisOutlined, CloseOutlined } from '@ant-design/icons';
+import { Avatar} from 'antd';
 import axios from '../commons/axios.js';
-import { Statistic, Row, Col, Button, Input, Space, Spin } from 'antd';
+import { Statistic, Row, Col, Button, Input, Space, Spin, Carousel} from 'antd';
 import { Cookie } from 'express-session';
 import Cookies from 'universal-cookie';
 
 
-// addFriend style
+// search style
 const useStyles = makeStyles((theme) => ({
     header: {
         overflow: 'hidden',
@@ -82,7 +82,17 @@ const useStyles = makeStyles((theme) => ({
         minHeight: '280px',
         padding: '24px',
         background: '#fff',
+    },
+
+    
+
+    
+    /*
+    ant-input-affix-wrapper: {
+        background: '#00ffffff',
     }
+    */
+
 }));
 
 
@@ -91,7 +101,7 @@ export default class AddFriend extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { profile: undefined, loading: true, result: undefined, visible: false, myremark: ""};
+        this.state = { profile: undefined, loading: true, result: undefined, visible: false, myremark: "", mysearch: "", mymsg: ""};
     }
 
 
@@ -127,7 +137,15 @@ export default class AddFriend extends React.Component {
         const { Header, Content, Footer, Sider } = Layout;
         const { Meta } = Card;
         const { Search } = Input;
-        const { profile, loading, result, visible, myremark} = this.state;
+        const { profile, loading, result, visible, myremark, mysearch, mymsg} = this.state;
+
+        const contentStyle =  {
+            height: '160px',
+            color: '#63c',
+            lineHeight: '160px',
+            textAlign: 'center',
+            background: 'rgba(255, 255, 255, 0.13)',
+        };
         
 
 
@@ -207,6 +225,59 @@ export default class AddFriend extends React.Component {
             //console.log(event.target.value)
 
             //this.setState({ visible: true })
+
+        }
+
+        const setSearch = event => {
+            console.log("detect search")
+            this.setState({
+                mysearch: event.target.value
+              });
+
+            console.log(mysearch)
+            //console.log(event.target.value)
+
+            //this.setState({ visible: true })
+
+        }
+
+        const setmsg = event => {
+            console.log("detect message")
+            this.setState({
+                mymsg: event.target.value
+              });
+
+            console.log(mymsg)
+            //console.log(event.target.value)
+
+            //this.setState({ visible: true })
+
+        }
+
+        const onSearch2 = () => {
+            console.log("friend id: " + mysearch);;
+            axios.post(home + '/search', { userID: mysearch }).then(res => {
+                if (res.data.success) {
+
+
+                    console.log(res.data.user)
+                    console.log("success search!")
+                    // message.success("success search")
+                    this.setState({ result: res.data.user });
+                    // console.log("result:"+{result});
+                    this.setState({ visible: true })
+                }
+                else {
+                    // if error
+                    console.log("failed search")
+                    message.error(res.data.error)
+                }
+            }).catch(error => {
+                message.error(error.response.data.error)
+                console.log(error.response.data.error)
+                // or throw(error.respond)
+            })
+            
 
         }
         
@@ -319,55 +390,74 @@ export default class AddFriend extends React.Component {
                         </Col>
                     </Row>
                 </Header>
-                <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background23.jpg")' }}>
+                <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background20.jpg")' }}>
+
 
 
                     <Content style={{ padding: '0 5vw' }}>
-                        <div style={{ minHeight: '100vh', background: '#fff', padding: '2vw', marginTop: '2vh' }}>
-                            <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '25px' }}>
-                                &nbsp;{profile.givenName}&nbsp;{profile.familyName}, Ready to make a new friend?
+                        <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
+                        <Carousel effect="fade">
+                            <div>
+                                <h3 style={contentStyle}>Hey, {profile.givenName}! ready to acquint another bee?</h3>
+                            </div>
+                            <div>
+                                <h3 style={contentStyle}>Ask for others New BEE ID before your search </h3>
+                            </div>
+                            <div>
+                                <h3 style={contentStyle}>Type the id into the search box and click search</h3>
+                            </div>
+                            <div>
+                                <h3 style={contentStyle}>Click add icon to send request or close the window</h3>
+                            </div>
+                        </Carousel>
+                            
+                            {/*<div style={{ color: 'black', verticalAlign: 'middle', fontSize: '25px' }}>
+                                <Avatar size={50} icon={<UserOutlined />} />
+                                &nbsp; Hi! {profile.givenName}&nbsp;{profile.familyName}
                             </div>
                             <div align='center' style={{ color: 'black', verticalAlign: 'middle', fontSize: '25px' }}>
-                                Search anyone you wish to work with!
+                                Acquint another BEE partner!
                             </div>
+                            */}
                             <br />
 
                             <Divider />
 
                             <div align='center'>
-                                <img src="/../pics/telescope.png" alt="telescope pic" style={{ height: '300px', padding: '6px' }} />
                                 <br />
-                                <br />
-                                <Search align='center' placeholder="Enter ID" onSearch={onSearch} enterButton style={{ width: 800 }} />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <TextField
+                                <img src="/../pics/newbeesearch.png" alt="search_pic" style={{ height: '80px', padding: '6px' }} />
+                                
+                                <div display="inline">
+                                    <TextField
                                                 variant="outlined"
                                                 margin="normal"
                                                 required
-                                                fullWidth
+                                                size = "medium"
                                                 id="remark"
-                                                label={'Set a remark for your new frined: '}
-                                                name="remark"
-                                                autoComplete="aaa"
-                                                onChange = {setRemark}
+                                                label={'Search others by their ID '}
+                                                name="search"
+                                                onChange = {setSearch}
+                                                style ={{width: '85%'}} 
                                                 //onChange={(e) => this.setState({myremark: e.target.value})}
                                                 
                                                 //onChange={e => setUserID(e.target.value)}
 
                                                 
                                                 
-                                            />
+                                    />
+                                <Avatar size={80} icon={<SearchOutlined />} style = {{color: 'black', background: 'rgba(255, 255, 255, 0)'}} onClick = {onSearch2}/>
+                                </div>
 
+                                
+                                {
+                                /*
                                 <Button type="primary" size='large' variant="contained" onClick={sendRequest} style={{ float: 'middle' }}>
                                     Send Request
                                 </Button>
+                                */
+                                }
 
-                                <br />
+
                             </div>
 
 
@@ -398,43 +488,83 @@ export default class AddFriend extends React.Component {
                             </div> */}
 
 
-                            {aaa()}
+                            {showSearch()}
                         </div>
                     </Content>
                 </Layout >
             </Layout >
         );
 
-        function aaa() {
+        function showSearch() {
             // console.log({result})
             if (!visible) {
                 // console.log('isssss undefined')
                 return;
             }
-            return (<div><Drawer
-                title="You have find a user"
-                placement={'bottom'}
-                closable={true}
-                onClose={onClose}
-                visible={visible}
-                key={'bottom'}
-                align='center'
-            //style={{ height: 256}}
-            >
-                <Card
-                    style={{ width: 400, height: 500, marginTop: 16 }}
-                >
-                    You have find a user!
+            return (
+                <div align='center'>
+                <Card style={{ color: 'black', width:600, /*height: 200*/ marginTop: 16, backgroundColor: 'rgba(255, 255, 255, 0)', borderColor: '#625B57'}}>    
+                <div align='center' style={{ color: 'black', verticalAlign: 'middle', fontSize: '20px' }}>
+                                You have find a bee!       
+                </div>
+                <br/>
+                <div align='center'>
+                    <Card style={{ color: 'black', width: 550, /*height: 200*/ marginTop: 16, backgroundColor: 'rgba(255, 255, 255, 0)', borderColor: '#625B57'}}>    
                     <Meta
                         avatar={
                             <Avatar size={48} icon={<UserOutlined />} />
                         }
-                        title={result.givenName}
-                        description={result.familyName}
+                        title={result.givenName + ' '+ result.familyName}
+                        description={result.email}
                     />
-                </Card>
-            </Drawer>
-            </div>);
+                    </Card>
+                </div>
+                <br/>
+                <br/>
+                <div align='center'>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    size = "small"
+                    id="remark"
+                    label={'Accompany a message to introduce yourself!'}
+                    name="msg"
+                    onChange = {setmsg}
+                    style ={{width: 550}} 
+                />
+                </div>
+                
+                <div display="inline">
+                        <div align="left">
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            size = "small"
+                            id="remark"
+                            label={'Set a remark!'}
+                            name="remark"
+                            onChange = {setRemark}
+                            style ={{width: '30%'}} 
+                        />
+                        </div>
+                        <div align="right">
+                            <Avatar size={50} icon={<CloseOutlined />} style = {{color: 'black', background: 'rgba(255, 255, 255, 0)'}}onClick = {onClose}/>
+                            <Avatar size={50} icon={<UserAddOutlined />} style = {{color: 'black', background: 'rgba(255, 255, 255, 0)'}}onClick = {sendRequest}/>
+                            
+                        </div>
+                </div>
+            </Card>
+            </div> 
+
+           
+            
+
+    
+            
+            
+            
+            );
+
         }
     }
 
