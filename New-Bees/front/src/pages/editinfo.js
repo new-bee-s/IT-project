@@ -167,7 +167,7 @@ export default function EditInfo (props) {
         
         reader.readAsDataURL(file);
 
-        axios.post(home+'/uploadImage', { phtoto: file }).then(res => {
+        axios.post(home+'/uploadImage', { photo: file }).then(res => {
             if (res.data.success) {
                 console.log("success changed avatar");
                 message.success("success changed avatar");
