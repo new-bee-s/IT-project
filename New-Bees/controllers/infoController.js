@@ -42,4 +42,14 @@ const editInfo = async (req, res) => {
         return res.status(404).json({ success: false, error: "Website cracked" })
     }
 }
-module.exports = { editInfo }
+
+const uploadImage = async (req, res) => {
+    try {
+        await User.updateOne({ _id: req.params._id }, { $set: { photo: req.body.a } })
+        return res.status(200).json({ success: true })
+    } catch (err) {
+        return res.status(400).json({ success: false })
+    }
+
+}
+module.exports = { editInfo, uploadImage }
