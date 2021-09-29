@@ -9,4 +9,5 @@ userRouter.post('/register', userController.UserSignup)
 userRouter.post('/signin', userController.UserLogin)
 
 userRouter.get('/:_id/logout', userController.logOut)
+
 module.exports = userRouter

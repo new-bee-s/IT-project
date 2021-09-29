@@ -1,82 +1,9 @@
-import React, { useEffect, useState, PureComponent } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Avatar, Row, Col, Button, Input, Space, Spin, message, Tooltip } from 'antd';
 import { UserOutlined} from '@ant-design/icons';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
-
-
-const useStyles = makeStyles((theme) => ({
-    header: {
-        overflow: 'hidden',
-        width: '100%',
-        marginRight: '0',
-        marginLeft: '0',
-    },
-    middle: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        verticalalign: 'middle',
-        width: '100%',
-        marginTop: "5vh",
-        overflow: 'hidden'
-    },
-    blocks: {
-        height: 'auto',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        paddingLeft: 'unset',
-        paddingTop: '3vh',
-        verticalalign: 'middle',
-        borderRadius: 3,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        textAlign: 'center',
-
-    },
-    button: {
-        width: "250px",
-        height: "50px",
-        background: '#429CEF',
-        borderRadius: '100px',
-        border: 0,
-        color: '#FFFFFF',
-        fontFamily: 'Ubuntu',
-        fontSize: "18px"
-    },
-    background: {
-        overflow: 'hidden',
-        width: '100%',
-        height: '18%',
-        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        position: 'absolute',
-        bottom: 0,
-    },
-
-    logo: {
-        float: 'left',
-        width: '50px',
-        height: '40px',
-        paddingTop: '1px'
-    },
-
-    user: {
-        float: 'right',
-        width: '120px',
-        height: '50px',
-    },
-
-    content: {
-        minHeight: '280px',
-        padding: '24px',
-        background: '#fff',
-    }
-}));
 
 
 export default function EditInfo (props) { 
@@ -101,11 +28,8 @@ export default function EditInfo (props) {
     const [ password, setPassword ] = useState('');
     const [ confirmedPassword, setConfirmedPassword ] = useState('');
     
-    // image
-    // const { Fragement } = React;
-    // const saveStoreZeroCharge = global.constants.website + "/feiyangshop-admin-react/saveStoreZeroCharge";
-    // const [ file, setFile] = useState('');
-    // const [ showImg, setShowImage ] = useState('none');
+    // change avatar
+    const [ file, setFile] = useState('');
 
 
     // email cannot be updated because it is currently used as login username
@@ -118,7 +42,8 @@ export default function EditInfo (props) {
             // console.log("data:" + response.data);
             if(response.data.success){
                 setProfile(response.data.user);
-                // console.log("profile:" + profile);
+                console.log("photo: "+response.data.user.photo);
+                // console.log("email: "+response.data.user.email);
                 setLoading(false);
             }
         }).catch(error=>{
@@ -174,10 +99,52 @@ export default function EditInfo (props) {
             console.log(error.response.data.error)
             // or throw(error.respond)
         })
+        
+    }
+
+    const changeAvatar = (e) => {
+        e.preventDefault();
+        
+        var reader = new FileReader();
+        var file = e.target.files[0];
+        
+        reader.onloadend = () => {
+            // console.log('file name: ',file);
+            console.log('result: ',reader.result);
+            setFile(reader.result);
+        }
+
+        
+        
+        reader.readAsDataURL(file);
+
+        axios.post(home+'/editInfo', { a: file }).then(res => {
+            if (res.data.success) {
+                console.log("success changed avatar");
+                message.success("success changed avatar");
+            }
+            else {
+                // if error
+                message.error(res.data.error)
+                return;
+            }
+
+        }).catch(error => {
+            message.error(error.response.data.error)
+            console.log(error.response.data.error)
+            return;
+        })
     }
 
     const cancelChangingPassword = () => {
         setNotChangePassword(true);
+    }
+
+    if (file) {
+        console.log(file)
+        return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
+                    <img style={{width:'80px',height:'80px'}} src={file} />
+                </Space>;
     }
 
     // if the page is loading, draw a loading animation
@@ -247,6 +214,7 @@ export default function EditInfo (props) {
 
                             <span id="left" style={{width:'15vw', float:'left', paddingLeft:'5vw', paddingTop:'5vh'}}>
                                 <Avatar size={140} icon={<UserOutlined />} />
+                                <img style={{width:'80px',height:'80px'}} src={profile.image} />
                             </span>
 
                             <span id="right" style={{width:"15vw", float:'right', paddingRight:'5vw', paddingTop:'8vh'}}>
@@ -345,9 +313,9 @@ export default function EditInfo (props) {
                                                 </Button>
                                             </a>
 
-                                            <blocks>
+                                            <span>
                                                 &nbsp;&nbsp;
-                                            </blocks>
+                                            </span>
 
                                             <a href = {home}>
                                                 <Button type="primary" size='large'>
@@ -355,23 +323,35 @@ export default function EditInfo (props) {
                                                 </Button>
                                             </a>
 
-                                            <blocks>
+                                            <span>
                                                 &nbsp;&nbsp;
-                                            </blocks>
+                                            </span>
 
                                             <Button type="primary" size='large' variant="contained" onClick={changingPassword} style={{float:'right'}}>
                                                 Change password
                                             </Button>
 
-                                            <blocks>
+                                            <span>
                                                 &nbsp;&nbsp;
-                                            </blocks>
+                                            </span>
 
                                             <a href = {home+'/image'}>
                                                 <Button type="primary" size='large'>
                                                     Change avatar
                                                 </Button>
                                             </a>
+
+                                            <span>
+                                                &nbsp;&nbsp;
+                                            </span>
+
+                                            <Button type="primary" size='large'>
+                                                <input id="inputAvatar" style={{display:'none'}} type="file" onChange={(e)=>changeAvatar(e)}/>
+                                                <label style={{color:"#FFF"}} htmlFor="inputAvatar">
+                                                    Change Avatar
+                                                </label>
+                                            </Button>
+                                            
                                         </div>
                                     </form>
 
@@ -489,9 +469,9 @@ export default function EditInfo (props) {
                                                 Submit
                                             </Button>
 
-                                            <blocks>
+                                            <span>
                                                 &nbsp;&nbsp;
-                                            </blocks>
+                                            </span>
 
                                             <Button type="primary" size='large' onClick={cancelChangingPassword}>
                                                 Cancel
