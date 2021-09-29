@@ -327,7 +327,7 @@ export default function EditInfo (props) {
                                                 &nbsp;&nbsp;
                                             </span>
 
-                                            <Button type="primary" size='large' variant="contained" onClick={changingPassword} style={{float:'right'}}>
+                                            <Button type="primary" size='large' variant="contained" onClick={changingPassword}>
                                                 Change password
                                             </Button>
 
