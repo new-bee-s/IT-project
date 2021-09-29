@@ -7,7 +7,7 @@ import Dashboard from './pages/dashboard.js';
 import Contact from './pages/contact.js';
 import Search from './pages/search.js';
 import EditInfo from './pages/editinfo.js';
-import Operation from './pages/editAvatar.js';
+import EditAvatar from './pages/editAvatar.js';
 
 
 // router switch 
@@ -23,7 +23,7 @@ class Router extends React.Component {
                     <Route path='/dashboard/:_id/contact' exact component={Contact}></Route>
                     <Route path='/dashboard/:_id/search' exact component={Search}></Route>
                     <Route path='/dashboard/:_id/editinfo' exact component={EditInfo}></Route>
-                    <Route path='/dashboard/:_id/image' exact component={Operation}></Route>
+                    <Route path='/dashboard/:_id/EditAvatar' exact component={EditAvatar}></Route>
                 </Switch>
             </BrowserRouter>
         )

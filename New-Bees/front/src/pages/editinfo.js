@@ -226,6 +226,10 @@ export default function EditInfo (props) {
         
     }
 
+    const changeAvatar = () => {
+
+    }
+
     const cancelChangingPassword = () => {
         setNotChangePassword(true);
     }
@@ -414,19 +418,32 @@ export default function EditInfo (props) {
                                                 &nbsp;&nbsp;
                                             </span>
 
-                                            <Button type="primary" size='large' variant="contained" onClick={changingPassword} style={{float:'right'}}>
+                                            <Button type="primary" size='large' variant="contained" onClick={changingPassword}>
                                                 Change password
                                             </Button>
 
-                                            <blocks>
+                                            <span>
                                                 &nbsp;&nbsp;
-                                            </blocks>
+                                            </span>
 
-                                            <a href = {home+'/image'}>
+                                            <a href = {home+'/EditAvatar'}>
                                                 <Button type="primary" size='large'>
-                                                    Change avatar
+                                                    avatar change page
                                                 </Button>
                                             </a>
+
+                                            <span>
+                                                &nbsp;&nbsp;
+                                            </span>
+
+                                            <Button type="primary" size='large'>
+                                                <input id="inputAvatar" style={{display:'none'}} type="file" onChange={(e)=>this.handleImageChange(e)}/>
+                                                {/* {imagePreview} */}
+                                                <label style={{color:"#FFF"}} for="inputAvatar">
+                                                    Change Avatar
+                                                </label>
+                                            </Button>
+                                            
                                         </div>
                                     </form>
 

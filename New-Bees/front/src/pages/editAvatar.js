@@ -4,7 +4,7 @@ import axios from "axios";
 const { Fragment } = React;
 const saveStoreZeroCharge = "/feiyangshop-admin-react/saveStoreZeroCharge";
 
-class Operation extends React.PureComponent {
+class EditAvatar extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,10 +22,10 @@ class Operation extends React.PureComponent {
         var {imagePreviewUrl,showImg} = this.state;
         var imagePreview = null;
         if (imagePreviewUrl) {
-        imagePreview = ( <label  for="avatarFor">< img style={{width:'80px',height:'80px'}} src={imagePreviewUrl} /></label>);
-        showImg = 'none';
+            imagePreview = ( <label  for="avatarFor">< img style={{width:'80px',height:'80px'}} src={imagePreviewUrl} /></label>);
+            showImg = 'none';
         } else {
-        showImg = 'block';
+            showImg = 'block';
         }
 
         return (
@@ -98,4 +98,4 @@ class Operation extends React.PureComponent {
     }
 }
 
-export default Operation;
+export default EditAvatar;
