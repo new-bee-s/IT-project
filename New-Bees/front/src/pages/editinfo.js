@@ -167,8 +167,8 @@ export default function EditInfo(props) {
                 }
 
             }).catch(error => {
-                message.error(error.response.data.error)
-                console.log(error.response.data.error)
+                message.error(error.response)
+                console.log(error.response)
                 return;
             })
         }
