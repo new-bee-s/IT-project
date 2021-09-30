@@ -43,7 +43,6 @@ export default function EditInfo(props) {
             // console.log("data:" + response.data);
             if (response.data.success) {
                 setProfile(response.data.user);
-                console.log("photo: " + response.data.user.photo.contentType);
                 // console.log("email: "+response.data.user.email);
                 setLoading(false);
             }
@@ -156,13 +155,12 @@ export default function EditInfo(props) {
 
         var reader = new FileReader();
         var file = e.target.files[0];
-
         reader.onloadend = () => {
             // console.log('file name: ',file);
-            console.log('result: ', reader.result);
+            console.log('result: ', reader);
             //setImageFile(reader.result);
 
-            axios.post(home + '/editInfo', { introduction: reader.result }).then(res => {
+            axios.post(home + '/uploadImage', { image: reader.result }).then(res => {
                 if (res.data.success) {
                     console.log("success changed avatar");
                     message.success("success changed avatar");
@@ -172,17 +170,15 @@ export default function EditInfo(props) {
                     message.error(res.data.error)
                     return;
                 }
-    
+
             }).catch(error => {
                 message.error(error.response.data.error)
                 console.log(error.response.data.error)
                 return;
             })
         }
-
         reader.readAsDataURL(file);
 
-        
     }
 
     const cancelChangingPassword = () => {
@@ -251,7 +247,7 @@ export default function EditInfo(props) {
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key="1">
-                                        <Avatar src={profile.introduction} />
+                                        <Avatar src={profile.photo.data} />
                                         <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                             {profile.email}
                                         </span>

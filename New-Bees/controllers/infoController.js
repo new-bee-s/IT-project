@@ -54,7 +54,7 @@ const editInfo = async (req, res) => {
 const uploadImage = async (req, res) => {
     try {
         let photo = {
-            data: fs.readFileSync(path.resolve(__dirname + '/uploads/' + req.file.filename)),
+            data: req.body.image,
             contentType: "image"
         }
         await User.updateOne({ _id: req.params._id }, { $set: { photo: photo } })
