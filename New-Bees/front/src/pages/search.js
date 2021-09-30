@@ -196,7 +196,7 @@ export default class AddFriend extends React.Component {
             axios.post(home + '/addFriend', { friend: result._id, remark: myremark}).then(res => {
                 if (res.data.success) {
                     //console.log(res.data.user)
-                    console.log("success request!")
+                    message.success("success request!")
                     //this.setState({result: res.data.user});
                     // console.log("result:"+{result});
                     //this.setState({visible: true})

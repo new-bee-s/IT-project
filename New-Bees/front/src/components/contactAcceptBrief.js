@@ -19,7 +19,7 @@ export default class ContactBrief extends React.Component {
     tags:this.props.contact.tag,
     inputVisible: false,
     inputValue: '',
-    editInputIndex: -2,
+    editInputIndex: -1,
     editInputValue: '',
 
   }
@@ -27,7 +27,7 @@ export default class ContactBrief extends React.Component {
   editRemarkF = e => {
     this.setState({ changeRemark: e });
   };
-
+  // some tag parts code from antd design https://ant.design/components/tag
   handleClose = removedTag => {
     const tags = this.state.tags.filter(tag => tag !== removedTag);
     console.log(tags);
@@ -243,7 +243,7 @@ export default class ContactBrief extends React.Component {
                   color="#2db7f5"
                   className="edit-tag"
                   key={tag}
-                  closable={index !== 0}
+                  closable
                   onClose={() => this.handleClose(tag)}
                 >
                   <span
