@@ -30,7 +30,7 @@ export default function EditInfo(props) {
     const [confirmedPassword, setConfirmedPassword] = useState('');
 
     // change avatar
-    const [file, setFile] = useState('');
+    const [imageFile, setImageFile] = useState('');
 
 
     // email cannot be updated because it is currently used as login username
@@ -160,41 +160,41 @@ export default function EditInfo(props) {
         reader.onloadend = () => {
             // console.log('file name: ',file);
             console.log('result: ', reader.result);
-            setFile(reader.result);
+            //setImageFile(reader.result);
+
+            axios.post(home + '/editInfo', { introduction: reader.result }).then(res => {
+                if (res.data.success) {
+                    console.log("success changed avatar");
+                    message.success("success changed avatar");
+                }
+                else {
+                    // if error
+                    message.error(res.data.error)
+                    return;
+                }
+    
+            }).catch(error => {
+                message.error(error.response.data.error)
+                console.log(error.response.data.error)
+                return;
+            })
         }
-
-
 
         reader.readAsDataURL(file);
 
-        axios.post(home + '/uploadImage', { image: file }).then(res => {
-            if (res.data.success) {
-                console.log("success changed avatar");
-                message.success("success changed avatar");
-            }
-            else {
-                // if error
-                message.error(res.data.error)
-                return;
-            }
-
-        }).catch(error => {
-            message.error(error.response.data.error)
-            console.log(error.response.data.error)
-            return;
-        })
+        
     }
 
     const cancelChangingPassword = () => {
         setNotChangePassword(true);
     }
 
-    if (profile.photo) {
-        console.log(file)
-        return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
-            <img style={{ width: '80px', height: '80px' }} src={profile.photo} />
-        </Space>;
-    }
+    // if (profile.photo) {
+    //     console.log(file)
+    //     return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
+    //         <img style={{ width: '80px', height: '80px' }} src={profile.photo} />
+    //     </Space>;
+    // }
 
     // if the page is loading, draw a loading animation
     if (loading) {
@@ -251,7 +251,7 @@ export default function EditInfo(props) {
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key="1">
-                                        <Avatar icon={<UserOutlined />} />
+                                        <Avatar src={profile.introduction} />
                                         <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                             {profile.email}
                                         </span>
@@ -268,7 +268,7 @@ export default function EditInfo(props) {
 
                             <span id="left" style={{ width: '15vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
                                 <Avatar size={140} icon={<UserOutlined />} />
-                                <img style={{ width: '80px', height: '80px' }} src={profile.image} />
+                                <img style={{ width: '80px', height: '80px' }} src={profile.introduction} />
                             </span>
 
                             <span id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
