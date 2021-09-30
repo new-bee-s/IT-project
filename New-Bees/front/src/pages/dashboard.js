@@ -189,7 +189,7 @@ export default class Dashboard extends React.Component {
                                     <Dropdown overlay={logout}>
                                         <Menu.Item key="1">
                                             <a className="ant-dropdown-link">
-                                                <Avatar icon={<UserOutlined />} />
+                                                <Avatar src={profile.introduction}/>
                                                 <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
                                                     {profile.email}
                                                 </span>

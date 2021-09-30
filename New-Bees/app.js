@@ -1,7 +1,7 @@
 //Import mpdule
 const express = require('express')
 const db = require('./db')
-const path = require('path')
+
 const bodyParser = require('body-parser')
 const app = express();
 const cors = require('cors')
@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser')
 //app.use(module)
 app.use(express.json())
 app.use(bodyParser.json())
-
+app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false })) // replaces body-parser
 app.use(express.static('public'))
 app.use(cookieParser())
