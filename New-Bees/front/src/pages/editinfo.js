@@ -29,9 +29,6 @@ export default function EditInfo(props) {
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
 
-    // change avatar
-    const [imageFile, setImageFile] = useState('');
-
 
     // email cannot be updated because it is currently used as login username
     // const [ email, setEmail ] = useState('');
@@ -156,9 +153,7 @@ export default function EditInfo(props) {
         var reader = new FileReader();
         var file = e.target.files[0];
         reader.onloadend = () => {
-            // console.log('file name: ',file);
             console.log('result: ', reader);
-            //setImageFile(reader.result);
 
             axios.post(home + '/uploadImage', { image: reader.result }).then(res => {
                 if (res.data.success) {
@@ -263,8 +258,7 @@ export default function EditInfo(props) {
                         <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
 
                             <span id="left" style={{ width: '15vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
-                                <Avatar size={140} icon={<UserOutlined />} />
-                                <img style={{ width: '80px', height: '80px' }} src={profile.introduction} />
+                                <Avatar size={140} src={profile.photo.data} />
                             </span>
 
                             <span id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
@@ -380,16 +374,6 @@ export default function EditInfo(props) {
                                             <Button type="primary" size='large' variant="contained" onClick={changingPassword}>
                                                 Change password
                                             </Button>
-
-                                            <span>
-                                                &nbsp;&nbsp;
-                                            </span>
-
-                                            <a href={home + '/EditAvatar'}>
-                                                <Button type="primary" size='large'>
-                                                    avatar change page
-                                                </Button>
-                                            </a>
 
                                             <span>
                                                 &nbsp;&nbsp;

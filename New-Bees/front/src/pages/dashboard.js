@@ -89,7 +89,7 @@ export default class Dashboard extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { profile: undefined, loading: true };
+        this.state = { profile: undefined, loading: true, avatar: undefined};
     }
 
 
@@ -98,7 +98,7 @@ export default class Dashboard extends React.Component {
         const home = "/dashboard/" + id;
         axios.get(home).then(response => {
             if(response.data.success){
-                this.setState({profile: response.data.user, loading: false});
+                this.setState({profile: response.data.user, loading: false, avatar: response.data.user.photo.data});
             }
         }).catch(error => {
             this.props.history.push('/signin');
@@ -126,7 +126,7 @@ export default class Dashboard extends React.Component {
         const { SubMenu } = Menu;
         const { Header, Content, Footer, Sider } = Layout;
         const { Search } = Input;
-        const { profile, loading } = this.state;
+        const { profile, loading, avatar } = this.state;
         const onSearch = value => console.log(value);
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
@@ -189,7 +189,7 @@ export default class Dashboard extends React.Component {
                                     <Dropdown overlay={logout}>
                                         <Menu.Item key="1">
                                             <a className="ant-dropdown-link">
-                                                <Avatar src={profile.introduction}/>
+                                                <Avatar src={avatar}/>
                                                 <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
                                                     {profile.email}
                                                 </span>
@@ -232,7 +232,7 @@ export default class Dashboard extends React.Component {
                         <div style={{minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2vw', marginTop: '2vh'}}>
 
                                 <div id="left" style={{width:'20vw',float:'left',paddingLeft:'5vw', paddingTop:'5vh'}}>
-                                    <Avatar size={140} icon={<UserOutlined />} />
+                                    <Avatar size={140} src={avatar} />
                                 </div>
 
                                 <span id="right" style={{width:"15vw", float:'right', paddingRight:'5vw', paddingTop:'8vh'}}>
