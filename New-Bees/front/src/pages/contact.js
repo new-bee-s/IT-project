@@ -1,7 +1,6 @@
 import React from 'react'
 import {useState,useEffect} from 'react'
 import axios from '../commons/axios.js'
-import ContactPendingList from '../components/contactPendingList.js'
 import ContactPendingBrief from '../components/contactPendingBrief.js'
 import ContactBrief from '../components/contactAcceptBrief.js'
 import { Menu,Badge,Typography } from 'antd';
