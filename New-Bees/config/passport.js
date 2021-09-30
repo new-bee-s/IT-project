@@ -47,15 +47,15 @@ module.exports = function (passport) {
     passport.use('local-login', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
-        passReqToCallback: true
     }, // pass the req as the first arg to the callback for verification 
-        function (req, email, password, done) {
-            process.nextTick(function () {
+        async (email, password, done) => {
+            try {
                 // see if the user with the emailAddress exists
-                User.findOne({ 'email': email }, function (err, user) {
+                await User.findOne({ 'email': email }, function (err, user) {
                     // if there are errors, user is not found or password
                     // does match, send back errors
                     if (err) {
+                        console.log(err)
                         return done(err, false, { message: "Database query failed" });
                     } else if (!user) {
                         return done(null, false, { message: 'Email not registered' });
@@ -64,13 +64,14 @@ module.exports = function (passport) {
                         // failed
                         return done(null, false, { message: 'Password incorrect' });
                     }
-                    // otherwise, we put the user's id in the session
                     else {
-                        req.session.user = user._id
                         return done(null, user);
                     }
                 });
-            });
+            } catch (err) {
+                console.log(err)
+                return done(err)
+            };
 
         }));
 
