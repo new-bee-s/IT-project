@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from '../commons/axios.js'
-import {  Divider, Col, Row,message,Button,Typography,Tag, Input, Tooltip } from 'antd';
+import { Divider, Col, Row,message,Button,Typography,Tag, Input, Tooltip } from 'antd';
 import {DeleteOutlined,CheckOutlined,PlusOutlined} from '@ant-design/icons';
 import { Layout } from 'antd';
 
@@ -19,7 +19,7 @@ export default class ContactBrief extends React.Component {
     tags:this.props.contact.tag,
     inputVisible: false,
     inputValue: '',
-    editInputIndex: -1,
+    editInputIndex: -2,
     editInputValue: '',
 
   }
