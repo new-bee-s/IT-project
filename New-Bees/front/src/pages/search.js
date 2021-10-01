@@ -379,7 +379,7 @@ export default class AddFriend extends React.Component {
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key="1">
                                         <a className="ant-dropdown-link">
-                                            <Avatar icon={<UserOutlined />} />
+                                            <Avatar src={profile.photo.data} />
                                             <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                                 {profile.email}
                                             </span>
@@ -512,7 +512,7 @@ export default class AddFriend extends React.Component {
                     <Card style={{ color: 'black', width: 550, /*height: 200*/ marginTop: 16, backgroundColor: 'rgba(255, 255, 255, 0)', borderColor: '#625B57'}}>    
                     <Meta
                         avatar={
-                            <Avatar size={48} icon={<UserOutlined />} />
+                            <Avatar size={48} src={result.photo.data} />
                         }
                         title={result.givenName + ' '+ result.familyName}
                         description={result.email}
