@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import axios from '../commons/axios.js'
-import { Menu, message,Button,List, Row, Col} from 'antd';
-import { Divider} from 'antd';
-import { UserOutlined, CheckOutlined, CloseOutlined} from '@ant-design/icons';
+import {message,List, Row, Col} from 'antd';
 import {IconButton} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';

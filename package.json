@@ -6,9 +6,9 @@
   "scripts": {
     "front-install": "cd New-Bees/front && npm install",
     "front": "cd New-Bees/front && npm start",
-    "dev": "concurrently \"npm run start\" \"npm run front\"",
+    "start": "concurrently \"npm run back\" \"npm run front\"",
     "heroku-postbuild": "cd cd New-Bees/front && NPM_CONFIG_PRODUCTION=false npm install && npm run build",
-    "start": "cd New-Bees && nodemon app.js"
+    "back": "cd New-Bees && nodemon app.js"
   },
   "repository": {
     "type": "git",
