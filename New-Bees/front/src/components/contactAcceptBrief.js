@@ -139,11 +139,11 @@ export default class ContactBrief extends React.Component {
         contactid: this.props.contact._id
     }).then(response => { 
         if(response.status===200){
-            message.success("Reject successfull!")
+            message.success(response.data.success)
             
         }
         else{
-            message.error("Please reject again!")
+            message.error(response.data.error)
         }
     }).catch(error => {
         
