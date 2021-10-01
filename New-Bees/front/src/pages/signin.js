@@ -234,7 +234,7 @@ function SignIn(props) {
                                         onClick={onSignIn}
                                         className={classes.button}
                                     >
-                                        Sign In
+                                        Log In
                                     </Button>
 
                                 </div>
