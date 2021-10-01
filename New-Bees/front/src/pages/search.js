@@ -1,98 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Dropdown, Card, Divider, message } from 'antd';
 import TextField from '@material-ui/core/TextField';
 
 
-import { UserOutlined, SearchOutlined, UserAddOutlined, EditOutlined, EllipsisOutlined, CloseOutlined } from '@ant-design/icons';
+import {SearchOutlined, UserAddOutlined, CloseOutlined } from '@ant-design/icons';
 import { Avatar} from 'antd';
 import axios from '../commons/axios.js';
-import {Row, Col, Input, Space, Spin, Carousel} from 'antd';
+import {Row, Col, Space, Spin, Carousel} from 'antd';
 import Cookies from 'universal-cookie';
-
-
-// search style
-const useStyles = makeStyles((theme) => ({
-    header: {
-        overflow: 'hidden',
-        width: '100%',
-        marginRight: '0',
-        marginLeft: '0',
-    },
-    middle: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        verticalalign: 'middle',
-        width: '100%',
-        marginTop: "5vh",
-        overflow: 'hidden'
-    },
-    blocks: {
-        height: 'auto',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        paddingLeft: 'unset',
-        paddingTop: '3vh',
-        verticalalign: 'middle',
-        borderRadius: 3,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        textAlign: 'center',
-
-    },
-    button: {
-        width: "250px",
-        height: "50px",
-        background: '#429CEF',
-        borderRadius: '100px',
-        border: 0,
-        color: '#FFFFFF',
-        fontFamily: 'Ubuntu',
-        fontSize: "18px"
-    },
-    background: {
-        overflow: 'hidden',
-        width: '100%',
-        height: '18%',
-        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        position: 'absolute',
-        bottom: 0,
-    },
-
-    logo: {
-        float: 'left',
-        width: '50px',
-        height: '40px',
-        paddingTop: '1px'
-    },
-
-    user: {
-        float: 'right',
-        width: '120px',
-        height: '50px',
-    },
-
-    content: {
-        minHeight: '280px',
-        padding: '24px',
-        background: '#fff',
-    },
-
-    
-
-    
-    /*
-    ant-input-affix-wrapper: {
-        background: '#00ffffff',
-    }
-    */
-
-}));
 
 
 export default class AddFriend extends React.Component {
@@ -132,10 +48,9 @@ export default class AddFriend extends React.Component {
             })
         }
 
-        const { SubMenu } = Menu;
-        const { Header, Content, Footer, Sider } = Layout;
+        // style const
+        const { Header, Content} = Layout;
         const { Meta } = Card;
-        const { Search } = Input;
         const { profile, loading, result, visible, myremark, mysearch, mymsg} = this.state;
 
         const contentStyle =  {
@@ -145,8 +60,6 @@ export default class AddFriend extends React.Component {
             textAlign: 'center',
             background: 'rgba(255, 255, 255, 0.13)',
         };
-        
-
 
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
@@ -157,56 +70,26 @@ export default class AddFriend extends React.Component {
             </Space>;
         }
 
+        // perform logout functionality
         const logout = (
             <Menu>
                 <Menu.Item key="1" onClick={OnLogOut}>Log Out</Menu.Item>
             </Menu>
         );
 
-        //const onSearch = value => console.log(value);
-        const onSearch = searchID => {;
-            console.log(searchID);
-            axios.post(home + '/search', { userID: searchID }).then(res => {
-                if (res.data.success) {
-
-
-                    console.log(res.data.user)
-                    console.log("success search!")
-                    // message.success("success search")
-                    this.setState({ result: res.data.user });
-                    // console.log("result:"+{result});
-                    this.setState({ visible: true })
-                }
-                else {
-                    // if error
-                    console.log("failed search")
-                    message.error(res.data.error)
-                }
-            }).catch(error => {
-                message.error(error.response.data.error)
-                console.log(error.response.data.error)
-                // or throw(error.respond)
-            })
-        }
-
+        // perform send friend request functionality
         const sendRequest = () => {
             console.log("friend id: " + result._id);
             console.log("my id: " + profile._id);
             axios.post(home + '/addFriend', { friend: result._id, remark: myremark}).then(res => {
                 if (res.data.success) {
-                    //console.log(res.data.user)
-                    message.success("success request!")
-                    //this.setState({result: res.data.user});
-                    // console.log("result:"+{result});
-                    //this.setState({visible: true})
+                    message.success("request successful")
                 }
                 else {
-                    // if error
                     console.log("failed request!")
                     message.error(res.data.error)
                 }
             }).catch(error => {
-                //message.error(error.response.data.error)
                 console.log(error.response.data.error)
                 console.log("WTF")
                 // or throw(error.respond)
@@ -214,6 +97,7 @@ export default class AddFriend extends React.Component {
 
         }
 
+        // perform set friend remark functionality
         const setRemark = event => {
             console.log("detect remark")
             this.setState({
@@ -221,12 +105,9 @@ export default class AddFriend extends React.Component {
               });
 
             console.log(myremark)
-            //console.log(event.target.value)
-
-            //this.setState({ visible: true })
-
         }
 
+        // helper function of search
         const setSearch = event => {
             console.log("detect search")
             this.setState({
@@ -234,12 +115,9 @@ export default class AddFriend extends React.Component {
               });
 
             console.log(mysearch)
-            //console.log(event.target.value)
-
-            //this.setState({ visible: true })
-
         }
 
+        // helper function of write verify message
         const setmsg = event => {
             console.log("detect message")
             this.setState({
@@ -247,28 +125,24 @@ export default class AddFriend extends React.Component {
               });
 
             console.log(mymsg)
-            //console.log(event.target.value)
-
-            //this.setState({ visible: true })
-
         }
 
-        const onSearch2 = () => {
+        //perform search functionality
+        const onSearch = () => {
             console.log("friend id: " + mysearch);;
             axios.post(home + '/search', { userID: mysearch }).then(res => {
+                // sucessful scenario
                 if (res.data.success) {
-
-
                     console.log(res.data.user)
                     console.log("success search!")
-                    // message.success("success search")
+                    message.success("search sucessful")
                     this.setState({ result: res.data.user });
-                    // console.log("result:"+{result});
                     this.setState({ visible: true })
                 }
+                // failed scenario
                 else {
-                    // if error
-                    console.log("failed search")
+                    
+                    console.log("search unsucessful")
                     message.error(res.data.error)
                 }
             }).catch(error => {
@@ -280,58 +154,12 @@ export default class AddFriend extends React.Component {
 
         }
         
-
-        const showResult = ((result) => {
-
-            if (result.userID === undefined) {
-                console.log(999999999);
-                return (<> </>);
-            }
-            else {
-                console.log(52246356356);
-                return <Card
-                    style={{ width: 300, marginTop: 16 }}
-                    actions={[
-                        <EllipsisOutlined key="ellipsis" />,
-                        <EditOutlined key="edit" />,
-                        <UserAddOutlined key="add" />
-                    ]}
-                >
-                    <Meta
-                        avatar={
-                            <Avatar size={48} icon={<UserOutlined />} />
-                        }
-                        title="FirstName LastName"
-                        description="This slogon is empty"
-                    />
-
-                </Card>;
-            }
-        })
-
-        const showDrawer = () => {
-            this.setState({
-                visible: true,
-            });
-        };
-
+        // Close the search resulut
         const onClose = () => {
             this.setState({
                 visible: false,
             });
         };
-
-
-
-
-        const getName = () => {
-            if (result.userID === undefined) {
-                return "admin";
-            }
-            else {
-                return result.givenName;
-            }
-        }
 
         return (
 
@@ -404,15 +232,7 @@ export default class AddFriend extends React.Component {
                                 <h3 style={contentStyle}>Click add icon to send request or close the window</h3>
                             </div>
                         </Carousel>
-                            
-                            {/*<div style={{ color: 'black', verticalAlign: 'middle', fontSize: '25px' }}>
-                                <Avatar size={50} icon={<UserOutlined />} />
-                                &nbsp; Hi! {profile.givenName}&nbsp;{profile.familyName}
-                            </div>
-                            <div align='center' style={{ color: 'black', verticalAlign: 'middle', fontSize: '25px' }}>
-                                Acquint another BEE partner!
-                            </div>
-                            */}
+
                             <br />
 
                             <Divider />
@@ -432,63 +252,19 @@ export default class AddFriend extends React.Component {
                                                 name="search"
                                                 onChange = {setSearch}
                                                 style ={{width: '85%'}} 
-                                                //onChange={(e) => this.setState({myremark: e.target.value})}
-                                                
-                                                //onChange={e => setUserID(e.target.value)}
-
-                                                
-                                                
                                     />
-                                <Avatar size={80} icon={<SearchOutlined />} style = {{color: 'black', background: 'rgba(255, 255, 255, 0)'}} onClick = {onSearch2}/>
+                                <Avatar size={80} icon={<SearchOutlined />} style = {{color: 'black', background: 'rgba(255, 255, 255, 0)'}} onClick = {onSearch}/>
                                 </div>
 
-                                
-                                {
-                                /*
-                                <Button type="primary" size='large' variant="contained" onClick={sendRequest} style={{ float: 'middle' }}>
-                                    Send Request
-                                </Button>
-                                */
-                                }
-
-
                             </div>
-
-
-
-                            {/* <div align='center'>
-                                {showResult}
-                            </div> 
-
-                            <Typography component="h1" variant="h6" align='center'>Someone wants to add you... </Typography>
-                            
-                            <div align='center'>
-                            <Card
-                                style={{ width: 300, marginTop: 16 }}
-                                actions={[
-                                    <EllipsisOutlined key="ellipsis" />,
-                                    <EditOutlined key="edit" />,
-                                    <CheckOutlined key="confirm" />,
-                                ]}
-                            >
-                            <Meta
-                                avatar={
-                                    <Avatar size={48} icon={<UserOutlined />} />
-                                }
-                                title="FirstName LastName"
-                                description="This slogon is empty"
-                            />
-                            </Card>
-                            </div> */}
-
-
                             {showSearch()}
                         </div>
                     </Content>
                 </Layout >
             </Layout >
         );
-
+        
+        // this funtion show the search result
         function showSearch() {
             // console.log({result})
             if (!visible) {
@@ -549,14 +325,6 @@ export default class AddFriend extends React.Component {
                 </div>
             </Card>
             </div> 
-
-           
-            
-
-    
-            
-            
-            
             );
 
         }
