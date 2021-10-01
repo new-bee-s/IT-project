@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
     email: { type: String, require: true, unique: true },
     password: { type: String, require: true },
     photo: {
-        data: String,
-        contentType: String
+        data: { type: String, default: '/../pics/user_icon.png' },
+        contentType: { type: String, default: "image" }
     },
     gender: { type: String, enum: ["Male", "Female", "Prefer not to say"] },
     introduction: { type: String },

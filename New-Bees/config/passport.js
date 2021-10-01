@@ -55,7 +55,6 @@ module.exports = function (passport) {
                     // if there are errors, user is not found or password
                     // does match, send back errors
                     if (err) {
-                        console.log(err)
                         return done(err, false, { message: "Database query failed" });
                     } else if (!user) {
                         return done(null, false, { message: 'Email not registered' });
@@ -127,7 +126,7 @@ module.exports = function (passport) {
                         newUser.givenName = req.body.givenName;
                         newUser.contact = [];
                         newUser.groups = [];
-                        newUser.information = "";
+                        newUser.introduction = "";
                         // and save the user
                         newUser.save(function (err) {
                             if (err)
