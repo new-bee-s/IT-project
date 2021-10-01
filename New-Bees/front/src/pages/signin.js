@@ -153,7 +153,7 @@ function SignIn(props) {
     const onSignIn = () => {
 
         //put user input to back-end and return status
-        axios.post('/signin', { email: email, password: password }).then(res => {
+        axios.post('/login', { email: email, password: password }).then(res => {
             if (res.data.success) {
                 // console.log(res.data.data)
                 let detail = { id: res.data.data, user: res.data.user }
@@ -188,7 +188,7 @@ function SignIn(props) {
                 <div className={classes.middle2} verticalalign='middle'>
                     <Container component="main" maxWidth="xs">
                         <div>
-                            <Typography component="h1" variant="h1" align='center'>Sign In</Typography>
+                            <Typography component="h1" variant="h1" align='center'>Log In</Typography>
                         </div>
                         <br />
                         <div>
