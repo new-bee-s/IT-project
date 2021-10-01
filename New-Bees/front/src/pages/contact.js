@@ -4,9 +4,9 @@ import axios from '../commons/axios.js'
 import ContactPendingBrief from '../components/contactPendingBrief.js'
 import ContactBrief from '../components/contactAcceptBrief.js'
 import { Menu,Badge,Typography } from 'antd';
-import { UserOutlined,UserAddOutlined} from '@ant-design/icons';
+import { UserOutlined,UserAddOutlined,HighlightOutlined } from '@ant-design/icons';
 import { Layout, Dropdown } from 'antd';
-import { Row, Col, Input, Space, Spin } from 'antd';
+import { Statistic, Row, Col, Button, Input, Space, Spin } from 'antd';
 import Cookies from 'universal-cookie';
 import { Avatar } from 'antd';
 
