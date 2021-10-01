@@ -13,7 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 export default class ContactBrief extends React.Component {
     constructor(props){
         super(props);
-        //console.log(props.contact.friend.user)
+        
     }
 
     //write friend info
@@ -21,12 +21,11 @@ export default class ContactBrief extends React.Component {
       console.log('click ', e);
     }
     
+    // connect bacl-end accept friend 
     acceptFriend =()=>{
 
         const userId = this.props.contact.friend
         console.log(this.props.contact)
-        //console.log(this.props.contact.user._id)
-        //console.log(userId)
         axios.post('/dashboard/' + userId+ '/acceptFriend', {
             userid: this.props.contact.user._id
         }).then(response => { 
@@ -41,7 +40,7 @@ export default class ContactBrief extends React.Component {
             })
           
     }
-
+    // connect bacl-end reject friend 
     rejectFriend = ()=>{
         const userId = this.props.contact.friend
 
@@ -61,7 +60,7 @@ export default class ContactBrief extends React.Component {
     }
 
     render() {
-        //console.log(this.props.contact.user);
+        // render pending  page
         return(
             <Row>
                 <Col span={19} style = {{verticalAlign: 'middle', display: 'inline-block'}}>

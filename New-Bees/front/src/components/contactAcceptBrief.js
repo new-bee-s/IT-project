@@ -27,7 +27,10 @@ export default class ContactBrief extends React.Component {
   editRemarkF = e => {
     this.setState({ changeRemark: e });
   };
-  // some tag parts code from antd design https://ant.design/components/tag
+
+  // Some tag function code using from Antd Design: https://ant.design/components/tag
+ 
+  //click delete tag 
   handleClose = removedTag => {
     const tags = this.state.tags.filter(tag => tag !== removedTag);
     console.log(tags);
@@ -35,14 +38,16 @@ export default class ContactBrief extends React.Component {
     message.success('Delete successfull!')
   };
 
+  // show user input --tag
   showInput = () => {
     this.setState({ inputVisible: true }, () => this.input.focus());
   };
-
+  // change input infon --tag
   handleInputChange = e => {
     this.setState({ inputValue: e.target.value });
   };
 
+  // input comfirm --tag
   handleInputConfirm = () => {
     const { inputValue } = this.state;
     let { tags } = this.state;
@@ -57,10 +62,12 @@ export default class ContactBrief extends React.Component {
     });
   };
 
+  // edit change input --tag
   handleEditInputChange = e => {
     this.setState({ editInputValue: e.target.value });
   };
 
+  // edir input confirm --tag
   handleEditInputConfirm = () => {
     this.setState(({ tags, editInputIndex, editInputValue }) => {
       const newTags = [...tags];
@@ -74,14 +81,18 @@ export default class ContactBrief extends React.Component {
     });
   };
 
+  // save input --tag
   saveInputRef = input => {
     this.input = input;
   };
 
+  // save edit input --tag
   saveEditInputRef = input => {
     this.editInput = input;
   };
   
+
+  // connect back-end for edit friend remark
   editRemark=()=>{
     const userId = this.props.contact.user
     axios.post('/dashboard/' + userId+'/changeRemark',{
@@ -100,9 +111,11 @@ export default class ContactBrief extends React.Component {
     })
     
   }
+
+  // connect back-end for edit tags(delete and add)
   editTags=()=>{
     const userId = this.props.contact.user
-    axios.post('/dashboard/' + userId+'/editTag',{
+    axios.post('/dashboard/' + userId+ '/editTag',{
       tag: this.state.tags,
       contactid: this.props.contact._id
     }).then(response=>{
@@ -119,7 +132,7 @@ export default class ContactBrief extends React.Component {
     
   }
 
-
+  // connect back-end for reject friend
   rejectFriend = ()=>{
     const userId = this.props.contact.user
     axios.post('/dashboard/' + userId + '/deleteFriend', {
@@ -143,6 +156,7 @@ export default class ContactBrief extends React.Component {
     const { Content } = Layout;
     const { tags, inputVisible, inputValue, editInputIndex, editInputValue } = this.state;
 
+    // Description item components
     const DescriptionItem = ({ title, content }) => (
       <div className="site-description-item-profile-wrapper">
         <Text strong className="site-description-item-profile-p-label">{title}: </Text>
@@ -151,7 +165,7 @@ export default class ContactBrief extends React.Component {
     );
 
   return(
-
+    // render accept 
     <Content style={{minHeight: 280, background: '#fff', padding: '3vh 3vh' ,margin:'10px 10px'}}>
         <h1 style={{ margin: '20px 330px' }}>
           User Profile
@@ -215,7 +229,7 @@ export default class ContactBrief extends React.Component {
         </Row>
 
         
-        
+      
       <Divider />
         <h2>Tag</h2>
         

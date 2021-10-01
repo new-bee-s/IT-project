@@ -21,16 +21,16 @@ export default function Contact(props){
     const { Header, Content, Sider } = Layout;
     const [ detailLoading, setDetailLoading ] = useState(true);
     const [ profileLoading, setProfileLoading ] = useState(true);
-    const [ isShowDetail, setShowState ] = useState(false);
     const [ Detail, setDetail] = useState([]);
     const { Search } = Input;
     const id = props.match.params._id;
     const home = "/dashboard/" + id;
-    const [profile,setProfile ]= useState([]);
+    const [ profile,setProfile ]= useState([]);
     const onSearch = value => console.log(value);
     console.log(props)
 
     useEffect(()=>{
+        // connect contact back-end and seting contact list information
         axios.get(home +'/contact').then(response=>{
             if(response.data.success){
                 setAcceptContacts(response.data.accepted)
@@ -50,7 +50,7 @@ export default function Contact(props){
         })
         
     },[])
-    
+    // logout function
     const OnLogOut = () => { 
         const logout = '/' + id + '/logout';
         axios.get(logout).then(response => {
@@ -66,12 +66,14 @@ export default function Contact(props){
 
     }
 
+    //render logout
     const logout = (
         <Menu>
             <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
         </Menu>
     );
-    
+
+    // separate each contact list with index
     const renderContact = acceptContact.map((contact,index)=>{
         if (Detail.id === undefined){
             return (<> </>)
@@ -88,7 +90,7 @@ export default function Contact(props){
         }
         return (<> </>)
     })
-
+    // loading page if waiting 
     if (detailLoading || profileLoading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
             <Spin size="large" />
@@ -96,6 +98,7 @@ export default function Contact(props){
         </Space>;
     } 
     else {
+        // render contact page
         return(
             <Layout>
                 <Header style={{ padding: '0 10px' }}>
@@ -149,7 +152,6 @@ export default function Contact(props){
                         </Col>
                     </Row>
                 </Header>
-
                 <Layout  style={{ padding: '2vh 2vh', paddingRight:'2vh', backgroundImage:'url("/../pics/background1.jpg")'}}>
                     <Sider width={'20vw'} style = {{background: '#fff'}}>
                         <Menu 
@@ -167,8 +169,6 @@ export default function Contact(props){
                                     </Menu.Item>)}
                                     
                                 </SubMenu>
-                                
-
                                 <SubMenu key="sub2" icon={<UserOutlined/>} title="My friend">
                                     {acceptContact.map((contact, index) => <Menu.Item key = {index} icon = {
                                         <Avatar icon={<UserOutlined />}/>
