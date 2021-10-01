@@ -1,7 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Dropdown } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Statistic, Row, Col, Button, Space, Spin } from 'antd';
