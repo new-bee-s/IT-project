@@ -100,11 +100,11 @@ export default class ContactBrief extends React.Component {
       contactid: this.props.contact._id
     }).then(response=>{
       if(response.status===200){
-        message.success("Edit successfull!")
+        message.success('Edit successful')
               
       }
       else{
-        message.error("Edit error!")
+        message.error(response.data.error)
       }
     }).catch(error => {
 
@@ -120,11 +120,11 @@ export default class ContactBrief extends React.Component {
       contactid: this.props.contact._id
     }).then(response=>{
       if(response.status===200){
-        message.success("Edit successfull!")
+        message.success('Edit successful')
               
       }
       else{
-        message.error("Edit error!")
+        message.error(response.data.error)
       }
     }).catch(error => {
 
@@ -139,7 +139,7 @@ export default class ContactBrief extends React.Component {
         contactid: this.props.contact._id
     }).then(response => { 
         if(response.status===200){
-            message.success(response.data.success)
+            message.success('Reject successful')
             
         }
         else{

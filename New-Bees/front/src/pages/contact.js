@@ -27,7 +27,7 @@ export default function Contact(props){
     const home = "/dashboard/" + id;
     const [ profile,setProfile ]= useState([]);
     const onSearch = value => console.log(value);
-    console.log(props)
+    
 
     useEffect(()=>{
         // connect contact back-end and seting contact list information

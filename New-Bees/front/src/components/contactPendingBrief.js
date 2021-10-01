@@ -12,8 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 export default class ContactBrief extends React.Component {
     constructor(props){
-        super(props);
-        
+        super(props);   
     }
 
     //write friend info
@@ -30,7 +29,7 @@ export default class ContactBrief extends React.Component {
             userid: this.props.contact.user._id
         }).then(response => { 
             if(response.status===200){
-                message.success(response.data.success)
+                message.success('Accept successful')
             }
             else{
                 message.error(response.data.error)
@@ -48,7 +47,7 @@ export default class ContactBrief extends React.Component {
             contactid: this.props.contact._id
         }).then(response => { 
             if(response.status===200){
-                message.success(response.data.success)
+                message.success('Reject successful')
             }
             else{
                 message.error(response.data.error)
