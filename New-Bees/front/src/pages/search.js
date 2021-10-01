@@ -370,19 +370,14 @@ export default class AddFriend extends React.Component {
                             </Menu>
                         </Col>
 
-                        <Col span={4} offset={2}>
-                            <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
-                        </Col>
-                        <Col span={3} offset={1}>
-                            <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                        <Col span={7} offset={1}>
+                            <Menu theme='dark' mode='horizontal' style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
-                                    <Menu.Item key="1">
-                                        <a className="ant-dropdown-link">
-                                            <Avatar src={profile.photo.data} />
-                                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                                {profile.email}
-                                            </span>
-                                        </a>
+                                    <Menu.Item key='1'>
+                                        <Avatar src={ profile.photo.data } />
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                            {profile.email}
+                                        </span>
                                     </Menu.Item>
                                 </Dropdown>
                             </Menu>

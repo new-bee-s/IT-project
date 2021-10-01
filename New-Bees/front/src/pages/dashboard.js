@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Dropdown } from 'antd';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
-import { Statistic, Row, Col, Button, Space, Spin } from 'antd';
+import { Row, Col, Button, Space, Spin } from 'antd';
 
 import Cookies from 'universal-cookie';
 
@@ -13,16 +13,16 @@ export default class Dashboard extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { profile: undefined, loading: true, avatar: undefined };
+        this.state = { profile: undefined, loading: true };
     }
 
 
     componentDidMount() {
         const id = this.props.match.params._id;
-        const home = "/dashboard/" + id;
+        const home = '/dashboard/' + id;
         axios.get(home).then(response => {
             if (response.data.success) {
-                this.setState({ profile: response.data.user, loading: false, avatar: response.data.user.photo.data });
+                this.setState({ profile: response.data.user, loading: false });
             }
         }).catch(error => {
             console.log(error)
@@ -48,23 +48,22 @@ export default class Dashboard extends React.Component {
             })
 
         }
-
-        const { SubMenu } = Menu;
-        const { Header, Content, Footer, Sider } = Layout;
-        const { profile, loading, avatar } = this.state;
-        const onSearch = value => console.log(value);
+        
+        // Define the variable
+        const { Header, Content } = Layout;
+        const { profile, loading } = this.state;
         const id = this.props.match.params._id;
-        const home = "/dashboard/" + id;
+        const home = '/dashboard/' + id;
         if (loading) {
-            return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
-                <Spin size="large" />
+            return <Space size='middle' style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
+                <Spin size='large'/>
                 <h3>Loading</h3>
             </Space>;
         }
 
         const logout = (
             <Menu>
-                <Menu.Item key="1" onClick={OnLogOut}>Log Out</Menu.Item>
+                <Menu.Item key='1' onClick={OnLogOut}>Log Out</Menu.Item>
             </Menu>
         );
 
@@ -73,7 +72,7 @@ export default class Dashboard extends React.Component {
         return (
             <Layout>
                 <Header style={{ padding: '0 10px' }}>
-                    <Row style={{ height: "64px" }}>
+                    <Row style={{ height: '64px'}}>
                         <Col span={2} offset={1}>
                             <a href={home}>
                                 <div>
@@ -82,22 +81,22 @@ export default class Dashboard extends React.Component {
                             </a>
                         </Col>
                         <Col span={7} offset={2}>
-                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ height: '64px' }}>
-                                <Menu.Item key="1">
+                            <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ height: '64px' }}>
+                                <Menu.Item key= '1'>
                                     <a href={home}>
                                         <img src='../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                                     </a>
                                 </Menu.Item>
 
-                                <Menu.Item key="2">
+                                <Menu.Item key='2'>
                                     <a href={home + '/contact'}>
                                         <img src='../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
                                     </a>
                                 </Menu.Item>
 
-                                <Menu.Item key="3">
+                                <Menu.Item key='3'>
                                     <a href={home + '/search'}>
                                         <img src='../pics/AddFriend.png' alt='AddFriend' style={{ height: '19px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
@@ -107,15 +106,13 @@ export default class Dashboard extends React.Component {
                             </Menu>
                         </Col>
                         <Col span={7} offset={1}>
-                            <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                            <Menu theme='dark' mode='horizontal' style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
-                                    <Menu.Item key="1">
-                                        <a className="ant-dropdown-link">
-                                            <Avatar src={avatar} />
-                                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                                {profile.email}
-                                            </span>
-                                        </a>
+                                    <Menu.Item key='1'>
+                                        <Avatar src={ profile.photo.data } />
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                            {profile.email}
+                                        </span>
                                     </Menu.Item>
                                 </Dropdown>
                             </Menu>
@@ -126,13 +123,13 @@ export default class Dashboard extends React.Component {
                     <Content style={{ padding: '0 5vw', backgroundImage: 'url("../pics/background2.jpg")' }}>
                         <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2vw', marginTop: '2vh' }}>
 
-                            <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
-                                <Avatar size={140} src={avatar} />
+                            <div id='left' style={{ width: '20vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
+                                <Avatar size={140} src={ profile.photo.data } />
                             </div>
 
-                            <span id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
+                            <span id='right' style={{ width: '15vw', float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
                                 <a href={home + '/editinfo'}>
-                                    <Button type="primary" size='large'>change profile</Button>
+                                    <Button type='primary' size='large'>change profile</Button>
                                 </a>
                             </span>
 
