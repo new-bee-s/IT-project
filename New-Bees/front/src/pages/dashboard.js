@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Dropdown } from 'antd';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
-import { Statistic, Row, Col, Button, Space, Spin } from 'antd';
+import { Row, Col, Button, Space, Spin } from 'antd';
 
 import Cookies from 'universal-cookie';
 
@@ -16,7 +16,7 @@ export default class Dashboard extends React.Component {
         this.state = { profile: undefined, loading: true, avatar: undefined };
     }
 
-
+    // Get the user information from database befor page render
     componentDidMount() {
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
@@ -31,8 +31,10 @@ export default class Dashboard extends React.Component {
     }
 
 
-
+    // Render the page
     render() {
+
+        // Log out function
         const OnLogOut = () => {
             const id = this.props.match.params._id;
             const logout = '/' + id + '/logout';
@@ -48,11 +50,10 @@ export default class Dashboard extends React.Component {
             })
 
         }
-
-        const { SubMenu } = Menu;
-        const { Header, Content, Footer, Sider } = Layout;
+        
+        // Define the variable
+        const { Header, Content } = Layout;
         const { profile, loading, avatar } = this.state;
-        const onSearch = value => console.log(value);
         const id = this.props.match.params._id;
         const home = "/dashboard/" + id;
         if (loading) {
@@ -61,7 +62,9 @@ export default class Dashboard extends React.Component {
                 <h3>Loading</h3>
             </Space>;
         }
+        
 
+        // Log out buttton
         const logout = (
             <Menu>
                 <Menu.Item key="1" onClick={OnLogOut}>Log Out</Menu.Item>
@@ -71,6 +74,8 @@ export default class Dashboard extends React.Component {
 
 
         return (
+
+            // The top menu of profile
             <Layout>
                 <Header style={{ padding: '0 10px' }}>
                     <Row style={{ height: "64px" }}>
@@ -110,18 +115,19 @@ export default class Dashboard extends React.Component {
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key="1">
-                                        <a className="ant-dropdown-link">
-                                            <Avatar src={avatar} />
-                                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                                {profile.email}
-                                            </span>
-                                        </a>
+                                        <Avatar src={avatar} />
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                            {profile.email}
+                                        </span>
                                     </Menu.Item>
                                 </Dropdown>
                             </Menu>
                         </Col>
                     </Row>
                 </Header>
+
+
+                {/* The profile */}
                 <Layout>
                     <Content style={{ padding: '0 5vw', backgroundImage: 'url("../pics/background2.jpg")' }}>
                         <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2vw', marginTop: '2vh' }}>
