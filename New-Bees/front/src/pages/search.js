@@ -112,7 +112,7 @@ export default class AddFriend extends React.Component {
                 this.setState({ profile: response.data.user, loading: false});
             }
         }).catch(error => {
-            this.props.history.push('/signin');
+            this.props.history.push('/login');
         })
     }
 
@@ -125,7 +125,7 @@ export default class AddFriend extends React.Component {
                     const cookies = new Cookies();
                     cookies.remove('token');
                     cookies.remove('connect.sid')
-                    this.props.history.push('/signin');
+                    this.props.history.push('/login');
                 }
             }).catch(error => {
                 console.log(error.response);

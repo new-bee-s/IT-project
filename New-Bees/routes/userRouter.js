@@ -6,7 +6,7 @@ const userRouter = express.Router()
 userRouter.post('/register', userController.UserSignup)
 
 // Signin router
-userRouter.post('/signin', userController.UserLogin)
+userRouter.post('/login', userController.UserLogin)
 
 // Logout router
 userRouter.get('/:_id/logout', userController.logOut)

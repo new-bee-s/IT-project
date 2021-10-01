@@ -6,7 +6,7 @@ import ContactBrief from '../components/contactAcceptBrief.js'
 import { Menu,Badge,Typography } from 'antd';
 import { UserOutlined,UserAddOutlined} from '@ant-design/icons';
 import { Layout, Dropdown } from 'antd';
-import { Row, Col, Input, Space, Spin } from 'antd';
+import { Row, Col, Space, Spin } from 'antd';
 import Cookies from 'universal-cookie';
 import { Avatar } from 'antd';
 
@@ -22,14 +22,14 @@ export default function Contact(props){
     const [ detailLoading, setDetailLoading ] = useState(true);
     const [ profileLoading, setProfileLoading ] = useState(true);
     const [ Detail, setDetail] = useState([]);
-    const { Search } = Input;
     const id = props.match.params._id;
     const home = "/dashboard/" + id;
     const [ profile,setProfile ]= useState([]);
-    const onSearch = value => console.log(value);
     
 
     useEffect(()=>{
+        const id = props.match.params._id;
+        const home = "/dashboard/" + id;
         // connect contact back-end and seting contact list information
         axios.get(home +'/contact').then(response=>{
             if(response.data.success){
@@ -50,6 +50,7 @@ export default function Contact(props){
         })
         
     },[])
+
     // logout function
     const OnLogOut = () => { 
         const logout = '/' + id + '/logout';
@@ -135,10 +136,8 @@ export default function Contact(props){
 
                             </Menu>
                         </Col>
-                        <Col span={4} offset={2}>
-                            <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
-                        </Col>
-                        <Col span={3} offset={1}>
+                        
+                        <Col span={7} offset={1}>
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key="1">

@@ -81,7 +81,7 @@ function Homepage() {
 
             <div className={classes.middle}>
                 <ul className={classes.blocks}>
-                    <Button variant="contained" className={classes.button} href={window.location.href + "signin"}>
+                    <Button variant="contained" className={classes.button} href={window.location.href + "login"}>
                         Get Start
                     </Button>
                 </ul>

@@ -26,7 +26,7 @@ export default class Dashboard extends React.Component {
             }
         }).catch(error => {
             console.log(error)
-            this.props.history.push('/signin');
+            this.props.history.push('/login');
         })
     }
 
@@ -41,7 +41,7 @@ export default class Dashboard extends React.Component {
                     const cookies = new Cookies();
                     cookies.remove('token');
                     cookies.remove('connect.sid')
-                    this.props.history.push('/signin');
+                    this.props.history.push('/login');
                 }
             }).catch(error => {
                 console.log(error.response);

@@ -62,7 +62,7 @@ export default function EditInfo(props) {
                 const cookies = new Cookies();
                 cookies.remove('token');
                 cookies.remove('connect.sid')
-                props.history.push('/signin');
+                props.history.push('/login');
             }
         }).catch(error => {
             console.log(error.response);
@@ -126,7 +126,7 @@ export default function EditInfo(props) {
                         const cookies = new Cookies();
                         cookies.remove('token');
                         cookies.remove('connect.sid')
-                        props.history.push('/signin');
+                        props.history.push('/login');
                     }
                 }).catch(error => {
                     console.log("logout error: " + error.response);
