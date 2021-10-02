@@ -1,0 +1,37 @@
+{
+  "name": "it-project",
+  "version": "1.0.0",
+  "description": "This is the project of COMP30019 IT-Project  :)",
+  "main": "app.js",
+  "scripts": {
+    "front-install": "cd New-Bees/front && npm install",
+    "front": "cd New-Bees/front && npm start",
+    "start": "nodemon app.js",
+    "heroku-postbuild": "cd cd New-Bees/front && NPM_CONFIG_PRODUCTION=false npm install && npm run build",
+    "back": "cd New-Bees && nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/new-bee-s/IT-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/new-bee-s/IT-project/issues"
+  },
+  "homepage": "https://github.com/new-bee-s/IT-project#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.7",
+    "nanoid": "^3.1.28",
+    "passport": "^0.5.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  }
+}
