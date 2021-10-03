@@ -18,17 +18,25 @@ const acceptFriend = async (req, res) => {
     try {
         await Contact.updateOne({ user: req.body.userid, friend: req.params._id }, { $set: { status: "accepted" } })
         // Creat a new contact 
-        let contact = new Contact({
-            user: req.params._id,
-            friend: req.body.userid,
-            status: 'accepted',
-            tag: "",
-            remark: ""
-        })
-        contact.save(err => {
-            if (err) throw err
-            return res.status(200).json({ success: true })
-        })
+        let contact = await Contact.find({ user: req.params._id, friend: req.body.userid })
+        console.log(contact)
+        if (contact.length != 0) {
+            return res.status(400).json({ success: false, error: "This user is already in your contact" })
+        }
+        else {
+            // Creat a new contact 
+            let newContact = new Contact({
+                user: req.params._id,
+                friend: req.body.userid,
+                status: 'accepted',
+                tag: "",
+                remark: ""
+            })
+            newContact.save(err => {
+                if (err) throw err
+                return res.status(200).json({ success: true })
+            })
+        }
 
     } catch (err) {
         console.log(err)
