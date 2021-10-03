@@ -4,7 +4,7 @@ import { Layout, Menu, Dropdown } from 'antd';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Row, Col, Button, Space, Spin } from 'antd';
-
+import { message } from 'antd';
 import Cookies from 'universal-cookie';
 
 
@@ -48,7 +48,7 @@ export default class Dashboard extends React.Component {
             })
 
         }
-        
+
         // Define the variable
         const { Header, Content } = Layout;
         const { profile, loading } = this.state;
@@ -56,7 +56,7 @@ export default class Dashboard extends React.Component {
         const home = '/dashboard/' + id;
         if (loading) {
             return <Space size='middle' style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
-                <Spin size='large'/>
+                <Spin size='large' />
                 <h3>Loading</h3>
             </Space>;
         }
@@ -72,7 +72,7 @@ export default class Dashboard extends React.Component {
         return (
             <Layout>
                 <Header style={{ padding: '0 10px' }}>
-                    <Row style={{ height: '64px'}}>
+                    <Row style={{ height: '64px' }}>
                         <Col span={2} offset={1}>
                             <a href={home}>
                                 <div>
@@ -82,7 +82,7 @@ export default class Dashboard extends React.Component {
                         </Col>
                         <Col span={7} offset={2}>
                             <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ height: '64px' }}>
-                                <Menu.Item key= '1'>
+                                <Menu.Item key='1'>
                                     <a href={home}>
                                         <img src='../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
@@ -109,7 +109,7 @@ export default class Dashboard extends React.Component {
                             <Menu theme='dark' mode='horizontal' style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key='1'>
-                                        <Avatar src={ profile.photo.data } />
+                                        <Avatar src={profile.photo.data} />
                                         <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                             {profile.email}
                                         </span>
@@ -124,7 +124,7 @@ export default class Dashboard extends React.Component {
                         <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2vw', marginTop: '2vh' }}>
 
                             <div id='left' style={{ width: '20vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
-                                <Avatar size={140} src={ profile.photo.data } />
+                                <Avatar size={140} src={profile.photo.data} />
                             </div>
 
                             <span id='right' style={{ width: '15vw', float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>

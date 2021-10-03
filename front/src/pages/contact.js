@@ -9,7 +9,7 @@ import { Layout, Dropdown } from 'antd';
 import { Row, Col, Space, Spin } from 'antd';
 import Cookies from 'universal-cookie';
 import { Avatar } from 'antd';
-
+import { message } from 'antd';
 
 
 export default function Contact(props) {

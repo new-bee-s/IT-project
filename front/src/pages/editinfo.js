@@ -6,7 +6,6 @@ import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
 import Cookies from 'universal-cookie';
 
-
 export default function EditInfo(props) {
 
     const id = props.match.params._id;
