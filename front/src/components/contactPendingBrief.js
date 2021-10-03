@@ -5,11 +5,6 @@ import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
-
-
-
-
-
 export default class ContactBrief extends React.Component {
     constructor(props) {
         super(props);
@@ -23,14 +18,12 @@ export default class ContactBrief extends React.Component {
     // connect bacl-end accept friend 
     acceptFriend = () => {
 
-        const userId = this.props.contact.friend
         console.log(this.props.contact)
-        axios.post('/dashboard/' + userId + '/acceptFriend', {
+        axios.post('/dashboard/acceptFriend', {
             userid: this.props.contact.user._id
         }).then(response => {
             if (response.data.success) {
                 message.success('Accept successfully')
-                this.props.push('/dashboard/' + userId + '/contact')
             }
             else {
                 message.error(response.data.error)
@@ -43,9 +36,8 @@ export default class ContactBrief extends React.Component {
     }
     // connect bacl-end reject friend 
     rejectFriend = () => {
-        const userId = this.props.contact.friend
 
-        axios.post('/dashboard/' + userId + '/deleteFriend', {
+        axios.post('/dashboard/deleteFriend', {
             contactid: this.props.contact._id
         }).then(response => {
             if (response.data.success) {

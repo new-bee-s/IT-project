@@ -16,9 +16,9 @@ const deleteFriend = async (req, res) => {
 // Accept friend
 const acceptFriend = async (req, res) => {
     try {
-        await Contact.updateOne({ user: req.body.userid, friend: req.params._id }, { $set: { status: "accepted" } })
+        await Contact.updateOne({ user: req.body.userid, friend: req.user._id }, { $set: { status: "accepted" } })
         // Creat a new contact 
-        let contact = await Contact.find({ user: req.params._id, friend: req.body.userid })
+        let contact = await Contact.find({ user: req.user._id, friend: req.body.userid })
         console.log(contact)
         if (contact.length != 0) {
             return res.status(400).json({ success: false, error: "This user is already in your contact" })
@@ -26,7 +26,7 @@ const acceptFriend = async (req, res) => {
         else {
             // Creat a new contact 
             let newContact = new Contact({
-                user: req.params._id,
+                user: req.user._id,
                 friend: req.body.userid,
                 status: 'accepted',
                 tag: "",
@@ -48,9 +48,9 @@ const acceptFriend = async (req, res) => {
 const getContact = async (req, res) => {
     try {
         // Return pending list with requester info
-        let pendingList = await Contact.find({ friend: req.params._id, status: "pending" }, {}).populate('user')
+        let pendingList = await Contact.find({ friend: req.user._id, status: "pending" }, {}).populate('user')
         // Return accetped list with requested info
-        let acceptedList = await Contact.find({ user: req.params._id, status: "accepted" }, {}).populate('friend')
+        let acceptedList = await Contact.find({ user: req.user._id, status: "accepted" }, {}).populate('friend')
         return res.status(200).json({ success: true, pending: pendingList, accepted: acceptedList })
     } catch (err) { // error occors
         console.log(err)

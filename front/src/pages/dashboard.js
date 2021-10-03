@@ -18,13 +18,15 @@ export default class Dashboard extends React.Component {
 
 
     componentDidMount() {
-        const id = this.props.match.params._id;
-        const home = '/dashboard/' + id;
+        const home = '/dashboard/';
+        const cookies = new Cookies()
+        console.log(cookies.get('token'))
         axios.get(home).then(response => {
             if (response.data.success) {
                 this.setState({ profile: response.data.user, loading: false });
             }
         }).catch(error => {
+            message.error(error.response.data.error)
             console.log(error)
             this.props.history.push('/login');
         })
@@ -34,26 +36,15 @@ export default class Dashboard extends React.Component {
 
     render() {
         const OnLogOut = () => {
-            const id = this.props.match.params._id;
-            const logout = '/' + id + '/logout';
-            axios.get(logout).then(response => {
-                if (response.data.success) {
-                    const cookies = new Cookies();
-                    cookies.remove('token');
-                    cookies.remove('connect.sid')
-                    this.props.history.push('/login');
-                }
-            }).catch(error => {
-                console.log(error.response);
-            })
-
+            const cookies = new Cookies()
+            cookies.remove('token')
+            this.props.history.push('/login');
         }
 
         // Define the variable
         const { Header, Content } = Layout;
         const { profile, loading } = this.state;
-        const id = this.props.match.params._id;
-        const home = '/dashboard/' + id;
+        const home = '/dashboard';
         if (loading) {
             return <Space size='middle' style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
                 <Spin size='large' />

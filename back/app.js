@@ -48,11 +48,12 @@ const userRouter = require('./routes/userRouter')
 const contactRouter = require('./routes/contactRouter')
 const infoRouter = require('./routes/infoRouter')
 const searchRouter = require('./routes/searchRouter')
+require('./config/passport')(passport)
 // Use Routers
 app.use('/', userRouter)
-app.use('/dashboard/', contactRouter)
-app.use('/dashboard/', infoRouter)
-app.use('/dashboard/', searchRouter)
+app.use('/dashboard', passport.authenticate('jwt', { session: false }), contactRouter)
+app.use('/dashboard', passport.authenticate('jwt', { session: false }), infoRouter)
+app.use('/dashboard', passport.authenticate('jwt', { session: false }), searchRouter)
 
 const port = process.env.PORT || 8000
 app.listen(port, () => {

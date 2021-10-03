@@ -156,10 +156,9 @@ function SignIn(props) {
         axios.post('/login', { email: email, password: password }).then(res => {
             if (res.data.success) {
                 // console.log(res.data.data)
-                let detail = { id: res.data.data, user: res.data.user }
                 const cookies = new Cookies();
                 cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60, path: '/' });
-                props.history.push('/dashboard/' + detail.id)
+                props.history.push('/dashboard/')
             }
             else {
                 // if error

@@ -21,8 +21,7 @@ export default class AddFriend extends React.Component {
 
 
     componentDidMount() {
-        const id = this.props.match.params._id;
-        const home = "/dashboard/" + id;
+        const home = "/dashboard";
         axios.get(home).then(response => {
             if (response.data.success) {
                 this.setState({ profile: response.data.user, loading: false });
@@ -34,18 +33,9 @@ export default class AddFriend extends React.Component {
 
     render() {
         const OnLogOut = () => {
-            const id = this.props.match.params._id;
-            const logout = '/' + id + '/logout';
-            axios.get(logout).then(response => {
-                if (response.data.success) {
-                    const cookies = new Cookies();
-                    cookies.remove('token');
-                    cookies.remove('connect.sid')
-                    this.props.history.push('/login');
-                }
-            }).catch(error => {
-                console.log(error.response);
-            })
+            const cookies = new Cookies()
+            cookies.remove('token')
+            this.props.history.push('/login');
         }
 
         // style const
@@ -61,8 +51,7 @@ export default class AddFriend extends React.Component {
             background: 'rgba(255, 255, 255, 0.13)',
         };
 
-        const id = this.props.match.params._id;
-        const home = "/dashboard/" + id;
+        const home = "/dashboard";
         if (loading) {
             return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
                 <Spin size="large" />

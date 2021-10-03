@@ -4,14 +4,12 @@ import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
 
-
-
 const axios = baseUrl => {
     const instance = _axios.create({
-        baseURL: 'https://new-bee-crm.herokuapp.com/',
+        baseURL: 'http://localhost:8000',
         withCredentials: true,
         headers: {
-            'Authorization': `Bearer ${cookies.get('token')}`
+            Authorization: `Bearer ${cookies.get('token')}`
         }
     })
     return instance;

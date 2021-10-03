@@ -29,13 +29,15 @@ module.exports = function (passport) {
         secretOrKey: process.env.JWT_PASSWORD, // the key that was used to sign the token
         passReqToCallback: true
     }, (req, jwt_payload, done) => {
+        console.log("1")
+        console.log(jwt_payload)
         // passport will but the decrypted token in jwt_payload variable
         User.findOne({ '_id': jwt_payload.body._id }, (err, user) => {
             if (err) {
                 return done(err, false);
             }
             // if we found user, provide the user instance to passport
-            if (user && user.isLoggedIn && user._id == req.params._id) {
+            if (user) {
                 return done(null, user);
             } else { // otherwise assign false to indicate that authentication failed
                 return done(null, false);

@@ -4,7 +4,6 @@ const User = require('../models/user');
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const Contact = require('../models/contact');
-const { isLoggedIn } = require('../routes/utility');
 require('../config/passport')(passport)
 
 // Create a new user
@@ -59,7 +58,7 @@ const SearchUserID = async (req, res) => {
     try {
         let user = await User.findOne({ userID: req.body.userID }, { photo: true, givenName: true, familyName: true, email: true });
         if (user) {
-            if (user._id == req.params._id) {
+            if (user._id == req.user._id) {
                 return res.status(200).json({ success: false, error: "You cannot search yourself" })
             }
             return res.status(200).json({ success: true, user: user })
@@ -75,12 +74,12 @@ const SearchUserID = async (req, res) => {
 // Add friend
 const addFriend = async (req, res) => {
     try {
-        let existingContact = await Contact.findOne({ friend: req.body.friend, user: req.params._id })
+        let existingContact = await Contact.findOne({ friend: req.body.friend, user: req.user._id })
         if (existingContact) {
             return res.status(200).json({ success: false, error: "You have added this user" })
         }
         let newContact = new Contact({
-            user: req.params._id,
+            user: req.user._id,
             friend: req.body.friend,
             status: "pending",
             tag: "",
@@ -99,13 +98,8 @@ const addFriend = async (req, res) => {
 // Return user information to render in the website
 const getUserInfo = async (req, res) => {
     try {
-        let user = await User.findOne({ _id: req.params._id }, {})
-        if (user) {
-            return res.status(200).json({ success: true, user: user })
-        }
-        else {
-            return res.status(400).json({ success: false, error: 'user not found' })
-        }
+        return res.status(200).json({ success: true, user: req.user })
+
     } catch (err) {
         return res.status(404).json({ success: false })
     }
@@ -113,7 +107,7 @@ const getUserInfo = async (req, res) => {
 
 const logOut = async (req, res) => {
     try {
-        await User.updateOne({ "_id": req.params._id }, { $set: { 'isLoggedIn': false } })
+        await User.updateOne({ "_id": req.user._id }, { $set: { 'isLoggedIn': false } })
         return res.clearCookie('connect.sid', { path: '/' }).status(200).json({ success: true })
     } catch (err) {
         return res.status(404).json({ success: false })

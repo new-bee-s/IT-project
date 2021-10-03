@@ -8,8 +8,7 @@ import Cookies from 'universal-cookie';
 
 export default function EditInfo(props) {
 
-    const id = props.match.params._id;
-    const home = "/dashboard/" + id;
+    const home = "/dashboard";
     const { Header, Content } = Layout;
     const { Search } = Input;
 
@@ -55,18 +54,9 @@ export default function EditInfo(props) {
 
     // logout
     const OnLogOut = () => {
-        const logout = '/' + id + '/logout';
-        axios.get(logout).then(response => {
-            if (response.data.success) {
-                const cookies = new Cookies();
-                cookies.remove('token');
-                cookies.remove('connect.sid')
-                props.history.push('/login');
-            }
-        }).catch(error => {
-            console.log(error.response);
-        })
-
+        const cookies = new Cookies()
+        cookies.remove('token')
+        this.props.history.push('/login');
     }
 
     const logout = (
@@ -115,21 +105,6 @@ export default function EditInfo(props) {
             if (res.data.success) {
                 console.log("success changed password");
                 message.success("success changed password");
-
-                // if success
-                // logout and clear cookies
-                // go back to sign in page
-                const logout = '/' + id + '/logout';
-                axios.get(logout).then(response => {
-                    if (response.data.success) {
-                        const cookies = new Cookies();
-                        cookies.remove('token');
-                        cookies.remove('connect.sid')
-                        props.history.push('/login');
-                    }
-                }).catch(error => {
-                    console.log("logout error: " + error.response);
-                })
             }
             else {
                 // if error

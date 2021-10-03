@@ -18,10 +18,10 @@ class Router extends React.Component {
                     <Route path='/' exact component={Homepage}></Route>
                     <Route path='/login' exact component={LogIn}></Route>
                     <Route path='/register' exact component={Register}></Route>
-                    <Route path='/dashboard/:_id' exact component={Dashboard}></Route>
-                    <Route path='/dashboard/:_id/contact' exact component={Contact}></Route>
-                    <Route path='/dashboard/:_id/search' exact component={Search}></Route>
-                    <Route path='/dashboard/:_id/editinfo' exact component={EditInfo}></Route>
+                    <Route path='/dashboard/' exact component={Dashboard}></Route>
+                    <Route path='/dashboard/contact' exact component={Contact}></Route>
+                    <Route path='/dashboard/search' exact component={Search}></Route>
+                    <Route path='/dashboard/editinfo' exact component={EditInfo}></Route>
                 </Switch>
             </BrowserRouter>
         )

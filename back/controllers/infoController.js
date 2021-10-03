@@ -4,7 +4,7 @@ const path = require('path')
 // Get the info from web and update the information if it is not empty
 const editInfo = async (req, res) => {
     try {
-        let userid = req.params._id
+        let userid = req.user._id
         let givenName = req.body.givenName;
         let familyName = req.body.familyName;
         let password = req.body.password;
@@ -57,7 +57,7 @@ const uploadImage = async (req, res) => {
             data: req.body.image,
             contentType: "image"
         }
-        await User.updateOne({ _id: req.params._id }, { $set: { photo: photo } })
+        await User.updateOne({ _id: req.user._id }, { $set: { photo: photo } })
         return res.status(200).json({ success: true })
     } catch (err) {
         console.log(err)

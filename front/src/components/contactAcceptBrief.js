@@ -94,8 +94,7 @@ export default class ContactBrief extends React.Component {
 
   // connect back-end for edit friend remark
   editRemark = () => {
-    const userId = this.props.contact.user
-    axios.post('/dashboard/' + userId + '/changeRemark', {
+    axios.post('/dashboard/changeRemark', {
       remark: this.state.changeRemark,
       contactid: this.props.contact._id
     }).then(response => {
@@ -115,8 +114,7 @@ export default class ContactBrief extends React.Component {
 
   // connect back-end for edit tags(delete and add)
   editTags = () => {
-    const userId = this.props.contact.user
-    axios.post('/dashboard/' + userId + '/editTag', {
+    axios.post('/dashboard/editTag', {
       tag: this.state.tags,
       contactid: this.props.contact._id
     }).then(response => {
@@ -136,8 +134,7 @@ export default class ContactBrief extends React.Component {
 
   // connect back-end for reject friend
   rejectFriend = () => {
-    const userId = this.props.contact.user
-    axios.post('/dashboard/' + userId + '/deleteFriend', {
+    axios.post('/dashboard/deleteFriend', {
       contactid: this.props.contact._id
     }).then(response => {
       if (response.data.success) {

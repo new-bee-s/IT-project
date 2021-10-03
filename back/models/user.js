@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema({
     introduction: { type: String },
     mobile: { type: String },
     address: { city: String, state: String, country: String },
-    isLoggedIn: { type: Boolean },
 
 })
 

@@ -6,12 +6,12 @@ const passport = require('passport')
 require('../config/passport')(passport)
 
 // Edit information of the user
-infoRouter.post('/:_id/editInfo', infoController.editInfo)
+infoRouter.post('/editInfo', infoController.editInfo)
 
 // Return user information
-infoRouter.get('/:_id', userController.getUserInfo)
+infoRouter.get('/', userController.getUserInfo)
 
 // Upload Image of user sent
-infoRouter.post('/:_id/uploadImage', infoController.uploadImage)
+infoRouter.post('/uploadImage', infoController.uploadImage)
 
 module.exports = infoRouter

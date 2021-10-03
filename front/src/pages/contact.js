@@ -22,14 +22,12 @@ export default function Contact(props) {
     const [detailLoading, setDetailLoading] = useState(true);
     const [profileLoading, setProfileLoading] = useState(true);
     const [Detail, setDetail] = useState([]);
-    const id = props.match.params._id;
-    const home = "/dashboard/" + id;
+    const home = "/dashboard";
     const [profile, setProfile] = useState([]);
 
 
     useEffect(() => {
-        const id = props.match.params._id;
-        const home = "/dashboard/" + id;
+        const home = "/dashboard";
         // connect contact back-end and seting contact list information
         axios.get(home + '/contact').then(response => {
             if (response.data.success) {
@@ -55,18 +53,9 @@ export default function Contact(props) {
 
     // logout function
     const OnLogOut = () => {
-        const logout = '/' + id + '/logout';
-        axios.get(logout).then(response => {
-            if (response.data.success) {
-                const cookies = new Cookies();
-                cookies.remove('token');
-                cookies.remove('connect.sid')
-                props.history.push('/signin');
-            }
-        }).catch(error => {
-            message.error(error.response.data.error)
-        })
-
+        const cookies = new Cookies()
+        cookies.remove('token')
+        this.props.history.push('/login');
     }
 
     //render logout
