@@ -158,7 +158,7 @@ function SignIn(props) {
                 // console.log(res.data.data)
                 const cookies = new Cookies();
                 cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60, path: '/' });
-                props.history.push('/dashboard/')
+                props.history.push('/dashboard')
             }
             else {
                 // if error
