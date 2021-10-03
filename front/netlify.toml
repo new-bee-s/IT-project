@@ -1,0 +1,39 @@
+[build]
+    command = "npm run build"
+    publish = "/build"
+    base = "/"
+
+[[redirects]]
+    from = "/"
+    to = "/login"
+    status = 200
+
+[[redirects]]
+    from = "/login"
+    to = "/register"
+    status = 200
+
+[[redirects]]
+    from = "/dashboard/*"
+    to = "/login"
+    status = 401
+
+[[redirects]]
+    from = "/dashboard/:_id"
+    to = "/dashboard/:_id/search"
+    status = 200
+
+[[redirects]]
+    from = "/dashboard/:_id"
+    to = "/dashboard/:_id/contact"
+    status = 200
+
+[[redirects]]
+    from = "/dashboard/:_id"
+    to = "/dashboard/:_id/editinfo"
+    status = 200
+
+[[redirects]]
+    from = "/dashboard/:_id"
+    to = "/dashboard/:_id/search"
+    status = 200
