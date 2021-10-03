@@ -1,8 +1,8 @@
 # Redirects from what the browser requests to what we serve
-/   
-/login  / 401
-/register
-/dashboard/:_id
-/dashboard/:_id/search
-/dashboard/:_id/contact
-/dashboard/:_id/editinfo
+/                   /login
+/login              /register
+/login              /dashboard/:_id
+/dashboard/:_id     /login   401
+/dashboard/:_id     /dashboard/:_id/contact
+/dashboard/:_id     /dashboard/:_id/search
+/dashboard/:_id     /dashboard/:_id/editinfo
