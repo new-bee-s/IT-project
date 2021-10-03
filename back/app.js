@@ -15,7 +15,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false })) // replaces body-parser
 app.use(express.static('public'))
 app.use(cookieParser())
-let allowedOrigins = ['http://localhost:3000', 'https://new-bees.netlify.app/'];
+let allowedOrigins = ['http://localhost:3000', 'https://new-bees.netlify.app'];
 
 app.use(cors({
     credentials: true, // add Access-Control-Allow-Credentials to header
