@@ -4,7 +4,7 @@
   "description": "This is the project of COMP30019 IT-Project  :)",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "back": "cd New-Bees && nodemon app.js"
   },
   "repository": {
