@@ -18,7 +18,7 @@ export default class Dashboard extends React.Component {
 
 
     componentDidMount() {
-        const home = '/dashboard/';
+        const home = '/dashboard';
         const cookies = new Cookies()
         console.log(cookies.get('token'))
         axios.get(home).then(response => {
