@@ -1,10 +1,10 @@
 import React from 'react'
-import {useState,useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import axios from '../commons/axios.js'
 import ContactPendingBrief from '../components/contactPendingBrief.js'
 import ContactBrief from '../components/contactAcceptBrief.js'
-import { Menu,Badge,Typography } from 'antd';
-import { UserOutlined,UserAddOutlined} from '@ant-design/icons';
+import { Menu, Badge, Typography } from 'antd';
+import { UserOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Layout, Dropdown } from 'antd';
 import { Row, Col, Space, Spin } from 'antd';
 import Cookies from 'universal-cookie';
@@ -12,47 +12,49 @@ import { Avatar } from 'antd';
 
 
 
-export default function Contact(props){
+export default function Contact(props) {
     const { Text } = Typography;
     const { SubMenu } = Menu;
-    const [ acceptContact, setAcceptContacts] = useState([]);
-    const [ pendingContact, setPendingContact] = useState([]);
-    const [ length,setLength ]= useState('');
+    const [acceptContact, setAcceptContacts] = useState([]);
+    const [pendingContact, setPendingContact] = useState([]);
+    const [length, setLength] = useState('');
     const { Header, Content, Sider } = Layout;
-    const [ detailLoading, setDetailLoading ] = useState(true);
-    const [ profileLoading, setProfileLoading ] = useState(true);
-    const [ Detail, setDetail] = useState([]);
+    const [detailLoading, setDetailLoading] = useState(true);
+    const [profileLoading, setProfileLoading] = useState(true);
+    const [Detail, setDetail] = useState([]);
     const id = props.match.params._id;
     const home = "/dashboard/" + id;
-    const [ profile,setProfile ]= useState([]);
-    
+    const [profile, setProfile] = useState([]);
 
-    useEffect(()=>{
+
+    useEffect(() => {
         const id = props.match.params._id;
         const home = "/dashboard/" + id;
         // connect contact back-end and seting contact list information
-        axios.get(home +'/contact').then(response=>{
-            if(response.data.success){
+        axios.get(home + '/contact').then(response => {
+            if (response.data.success) {
                 setAcceptContacts(response.data.accepted)
                 setPendingContact(response.data.pending)
                 setLength(response.data.pending.length)
                 setDetailLoading(false)
             }
-        }).catch(error=>{
+        }).catch(error => {
+            message.error(error.response.data.error)
         })
-        
-        axios.get(home).then(response=>{
-            if(response.data.success){
+
+        axios.get(home).then(response => {
+            if (response.data.success) {
                 setProfile(response.data.user);
                 setProfileLoading(false);
             }
-        }).catch(error=>{
+        }).catch(error => {
+            message.error(error.response.data.error)
         })
-        
-    },[])
+
+    }, [])
 
     // logout function
-    const OnLogOut = () => { 
+    const OnLogOut = () => {
         const logout = '/' + id + '/logout';
         axios.get(logout).then(response => {
             if (response.data.success) {
@@ -62,7 +64,7 @@ export default function Contact(props){
                 props.history.push('/signin');
             }
         }).catch(error => {
-            console.log(error.response);
+            message.error(error.response.data.error)
         })
 
     }
@@ -70,24 +72,24 @@ export default function Contact(props){
     //render logout
     const logout = (
         <Menu>
-            <Menu.Item key="1" onClick = {OnLogOut}>Log Out</Menu.Item>
+            <Menu.Item key="1" onClick={OnLogOut}>Log Out</Menu.Item>
         </Menu>
     );
 
     // separate each contact list with index
-    const renderContact = acceptContact.map((contact,index)=>{
-        if (Detail.id === undefined){
+    const renderContact = acceptContact.map((contact, index) => {
+        if (Detail.id === undefined) {
             return (<> </>)
         }
 
-        if (contact.friend._id === Detail.id){
+        if (contact.friend._id === Detail.id) {
             console.log(Detail.id)
             return (
                 <ContactBrief
-                    key ={index}
-                    contact = {contact}/> 
+                    key={index}
+                    contact={contact} />
             )
-            
+
         }
         return (<> </>)
     })
@@ -97,10 +99,10 @@ export default function Contact(props){
             <Spin size="large" />
             <h3>Loading</h3>
         </Space>;
-    } 
+    }
     else {
         // render contact page
-        return(
+        return (
             <Layout>
                 <Header style={{ padding: '0 10px' }}>
                     <Row style={{ height: "64px" }}>
@@ -119,9 +121,9 @@ export default function Contact(props){
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                                     </a>
                                 </Menu.Item>
-                                
+
                                 <Menu.Item key="2">
-                                    <a href={home+'/contact'}>
+                                    <a href={home + '/contact'}>
                                         <img src='/../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
                                     </a>
@@ -136,13 +138,13 @@ export default function Contact(props){
 
                             </Menu>
                         </Col>
-                        
+
                         <Col span={7} offset={1}>
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key="1">
                                         <Avatar src={profile.photo.data} />
-                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px'}}>
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                             {profile.email}
                                         </span>
                                     </Menu.Item>
@@ -151,45 +153,45 @@ export default function Contact(props){
                         </Col>
                     </Row>
                 </Header>
-                <Layout  style={{ padding: '2vh 2vh', paddingRight:'2vh', backgroundImage:'url("/../pics/background1.jpg")'}}>
-                    <Sider width={'20vw'} style = {{background: '#fff'}}>
-                        <Menu 
+                <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background1.jpg")' }}>
+                    <Sider width={'20vw'} style={{ background: '#fff' }}>
+                        <Menu
                             mode="inline"
-                            style={{minHeight: '100vh'}}
-                        >   
-                                <SubMenu key="sub1" icon={<Badge count={length} size="small" offset={[2,-1]}> 
-                                                        <UserAddOutlined/> 
-                                                        </Badge>} title="New friend" >
-                                    {pendingContact.map((contact, index) => <Menu.Item key = {contact._id} icon = {
-                                        <Avatar icon={<UserOutlined />} />}  style = {{paddingLeft: '20px', height:'100px'}}  > 
-                                        <ContactPendingBrief
-                                        key ={contact._id}
-                                        contact = {contact}/>
-                                    </Menu.Item>)}
-                                    
-                                </SubMenu>
-                                <SubMenu key="sub2" icon={<UserOutlined/>} title="My friend">
-                                    {acceptContact.map((contact, index) => <Menu.Item key = {index} icon = {
-                                        <Avatar icon={<UserOutlined />}/>
-                                    } style = {{paddingLeft: '20px'}}> 
-                                        <div 
-                                        onClick={e => setDetail(e.target)} 
-                                        id = {contact.friend._id}
-                                        >
-                                            {contact.friend.givenName}
-                                        <Text 
-                                        type="secondary"
-                                        style={{margin:'5px'}}
+                            style={{ minHeight: '100vh' }}
+                        >
+                            <SubMenu key="sub1" icon={<Badge count={length} size="small" offset={[2, -1]}>
+                                <UserAddOutlined />
+                            </Badge>} title="New friend" >
+                                {pendingContact.map((contact, index) => <Menu.Item key={contact._id} icon={
+                                    <Avatar icon={<UserOutlined />} />} style={{ paddingLeft: '20px', height: '100px' }}  >
+                                    <ContactPendingBrief
+                                        key={contact._id}
+                                        contact={contact} />
+                                </Menu.Item>)}
+
+                            </SubMenu>
+                            <SubMenu key="sub2" icon={<UserOutlined />} title="My friend">
+                                {acceptContact.map((contact, index) => <Menu.Item key={index} icon={
+                                    <Avatar icon={<UserOutlined />} />
+                                } style={{ paddingLeft: '20px' }}>
+                                    <div
+                                        onClick={e => setDetail(e.target)}
+                                        id={contact.friend._id}
+                                    >
+                                        {contact.friend.givenName}
+                                        <Text
+                                            type="secondary"
+                                            style={{ margin: '5px' }}
                                         >
                                             {contact.remark}
                                         </Text>
-                                            
-                                        </div>
-                                    </Menu.Item>)}
-                                </SubMenu>    
+
+                                    </div>
+                                </Menu.Item>)}
+                            </SubMenu>
                         </Menu>
                     </Sider>
-                    <Content style={{minHeight: 280, backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw 2vw'}}> 
+                    <Content style={{ minHeight: 280, backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw 2vw' }}>
                         {renderContact}
                     </Content>
                 </Layout>

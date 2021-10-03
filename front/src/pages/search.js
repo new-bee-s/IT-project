@@ -91,7 +91,7 @@ export default class AddFriend extends React.Component {
                 }
             }).catch(error => {
                 console.log(error.response.data.error)
-                console.log("WTF")
+                message.error(error.response.data.error)
                 // or throw(error.respond)
             })
 
@@ -104,7 +104,6 @@ export default class AddFriend extends React.Component {
                 myremark: event.target.value
             });
 
-            console.log(myremark)
         }
 
         // helper function of search
@@ -114,7 +113,6 @@ export default class AddFriend extends React.Component {
                 mysearch: event.target.value
             });
 
-            console.log(mysearch)
         }
 
         // helper function of write verify message
@@ -124,7 +122,6 @@ export default class AddFriend extends React.Component {
                 mymsg: event.target.value
             });
 
-            console.log(mymsg)
         }
 
         //perform search functionality
