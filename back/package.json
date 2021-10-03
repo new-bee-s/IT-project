@@ -4,10 +4,7 @@
   "description": "This is the project of COMP30019 IT-Project  :)",
   "main": "app.js",
   "scripts": {
-    "front-install": "cd New-Bees/front && npm install",
-    "front": "cd New-Bees/front && npm start",
     "start": "nodemon app.js",
-    "heroku-postbuild": "cd cd New-Bees/front && NPM_CONFIG_PRODUCTION=false npm install && npm run build",
     "back": "cd New-Bees && nodemon app.js"
   },
   "repository": {
