@@ -28,13 +28,16 @@ export default class ContactBrief extends React.Component {
         axios.post('/dashboard/' + userId + '/acceptFriend', {
             userid: this.props.contact.user._id
         }).then(response => {
-            if (response.status === 200) {
-                message.success('Accept successful')
+            if (response.data.success) {
+                message.success('Accept successfully')
+                this.props.push('/dashboard/' + userId + '/contact')
             }
             else {
                 message.error(response.data.error)
             }
+
         }).catch(error => {
+            message.error(error.response.data.error)
         })
 
     }
@@ -45,14 +48,16 @@ export default class ContactBrief extends React.Component {
         axios.post('/dashboard/' + userId + '/deleteFriend', {
             contactid: this.props.contact._id
         }).then(response => {
-            if (response.status === 200) {
-                message.success('Reject successful')
+            if (response.data.success) {
+                message.success('Delete successfully')
             }
             else {
                 message.error(response.data.error)
             }
-        }).catch(error => {
+            window.location.reload()
 
+        }).catch(error => {
+            message.error(error.response.data.error)
         })
 
     }

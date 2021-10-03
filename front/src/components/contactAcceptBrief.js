@@ -1,22 +1,22 @@
 import React from 'react'
 import axios from '../commons/axios.js'
-import { Divider, Col, Row,message,Button,Typography,Tag, Input, Tooltip } from 'antd';
-import {DeleteOutlined,CheckOutlined,PlusOutlined} from '@ant-design/icons';
+import { Divider, Col, Row, message, Button, Typography, Tag, Input, Tooltip } from 'antd';
+import { DeleteOutlined, CheckOutlined, PlusOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 
 
 
 
 export default class ContactBrief extends React.Component {
-  constructor(props){
-      super(props);
-      console.log(props.contact)
-      console.log(this.props.contact)
+  constructor(props) {
+    super(props);
+    console.log(props.contact)
+    console.log(this.props.contact)
   }
 
-  state={
+  state = {
     changeRemark: this.props.contact.remark,
-    tags:this.props.contact.tag,
+    tags: this.props.contact.tag,
     inputVisible: false,
     inputValue: '',
     editInputIndex: -1,
@@ -29,7 +29,7 @@ export default class ContactBrief extends React.Component {
   };
 
   // Some tag function code using from Antd Design: https://ant.design/components/tag
- 
+
   //click delete tag 
   handleClose = removedTag => {
     const tags = this.state.tags.filter(tag => tag !== removedTag);
@@ -90,68 +90,71 @@ export default class ContactBrief extends React.Component {
   saveEditInputRef = input => {
     this.editInput = input;
   };
-  
+
 
   // connect back-end for edit friend remark
-  editRemark=()=>{
+  editRemark = () => {
     const userId = this.props.contact.user
-    axios.post('/dashboard/' + userId+'/changeRemark',{
+    axios.post('/dashboard/' + userId + '/changeRemark', {
       remark: this.state.changeRemark,
       contactid: this.props.contact._id
-    }).then(response=>{
-      if(response.status===200){
-        message.success('Edit successful')
-              
+    }).then(response => {
+      if (response.data.success) {
+        message.success('Edit successfully')
+
       }
-      else{
+      else {
         message.error(response.data.error)
       }
-    }).catch(error => {
 
+    }).catch(error => {
+      message.error(error.response.data.error)
     })
-    
+
   }
 
   // connect back-end for edit tags(delete and add)
-  editTags=()=>{
+  editTags = () => {
     const userId = this.props.contact.user
-    axios.post('/dashboard/' + userId+ '/editTag',{
+    axios.post('/dashboard/' + userId + '/editTag', {
       tag: this.state.tags,
       contactid: this.props.contact._id
-    }).then(response=>{
-      if(response.status===200){
-        message.success('Edit successful')
-              
+    }).then(response => {
+      if (response.data.success) {
+        message.success('Edit successfully')
+
       }
-      else{
+      else {
         message.error(response.data.error)
       }
-    }).catch(error => {
 
+    }).catch(error => {
+      message.error(error.response.data.error)
     })
-    
+
   }
 
   // connect back-end for reject friend
-  rejectFriend = ()=>{
+  rejectFriend = () => {
     const userId = this.props.contact.user
     axios.post('/dashboard/' + userId + '/deleteFriend', {
-        contactid: this.props.contact._id
-    }).then(response => { 
-        if(response.status===200){
-            message.success('Reject successful')
-            
-        }
-        else{
-            message.error(response.data.error)
-        }
+      contactid: this.props.contact._id
+    }).then(response => {
+      if (response.data.success) {
+        message.success('Delete successfully')
+
+      }
+      else {
+        message.error(response.data.error)
+      }
+
     }).catch(error => {
-        
-        })
+      message.error(error.response.data.error)
+    })
 
-}
+  }
 
-  render(){
+  render() {
     const { Text } = Typography;
     const { Content } = Layout;
     const { tags, inputVisible, inputValue, editInputIndex, editInputValue } = this.state;
@@ -164,24 +167,24 @@ export default class ContactBrief extends React.Component {
       </div>
     );
 
-  return(
-    // render accept 
-    <Content style={{minHeight: 280, background: '#fff', padding: '3vh 3vh' ,margin:'10px 10px'}}>
+    return (
+      // render accept 
+      <Content style={{ minHeight: 280, background: '#fff', padding: '3vh 3vh', margin: '10px 10px' }}>
         <h1 style={{ margin: '20px 330px' }}>
           User Profile
         </h1>
         <h2>Personal</h2>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="Gven Name" content={ this.props.contact.friend.givenName} />
+            <DescriptionItem title="Gven Name" content={this.props.contact.friend.givenName} />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="Family Name" content={ this.props.contact.friend.familyName} />
+            <DescriptionItem title="Family Name" content={this.props.contact.friend.familyName} />
           </Col>
         </Row>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="User id" content={ this.props.contact.friend.userID} />
+            <DescriptionItem title="User id" content={this.props.contact.friend.userID} />
           </Col>
           <Col span={12}>
             <DescriptionItem title="Birthday" content={this.props.contact.friend.birthday} />
@@ -200,121 +203,121 @@ export default class ContactBrief extends React.Component {
             <DescriptionItem title="Address" content={this.props.contact.friend.address} />
           </Col>
         </Row>
-        <Divider/>
+        <Divider />
         <Row style={{ marginTop: 24 }}>
           <Col span={2}>
-            <DescriptionItem title="Remark"  />
+            <DescriptionItem title="Remark" />
           </Col>
           <Col span={10}>
-              <Text 
-                style={{margin:"0px 0px 0px 0px"}}
-                editable={{
+            <Text
+              style={{ margin: "0px 0px 0px 0px" }}
+              editable={{
                 tooltip: 'click to edit text',
-                onChange:this.editRemarkF
-                }} 
-              >
-                {this.state.changeRemark}
-              </Text>
+                onChange: this.editRemarkF
+              }}
+            >
+              {this.state.changeRemark}
+            </Text>
           </Col>
           <Col span={12}>
-            <Button 
-              style={{margin:"-10px 0px 0px 0px"}}
+            <Button
+              style={{ margin: "-10px 0px 0px 0px" }}
               shape="circle"
-              type= "primary"
+              type="primary"
               icon={<CheckOutlined />}
               onClick={this.editRemark}
-            />  
-          
+            />
+
           </Col>
         </Row>
 
-        
-      
-      <Divider />
+
+
+        <Divider />
         <h2>Tag</h2>
-        
-          {tags.map((tag, index) => {
-            if (editInputIndex === index) {
-              return (
-                <Input
-                  ref={this.saveEditInputRef}
-                  key={tag}
-                  size="small"
-                  className="tag-input"
-                  value={editInputValue}
-                  onChange={this.handleEditInputChange}
-                  onBlur={this.handleEditInputConfirm}
-                  onPressEnter={this.handleEditInputConfirm}
-                />
-              );
-            }
 
-            const isLongTag = tag.length > 20;
-
-            const tagElem = (
-             
-                <Tag
-                  color="#2db7f5"
-                  className="edit-tag"
-                  key={tag}
-                  closable
-                  onClose={() => this.handleClose(tag)}
-                >
-                  <span
-                    onDoubleClick={e => {
-                      if (index ) {
-                        this.setState({ editInputIndex: index, editInputValue: tag }, () => {
-                          this.editInput.focus();
-                        });
-                        e.preventDefault();
-                      }
-                    }}
-                  >
-                    {isLongTag ? `${tag.slice(0, 20)}...` : tag}
-                  </span>
-                </Tag>
-             
-            );
-            return isLongTag ? (
-              <Tooltip title={tag} key={tag}>
-                {tagElem}
-              </Tooltip>
-            ) : (
-              tagElem
-            );
-          })}
-          {inputVisible && (
-            <Input
-              color="blue"
-              ref={this.saveInputRef}
-              type="text"
-              size="small"
-              className="tag-input"
-              value={inputValue}
-              onChange={this.handleInputChange}
-              onBlur={this.handleInputConfirm}
-              onPressEnter={this.handleInputConfirm}
-            />
-          )}
-          {!inputVisible && (
-            <Tag className="site-tag-plus" onClick={this.showInput}>
-              <PlusOutlined /> New Tag
-            </Tag>
-          )}
-       
-        
-          <Button 
-                style={{margin:"-10px 0px 0px 0px"}}
-                shape="circle"
-                type= "primary"
-                icon={<CheckOutlined />}
-                onClick={this.editTags}
+        {tags.map((tag, index) => {
+          if (editInputIndex === index) {
+            return (
+              <Input
+                ref={this.saveEditInputRef}
+                key={tag}
+                size="small"
+                className="tag-input"
+                value={editInputValue}
+                onChange={this.handleEditInputChange}
+                onBlur={this.handleEditInputConfirm}
+                onPressEnter={this.handleEditInputConfirm}
               />
-        
-     
+            );
+          }
 
-      <Divider />
-      <h2>Contacts</h2>
+          const isLongTag = tag.length > 20;
+
+          const tagElem = (
+
+            <Tag
+              color="#2db7f5"
+              className="edit-tag"
+              key={tag}
+              closable
+              onClose={() => this.handleClose(tag)}
+            >
+              <span
+                onDoubleClick={e => {
+                  if (index) {
+                    this.setState({ editInputIndex: index, editInputValue: tag }, () => {
+                      this.editInput.focus();
+                    });
+                    e.preventDefault();
+                  }
+                }}
+              >
+                {isLongTag ? `${tag.slice(0, 20)}...` : tag}
+              </span>
+            </Tag>
+
+          );
+          return isLongTag ? (
+            <Tooltip title={tag} key={tag}>
+              {tagElem}
+            </Tooltip>
+          ) : (
+            tagElem
+          );
+        })}
+        {inputVisible && (
+          <Input
+            color="blue"
+            ref={this.saveInputRef}
+            type="text"
+            size="small"
+            className="tag-input"
+            value={inputValue}
+            onChange={this.handleInputChange}
+            onBlur={this.handleInputConfirm}
+            onPressEnter={this.handleInputConfirm}
+          />
+        )}
+        {!inputVisible && (
+          <Tag className="site-tag-plus" onClick={this.showInput}>
+            <PlusOutlined /> New Tag
+          </Tag>
+        )}
+
+
+        <Button
+          style={{ margin: "-10px 0px 0px 0px" }}
+          shape="circle"
+          type="primary"
+          icon={<CheckOutlined />}
+          onClick={this.editTags}
+        />
+
+
+
+        <Divider />
+        <h2>Contacts</h2>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
             <DescriptionItem title="Phone Number" content={this.props.contact.friend.phoneNumber} />
@@ -326,19 +329,19 @@ export default class ContactBrief extends React.Component {
         <Row>
         </Row>
         <Button
-          style={{margin:'50px 300px'}}
+          style={{ margin: '50px 300px' }}
           type="primary"
-          shape="round" 
-          icon={<DeleteOutlined/>} 
+          shape="round"
+          icon={<DeleteOutlined />}
           size='large'
           danger
-          onClick={()=>this.rejectFriend()}
+          onClick={() => this.rejectFriend()}
         >
           Delete Friend
         </Button>
 
-    </Content>
+      </Content>
 
-  )
- }
+    )
+  }
 }
