@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Homepage from './pages/homepage.js';
-import SignIn from './pages/signin.js';
+import LogIn from './pages/login.js';
 import Register from './pages/register.js';
 import Dashboard from './pages/dashboard.js';
 import Contact from './pages/contact.js';
@@ -16,7 +16,7 @@ class Router extends React.Component {
             <BrowserRouter>
                 <Switch>
                     <Route path='/' exact component={Homepage}></Route>
-                    <Route path='/login' exact component={SignIn}></Route>
+                    <Route path='/login' exact component={LogIn}></Route>
                     <Route path='/register' exact component={Register}></Route>
                     <Route path='/dashboard/:_id' exact component={Dashboard}></Route>
                     <Route path='/dashboard/:_id/contact' exact component={Contact}></Route>

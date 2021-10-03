@@ -3,4 +3,5 @@
 /node_modules/
 
 # Environment variables
+.env
 IT_PROJECT/.DS_Store
