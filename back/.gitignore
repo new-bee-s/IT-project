@@ -5,4 +5,5 @@
 # Environment variables
 IT_PROJECT/.DS_Store
 node_modules
+.env
 
