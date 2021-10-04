@@ -42,6 +42,7 @@ const UserLogin = (req, res, next) => {
             if (error) return next(error);
             const body = { _id: user._id };
             console.log(body)
+            console.log(process.env.JWT_PASSWORD)
             //Sign the JWT token and populate the payload with the user email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
             console.log(token)
