@@ -18,14 +18,13 @@ const UserSignup = (req, res, next) => {
         }
         req.login(user, { session: false }, async (error) => {
             if (error) return next(error);
-            await User.updateOne({ "_id": user._id }, { $set: { 'isLoggedIn': true } })
             const body = { _id: user._id };
 
             //Sign the JWT token and populate the payload with the user email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
             //Send back the token to the client
             const data = { _id: user.id };
-            return res.status(200).json({ success: true, data: user.id, token: token });
+            return res.status(200).json({ success: true, data: user._id, token: token });
         });
     })(req, res, next)
 }
@@ -41,13 +40,13 @@ const UserLogin = (req, res, next) => {
         }
         req.login(user, { session: false }, async (error) => {
             if (error) return next(error);
-            await User.updateOne({ "_id": user._id }, { $set: { 'isLoggedIn': true } })
-
             const body = { _id: user._id };
+            console.log(body)
             //Sign the JWT token and populate the payload with the user email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
+            console.log(token)
             //Send back the token to the client
-            return res.status(200).json({ success: true, data: user.id, token: token, user: user._id });
+            return res.status(200).json({ success: true, data: user._id, token: token });
         });
     })(req, res, next)
 }

@@ -29,7 +29,6 @@ module.exports = function (passport) {
         secretOrKey: process.env.JWT_PASSWORD, // the key that was used to sign the token
         passReqToCallback: true
     }, (req, jwt_payload, done) => {
-        console.log("1")
         console.log(jwt_payload)
         // passport will but the decrypted token in jwt_payload variable
         User.findOne({ '_id': jwt_payload.body._id }, (err, user) => {
