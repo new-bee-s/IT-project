@@ -36,7 +36,6 @@ export default class ContactBrief extends React.Component {
     }
     // connect bacl-end reject friend 
     rejectFriend = () => {
-
         axios.post('/dashboard/deleteFriend', {
             contactid: this.props.contact._id
         }).then(response => {

@@ -127,6 +127,7 @@ module.exports = function (passport) {
                         newUser.contact = [];
                         newUser.groups = [];
                         newUser.introduction = "";
+                        newUser.ban = false
                         // and save the user
                         newUser.save(function (err) {
                             if (err)

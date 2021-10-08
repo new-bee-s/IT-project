@@ -41,7 +41,6 @@ const editInfo = async (req, res) => {
         if (address) {
             await User.updateOne({ _id: userid }, { $set: { address: address } })
         }
-
         // get user after updating
         return res.status(200).json({ success: true })
 
