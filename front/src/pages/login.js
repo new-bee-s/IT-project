@@ -156,7 +156,7 @@ function SignIn(props) {
             if (res.data.success) {
                 // console.log(res.data.data)
                 const cookies = new Cookies();
-                cookies.set('token', res.data.token)
+                cookies.set('token', res.data.token, { maxAge: 24 * 60 * 60 })
                 props.history.push('/dashboard')
             }
             else {
