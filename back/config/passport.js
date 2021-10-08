@@ -9,7 +9,6 @@ const User = require('../models/user')
 const passportJWT = require("passport-jwt");
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
-
 module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
         done(null, user._id);

@@ -22,12 +22,13 @@ export default class Dashboard extends React.Component {
         const cookies = new Cookies()
         console.log(cookies.get('token'))
         axios.get(home).then(response => {
+            console.log(response)
             if (response.data.success) {
                 this.setState({ profile: response.data.user, loading: false });
             }
         }).catch(error => {
-            message.error(error.response.data.error)
-            console.log(error)
+            message.error(error.response.data.error);
+            console.log(error);
             this.props.history.push('/login');
         })
     }
@@ -36,8 +37,8 @@ export default class Dashboard extends React.Component {
 
     render() {
         const OnLogOut = () => {
-            const cookies = new Cookies()
-            cookies.remove('token')
+            const cookies = new Cookies();
+            cookies.remove('token');
             this.props.history.push('/login');
         }
 
