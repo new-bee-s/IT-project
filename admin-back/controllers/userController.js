@@ -12,7 +12,7 @@ const viewUsers = async (req, res) => {
 
 const banUser = async (req, res) => {
     try {
-        await User.updateOne({ _id: req.body._id }, { $set: { freeze: true } })
+        await User.updateOne({ _id: req.body._id }, { $set: { ban: true } })
         return res.status.json({ success: true })
     }
     catch (err) {
@@ -20,12 +20,14 @@ const banUser = async (req, res) => {
     }
 }
 
-const banUser = async (req, res) => {
+const unbanUser = async (req, res) => {
     try {
-        await User.updateOne({ _id: req.body._id }, { $set: { freeze: false } })
+        await User.updateOne({ _id: req.body._id }, { $set: { ban: false } })
         return res.status.json({ success: true })
     }
     catch (err) {
         return res.status(404).json({ success: false, error: "Web carshed" })
     }
 }
+
+module.exports = { viewUsers, banUser, unbanUser }

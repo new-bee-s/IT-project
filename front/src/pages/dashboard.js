@@ -9,19 +9,20 @@ import Cookies from 'universal-cookie';
 
 
 export default class Dashboard extends React.Component {
-
-
     constructor(props) {
         super(props)
         this.state = { profile: undefined, loading: true };
     }
 
-
     componentDidMount() {
         const home = '/dashboard';
         const cookies = new Cookies()
         console.log(cookies.get('token'))
-        axios.get(home).then(response => {
+        axios.get(home, {
+            headers: {
+                Authorization: `Bearer ${cookies.get('token')}`
+            }
+        }).then(response => {
             console.log(response)
             if (response.data.success) {
                 this.setState({ profile: response.data.user, loading: false });
@@ -29,7 +30,7 @@ export default class Dashboard extends React.Component {
         }).catch(error => {
             message.error(error.response.data.error);
             console.log(error);
-            this.props.history.push('/login');
+            this.props.history.push('/login', { replace: true });
         })
     }
 
@@ -39,7 +40,7 @@ export default class Dashboard extends React.Component {
         const OnLogOut = () => {
             const cookies = new Cookies();
             cookies.remove('token');
-            this.props.history.push('/login');
+            this.props.history.push('/login', { replace: true });
         }
 
         // Define the variable
