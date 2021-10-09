@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from '../commons/axios.js'
 import { Divider, Col, Row, message, Button, Typography, Tag, Input, Tooltip } from 'antd';
-import { DeleteOutlined, CheckOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, CheckCircleFilled, PlusOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 
 
@@ -114,21 +114,25 @@ export default class ContactBrief extends React.Component {
 
   // connect back-end for edit tags(delete and add)
   editTags = () => {
-    axios.post('/dashboard/editTag', {
-      tag: this.state.tags,
-      contactid: this.props.contact._id
-    }).then(response => {
-      if (response.data.success) {
-        message.success('Edit successfully')
+    if(this.state.tags.length<4){
+      axios.post('/dashboard/editTag', {
+        tag: this.state.tags,
+        contactid: this.props.contact._id
+      }).then(response => {
+        if (response.data.success) {
+          message.success('Edit successfully')
 
-      }
-      else {
-        message.error(response.data.error)
-      }
+        }
+        else {
+          message.error(response.data.error)
+        }
 
-    }).catch(error => {
-      message.error(error.response.data.error)
-    })
+      }).catch(error => {
+        message.error(error.response.data.error)
+      })}
+      else{
+        message.error(' Max THREE tags')
+      }
 
   }
 
@@ -234,12 +238,14 @@ export default class ContactBrief extends React.Component {
           </Col>
           <Col span={12}>
             <Button
-              style={{ margin: "-10px 0px 0px 0px" }}
-              shape="circle"
+              style={{ margin: "-9px 0px 0px 0px" }}
+              shape="round"
               type="primary"
-              icon={<CheckOutlined />}
+              icon={<CheckCircleFilled/>}
               onClick={this.editRemark}
-            />
+            >
+              Comform
+            </Button>
 
           </Col>
         </Row>
@@ -321,12 +327,14 @@ export default class ContactBrief extends React.Component {
 
 
         <Button
-          style={{ margin: "-10px 0px 0px 0px" }}
-          shape="circle"
+          
+          icon={<CheckCircleFilled/>}
+          shape="round"
           type="primary"
-          icon={<CheckOutlined />}
           onClick={this.editTags}
-        />
+        >
+          Comform
+        </Button>
 
 
 
