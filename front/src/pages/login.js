@@ -144,7 +144,6 @@ const useStyles = makeStyles((theme) => ({
 
 // signin page
 function SignIn(props) {
-
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -157,7 +156,7 @@ function SignIn(props) {
             if (res.data.success) {
                 // console.log(res.data.data)
                 const cookies = new Cookies();
-                cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60, path: '/' });
+                cookies.set('token', res.data.token, { maxAge: 24 * 60 * 60 })
                 props.history.push('/dashboard')
             }
             else {
@@ -165,8 +164,8 @@ function SignIn(props) {
                 message.error(res.data.error)
             }
         }).catch(error => {
-            message.error(error.response.data.error)
-            console.log(error.response.data.error)
+            message.error(error)
+            console.log(error)
             // or throw(error.respond)
         })
     };

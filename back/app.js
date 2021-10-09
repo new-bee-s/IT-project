@@ -44,10 +44,10 @@ app.use(passport.session())
 
 
 // Routers
-const userRouter = require('./routes/userRouter')
-const contactRouter = require('./routes/contactRouter')
-const infoRouter = require('./routes/infoRouter')
-const searchRouter = require('./routes/searchRouter')
+const userRouter = require('./routers/userRouter')
+const contactRouter = require('./routers/contactRouter')
+const infoRouter = require('./routers/infoRouter')
+const searchRouter = require('./routers/searchRouter')
 require('./config/passport')(passport)
 // Use Routers
 app.use('/', userRouter)

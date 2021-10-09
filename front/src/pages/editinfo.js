@@ -34,7 +34,8 @@ export default function EditInfo(props) {
 
     // get data from backend
     useEffect(() => {
-        axios.get(home).then(response => {
+        axios.get(home
+        ).then(response => {
             // console.log("data:" + response.data);
             if (response.data.success) {
                 setProfile(response.data.user);

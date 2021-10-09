@@ -9,7 +9,6 @@ import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
 import { useState } from 'react';
 import { message } from 'antd';
-import Cookies from 'universal-cookie';
 
 //web page style design
 const useStyles = makeStyles((theme) => ({
@@ -112,9 +111,7 @@ function Register(props) {
         }).then(res => {
             if (res.data.success) {
                 // console.log(res.data.data)
-                const cookies = new Cookies();
-                cookies.set('token', res.data.token, { httpOnly: false, sameSite: false, secure: true, maxAge: 24 * 60 * 60, path: '/' });
-                props.history.push('/dashboard/')
+                props.history.push('/login')
             }
 
         }).catch(error => {
