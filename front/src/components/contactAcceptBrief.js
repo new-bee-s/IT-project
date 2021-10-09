@@ -10,7 +10,7 @@ import { Layout } from 'antd';
 export default class ContactBrief extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.contact)
+    //console.log(props.contact)
     console.log(this.props.contact)
   }
 
@@ -184,24 +184,40 @@ export default class ContactBrief extends React.Component {
             <DescriptionItem title="User id" content={this.props.contact.friend.userID} />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="Birthday" content={this.props.contact.friend.birthday} />
+            <DescriptionItem title="Gender" content={this.props.contact.friend.gender} />
           </Col>
         </Row>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="County" content={this.props.contact.friend.country} />
+            <DescriptionItem title="Birthday" content={this.props.contact.friend.dob} />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="City" content={this.props.contact.friend.city} />
+            <DescriptionItem title="County" content={this.props.contact.friend.region} />
           </Col>
         </Row>
         <Row style={{ marginTop: 24 }}>
+          <Col span={12}>
+            <DescriptionItem title="City" content={this.props.contact.friend.region} />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="State" content={this.props.contact.friend.region} />
+          </Col>
+        </Row>
+        <Row style={{ marginTop: 24 }}>
+          <Col span={12}>
+            <DescriptionItem title="Company" content={this.props.contact.friend.company} />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="Occupation" content={this.props.contact.friend.occupation} />
+          </Col>
+        </Row>
+        <Row style={{ marginTop: 24}}>
           <Col span={24}>
-            <DescriptionItem title="Address" content={this.props.contact.friend.address} />
+            <DescriptionItem title="Friend Introduction" content={this.props.contact.friend.introduction} />
           </Col>
         </Row>
         <Divider />
-        <Row style={{ marginTop: 24 }}>
+        <Row style={{ marginTop: 24}}>
           <Col span={2}>
             <DescriptionItem title="Remark" />
           </Col>
@@ -258,6 +274,7 @@ export default class ContactBrief extends React.Component {
               className="edit-tag"
               key={tag}
               closable
+              style={{ marginTop: 24}}
               onClose={() => this.handleClose(tag)}
             >
               <span
@@ -317,7 +334,7 @@ export default class ContactBrief extends React.Component {
         <h2>Contacts</h2>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="Phone Number" content={this.props.contact.friend.phoneNumber} />
+            <DescriptionItem title="Phone Number" content={this.props.contact.friend.mobile} />
           </Col>
           <Col span={12}>
             <DescriptionItem title="Email" content={this.props.contact.friend.email} />

@@ -22,15 +22,17 @@ export default function Contact(props) {
     const [detailLoading, setDetailLoading] = useState(true);
     const [profileLoading, setProfileLoading] = useState(true);
     const [Detail, setDetail] = useState([]);
-    const home = "/dashboard";
+    const home = '/dashboard';
     const [profile, setProfile] = useState([]);
+    console.log(props)
 
 
     useEffect(() => {
-        const home = "/dashboard";
+        
         // connect contact back-end and seting contact list information
         axios.get(home + '/contact').then(response => {
-            if (response.data.success) {
+            if(response.data.success) {
+                console.log(response)
                 setAcceptContacts(response.data.accepted)
                 setPendingContact(response.data.pending)
                 setLength(response.data.pending.length)
@@ -49,7 +51,7 @@ export default function Contact(props) {
             message.error(error.response.data.error)
         })
 
-    }, [])
+    }, [acceptContact],[pendingContact])
 
     // logout function
     const OnLogOut = () => {
