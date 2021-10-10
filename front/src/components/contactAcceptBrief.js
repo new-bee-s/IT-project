@@ -10,8 +10,6 @@ import { Layout } from 'antd';
 export default class ContactBrief extends React.Component {
   constructor(props) {
     super(props);
-    //console.log(props.contact)
-    console.log(this.props.contact)
   }
 
   state = {
@@ -33,7 +31,6 @@ export default class ContactBrief extends React.Component {
   //click delete tag 
   handleClose = removedTag => {
     const tags = this.state.tags.filter(tag => tag !== removedTag);
-    console.log(tags);
     this.setState({ tags });
     message.success('Delete successfull!')
   };
@@ -54,7 +51,7 @@ export default class ContactBrief extends React.Component {
     if (inputValue && tags.indexOf(inputValue) === -1) {
       tags = [...tags, inputValue];
     }
-    console.log(tags);
+    
     this.setState({
       tags,
       inputVisible: false,

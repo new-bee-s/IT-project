@@ -24,7 +24,7 @@ export default function Contact(props) {
     const [Detail, setDetail] = useState([]);
     const home = '/dashboard';
     const [profile, setProfile] = useState([]);
-    console.log(props)
+    
 
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function Contact(props) {
         // connect contact back-end and seting contact list information
         axios.get(home + '/contact').then(response => {
             if(response.data.success) {
-                console.log(response)
+                
                 setAcceptContacts(response.data.accepted)
                 setPendingContact(response.data.pending)
                 setLength(response.data.pending.length)
@@ -74,7 +74,7 @@ export default function Contact(props) {
         }
 
         if (contact.friend._id === Detail.id) {
-            console.log(Detail.id)
+            
             return (
                 <ContactBrief
                     key={index}

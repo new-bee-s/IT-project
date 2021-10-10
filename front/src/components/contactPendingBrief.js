@@ -12,13 +12,13 @@ export default class ContactBrief extends React.Component {
 
     //write friend info
     handleClick = e => {
-        console.log('click ', e);
+       
     }
 
     // connect bacl-end accept friend 
     acceptFriend = () => {
 
-        console.log(this.props.contact)
+        
         axios.post('/dashboard/acceptFriend', {
             userid: this.props.contact.user._id
         }).then(response => {
