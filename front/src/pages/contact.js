@@ -28,11 +28,11 @@ export default function Contact(props) {
 
 
     useEffect(() => {
-        
+
         // connect contact back-end and seting contact list information
         axios.get(home + '/contact').then(response => {
-            if(response.data.success) {
-                
+
+            if (response.data.success) {
                 setAcceptContacts(response.data.accepted)
                 setPendingContact(response.data.pending)
                 setLength(response.data.pending.length)
@@ -51,7 +51,7 @@ export default function Contact(props) {
             message.error(error.response.data.error)
         })
 
-    }, [acceptContact],[pendingContact])
+    }, [acceptContact], [pendingContact])
 
     // logout function
     const OnLogOut = () => {
