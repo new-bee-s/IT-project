@@ -1,7 +1,9 @@
 require('dotenv').config()
 
 const LocalStrategy = require('passport-local').Strategy
-
+const passportJWT = require("passport-jwt");
+const JwtStrategy = passportJWT.Strategy;
+const ExtractJwt = passportJWT.ExtractJwt;
 const Admin = require('../models/admin')
 
 module.exports = function (passport) {
@@ -39,10 +41,10 @@ module.exports = function (passport) {
         usernameField: 'account',
         passwordField: 'password',
     }, // pass the req as the first arg to the callback for verification 
-        async (email, password, done) => {
+        async (account, password, done) => {
             try {
-                // see if the admin with the emailAddress exists
-                await Admin.findOne({ 'account': email }, function (err, admin) {
+                // see if the admin with the accountAddress exists
+                await Admin.findOne({ 'account': account }, function (err, admin) {
                     // if there are errors, admin is not found or password
                     // does match, send back errors
                     if (err) {
@@ -67,13 +69,13 @@ module.exports = function (passport) {
 
 
     passport.use('local-signup', new LocalStrategy({
-        usernameField: 'account',     // get email and password
+        usernameField: 'account',     // get account and password
         passwordField: 'password',
         passReqToCallback: true
-    }, async (req, email, password, done) => {
+    }, async (req, account, password, done) => {
         try {
-            await Admin.findOne({ 'account': email }, function (err, existingAdmin) {
-                // search a user by the email
+            await Admin.findOne({ 'account': account }, function (err, existingAdmin) {
+                // search a user by the account
                 // if user is not found or exists, exit with false indicating
                 // authentication failure
                 if (err) {
@@ -81,7 +83,7 @@ module.exports = function (passport) {
                 } else {
                     if (account == "" || account == null) {
                         console.log("Please enter your account")
-                        return done(null, false, { message: "Please enter your email" });
+                        return done(null, false, { message: "Please enter your account" });
                     }
                     else if (req.body.name == "" || req.body.name == null) {
                         console.log("Please enter your name")
@@ -97,7 +99,7 @@ module.exports = function (passport) {
                         return done(null, false, { message: "Please enter your confirmed password" });
                     }
                     else if (existingAdmin) {
-                        console.log("Admin signup failed:", email, "ALREADY REGISTERED!");
+                        console.log("Admin signup failed:", account, "ALREADY REGISTERED!");
                         return done(null, false, { message: "Admin has already Registered" });
                     }
                     else if (password != req.body.confirmPassword) {

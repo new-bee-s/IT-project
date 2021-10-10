@@ -41,4 +41,4 @@ const createAdmin = (req, res, next) => {
 }
 
 
-module.exports = { AdminLogin }
+module.exports = { AdminLogin, createAdmin }

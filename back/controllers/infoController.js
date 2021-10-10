@@ -38,8 +38,8 @@ const editInfo = async (req, res) => {
             if (found) {
                 return res.status(400).json({ success: false, error: "This UserID has been used" })
             }
-            if (userID.length < 9) {
-                return res.status(400).json({ success: false, error: "The ID should more than 8 digits" })
+            if (userID.length < 8) {
+                return res.status(400).json({ success: false, error: "The ID should at least 8 digits" })
             }
             else if (userID.length > 16) {
                 return res.status(400).json({ success: false, error: "The ID should less than 16 digits" })
