@@ -98,9 +98,6 @@ function Register(props) {
     //using on onchange
     const onSignUp = () => {
 
-        console.log(email, password)
-
-        //console.log(email, password)
         //use axios connect back-end and push personal information to back-end
         axios.post('/register', {
             email: email,
@@ -110,12 +107,14 @@ function Register(props) {
             confirmPassword: confirmedPassword
         }).then(res => {
             if (res.data.success) {
-                // console.log(res.data.data)
                 props.history.push('/login')
+            }
+            else {
+                // if error
+                message.error(res.data.error)
             }
 
         }).catch(error => {
-            //console.log(error.response.data.error)
             console.log(error.response.data.error)
             message.error(error.response.data.error)
         })

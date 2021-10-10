@@ -24,7 +24,6 @@ export default function Contact(props) {
     const [Detail, setDetail] = useState([]);
     const home = '/dashboard';
     const [profile, setProfile] = useState([]);
-    
 
 
     useEffect(() => {
@@ -39,6 +38,7 @@ export default function Contact(props) {
                 setDetailLoading(false)
             }
         }).catch(error => {
+            console.log(error.response.data.error)
             message.error(error.response.data.error)
         })
 
@@ -48,6 +48,7 @@ export default function Contact(props) {
                 setProfileLoading(false);
             }
         }).catch(error => {
+            console.log(error.response.data.error)
             message.error(error.response.data.error)
         })
 
@@ -74,7 +75,6 @@ export default function Contact(props) {
         }
 
         if (contact.friend._id === Detail.id) {
-            
             return (
                 <ContactBrief
                     key={index}

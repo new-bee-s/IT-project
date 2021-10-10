@@ -154,7 +154,6 @@ function SignIn(props) {
         //put user input to back-end and return status
         axios.post('/login', { email: email, password: password }).then(res => {
             if (res.data.success) {
-                // console.log(res.data.data)
                 const cookies = new Cookies();
                 cookies.set('token', res.data.token, { maxAge: 24 * 60 * 60 })
                 props.history.push('/dashboard')
@@ -164,8 +163,8 @@ function SignIn(props) {
                 message.error(res.data.error)
             }
         }).catch(error => {
-            message.error(error)
-            console.log(error)
+            console.log(error.response.data.error)
+            message.error(error.response.data.error)
             // or throw(error.respond)
         })
     };

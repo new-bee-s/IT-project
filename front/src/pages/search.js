@@ -68,14 +68,12 @@ export default class AddFriend extends React.Component {
 
         // perform send friend request functionality
         const sendRequest = () => {
-            console.log("friend id: " + result._id);
-            console.log("my id: " + profile._id);
             axios.post(home + '/addFriend', { friend: result._id, remark: myremark }).then(res => {
                 if (res.data.success) {
                     message.success("request successfully")
                 }
                 else {
-                    console.log("failed request!")
+
                     message.error(res.data.error)
                 }
             }).catch(error => {
@@ -88,7 +86,6 @@ export default class AddFriend extends React.Component {
 
         // perform set friend remark functionality
         const setRemark = event => {
-            console.log("detect remark")
             this.setState({
                 myremark: event.target.value
             });
@@ -97,7 +94,6 @@ export default class AddFriend extends React.Component {
 
         // helper function of search
         const setSearch = event => {
-            console.log("detect search")
             this.setState({
                 mysearch: event.target.value
             });
@@ -106,7 +102,6 @@ export default class AddFriend extends React.Component {
 
         // helper function of write verify message
         const setmsg = event => {
-            console.log("detect message")
             this.setState({
                 mymsg: event.target.value
             });
@@ -115,12 +110,10 @@ export default class AddFriend extends React.Component {
 
         //perform search functionality
         const onSearch = () => {
-            console.log("friend id: " + mysearch);;
+
             axios.post(home + '/search', { userID: mysearch }).then(res => {
                 // sucessful scenario
                 if (res.data.success) {
-                    console.log(res.data.user)
-                    console.log("success search!")
                     message.success("search sucessful")
                     this.setState({ result: res.data.user });
                     this.setState({ visible: true })
@@ -128,7 +121,6 @@ export default class AddFriend extends React.Component {
                 // failed scenario
                 else {
 
-                    console.log("search unsucessful")
                     message.error(res.data.error)
                 }
             }).catch(error => {
@@ -252,9 +244,9 @@ export default class AddFriend extends React.Component {
 
         // this funtion show the search result
         function showSearch() {
-            // console.log({result})
+
             if (!visible) {
-                // console.log('isssss undefined')
+
                 return;
             }
             return (

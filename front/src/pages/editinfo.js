@@ -36,14 +36,13 @@ export default function EditInfo(props) {
     useEffect(() => {
         axios.get(home
         ).then(response => {
-            // console.log("data:" + response.data);
             if (response.data.success) {
                 setProfile(response.data.user);
-                // console.log("email: "+response.data.user.email);
                 setLoading(false);
             }
         }).catch(error => {
-            console.log("error: " + error.data)
+            console.log(error.response.data.error)
+            message.error(error.response.data.error);
         })
     }, [home])
 
@@ -72,8 +71,6 @@ export default function EditInfo(props) {
 
         axios.post(home + '/editInfo', { givenName: givenName, familyName: familyName, userID: userID, introduction: introduction }).then(res => {
             if (res.data.success) {
-                //console.log("success:"+email)
-                console.log("success changed profile")
                 message.success("success changed profile")
             }
             else {
@@ -81,8 +78,8 @@ export default function EditInfo(props) {
                 message.error(res.data.error)
             }
         }).catch(error => {
-            message.error(error.response.data.error)
             console.log(error.response.data.error)
+            message.error(error.response.data.error)
             // or throw(error.respond)
         })
     }
@@ -97,14 +94,12 @@ export default function EditInfo(props) {
     const changePassword = () => {
 
         if (password !== confirmedPassword) {
-            console.log("input different password");
             message.error("You input a different confirmed password!");
             return;
         }
 
         axios.post(home + '/editInfo', { password: password }).then(res => {
             if (res.data.success) {
-                console.log("success changed password");
                 message.success("success changed password");
             }
             else {
@@ -114,8 +109,8 @@ export default function EditInfo(props) {
             }
 
         }).catch(error => {
-            message.error(error.response.data.error)
             console.log(error.response.data.error)
+            message.error(error.response.data.error)
             // or throw(error.respond)
             return;
         })
@@ -128,11 +123,9 @@ export default function EditInfo(props) {
         var reader = new FileReader();
         var file = e.target.files[0];
         reader.onloadend = () => {
-            console.log('result: ', reader);
 
             axios.post(home + '/uploadImage', { image: reader.result }).then(res => {
                 if (res.data.success) {
-                    console.log("success changed avatar");
                     message.success("success changed avatar");
                 }
                 else {
@@ -142,8 +135,8 @@ export default function EditInfo(props) {
                 }
 
             }).catch(error => {
-                message.error(error.response)
-                console.log(error.response)
+                console.log(error.response.data.error)
+                message.error(error.response.data.error)
                 return;
             })
         }

@@ -17,19 +17,17 @@ export default class Dashboard extends React.Component {
     componentDidMount() {
         const home = '/dashboard';
         const cookies = new Cookies()
-        console.log(cookies.get('token'))
         axios.get(home, {
             headers: {
                 Authorization: `Bearer ${cookies.get('token')}`
             }
         }).then(response => {
-            console.log(response)
             if (response.data.success) {
                 this.setState({ profile: response.data.user, loading: false });
             }
         }).catch(error => {
+            console.log(error.response.data.error)
             message.error(error.response.data.error);
-            console.log(error);
             this.props.history.push('/login', { replace: true });
         })
     }
