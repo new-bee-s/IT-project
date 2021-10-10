@@ -11,8 +11,6 @@ userRouter.post('/register', userController.UserSignup)
 // Signin router
 userRouter.post('/login', userController.UserLogin)
 
-// Logout router
-userRouter.get('/logout', userController.logOut)
 
 userRouter.post('/uploadInfo', passport.authenticate('jwt'), (req, res) => infoController.editInfo(req, res))
 module.exports = userRouter
