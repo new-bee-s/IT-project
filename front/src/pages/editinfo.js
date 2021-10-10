@@ -239,6 +239,10 @@ export default function EditInfo(props) {
                                                 <br />
                                                 People can use it to find you!
                                                 <br />
+                                                The ID must contain uppercase, lowercase letter, digits and -_
+                                                <br />
+                                                Must contain at least one uppercase and one lowercase letter
+                                                <br />
                                             </div>
                                         }
                                             placement="right"
