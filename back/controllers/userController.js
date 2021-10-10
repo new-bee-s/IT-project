@@ -19,6 +19,7 @@ const UserSignup = (req, res, next) => {
         req.login(user, { session: false }, async (error) => {
 
             if (error) return next(error);
+
             const body = { _id: user._id };
             //Sign the JWT token and populate the payload with the user email
             //Send back the token to the client
@@ -38,7 +39,11 @@ const UserLogin = (req, res, next) => {
         }
         req.login(user, { session: false }, async (error) => {
             if (error) return next(error);
+            if (user.ban) {
+                return res.status(400).json({ success: false, error: "Your account has been banned, Please contact with admin!" })
+            }
             const body = { _id: user._id };
+
             //Sign the JWT token and populate the payload with the user email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
             //Send back the token to the client
