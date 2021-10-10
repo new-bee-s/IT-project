@@ -71,9 +71,9 @@ function Homepage() {
 
     return (
         <div style={{ width: '100vw', height: '100vw`, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
-            <div className={classes.middle}>
+            <div className={classes.header}>
                 <a href="/">
-                    <img src="./pics/logo.jpg" alt="logo pic" height={300} />
+                    <img src="./pics/logo_small.jpg" alt="logo pic" height={150} />
                 </a>
             </div>
 
@@ -83,7 +83,16 @@ function Homepage() {
                     <img src="./pics/adminstart.png" alt="logo pic" height={20} />
                     </a>
                 </ul>
+                
             </div>
+
+            <div className={classes.middle}>
+            <Button variant="contained" className={classes.button} href={window.location.href + "dashboard"}>
+                to dashboard
+            </Button>
+            </div>
+
+            
 
             <div className={classes.background}></div>
         </div>

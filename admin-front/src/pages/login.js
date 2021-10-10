@@ -148,8 +148,9 @@ function SignIn(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const onSignIn = () => {}
     //using on onchange
-    const onSignIn = () => {
+    /*const onSignIn = () => {
 
         //put user input to back-end and return status
         axios.post('/login', { email: email, password: password }).then(res => {
@@ -169,28 +170,29 @@ function SignIn(props) {
             // or throw(error.respond)
         })
     };
+    */
 
 
     return (
         <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
 
             <div className={classes.middle}>
-                <div className={classes.column}>
-                    <Container component="main" maxWidth="md">
-                        <a href="/">
-                            <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle' }}></img>
-                        </a>
-                        <CssBaseline />
-                    </Container>
-                </div>
-                <div className={classes.middle2} verticalalign='middle'>
-                    <Container component="main" maxWidth="xs">
+                <Container component="main" maxWidth="xs">
+                    <a href="/">
+                        <img src='../pics/logo_small.jpg' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle' }}></img>
+                    </a>
+                    <br />
+                    <br />
                         <div>
-                            <Typography component="h1" variant="h1" align='center'>Log In</Typography>
+                            
+                            <Typography component="h1" variant="h3" align='center'>Admin Log In</Typography>
                         </div>
                         <br />
                         <div>
-                            <Typography component="h1" variant='body1' align='center'>Sign in and start managing your candidates!</Typography>
+
+                            <Typography component="h1" variant='body1' align='center'>Who controls the past controls the future.</Typography>
+                            <Typography component="h1" variant='body1' align='center'>Who controls the present controls the past.</Typography>
+                            <Typography component="h1" variant='body1' align='right'>― George Orwell, 1984</Typography>
                         </div>
                         <br />
                         <div>
@@ -207,10 +209,6 @@ function SignIn(props) {
                                     autoFocus
                                     onChange={e => setEmail(e.target.value)}
                                 />
-
-                                <a href={"register"} style={{ float: 'right' }}>
-                                    New user? Click here
-                                </a>
 
                                 <TextField
                                     variant="outlined"
@@ -240,7 +238,6 @@ function SignIn(props) {
                             </form>
                         </div>
                     </Container>
-                </div>
             </div>
             <div className={classes.background}> </div>
 
