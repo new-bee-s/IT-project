@@ -56,7 +56,7 @@ export default function EditInfo(props) {
     const OnLogOut = () => {
         const cookies = new Cookies()
         cookies.remove('token')
-        this.props.history.push('/login');
+        props.history.push('/login');
     }
 
     const logout = (
@@ -202,9 +202,9 @@ export default function EditInfo(props) {
                             </Menu>
                         </Col>
 
-                        <Col span={4} offset={2}>
+                        {/* <Col span={4} offset={2}>
                             <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
-                        </Col>
+                        </Col> */}
 
                         <Col span={3} offset={1}>
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
@@ -319,11 +319,9 @@ export default function EditInfo(props) {
 
 
                                         <div style={{ paddingTop: '3vh' }}>
-                                            <a href={home}>
-                                                <Button type="primary" size='large' onClick={changeInformation}>
-                                                    Submit
-                                                </Button>
-                                            </a>
+                                            <Button type="primary" size='large' onClick={changeInformation}>
+                                                Submit
+                                            </Button>
 
                                             <span>
                                                 &nbsp;&nbsp;
@@ -350,7 +348,7 @@ export default function EditInfo(props) {
                                             <Button type="primary" size='large'>
                                                 <input id="inputAvatar" style={{ display: 'none' }} type="file" onChange={(e) => changeAvatar(e)} />
                                                 <label style={{ color: "#FFF" }} htmlFor="inputAvatar">
-                                                    Change Avatar
+                                                    Change your profile Image
                                                 </label>
                                             </Button>
 
@@ -406,14 +404,12 @@ export default function EditInfo(props) {
 
                         </Menu>
                     </Col>
-                    <Col span={4} offset={2}>
-                        <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
-                    </Col>
+
                     <Col span={3} offset={1}>
                         <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                             <Dropdown overlay={logout}>
                                 <Menu.Item key="1">
-                                    <Avatar icon={<UserOutlined />} />
+                                    <Avatar src={profile.photo.data} />
                                     <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                         {profile.email}
                                     </span>

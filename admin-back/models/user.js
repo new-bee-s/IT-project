@@ -15,7 +15,11 @@ const userSchema = new mongoose.Schema({
     gender: { type: String, enum: ["Male", "Female", "Prefer not to say"] },
     introduction: { type: String },
     mobile: { type: String },
-    address: { city: String, state: String, country: String },
+    region: { city: String, state: String, country: String },
+    dob: { type: Date },
+    company: { type: String },
+    occupation: { type: String },
+    ban: { type: Boolean, require: true }
 })
 
 // generate a hashed password

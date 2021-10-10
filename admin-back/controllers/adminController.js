@@ -21,7 +21,24 @@ const AdminLogin = (req, res, next) => {
     })(req, res, next)
 }
 
-const AdminEditInfo = async (req, res) => {
+const createAdmin = (req, res, next) => {
+    passport.authenticate('local-signup', (err, admin, info) => {
+        if (err) {
+            return res.status(500).json({ success: false, error: info.message })
+        }
+        // If the admin is not found or there is some mistakes in password, return error message
+        else if (!admin) {
+            return res.status(400).json({ success: false, error: info.message })
+        }
+        req.login(admin, { session: false }, async (error) => {
 
+            if (error) return next(error);
+            //Sign the JWT token and populate the payload with the admin email
+            //Send back the token to the client
+            return res.status(200).json({ success: true });
+        });
+    })(req, res, next)
 }
+
+
 module.exports = { AdminLogin }

@@ -33,7 +33,16 @@ const editInfo = async (req, res) => {
             await User.updateOne({ _id: userid }, { $set: { introduction: introduction } })
         }
         if (userID) {
+            console.log(userID.length)
+            // if (userID.length < 9) {
+            //     return res.status(400).json({ success: false, error: "The ID should more than 8 digits" })
+            // }
+            // else if (userID.length > 16) {
+            //     return res.status(400).json({ success: false, error: "The ID should less than 16 digits" })
+            // }
+
             await User.updateOne({ _id: userid }, { $set: { userID: userID } })
+
         }
         if (mobile) {
             await User.updateOne({ _id: userid }, { $set: { mobile: mobile } })

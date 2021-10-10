@@ -100,12 +100,5 @@ const getUserInfo = async (req, res) => {
     }
 }
 
-const logOut = async (req, res) => {
-    try {
-        await User.updateOne({ "_id": req.user._id }, { $set: { 'isLoggedIn': false } })
-        return res.clearCookie('connect.sid', { path: '/' }).status(200).json({ success: true })
-    } catch (err) {
-        return res.status(404).json({ success: false })
-    }
-}
-module.exports = { UserSignup, UserLogin, addFriend, getUserInfo, logOut, SearchUserID }
+
+module.exports = { UserSignup, UserLogin, addFriend, getUserInfo, SearchUserID }
