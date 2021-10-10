@@ -13,7 +13,7 @@ import { Components } from 'antd/lib/date-picker/generatePicker';
 export default class Dashboard extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { profile: undefined};
+        this.state = { profile: undefined, loading: true };
     }
 
 
@@ -88,7 +88,7 @@ export default class Dashboard extends React.Component {
         // Define the variable
         const { Header, Content } = Layout;
         // remember to add loading back!
-        const { profile} = this.state;
+        const {profile, loading} = this.state;
         const home = '/dashboard';
 
         function onChange(pagination, filters, sorter, extra) {
