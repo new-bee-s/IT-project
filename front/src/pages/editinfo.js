@@ -56,7 +56,7 @@ export default function EditInfo(props) {
     const OnLogOut = () => {
         const cookies = new Cookies()
         cookies.remove('token')
-        this.props.history.push('/login');
+        props.history.push('/login');
     }
 
     const logout = (
@@ -72,6 +72,7 @@ export default function EditInfo(props) {
         axios.post(home + '/editInfo', { givenName: givenName, familyName: familyName, userID: userID, introduction: introduction }).then(res => {
             if (res.data.success) {
                 message.success("success changed profile")
+                props.history.push('/dashboard', { replace: true });
             }
             else {
                 // if error
@@ -84,11 +85,6 @@ export default function EditInfo(props) {
         })
     }
 
-    // check whether the input email is valid
-    // const checkEmail = (email) => {
-    //     var correctEmail = /^\w{3,}(\.\w+)*@[A-z0-9]+(\.[A-z]{2,5}){1,2}$/;
-    //     return correctEmail.test(email);
-    // }
 
     // change user's password
     const changePassword = () => {
@@ -101,6 +97,7 @@ export default function EditInfo(props) {
         axios.post(home + '/editInfo', { password: password }).then(res => {
             if (res.data.success) {
                 message.success("success changed password");
+                props.history.push('/dashboard', { replace: true });
             }
             else {
                 // if error
@@ -147,13 +144,6 @@ export default function EditInfo(props) {
     const cancelChangingPassword = () => {
         setNotChangePassword(true);
     }
-
-    // if (profile.photo) {
-    //     console.log(file)
-    //     return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
-    //         <img style={{ width: '80px', height: '80px' }} src={profile.photo} />
-    //     </Space>;
-    // }
 
     // if the page is loading, draw a loading animation
     if (loading) {
@@ -319,11 +309,14 @@ export default function EditInfo(props) {
 
 
                                         <div style={{ paddingTop: '3vh' }}>
-                                            <a href={home}>
+                                            {/* <a href={home}>
                                                 <Button type="primary" size='large' onClick={changeInformation}>
                                                     Submit
                                                 </Button>
-                                            </a>
+                                            </a> */}
+                                            <Button type="primary" size='large' onClick={changeInformation}>
+                                                Submit
+                                            </Button>
 
                                             <span>
                                                 &nbsp;&nbsp;
