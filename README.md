@@ -11,3 +11,49 @@ Contributors:
 **Shenggang Qian** shenggangq@student.unimelb.edu.au  
 Tutor:  
 **Zhe Wang** zoe.wang1@unimelb.edu.au
+
+
+## Organisation of folders
+* back/
+   The server of our web app, containing both admin server and client server
+* front/
+   The front-end of our web app
+   /src
+   Containing the components and web pages code of the web app
+   /public
+   Containg the pics and images used for the web app
+
+## Links to Tools
+ * Confluence space - https://new-bees.atlassian.net/wiki/spaces/PROJ/overview
+ * Trello board - https://trello.com/b/AXQhdvlp/new-bees-crm
+ * server demo - https://new-bee-crm.herokuapp.com/
+ * client demo - https://new-bees.netlify.app
+
+## Deployment
+Algorithms in Action is written in JavaScript, using the React framework. To make it work locally, you need to install Node.js. NPM (Node package manager) will be installed alongside when you install Node.js. We use express framework to implement our back-end
+
+Ensure you have node version 14.x and npm version 6.x
+To check your version, type
+node --version 
+npm --version
+
+Navigate into front and back folder seperately and run npm install to install all independecies in package.json
+
+Running on local 
+Navigate into front and back folder separtely and run npm start, it will start both front and back-end side of web
+Front-end side of client will run in port 3000, and will be launched at browser http://localhost:3000
+Back-end of client side and admin will run in port 8000
+Front-end of admin side will run in 3001, and will be launched at browser http://localhost:3001
+
+Demo
+We have two demos that should activate simultaneously to run our app.
+First use https://new-bee-crm.herokuapp.com/ to start the server
+Then use https://new-bees.netlify.app to start the front-end of client side
+
+We have enabled automatic deploying of both webites. If we commited changes on our repo, the website will automatically updated to the newest version.
+
+The CI of https://new-bees.netlify.app is CI=npm run build
+The CI of https://new-bee-crm.herokuapp.com/ is CI=npm start
+
+
+
