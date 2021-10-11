@@ -148,9 +148,7 @@ function SignIn(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const onSignIn = () => {}
-    //using on onchange
-    /*const onSignIn = () => {
+    const onSignIn = () => {
 
         //put user input to back-end and return status
         axios.post('/login', { email: email, password: password }).then(res => {
@@ -170,8 +168,9 @@ function SignIn(props) {
             // or throw(error.respond)
         })
     };
-    */
+    
 
+    
 
     return (
         <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
@@ -246,3 +245,4 @@ function SignIn(props) {
 };
 
 export default SignIn;
+
