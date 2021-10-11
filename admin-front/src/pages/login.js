@@ -145,13 +145,13 @@ const useStyles = makeStyles((theme) => ({
 // signin page
 function SignIn(props) {
     const classes = useStyles();
-    const [email, setEmail] = useState('');
+    const [account, setaccount] = useState('');
     const [password, setPassword] = useState('');
 
     const onSignIn = () => {
 
         //put user input to back-end and return status
-        axios.post('/login', { email: email, password: password }).then(res => {
+        axios.post('/login', { account: account, password: password }).then(res => {
             if (res.data.success) {
                 // console.log(res.data.data)
                 const cookies = new Cookies();
@@ -166,13 +166,13 @@ function SignIn(props) {
             console.log("login axios errors")
             message.error(error)
             console.log(error)
-            
+
             // or throw(error.respond)
         })
     };
-    
 
-    
+
+
 
     return (
         <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
@@ -184,63 +184,63 @@ function SignIn(props) {
                     </a>
                     <br />
                     <br />
-                        <div>
-                            
-                            <Typography component="h1" variant="h3" align='center'>Admin Log In</Typography>
-                        </div>
-                        <br />
-                        <div>
+                    <div>
 
-                            <Typography component="h1" variant='body1' align='center'>Who controls the past controls the future.</Typography>
-                            <Typography component="h1" variant='body1' align='center'>Who controls the present controls the past.</Typography>
-                            <Typography component="h1" variant='body1' align='right'>― George Orwell, 1984</Typography>
-                        </div>
-                        <br />
-                        <div>
-                            <form noValidate>
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    autoFocus
-                                    onChange={e => setEmail(e.target.value)}
-                                />
+                        <Typography component="h1" variant="h3" align='center'>Admin Log In</Typography>
+                    </div>
+                    <br />
+                    <div>
 
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                    onChange={e => setPassword(e.target.value)}
-                                />
+                        <Typography component="h1" variant='body1' align='center'>Who controls the past controls the future.</Typography>
+                        <Typography component="h1" variant='body1' align='center'>Who controls the present controls the past.</Typography>
+                        <Typography component="h1" variant='body1' align='right'>― George Orwell, 1984</Typography>
+                    </div>
+                    <br />
+                    <div>
+                        <form noValidate>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="account"
+                                label="Account"
+                                name="account"
+                                autoComplete="account"
+                                autoFocus
+                                onChange={e => setaccount(e.target.value)}
+                            />
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                onChange={e => setPassword(e.target.value)}
+                            />
 
 
-                                <div className={classes.blocks_signin}>
-                                    <Button
-                                        variant="contained"
-                                        onClick={onSignIn}
-                                        className={classes.button}
-                                    >
-                                        Log In
-                                    </Button>
+                            <div className={classes.blocks_signin}>
+                                <Button
+                                    variant="contained"
+                                    onClick={onSignIn}
+                                    className={classes.button}
+                                >
+                                    Log In
+                                </Button>
 
-                                </div>
+                            </div>
 
-                            </form>
-                        </div>
-                    </Container>
+                        </form>
+                    </div>
+                </Container>
             </div>
-            <div className={classes.background}> </div>
+            {/* <div className={classes.background}> </div> */}
 
         </div>
     )

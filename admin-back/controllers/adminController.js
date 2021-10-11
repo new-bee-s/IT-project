@@ -1,5 +1,6 @@
 const Admin = require('../models/admin')
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 require('../config/passport')(passport)
 // admin log in function
 const AdminLogin = (req, res, next) => {
@@ -13,6 +14,7 @@ const AdminLogin = (req, res, next) => {
         req.login(admin, { session: false }, async (error) => {
             if (error) return next(error);
             const body = { _id: admin._id };
+            console.log(body)
             //Sign the JWT token and populate the payload with the admin email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
             //Send back the token to the client
