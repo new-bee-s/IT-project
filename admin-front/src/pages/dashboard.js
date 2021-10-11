@@ -16,9 +16,43 @@ export default class Dashboard extends React.Component {
         this.state = { profile: undefined, loading: true };
     }
 
+    componentDidMount() {
+      const home = '/dashboard';
+      const cookies = new Cookies()
+      axios.get(home, {
+          headers: {
+              Authorization: `Bearer ${cookies.get('token')}`
+          }
+      }).then(response => {
+          if (response.data.success) {
+              this.setState({ profile: response.data.user, loading: false });
+          }
+      }).catch(error => {
+          console.log(error.response.data.error)
+          message.error(error.response.data.error);
+          this.props.history.push('/login', { replace: true });
+      })
+  }
+
 
 
     render() {
+        const OnLogOut = () => {
+            const cookies = new Cookies();
+            cookies.remove('token');
+            this.props.history.push('/login', { replace: true });
+        }
+        const logout = (
+          <Menu>
+              <Menu.Item key='1' onClick={OnLogOut}>Log Out</Menu.Item>
+          </Menu>
+        );
+        // Define the variable
+        const { Header, Content } = Layout;
+        // remember to add loading back!
+        const {profile, loading} = this.state;
+        const home = '/dashboard';
+
         const columns = [
             {
               title: 'User ID',
@@ -53,13 +87,6 @@ export default class Dashboard extends React.Component {
                 ),
             },
           ];
-        
-        const OnLogOut = () => {};
-        /*const OnLogOut = () => {
-            const cookies = new Cookies();
-            cookies.remove('token');
-            this.props.history.push('/login', { replace: true });
-        }*/
 
         const data = [
             {
@@ -85,21 +112,13 @@ export default class Dashboard extends React.Component {
             },
           ];
 
-        // Define the variable
-        const { Header, Content } = Layout;
-        // remember to add loading back!
-        const {profile, loading} = this.state;
-        const home = '/dashboard';
+        
 
         function onChange(pagination, filters, sorter, extra) {
             console.log('params', pagination, filters, sorter, extra);
           }
 
-        const logout = (
-            <Menu>
-                <Menu.Item key='1' onClick={OnLogOut}>Log Out</Menu.Item>
-            </Menu>
-        );
+
         
 
 

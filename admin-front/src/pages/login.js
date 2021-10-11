@@ -163,8 +163,10 @@ function SignIn(props) {
                 message.error(res.data.error)
             }
         }).catch(error => {
+            console.log("login axios errors")
             message.error(error)
             console.log(error)
+            
             // or throw(error.respond)
         })
     };
