@@ -55,5 +55,70 @@ We have enabled automatic deploying of both webites. If we commited changes on o
 The CI of https://new-bees.netlify.app is CI=npm run build
 The CI of https://new-bee-crm.herokuapp.com/ is CI=npm start
 
+## Change Log
+SPRINT 1
+ * US_01_REGISTER_FUNC 
+ * US_03_LOG_IN_FUNC  
+ * US_06_HOMEPAGE 
+ * US_19_LOGIN_PAGE 
+ * US_20_REGISTER_PAGE 
+ * US_21_DATABASE 
+ * Add initial user stories for the whole project
+ * Motivational model 
+ * Domain model
+ * Group decision
+ * Coding standard
+ * Persona
+ * Project requirements
+ * Sprint 1 Task arrangement
+
+## Change Log 
+### SPRINT 2
+ * US_02_EDITINFO
+ * US_04_EDITIMAGE
+ * US_08_DASHBOARD
+ * US_10_SEARCH_BY_ID 
+ * US_11_ADD_FRIEND
+ * US_12_LOG_OUT 
+ * US_17_DELE_FRIEND
+ * US_22_INFO_PAGE
+ * US_23_INFO_PRIVACY
+ * US_25_RETURN_FRIENDS_CONTACT
+ * US_26_CHANGE_ID
+ * Sprint 1 Retrospective (work left for sprint 2)
+ * Sprint 1 Review (client's advice for sprint 1)
+ * Sprint 2 Task arrangement
+ * User stories update
+ * Motivational Model update
+ * Domain model
+ * Testing report
+ * Project Deployment (fail at sprint 2)
+ * Future work 
+
+ ### User story completed
+ ### SPRINT 1
+ Feature | Story ID | Task | Story Estimate | Prioroty | Contributor
+ --- | --- | --- | --- |--- |--- 
+ Home page | 6 | Build a home page to guide user to the app | 2 | HIGH | ShengGang Qian, Ziyu Qian
+ --- | --- | --- | --- |--- |--- 
+ Log in | 19 | Build a web page for login with email and password and redirect to dashboard| 5| HIGH | XinYu Wu
+ --- | --- | --- | --- |--- |--- 
+    | 3 | Use passport to make user log in and send jwt| 5 | HIGH | Ziyu Qian
+ --- | --- | --- | --- |--- |--- 
+ Register | 1 | Use passport to verify info of new user and save in database | 5 | HIGH | Ziyu Qian
+ --- | --- | --- | --- |--- |---  
+     | 20 | Build a web page for register with some info | 2 | HIGH | Xinyu WU, YuTong Sun, Ziyu Qian
+ --- | --- | --- | --- |--- |---  
+
+
+ ### Sprint 2
+ Feature | Story ID | Task | Story Estimate | Prioroty | Contributor
+  --- | --- | --- | --- |--- |---  
+Edit information | 2 | User can edit their information and choose to publish it | 5 | HIGH | Xinyu Wu (F), Ziyu Qian (B)
+                 | 4 | User can upload an image as their profile image | 8 | HIGH |Xinyu Wu (F), Ziyu Qian (B)
+
+         
+
+
 
 
