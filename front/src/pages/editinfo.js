@@ -166,7 +166,7 @@ export default function EditInfo(props) {
         </Space>;
     }
 
-    // display normal change info page
+    // display change password page
     else if (isChangingPassword) {
         // change password page
         // if the change password buttun is clicked
@@ -228,15 +228,15 @@ export default function EditInfo(props) {
                     <Content style={{ padding: '0 5vw', backgroundImage: 'url("/../pics/background4.jpg")' }}>
                         <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
 
-                            <div id="left" style={{ width: '15vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
+                            <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '8vw', paddingTop: '5vh' }}>
                                 {/* <Avatar size={140} icon={<UserOutlined />} /> */}
                             </div>
 
-                            <div id="right" style={{ float: 'right', width: "15vw", paddingRight: '5vw', paddingTop: '8vh' }}>
-                                {/* <button>go back</button> */}
+                            <div id="right" style={{ width: "12vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
                             </div>
 
-                            <div id="middle" style={{ width: '45vw', paddingTop: '5vh', margin: '0 atuo' }}>
+
+                            <div id="middle" style={{ width: '45vw',float:'right', paddingTop: '5vh', margin: '0 atuo' }}>
                                 <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '13px', fontSize: '47px' }}>
                                     Change your password
                                 </div>
@@ -273,7 +273,7 @@ export default function EditInfo(props) {
                                         <div style={{ paddingTop: '3vh' }}>
                                             {/* <a href = {home+'/editinfo'}> */}
                                             <Button type="primary" size='large' onClick={changePassword}>
-                                                Submit
+                                                Save
                                             </Button>
 
                                             <span>
@@ -281,6 +281,133 @@ export default function EditInfo(props) {
                                             </span>
 
                                             <Button type="primary" size='large' onClick={cancelChangingPassword}>
+                                                Cancel
+                                            </Button>
+                                            {/* </a> */}
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </Content>
+                </Layout>
+            </Layout >
+        )
+    }
+    
+    
+    // display change privacy page
+    else if (isChangingPrivacy) {
+        return (
+            <Layout >
+                <Header style={{ padding: '0 10px' }}>
+                    <Row style={{ height: "64px" }}>
+                        <Col span={2} offset={1}>
+                            <a href={home}>
+                                <div>
+                                    <img src='/../pics/logo_bee.png' alt='logo_bee' style={{ height: '64px', padding: '6px' }} />
+                                </div>
+                            </a>
+                        </Col>
+                        <Col span={7} offset={2}>
+                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ height: '64px' }}>
+
+                                <Menu.Item key="1">
+                                    <a href={home}>
+                                        <img src='/../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
+                                    </a>
+                                </Menu.Item>
+
+                                <Menu.Item key="2">
+                                    <a href={home + '/contact'}>
+                                        <img src='/../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                    </a>
+                                </Menu.Item>
+
+                                <Menu.Item key="3">
+                                    <a href={home + '/addFriend'}>
+                                        <img src='/../pics/AddFriend.png' alt='AddFriend' style={{ height: '19px' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
+                                    </a>
+                                </Menu.Item>
+
+                            </Menu>
+                        </Col>
+
+                        <Col span={3} offset={1}>
+                            <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                                <Dropdown overlay={logout}>
+                                    <Menu.Item key="1">
+                                        <Avatar src={profile.photo.data} />
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                            {profile.email}
+                                        </span>
+                                    </Menu.Item>
+                                </Dropdown>
+                            </Menu>
+                        </Col>
+                    </Row>
+                </Header >
+                <Layout>
+
+                    <Content style={{ padding: '0 5vw', backgroundImage: 'url("/../pics/background4.jpg")' }}>
+                        <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
+
+                            <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '8vw', paddingTop: '5vh' }}>
+                                {/* <Avatar size={140} icon={<UserOutlined />} /> */}
+                            </div>
+
+                            <div id="right" style={{ width: "12vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
+                            </div>
+
+
+                            <div id="middle" style={{ width: '45vw',float:'right', paddingTop: '5vh', margin: '0 atuo' }}>
+                                <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '13px', fontSize: '47px' }}>
+                                    Change your privacy
+                                </div>
+
+
+                                <div>
+                                    <form noValidate>
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            name="password"
+                                            label="Password"
+                                            type="password"
+                                            id="password"
+                                            autoComplete="current-password"
+                                            onChange={e => setPassword(e.target.value)}
+                                        />
+
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            name="comfirmed password"
+                                            label="Comfirmed Password"
+                                            type="password"
+                                            id="confirmPassword"
+                                            autoComplete="current-password"
+                                            onChange={e => setConfirmedPassword(e.target.value)}
+                                        />
+
+                                        <div style={{ paddingTop: '3vh' }}>
+                                            {/* <a href = {home+'/editinfo'}> */}
+                                            <Button type="primary" size='large' onClick={changePassword}>
+                                                Save
+                                            </Button>
+
+                                            <span>
+                                                &nbsp;&nbsp;
+                                            </span>
+
+                                            <Button type="primary" size='large' onClick={cancelChangingPrivacy}>
                                                 Cancel
                                             </Button>
                                             {/* </a> */}
@@ -336,10 +463,6 @@ export default function EditInfo(props) {
                         </Menu>
                     </Col>
 
-                    {/* <Col span={4} offset={2}>
-                        <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
-                    </Col> */}
-
                     <Col span={3} offset={1}>
                         <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                             <Dropdown overlay={logout}>
@@ -359,7 +482,7 @@ export default function EditInfo(props) {
                 <Content style={{ padding: '0 5vw', backgroundImage: 'url("/../pics/background4.jpg")' }}>
                     <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
 
-                        <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
+                        <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '8vw', paddingTop: '5vh' }}>
                             <Avatar size={140} src={profile.photo.data} />
                             
                             <div>
@@ -369,7 +492,7 @@ export default function EditInfo(props) {
                             <Button type="primary" size='large'>
                                 <input id="inputAvatar" style={{ display: 'none' }} type="file" onChange={(e) => changeAvatar(e)} />
                                 <label style={{ color: "#FFF" }} htmlFor="inputAvatar">
-                                    Change avatar
+                                    Change Avatar
                                 </label>
                             </Button>
 
@@ -379,7 +502,7 @@ export default function EditInfo(props) {
                             </div>
 
                             <Button type="primary" size='large' variant="contained" onClick={changingPassword}>
-                                Change password
+                                Change Password
                             </Button>
 
                             <div>
@@ -387,17 +510,16 @@ export default function EditInfo(props) {
                             </div>
 
                             <Button type="primary" size='large' variant="contained" onClick={changingPrivacy}>
-                                Change privacy
+                                Change Privacy
                             </Button>
 
                             
                         </div>
 
-                        <div id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
-
+                        <div id="right" style={{ width: "12vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
                         </div>
 
-                        <div id="middle" style={{ width: '40vw', float:'right', paddingTop: '5vh', margin: '0 auto' }}>
+                        <div id="middle" style={{ width: '45vw', float:'right', paddingTop: '5vh', margin: '0 auto' }}>
 
                             <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px' }}>
                                 Manage Your Profile
@@ -432,8 +554,8 @@ export default function EditInfo(props) {
                                             The ID must contain one uppercase, lowercase letter and digit and be more than 8 characters
                                             <br />
                                         </div>}
-                                    placement="right"
-                                    color="blue"
+                                        placement="right"
+                                        color="blue"
                                     >
 
                                         <TextField
@@ -475,7 +597,7 @@ export default function EditInfo(props) {
 
                                     <div style={{ paddingTop: '3vh' }}>
                                         <Button type="primary" size='large' onClick={changeInformation}>
-                                            Submit
+                                            Save
                                         </Button>
 
                                         <span>
@@ -487,10 +609,6 @@ export default function EditInfo(props) {
                                                 Cancel
                                             </Button>
                                         </a>
-
-                                        
-
-                                        
 
                                     </div>
                                 </form >
