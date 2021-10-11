@@ -118,13 +118,13 @@ export default class Dashboard extends React.Component {
                                 <Avatar size={140} src={profile.photo.data} />
                             </div>
 
-                            <span id='right' style={{ width: '15vw', float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
+                            <div id='right' style={{ width: '15vw', float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
                                 <a href={home + '/editinfo'}>
                                     <Button type='primary' size='large'>change profile</Button>
                                 </a>
-                            </span>
+                            </div>
 
-                            <div style={{ width: '50vw', paddingTop: '5vh', margin: '0 auto' }}>
+                            <div style={{ width: '50vw', float:'right', paddingTop: '5vh', margin: '0 auto' }}>
 
                                 <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px' }}>
                                     Hi!&nbsp;{profile.givenName}&nbsp;{profile.familyName}

@@ -15,7 +15,10 @@ export default function EditInfo(props) {
     // get data to display
     const [profile, setProfile] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [notChangePassword, setNotChangePassword] = useState(true);
+
+    // save state
+    const [isChangingPassword, setChangingPassword] = useState(false);
+    const [isChangingPrivacy, setChangingPrivacy] = useState(false);
 
     // store input data for changing profile
     const [userID, setUserID] = useState('');
@@ -26,7 +29,6 @@ export default function EditInfo(props) {
     // store input password
     const [password, setPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
-
 
     // email cannot be updated because it is currently used as login username
     // const [ email, setEmail ] = useState('');
@@ -49,7 +51,20 @@ export default function EditInfo(props) {
 
     // set the state to changing password state
     const changingPassword = () => {
-        setNotChangePassword(false)
+        setChangingPassword(true)
+    }
+    
+    // set the state to changing privacy state
+    const changingPrivacy = () => {
+        setChangingPrivacy(true)
+    }
+
+    const cancelChangingPassword = () => {
+        setChangingPassword(false);
+    }
+
+    const cancelChangingPrivacy = () => {
+        setChangingPrivacy(false);
     }
 
     // logout
@@ -141,9 +156,7 @@ export default function EditInfo(props) {
 
     }
 
-    const cancelChangingPassword = () => {
-        setNotChangePassword(true);
-    }
+    
 
     // if the page is loading, draw a loading animation
     if (loading) {
@@ -154,7 +167,10 @@ export default function EditInfo(props) {
     }
 
     // display normal change info page
-    else if (notChangePassword) {
+    else if (isChangingPassword) {
+        // change password page
+        // if the change password buttun is clicked
+        // the status is now changing password mode
         return (
             <Layout >
                 <Header style={{ padding: '0 10px' }}>
@@ -168,6 +184,7 @@ export default function EditInfo(props) {
                         </Col>
                         <Col span={7} offset={2}>
                             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ height: '64px' }}>
+
                                 <Menu.Item key="1">
                                     <a href={home}>
                                         <img src='/../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
@@ -183,7 +200,7 @@ export default function EditInfo(props) {
                                 </Menu.Item>
 
                                 <Menu.Item key="3">
-                                    <a href={home + '/search'}>
+                                    <a href={home + '/addFriend'}>
                                         <img src='/../pics/AddFriend.png' alt='AddFriend' style={{ height: '19px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
                                     </a>
@@ -191,10 +208,6 @@ export default function EditInfo(props) {
 
                             </Menu>
                         </Col>
-
-                        {/* <Col span={4} offset={2}>
-                            <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
-                        </Col> */}
 
                         <Col span={3} offset={1}>
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
@@ -209,88 +222,39 @@ export default function EditInfo(props) {
                             </Menu>
                         </Col>
                     </Row>
-                </Header>
-
+                </Header >
                 <Layout>
+
                     <Content style={{ padding: '0 5vw', backgroundImage: 'url("/../pics/background4.jpg")' }}>
                         <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
 
-                            <span id="left" style={{ width: '15vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
-                                <Avatar size={140} src={profile.photo.data} />
-                            </span>
+                            <div id="left" style={{ width: '15vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
+                                {/* <Avatar size={140} icon={<UserOutlined />} /> */}
+                            </div>
 
-                            <span id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
+                            <div id="right" style={{ float: 'right', width: "15vw", paddingRight: '5vw', paddingTop: '8vh' }}>
+                                {/* <button>go back</button> */}
+                            </div>
 
-                            </span>
-
-                            <div id="middle" style={{ width: '45vw', paddingTop: '5vh', margin: '0 auto' }}>
-
-                                <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px' }}>
-                                    Manage Your Profile
+                            <div id="middle" style={{ width: '45vw', paddingTop: '5vh', margin: '0 atuo' }}>
+                                <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '13px', fontSize: '47px' }}>
+                                    Change your password
                                 </div>
-                                <br />
+
 
                                 <div>
                                     <form noValidate>
-
-
                                         <TextField
                                             variant="outlined"
                                             margin="normal"
                                             required
                                             fullWidth
-                                            rows="3"
-                                            multiline="true"
-                                            id="introduction"
-                                            label={'Introduce yourself: ' + profile.introduction}
-                                            name="introduction"
-                                            autoComplete="introduction"
-                                            onChange={e => setIntroduction(e.target.value)}
-                                        />
-
-
-                                        <Tooltip title={
-                                            <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px' }}>
-                                                This ID can be anything but it has to be unique.
-                                                <br />
-                                                People can use it to find you!
-                                                <br />
-                                                The ID must contain uppercase, lowercase letter, digits and -_
-                                                <br />
-                                                Must contain at least one uppercase and one lowercase letter
-                                                <br />
-                                            </div>
-                                        }
-                                            placement="right"
-                                            color="blue">
-
-                                            <TextField
-                                                variant="outlined"
-                                                margin="normal"
-                                                required
-                                                fullWidth
-                                                id="userID"
-                                                label={'Your current id: ' + profile.userID}
-                                                name="userID"
-                                                autoComplete="UserID"
-                                                onChange={e => setUserID(e.target.value)}
-                                            />
-                                        </Tooltip>
-
-
-                                        
-
-
-                                        <TextField
-                                            variant="outlined"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="givenName"
-                                            label={'Your current givenName: ' + profile.givenName}
-                                            name="givenName"
-                                            autoComplete="givenName"
-                                            onChange={e => setGivenName(e.target.value)}
+                                            name="password"
+                                            label="Password"
+                                            type="password"
+                                            id="password"
+                                            autoComplete="current-password"
+                                            onChange={e => setPassword(e.target.value)}
                                         />
 
                                         <TextField
@@ -298,28 +262,17 @@ export default function EditInfo(props) {
                                             margin="normal"
                                             required
                                             fullWidth
-                                            id="familyName"
-                                            label={'Your current familyName: ' + profile.familyName}
-                                            name="familyName"
-                                            autoComplete="familyName"
-                                            onChange={e => setFamilyName(e.target.value)}
+                                            name="comfirmed password"
+                                            label="Comfirmed Password"
+                                            type="password"
+                                            id="confirmPassword"
+                                            autoComplete="current-password"
+                                            onChange={e => setConfirmedPassword(e.target.value)}
                                         />
-
-                                        {/* <TextField
-                                            variant="outlined"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="email"
-                                            label={'Your current email: '+profile.email}
-                                            name="email"
-                                            autoComplete="email"
-                                            onChange={e => setEmail(e.target.value)}
-                                        /> */}
-
 
                                         <div style={{ paddingTop: '3vh' }}>
-                                            <Button type="primary" size='large' onClick={changeInformation}>
+                                            {/* <a href = {home+'/editinfo'}> */}
+                                            <Button type="primary" size='large' onClick={changePassword}>
                                                 Submit
                                             </Button>
 
@@ -327,46 +280,25 @@ export default function EditInfo(props) {
                                                 &nbsp;&nbsp;
                                             </span>
 
-                                            <a href={home}>
-                                                <Button type="primary" size='large'>
-                                                    Cancel
-                                                </Button>
-                                            </a>
-
-                                            <span>
-                                                &nbsp;&nbsp;
-                                            </span>
-
-                                            <Button type="primary" size='large' variant="contained" onClick={changingPassword}>
-                                                Change password
+                                            <Button type="primary" size='large' onClick={cancelChangingPassword}>
+                                                Cancel
                                             </Button>
-
-                                            <span>
-                                                &nbsp;&nbsp;
-                                            </span>
-
-                                            <Button type="primary" size='large'>
-                                                <input id="inputAvatar" style={{ display: 'none' }} type="file" onChange={(e) => changeAvatar(e)} />
-                                                <label style={{ color: "#FFF" }} htmlFor="inputAvatar">
-                                                    Change your profile Image
-                                                </label>
-                                            </Button>
-
+                                            {/* </a> */}
                                         </div>
-                                    </form >
-
-                                </div >
-                            </div >
-                        </div >
-                    </Content >
-                </Layout >
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </Content>
+                </Layout>
             </Layout >
         )
     };
 
-    // change password page
-    // if the change password buttun is clicked
-    // the status is now changing password mode
+    
+
+
+
     return (
         <Layout >
             <Header style={{ padding: '0 10px' }}>
@@ -380,7 +312,6 @@ export default function EditInfo(props) {
                     </Col>
                     <Col span={7} offset={2}>
                         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ height: '64px' }}>
-
                             <Menu.Item key="1">
                                 <a href={home}>
                                     <img src='/../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
@@ -396,7 +327,7 @@ export default function EditInfo(props) {
                             </Menu.Item>
 
                             <Menu.Item key="3">
-                                <a href={home + '/addFriend'}>
+                                <a href={home + '/search'}>
                                     <img src='/../pics/AddFriend.png' alt='AddFriend' style={{ height: '19px' }} />
                                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
                                 </a>
@@ -404,6 +335,10 @@ export default function EditInfo(props) {
 
                         </Menu>
                     </Col>
+
+                    {/* <Col span={4} offset={2}>
+                        <Search placeholder="click to search" onSearch={onSearch} enterButton style={{ postition: 'relative', paddingTop: '15px' }} />
+                    </Col> */}
 
                     <Col span={3} offset={1}>
                         <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
@@ -418,39 +353,112 @@ export default function EditInfo(props) {
                         </Menu>
                     </Col>
                 </Row>
-            </Header >
-            <Layout>
+            </Header>
 
+            <Layout>
                 <Content style={{ padding: '0 5vw', backgroundImage: 'url("/../pics/background4.jpg")' }}>
                     <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
 
-                        <div id="left" style={{ width: '15vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
-                            {/* <Avatar size={140} icon={<UserOutlined />} /> */}
-                        </div>
-
-                        <div id="right" style={{ float: 'right', width: "15vw", paddingRight: '5vw', paddingTop: '8vh' }}>
-                            {/* <button>go back</button> */}
-                        </div>
-
-                        <div id="middle" style={{ width: '45vw', paddingTop: '5vh', margin: '0 atuo' }}>
-                            <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '13px', fontSize: '47px' }}>
-                                Change your password
+                        <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
+                            <Avatar size={140} src={profile.photo.data} />
+                            
+                            <div>
+                                &nbsp;
                             </div>
+
+                            <Button type="primary" size='large'>
+                                <input id="inputAvatar" style={{ display: 'none' }} type="file" onChange={(e) => changeAvatar(e)} />
+                                <label style={{ color: "#FFF" }} htmlFor="inputAvatar">
+                                    Change avatar
+                                </label>
+                            </Button>
 
 
                             <div>
+                                &nbsp;
+                            </div>
+
+                            <Button type="primary" size='large' variant="contained" onClick={changingPassword}>
+                                Change password
+                            </Button>
+
+                            <div>
+                                &nbsp;
+                            </div>
+
+                            <Button type="primary" size='large' variant="contained" onClick={changingPrivacy}>
+                                Change privacy
+                            </Button>
+
+                            
+                        </div>
+
+                        <div id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
+
+                        </div>
+
+                        <div id="middle" style={{ width: '40vw', float:'right', paddingTop: '5vh', margin: '0 auto' }}>
+
+                            <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px' }}>
+                                Manage Your Profile
+                            </div>
+                            <br />
+
+                            <div>
                                 <form noValidate>
+
+
                                     <TextField
                                         variant="outlined"
                                         margin="normal"
                                         required
                                         fullWidth
-                                        name="password"
-                                        label="Password"
-                                        type="password"
-                                        id="password"
-                                        autoComplete="current-password"
-                                        onChange={e => setPassword(e.target.value)}
+                                        rows="3"
+                                        multiline="true"
+                                        id="introduction"
+                                        label={'Introduce yourself: '}
+                                        defaultValue={profile.introduction}
+                                        placeholder={profile.introduction}
+                                        name="introduction"
+                                        autoComplete="introduction"
+                                        onChange={e => setIntroduction(e.target.value)}
+                                    />
+
+
+                                    <Tooltip title={
+                                        <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px' }}>
+                                            Set a personal ID and people can use it to find you!
+                                            <br />
+                                            The ID must contain one uppercase, lowercase letter and digit and be more than 8 characters
+                                            <br />
+                                        </div>}
+                                    placement="right"
+                                    color="blue"
+                                    >
+
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="userID"
+                                            label={'Your current id: ' + profile.userID}
+                                            name="userID"
+                                            autoComplete="UserID"
+                                            onChange={e => setUserID(e.target.value)}
+                                        />
+                                    </Tooltip>
+
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="givenName"
+                                        label={'Your current givenName: ' + profile.givenName}
+                                        name="givenName"
+                                        autoComplete="givenName"
+                                        onChange={e => setGivenName(e.target.value)}
                                     />
 
                                     <TextField
@@ -458,17 +466,15 @@ export default function EditInfo(props) {
                                         margin="normal"
                                         required
                                         fullWidth
-                                        name="comfirmed password"
-                                        label="Comfirmed Password"
-                                        type="password"
-                                        id="confirmPassword"
-                                        autoComplete="current-password"
-                                        onChange={e => setConfirmedPassword(e.target.value)}
+                                        id="familyName"
+                                        label={'Your current familyName: ' + profile.familyName}
+                                        name="familyName"
+                                        autoComplete="familyName"
+                                        onChange={e => setFamilyName(e.target.value)}
                                     />
 
                                     <div style={{ paddingTop: '3vh' }}>
-                                        {/* <a href = {home+'/editinfo'}> */}
-                                        <Button type="primary" size='large' onClick={changePassword}>
+                                        <Button type="primary" size='large' onClick={changeInformation}>
                                             Submit
                                         </Button>
 
@@ -476,17 +482,24 @@ export default function EditInfo(props) {
                                             &nbsp;&nbsp;
                                         </span>
 
-                                        <Button type="primary" size='large' onClick={cancelChangingPassword}>
-                                            Cancel
-                                        </Button>
-                                        {/* </a> */}
+                                        <a href={home}>
+                                            <Button type="primary" size='large'>
+                                                Cancel
+                                            </Button>
+                                        </a>
+
+                                        
+
+                                        
+
                                     </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </Content>
-            </Layout>
+                                </form >
+
+                            </div >
+                        </div >
+                    </div >
+                </Content >
+            </Layout >
         </Layout >
     )
 }
