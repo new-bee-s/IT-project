@@ -13,7 +13,7 @@ import { Components } from 'antd/lib/date-picker/generatePicker';
 export default class Dashboard extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { profile: undefined, loading: true, data: undefined, banID: "", unbanID: ""};
+    this.state = { profile: undefined, loading: true, data: undefined, banID: "", unbanID: "" };
   }
 
   componentDidMount() {
@@ -34,27 +34,27 @@ export default class Dashboard extends React.Component {
 
     axios.get(home).then(response => {
       if (response.data.success) {
-          console.log("users info");
-          console.log(response.data.users);
-          this.setState({data: response.data.users})
+        console.log("users info");
+        console.log(response.data.users);
+        this.setState({ data: response.data.users })
       }
-      }).catch(error => {
-        console.log(error.response.data.error)
-        message.error(error.response.data.error)
-      })
+    }).catch(error => {
+      console.log(error.response.data.error)
+      message.error(error.response.data.error)
+    })
 
-    
+
   }
-  
+
 
 
 
   render() {
     const test = () => {
-        console.log("haha");
-        console.log(banID);
+      console.log("haha");
+      console.log(banID);
     }
-    
+
     const OnLogOut = () => {
       const cookies = new Cookies();
       cookies.remove('token');
@@ -68,12 +68,12 @@ export default class Dashboard extends React.Component {
     // Define the variable
     const { Header, Content } = Layout;
     // remember to add loading back!
-    const { profile, loading, data, banID, unbanID} = this.state;
+    const { profile, loading, data, banID, unbanID } = this.state;
     const home = '/dashboard';
 
 
 
-    
+
     const columns = [
       {
         title: 'User ID',
@@ -101,60 +101,60 @@ export default class Dashboard extends React.Component {
         title: 'Action',
         key: 'action',
         render(record) {
-          const id = record.userID;
+          const id = record._id;
           const flag = 0;
           console.log(id)
 
           const OnBan = () => {
             console.log(id)
             console.log("click ban");
-            axios.post(home + '/banUser', { _id: id}).then(res => {
-                if (res.data.success) {
-                    message.success("ban successfully")
-                }
-                else {
-                    message.error(res.data.error)
-                }
-            }).catch(error => {
-                console.log(error.response.data.error)
-                message.error(error.response.data.error)
-            // or throw(error.respond)
-            })
-        }
-    
-        const OnUnban = () => {
-            console.log(id)
-            console.log("click unban");
-            
-            axios.post(home + '/unBanUser', { _id: id}).then(res => {
+            axios.post(home + '/banUser', { _id: id }).then(res => {
               if (res.data.success) {
-                  message.success("request successfully")
+                message.success("ban successfully")
               }
               else {
-                  message.error(res.data.error)
+                message.error(res.data.error)
               }
             }).catch(error => {
               console.log(error.response.data.error)
               message.error(error.response.data.error)
-            // or throw(error.respond)
+              // or throw(error.respond)
+            })
+          }
+
+          const OnUnban = () => {
+            console.log(id)
+            console.log("click unban");
+
+            axios.post(home + '/unBanUser', { _id: id }).then(res => {
+              if (res.data.success) {
+                message.success("unban successfully")
+              }
+              else {
+                message.error(res.data.error)
+              }
+            }).catch(error => {
+              console.log(error.response.data.error)
+              message.error(error.response.data.error)
+              // or throw(error.respond)
             })
           }
 
 
           return (
-                <div>
-                <Button type="dashed" onClick = {OnBan} size={20}>
-                    Ban
-                </Button>
+            <div>
+              <Button type="dashed" onClick={OnBan} size={20}>
+                Ban
+              </Button>
 
-                <Button type="dashed" onClick = {OnUnban} size={20}>
-                    Unban
-                </Button>
-                </div>
+              <Button type="dashed" onClick={OnUnban} size={20}>
+                Unban
+              </Button>
+            </div>
 
           )
         }
-          
+
       }
 
       // {
@@ -247,9 +247,9 @@ export default class Dashboard extends React.Component {
               <Typography component="h1" variant='h1' align='center'>Manage all the users</Typography>
               <Typography component="body1" variant='body1' align='right'>"Big Brother is watching you!"</Typography>
               <Divider />
-              <Table columns={columns} dataSource={data} onChange={onChange} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}/>
-              <Button type="dashed" onClick = {test} size={20}>
-            
+              <Table columns={columns} dataSource={data} onChange={onChange} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
+              <Button type="dashed" onClick={test} size={20}>
+
                 test
               </Button>
 
