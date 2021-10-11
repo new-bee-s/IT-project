@@ -233,6 +233,22 @@ export default function EditInfo(props) {
                                 <div>
                                     <form noValidate>
 
+
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            rows="3"
+                                            multiline="true"
+                                            id="introduction"
+                                            label={'Introduce yourself: ' + profile.introduction}
+                                            name="introduction"
+                                            autoComplete="introduction"
+                                            onChange={e => setIntroduction(e.target.value)}
+                                        />
+
+
                                         <Tooltip title={
                                             <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px' }}>
                                                 This ID can be anything but it has to be unique.
@@ -262,17 +278,7 @@ export default function EditInfo(props) {
                                         </Tooltip>
 
 
-                                        <TextField
-                                            variant="outlined"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="introduction"
-                                            label={'Introduce yourself: ' + profile.introduction}
-                                            name="introduction"
-                                            autoComplete="introduction"
-                                            onChange={e => setIntroduction(e.target.value)}
-                                        />
+                                        
 
 
                                         <TextField
