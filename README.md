@@ -98,22 +98,16 @@ SPRINT 1
  ### User story completed
  ### SPRINT 1
  Feature | Story ID | Task | Story Estimate | Prioroty | Contributor
- --- | --- | --- | --- |--- |--- 
+
  Home page | 6 | Build a home page to guide user to the app | 2 | HIGH | ShengGang Qian, Ziyu Qian
- --- | --- | --- | --- |--- |--- 
  Log in | 19 | Build a web page for login with email and password and redirect to dashboard| 5| HIGH | XinYu Wu
- --- | --- | --- | --- |--- |--- 
     | 3 | Use passport to make user log in and send jwt| 5 | HIGH | Ziyu Qian
- --- | --- | --- | --- |--- |--- 
  Register | 1 | Use passport to verify info of new user and save in database | 5 | HIGH | Ziyu Qian
- --- | --- | --- | --- |--- |---  
      | 20 | Build a web page for register with some info | 2 | HIGH | Xinyu WU, YuTong Sun, Ziyu Qian
- --- | --- | --- | --- |--- |---  
 
 
  ### Sprint 2
  Feature | Story ID | Task | Story Estimate | Prioroty | Contributor
-  --- | --- | --- | --- |--- |---  
 Edit information | 2 | User can edit their information and choose to publish it | 5 | HIGH | Xinyu Wu (F), Ziyu Qian (B)
                  | 4 | User can upload an image as their profile image | 8 | HIGH |Xinyu Wu (F), Ziyu Qian (B)
 
