@@ -42,7 +42,7 @@ const adminRouter = require('./routers/adminRouter')
 
 app.use('/dashboard', userRouter)
 app.use('/', adminRouter)
-const port = process.env.PORT || 8001
+const port = process.env.PORT || 23333
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')
 })
