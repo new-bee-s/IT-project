@@ -13,7 +13,7 @@ import { Components } from 'antd/lib/date-picker/generatePicker';
 export default class Dashboard extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { profile: undefined, loading: true };
+    this.state = { profile: undefined, loading: true, data: undefined, banID: undefined, unbanID: undefined};
   }
 
   componentDidMount() {
@@ -31,11 +31,62 @@ export default class Dashboard extends React.Component {
       console.log(error.response.data.error)
       message.error(error.response.data.error);
     })
+
+    axios.get(home).then(response => {
+      if (response.data.success) {
+          console.log("users info");
+          console.log(response.data.users);
+          this.setState({data: response.data.users})
+      }
+      }).catch(error => {
+        console.log(error.response.data.error)
+        message.error(error.response.data.error)
+      })
+
+    
   }
+  
 
 
 
   render() {
+    const test = () => {
+        console.log("haha");
+    }
+    const OnBan = () => {
+
+        console.log("click ban");
+        /*axios.post(home + '/banUser', { friend: result._id, remark: myremark }).then(res => {
+            if (res.data.success) {
+                message.success("request successfully")
+            }
+            else {
+                message.error(res.data.error)
+            }
+        }).catch(error => {
+            console.log(error.response.data.error)
+            message.error(error.response.data.error)
+        // or throw(error.respond)
+        })*/
+    }
+
+    const OnUnban = () => {
+      
+        console.log("click unban");
+        
+        /*axios.post(home + '/unBanUser', { friend: result._id, remark: myremark }).then(res => {
+          if (res.data.success) {
+              message.success("request successfully")
+          }
+          else {
+              message.error(res.data.error)
+          }
+        }).catch(error => {
+          console.log(error.response.data.error)
+          message.error(error.response.data.error)
+        // or throw(error.respond)
+        })*/
+    }
     const OnLogOut = () => {
       const cookies = new Cookies();
       cookies.remove('token');
@@ -49,25 +100,28 @@ export default class Dashboard extends React.Component {
     // Define the variable
     const { Header, Content } = Layout;
     // remember to add loading back!
-    const { profile, loading } = this.state;
+    const { profile, loading, data, banID, unbanID} = this.state;
     const home = '/dashboard';
 
+
+
+    
     const columns = [
       {
         title: 'User ID',
-        dataIndex: 'userid',
+        dataIndex: 'userID',
         defaultSortOrder: 'descend',
         sorter: (a, b) => a.userid - b.userid,
       },
       {
         title: 'First Name',
-        dataIndex: 'firstname',
+        dataIndex: 'givenName',
         sorter: (a, b) => a.firstname.length - b.firstname.length,
         sortDirections: ['descend'],
       },
       {
         title: 'Last Name',
-        dataIndex: 'lastname',
+        dataIndex: 'familyName',
         sorter: (a, b) => a.lastname.length - b.lastname.length,
         sortDirections: ['descend'],
       },
@@ -80,13 +134,23 @@ export default class Dashboard extends React.Component {
         key: 'action',
         render: (text, record) => (
           <Space size="middle">
-            <a>Ban {record.name}</a>
-            <a>Unban</a>
+            <Button type="dashed" onClick = {OnBan} size={20}>
+            
+                Ban {record.userID}
+            </Button>
+            <Button type="dashed" onClick = {OnUnban}  size={20}>
+                Unban
+            </Button>
           </Space>
         ),
       },
     ];
 
+
+
+
+
+    /*
     const data = [
       {
         key: '1',
@@ -110,7 +174,7 @@ export default class Dashboard extends React.Component {
         email: '333@a.com',
       },
     ];
-
+    */
 
 
     function onChange(pagination, filters, sorter, extra) {
@@ -156,6 +220,10 @@ export default class Dashboard extends React.Component {
               <Typography component="body1" variant='body1' align='right'>"Big Brother is watching you!"</Typography>
               <Divider />
               <Table columns={columns} dataSource={data} onChange={onChange} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
+              <Button type="dashed" onClick = {test} size={20}>
+            
+                test
+              </Button>
 
 
             </div>
