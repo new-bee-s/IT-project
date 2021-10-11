@@ -1,6 +1,7 @@
 # Welcome to New-Bee CRM!!  😄   
 This is the project for Unimelb COMP30019 IT-Project.  
-Website link :arrow_forward: [New-Bee CRM](https://www.google.com/):arrow_backward:  
+Website link :arrow_forward: [New-Bee CRM](https://new-bees.netlify.app):arrow_backward: 
+To use our website, please start the server first arrow_forward:[NEW-BEE CRM SERVER](https://new-bee-crm.herokuapp.com/):arrow_backward:
 It is a website customer relationship managemenet system, which is able to store, search, manage and share your address book for business easily!  
 
 Contributors:  
@@ -45,7 +46,7 @@ Front-end side of client will run in port 3000, and will be launched at browser 
 Back-end of client side and admin will run in port 8000
 Front-end of admin side will run in 3001, and will be launched at browser http://localhost:3001
 
-Demo
+## Demo
 We have two demos that should activate simultaneously to run our app.
 First use https://new-bee-crm.herokuapp.com/ to start the server
 Then use https://new-bees.netlify.app to start the front-end of client side
@@ -97,19 +98,23 @@ SPRINT 1
 
  ### User story completed
  ### SPRINT 1
- Feature | Story ID | Task | Story Estimate | Prioroty | Contributor
-
- Home page | 6 | Build a home page to guide user to the app | 2 | HIGH | ShengGang Qian, Ziyu Qian
- Log in | 19 | Build a web page for login with email and password and redirect to dashboard| 5| HIGH | XinYu Wu
-    | 3 | Use passport to make user log in and send jwt| 5 | HIGH | Ziyu Qian
- Register | 1 | Use passport to verify info of new user and save in database | 5 | HIGH | Ziyu Qian
-     | 20 | Build a web page for register with some info | 2 | HIGH | Xinyu WU, YuTong Sun, Ziyu Qian
+ | Feature | Story ID | Task | Story Estimate | Prioroty | Contributor |
+ | :---: | :---: | :---: | :---: | :---: | :---: |
+ | Home page | 6 | Build a home page to guide user to the app | 2 | HIGH | ShengGang Qian, Ziyu Qian |
+ | Log in | 19 | Build a web page for login with email and password and redirect to dashboard| 5| HIGH | XinYu Wu |
+ |  | 3 | Use passport to make user log in and send jwt| 5 | HIGH | Ziyu Qian|
+ | Register | 1 | Use passport to verify info of new user and save in database | 5 | HIGH | Ziyu Qian|
+  |   | 20 | Build a web page for register with some info | 2 | HIGH | Xinyu Wu, Yutong Sun, Ziyu Qian|
 
 
  ### Sprint 2
- Feature | Story ID | Task | Story Estimate | Prioroty | Contributor
-Edit information | 2 | User can edit their information and choose to publish it | 5 | HIGH | Xinyu Wu (F), Ziyu Qian (B)
-                 | 4 | User can upload an image as their profile image | 8 | HIGH |Xinyu Wu (F), Ziyu Qian (B)
+| Feature | Story ID | Task | Story Estimate | Prioroty | Contributor|
+| :---: | :---: | :---: | :---: | :---: | :---: |
+|Edit information | 2 | User can edit their information and choose to publish it | 5 | HIGH | Xinyu Wu (F), Ziyu Qian (B)|
+|          | 4 | User can upload an image as their profile image | 8 | HIGH |Xinyu Wu (F), Ziyu Qian (B)|
+| Dashboard | 8 | dashboard pages will display the info of user and redirect to differnet web pages | 8 | HIGH | Shengjun Su(F), Ziyu Qian(B)|
+| search User ID  | 10 | search by userID and user is able to add as friend | 8 | HIGH | Yutong Sun, Ziyu Qian (B)|
+
 
          
 
