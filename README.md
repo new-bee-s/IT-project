@@ -84,6 +84,7 @@ SPRINT 1
  * US_17_DELE_FRIEND
  * US_22_INFO_PAGE
  * US_23_INFO_PRIVACY
+ * US_24_SEARCH_EXSIT_FRIEND
  * US_25_RETURN_FRIENDS_CONTACT
  * US_26_CHANGE_ID
  * Sprint 1 Retrospective (work left for sprint 2)
@@ -98,6 +99,8 @@ SPRINT 1
 
  ### User story completed
  ### SPRINT 1
+ F = Front-end  B = Back-end
+
  | Feature | Story ID | Task | Story Estimate | Prioroty | Contributor |
  | :---: | :---: | :---: | :---: | :---: | :---: |
  | Home page | 6 | Build a home page to guide user to the app | 2 | HIGH | ShengGang Qian, Ziyu Qian |
@@ -111,10 +114,23 @@ SPRINT 1
 | Feature | Story ID | Task | Story Estimate | Prioroty | Contributor|
 | :---: | :---: | :---: | :---: | :---: | :---: |
 |Edit information | 2 | User can edit their information and choose to publish it | 5 | HIGH | Xinyu Wu (F), Ziyu Qian (B)|
+|                 | 26 | User can edit their ID for others to add | 5 | HIGH | Xinyu Wu (F), Ziyu Qian (B)|
 |          | 4 | User can upload an image as their profile image | 8 | HIGH |Xinyu Wu (F), Ziyu Qian (B)|
-| Dashboard | 8 | dashboard pages will display the info of user and redirect to differnet web pages | 8 | HIGH | Shengjun Su(F), Ziyu Qian(B)|
-| search User ID  | 10 | search by userID and user is able to add as friend | 8 | HIGH | Yutong Sun, Ziyu Qian (B)|
+| Dashboard | 8 | Dashboard pages will display the info of user and redirect to differnet web pages | 8 | HIGH | Shengjun Su(F), Ziyu Qian(B)|
+|         | 22 | User's information can be displayed in the dashboard for the user to check | 5 | HIGH | Xinyu Wu (F), Ziyu Qian (B) |
+| Search User ID  | 10 | search by userID and user is able to add as friend | 8 | HIGH | Yutong Sun(F), Ziyu Qian (B)|
+|                 | 25 | Display the result of searched user | 2 | HIGH | Yutong Sun(F), Ziyu Qian (B)|
+| Add friend  | 11 | Send a request to the user to wait for accepting | 5 | HIGH | Yutong Sun(F), Ziyu Qian (B)|
+| Log Out | 12 | Users can log out and change another account to log in | 5 | HIGH | Shengjun Su(F), Ziyu Qian(B)|
+| Remark | 15 | Users can rename the friend for a easy way to remember | 3 | HIGH | ShengGang Qian(F), ShengGang Qian(B) |
+| Delete Friend| 17 | Users can delete a friend from their contact list | 5 | HIGH | ShengGang Qian(F), ShengGang Qian(B) |
 
+
+There are two user stories we haven't finished
+ * US_23_INFO_PRIVACY
+ * US_24_SEARCH_EXSIT_FRIEND
+ We think these two functions are challenging so we will finish it if we have time in sprint 3
+ 
 
          
 
