@@ -116,7 +116,7 @@ module.exports = function (passport) {
                         // create a new user
                         let newAdmin = new Admin();
                         newAdmin.account = account
-                        newAdmin.password = password
+                        newAdmin.password = newAdmin.generateHash(password)
                         newAdmin.name = req.body.name
                         // and save the user
                         newAdmin.save(function (err) {

@@ -6,7 +6,7 @@ const cookies = new Cookies()
 
 const axios = baseUrl => {
     const instance = _axios.create({
-        baseURL: 'http://localhost:23333/',
+        baseURL: 'http://localhost:8001/',
         withCredentials: true,
         headers: {
             Authorization: `Bearer ${cookies.get('token')}`

@@ -76,22 +76,22 @@ function Homepage() {
                     <img src="./pics/logo_small.jpg" alt="logo pic" height={150} />
                 </a>
             </div>
+            <div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+            </div>
 
             <div className={classes.middle}>
                 <ul className={classes.blocks}>
                     <a href={window.location.href + "login"}>
-                    <img src="./pics/adminstart.png" alt="logo pic" height={20} />
+                    <img src="./pics/adminstart.png" alt="logo pic" height={30} />
                     </a>
                 </ul>
                 
             </div>
-
-            <div className={classes.middle}>
-            <Button variant="contained" className={classes.button} href={window.location.href + "dashboard"}>
-                to dashboard
-            </Button>
-            </div>
-
             
 
             <div className={classes.background}></div>
