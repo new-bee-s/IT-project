@@ -1,9 +1,10 @@
 //import libraries
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Layout} from 'antd';
 
-// homepage style 
+
+//homepage style 
 const useStyles = makeStyles((theme) => ({
     header: {
         display: 'flex',
@@ -52,8 +53,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         overflow: 'hidden',
         width: '100%',
-        height: '31%',
-        backgroundImage: 'url("./pics/homepage_bottom.svg")',
+        height: '100%',
+        backgroundImage: 'url("/../pics/snowmountain.jpeg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         resizeMethod: 'cover',
@@ -68,36 +69,47 @@ const useStyles = makeStyles((theme) => ({
 function Homepage() {
 
     const classes = useStyles();
+    const {Content} = Layout;
 
     return (
-        <div style={{ width: '100vw', height: '100vw`, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
-            <div className={classes.header}>
-                <a href="/">
-                    <img src="./pics/logo_small.jpg" alt="logo pic" height={150} />
-                </a>
-            </div>
-            <div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-            </div>
 
-            <div className={classes.middle}>
-                <ul className={classes.blocks}>
-                    <a href={window.location.href + "login"}>
-                    <img src="./pics/adminstart.png" alt="logo pic" height={30} />
-                    </a>
-                </ul>
-                
-            </div>
             
+        <Layout className={classes.background} style={{ padding: '2vh 2vh', paddingRight: '2vh' }}>
+            <Content>
+                <div align="center">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <img src='./pics/logo_full.png' alt='logo pic' height={100}/>
+                <br/>
+                <br/>
+                <img src='./pics/personalCRM.png' alt='crm pic' height={25}/>
+                <br/>
+                <br/>
+                <img src='./pics/adminversion.png' alt='adminversion pic' height={15}/>
+                
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/><br/><br/><br/><br/><br/>
+                    <a href={window.location.href + 'login'}>
+                        <img src='./pics/adminportal.png' alt='login pic' height={40}/>
+                    </a>
+                </div>
+            </Content>
+        </Layout>
 
-            <div className={classes.background}></div>
-        </div>
+        //     <div style={{position: 'absolute', left: '13vw', top:'23vh'}} >
+        //         <img src='./pics/logo_full.png' alt='logo' height={60} />
+        //     </div>
     )
 
 };
 
 export default Homepage;
+

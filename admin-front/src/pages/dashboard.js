@@ -7,9 +7,27 @@ import { Row, Col, Button} from 'antd';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
 import { message, Divider, Typography, Table } from 'antd';
 import Cookies from 'universal-cookie';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+  background: {
+    display: 'flex',
+    overflow: 'hidden',
+    width: '100%',
+    height: '100%',
+    backgroundImage: 'url("/../pics/snowmountain.jpeg")',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    resizeMethod: 'cover',
+    position: 'absolute',
+    bottom: '0',
+}
+
+}));
 
 export default class Dashboard extends React.Component {
+
+
   constructor(props) {
     super(props)
     this.state = { profile: undefined, loading: true, data: undefined};
@@ -242,9 +260,8 @@ export default class Dashboard extends React.Component {
 
 
 
-
     return (
-      <Layout>
+      <Layout >
         <Header style={{ padding: '0 10px' }}>
           <Row style={{ height: '64px' }}>
             <Col span={2} offset={1}>

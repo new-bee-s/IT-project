@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { message } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
+
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -66,14 +66,16 @@ const useStyles = makeStyles((theme) => ({
 
     },
     background: {
+        display: 'flex',
         overflow: 'hidden',
         width: '100%',
-        height: '18%',
-        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
+        height: '100%',
+        backgroundImage: 'url("/../pics/snowmountain.jpeg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
+        resizeMethod: 'cover',
         position: 'absolute',
-        bottom: 0,
+        bottom: '0',
     },
     blocks_signin: {
         height: 'auto',
@@ -175,12 +177,12 @@ function SignIn(props) {
 
 
     return (
-        <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
+        <div className={classes.background} style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
 
             <div className={classes.middle}>
                 <Container component="main" maxWidth="xs">
                     <a href="/">
-                        <img src='../pics/logo_small.jpg' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle' }}></img>
+                        <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle' }}></img>
                     </a>
                     <br />
                     <br />
