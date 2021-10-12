@@ -98,6 +98,8 @@ export default function Register(props) {
     const [familyName, setFamilyName] = useState('');
     const [confirmedPassword, ConfirmedPassword] = useState('');
 
+
+
     //using on onchange
     const onSignUp = () => {
         //use axios connect back-end and push personal information to back-end
