@@ -7,6 +7,8 @@ import Dashboard from './pages/dashboard.js';
 import Contact from './pages/contact.js';
 import Search from './pages/search.js';
 import EditInfo from './pages/editinfo.js';
+import RegisterFillInfo from './pages/registerFillInfo.js';
+
 
 
 // router switch 
@@ -18,6 +20,7 @@ class Router extends React.Component {
                     <Route path='/' exact component={Homepage}></Route>
                     <Route path='/login' exact component={LogIn}></Route>
                     <Route path='/register' exact component={Register}></Route>
+                    <Route path='/register/fillInfo' exact component={RegisterFillInfo}></Route>
                     <Route path='/dashboard/' exact component={Dashboard}></Route>
                     <Route path='/dashboard/contact' exact component={Contact}></Route>
                     <Route path='/dashboard/search' exact component={Search}></Route>
