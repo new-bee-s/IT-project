@@ -57,7 +57,7 @@ The CI of https://new-bees.netlify.app is CI=npm run build
 The CI of https://new-bee-crm.herokuapp.com/ is CI=npm start
 
 ## Change Log
-SPRINT 1
+### SPRINT 1
  * US_01_REGISTER_FUNC 
  * US_03_LOG_IN_FUNC  
  * US_06_HOMEPAGE 
@@ -73,7 +73,6 @@ SPRINT 1
  * Project requirements
  * Sprint 1 Task arrangement
 
-## Change Log 
 ### SPRINT 2
  * US_02_EDITINFO
  * US_04_EDITIMAGE
@@ -87,7 +86,7 @@ SPRINT 1
  * US_24_SEARCH_EXSIT_FRIEND
  * US_25_RETURN_FRIENDS_CONTACT
  * US_26_CHANGE_ID
- * Sprint 1 Retrospective (work left for sprint 2)
+ * Sprint 1 Retrospective (no work left for sprint 2)
  * Sprint 1 Review (client's advice for sprint 1)
  * Sprint 2 Task arrangement
  * User stories update
@@ -96,6 +95,23 @@ SPRINT 1
  * Testing report
  * Project Deployment (fail at sprint 2)
  * Future work 
+
+### Sprint 3
+* US_27_ADMIN_PAGE
+* US_28_ADMIN_SERVER 
+* US_29_ADMIN_DATABASE
+* US_30_INFO_INIT 
+* US_31_UI_IMPROVE
+* US_32_UPDATE_CONTACT
+* US_33_ANIMATION
+* US_34_ERROR_SWITCHING
+* US_35_DEPLOY
+* Sprint 2 Retrospective (work left for sprint 2)
+* Sprint 2 Review (client's advice for sprint 2)
+* Sprint 3 Task arrangement  
+* User stories update
+* Project Deployment (success at sprint 3)
+
 
  ### User story completed
  ### SPRINT 1
@@ -132,8 +148,17 @@ There are two user stories we haven't finished
  We think these two functions are challenging so we will finish it if we have time in sprint 3
  
 
-         
-
-
+### Sprint 3
+| Feature | Story ID | Task | Story Estimate | Prioroty | Contributor|
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| Admin | 27 | Build an admin page to manage all users, admin need to log in with account and password | 5 | HIGH |  Yutong Sun (F)|
+|       | 28 | Build a server for admin web to complete the functions | 5 | HIGH | Ziyu Qian(B) |
+|       | 29 | Build a model for admin and save the admin in database | 5 | HIGH | Ziyu Qian(B)| 
+| User Information | 30 | Build a page for user to enter the initial info after successfully registering | 8 | HIGH |  Shengjun Su(F) |
+|     | 31 | Update the UI present for the info page | 5 | HIGH | Xinyu Wu(F) |
+| Contact Web update automatically | 32 | Make web automatically update the contact info after editing | 8 | HIGH | Shengjun Su(F) Shenggang Qian(F) |
+| Animation | 33 |Add animation element in our webpage | 3 | MEDIUM | Xinyu Wu(F) |
+| Log out and log in error | 34 | Fix the error in log out and relogin| 5 | HIGH |Shengjun Su(F)Ziyu Qian(B) |
+| Deploy | 35 | We need to successfully deploy our app | 5 | HIGH | Shengjun Su,Ziyu Qian |
 
 
