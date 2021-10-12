@@ -66,14 +66,16 @@ const useStyles = makeStyles((theme) => ({
 
     },
     background: {
+        display: 'flex',
         overflow: 'hidden',
         width: '100%',
-        height: '18%',
-        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
+        height: '100%',
+        backgroundImage: 'url("/../pics/snowmountain.jpeg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
+        resizeMethod: 'cover',
         position: 'absolute',
-        bottom: 0,
+        bottom: '0',
     },
     blocks_signin: {
         height: 'auto',
@@ -171,7 +173,7 @@ function SignIn(props) {
 
 
     return (
-        <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
+        <div className={classes.background} style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
 
             <div className={classes.middle}>
                 <div className={classes.column}>
@@ -241,7 +243,6 @@ function SignIn(props) {
                     </Container>
                 </div>
             </div>
-            <div className={classes.background}> </div>
 
         </div>
     )

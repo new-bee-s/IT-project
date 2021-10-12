@@ -73,14 +73,16 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "18px"
     },
     background: {
+        display: 'flex',
         overflow: 'hidden',
         width: '100%',
-        height: '18%',
-        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
+        height: '100%',
+        backgroundImage: 'url("/../pics/snowmountain.jpeg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
+        resizeMethod: 'cover',
         position: 'absolute',
-        bottom: 0,
+        bottom: '0',
     },
 
 }));
@@ -122,7 +124,7 @@ function Register(props) {
 
 
     return (
-        <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
+        <div className={classes.background} style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
             <div className={classes.middle}>
                 <div className={classes.column} style={{ textAlign: 'center', minHeight: '82vh' }}>
                     <span>
@@ -132,7 +134,6 @@ function Register(props) {
                     </span>
 
                 </div>
-                <div className={classes.background}></div>
                 <div className={classes.column} style={{ textAlign: 'center', paddingRight: '15vh', minHeight: '82vh' }}>
                     <Container component="main" maxWidth="xs">
                         <div>

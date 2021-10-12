@@ -1,7 +1,7 @@
 //import libraries
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Layout} from 'antd';
 
 // homepage style 
 const useStyles = makeStyles((theme) => ({
@@ -52,14 +52,14 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         overflow: 'hidden',
         width: '100%',
-        height: '31%',
-        backgroundImage: 'url("./pics/homepage_bottom.svg")',
+        height: '100%',
+        backgroundImage: 'url("/../pics/snowmountain.jpeg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         resizeMethod: 'cover',
         position: 'absolute',
         bottom: '0',
-    }
+    },
 
 }));
 
@@ -68,26 +68,42 @@ const useStyles = makeStyles((theme) => ({
 function Homepage() {
 
     const classes = useStyles();
+    const {Content} = Layout;
 
     return (
-        <div style={{ width: '100vw', height: '100vw`, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
-            <div className={classes.header}>
-                <a href="/">
-                    <img src="./pics/logo_full.png" alt="logo pic" height={140} />
+        <Layout className={classes.background} style={{ padding: '2vh 2vh', paddingRight: '2vh' }}>
+        <Content>
+            <div align="center">
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <img src='./pics/logo_full.png' alt='logo pic' height={100}/>
+            <br/>
+            <br/>
+            <img src='./pics/personalCRM.png' alt='crm pic' height={25}/>
+            <br/>
+            <br/>
+            
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/><br/><br/><br/><br/><br/>
+                <a href={window.location.href + 'login'}>
+                    <img src='./pics/getstart.png' alt='getstart pic' height={40}/>
+                </a>
+                <br/>
+                <br/>
+                <a href={window.location.href + 'register'}>
+                    <img src='./pics/joinus.png' alt='joinus pic' height={35}/>
                 </a>
             </div>
-
-
-            <div className={classes.middle}>
-                <ul className={classes.blocks}>
-                    <Button variant="contained" className={classes.button} href={window.location.href + "login"}>
-                        Get Start
-                    </Button>
-                </ul>
-            </div>
-
-            <div className={classes.background}></div>
-        </div>
+        </Content>
+    </Layout>
     )
 
 };
