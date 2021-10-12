@@ -31,6 +31,8 @@ export default class Dashboard extends React.Component {
       message.error(error.response.data.error);
     })
 
+    
+
     axios.get(home).then(response => {
       if (response.data.success) {
         console.log("users info");
@@ -126,7 +128,7 @@ export default class Dashboard extends React.Component {
           console.log(record._id)
 
           const OnBan = () => {
-            console.log(record._id)
+            console.log(profile.email);
             console.log("click ban");
             axios.post(home + '/banUser', { _id: record._id }).then(res => {
               if (res.data.success) {
@@ -263,6 +265,7 @@ export default class Dashboard extends React.Component {
 
               </Menu>
             </Col>
+            
           </Row>
         </Header>
         <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background2.jpg")' }}>
