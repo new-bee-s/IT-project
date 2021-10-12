@@ -5,8 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
 import { Layout, message } from 'antd';
-import { Row, Col, Button, Radio, DatePicker, Space, Cascader} from 'antd'; 
-import { Country, State, City }  from 'country-state-city';
+import { Row, Col, Button, Radio, DatePicker, Space} from 'antd'; 
 import Cookies from 'universal-cookie';
 import FillDetaillAddress from '../components/fillDetailAddress.js'
 
@@ -17,7 +16,7 @@ export default class RegisterFillInfo extends React.Component{
 
     constructor(props) {
         super(props)
-        this.state = { gender: undefined, mobieNumber: undefined, dob: undefined, address: [], company: undefined, job: undefined};
+        this.state = { gender: undefined, mobieNumber: '', dob: undefined, address: [], company: undefined, job: undefined};
     }
 
     
@@ -39,7 +38,7 @@ export default class RegisterFillInfo extends React.Component{
             if (this.state.address === undefined){
                 message.error("Please Enter your Address")
             }
-            if (this.state.mobieNumber === undefined){
+            if (this.state.mobieNumber === ''){
                 message.error("Please Enter your mobie number")
             }
             // use axios connect back-end and push personal information to back-end
@@ -122,7 +121,7 @@ export default class RegisterFillInfo extends React.Component{
                             </Col>
                             <Col span = {19}>
                                 <Space>
-                                    <Radio.Group onChange={e => this.setState({gender: e.target.value})} size = "large" style = {{verticalAlign: "middle", width: '100%'}}>
+                                    <Radio.Group onChange={e => this.state.gender = e.target.value} size = "large" style = {{verticalAlign: "middle", width: '100%'}}>
                                         <Radio.Button value="Male">Male</Radio.Button>
                                         <Radio.Button value="Female">Female</Radio.Button>
                                         <Radio.Button value="Prefer not to say"> Prefer not to say </Radio.Button>
@@ -156,7 +155,7 @@ export default class RegisterFillInfo extends React.Component{
                                     name="Mobile"
                                     autoComplete="Mobile Number"
                                     size = "medium"
-                                    onChange={e =>  this.state.mobieNumber =  e.target.value}
+                                    onChange = {e =>  this.state.mobieNumber = e.target.value}
                                 />
                             </Col>
                         </Row>
@@ -173,7 +172,7 @@ export default class RegisterFillInfo extends React.Component{
                                     name="Company"
                                     autoComplete="Company"
                                     size = "medium"
-                                    onChange={e => this.state.company =  e.target.value}
+                                    onChange={e => this.state.company = e.target.value}
                                 />
                             </Col>
                         </Row>
@@ -189,7 +188,7 @@ export default class RegisterFillInfo extends React.Component{
                                     name="Job"
                                     autoComplete="Job"
                                     size = "medium"
-                                    onChange={e => this.state.job =  e.target.value}
+                                    onChange={e => this.state.job = e.target.value}
                                 />
                             </Col>
                         </Row>
