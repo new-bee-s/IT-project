@@ -1,6 +1,4 @@
 const User = require('../models/user')
-const fs = require('fs');
-const path = require('path')
 // Get the info from web and update the information if it is not empty
 const editInfo = async (req, res) => {
     try {
@@ -23,7 +21,7 @@ const editInfo = async (req, res) => {
 
             let user = await User.findOne({ _id: userid })
             if (user.validPassword(password)) {
-                return res.status(400).json({ success: false, error: "Same Password" })
+                return res.status(404).json({ success: false, error: "Same Password" })
             }
             else {
                 await User.updateOne({ _id: userid }, { $set: { password: user.generateHash(password) } })
@@ -36,16 +34,16 @@ const editInfo = async (req, res) => {
             let found = await User.findOne({ userID: userID })
             console.log(found)
             if (found) {
-                return res.status(400).json({ success: false, error: "This UserID has been used" })
+                return res.status(404).json({ success: false, error: "This UserID has been used" })
             }
             if (userID.length < 8) {
-                return res.status(400).json({ success: false, error: "The ID should at least 8 digits" })
+                return res.status(404).json({ success: false, error: "The ID should at least 8 digits" })
             }
             else if (userID.length > 16) {
-                return res.status(400).json({ success: false, error: "The ID should less than 16 digits" })
+                return res.status(404).json({ success: false, error: "The ID should less than 16 digits" })
             }
             else if (! /(?=.*[A-Z])(?=.*[a-z])(\d*)([-_]?)/.test(userID)) {
-                return res.status(400).json({ success: false, error: "The ID does not satisfy the requirement" })
+                return res.status(404).json({ success: false, error: "The ID does not satisfy the requirement" })
             }
             else {
                 await User.updateOne({ _id: userid }, { $set: { userID: userID } })
@@ -70,9 +68,14 @@ const editInfo = async (req, res) => {
 const initInfo = async (req, res) => {
     try {
         let userid = req.user._id
-        await User.updateOne({ _id: userid }, { $set: { gender: req.body.gender } })
-        await User.updateOne({ _id: userid }, { $set: { mobile: req.body.mobile } })
-        await User.updateOne({ _id: userid }, { $set: { region: req.body.region } })
+        await User.updateOne({ _id: userid }, {
+            $set: {
+                gender: req.body.gender,
+                mobile: req.body.mobile,
+                region: req.body.region,
+                dob: req.body.dob
+            }
+        })
         if (req.body.company) {
             await User.updateOne({ _id: userid }, { $set: { company: req.body.company } })
         }
@@ -81,6 +84,7 @@ const initInfo = async (req, res) => {
         }
         return res.status(200).json({ success: true })
     } catch (err) {
+        console.log(err)
         return res.status(404).json({ success: false, error: "Website cracked" })
     }
 }
@@ -95,7 +99,7 @@ const uploadImage = async (req, res) => {
         return res.status(200).json({ success: true })
     } catch (err) {
         console.log(err)
-        return res.status(400).json({ success: false, error: "upload image error, failed" })
+        return res.status(404).json({ success: false, error: "upload image error, failed" })
     }
 
 }
