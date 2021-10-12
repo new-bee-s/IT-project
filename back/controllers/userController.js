@@ -23,7 +23,8 @@ const UserSignup = (req, res, next) => {
             const body = { _id: user._id };
             //Sign the JWT token and populate the payload with the user email
             //Send back the token to the client
-            return res.status(200).json({ success: true });
+            const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
+            return res.status(200).json({ success: true, data: user._id, token: token });
         });
     })(req, res, next)
 }

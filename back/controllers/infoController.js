@@ -67,6 +67,24 @@ const editInfo = async (req, res) => {
     }
 }
 
+const initInfo = async (req, res) => {
+    try {
+        let userid = req.user._id
+        await User.updateOne({ _id: userid }, { $set: { gender: req.body.gender } })
+        await User.updateOne({ _id: userid }, { $set: { mobile: req.body.mobile } })
+        await User.updateOne({ _id: userid }, { $set: { region: req.body.region } })
+        if (req.body.company) {
+            await User.updateOne({ _id: userid }, { $set: { company: req.body.company } })
+        }
+        if (req.body.occupation) {
+            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.occupation } })
+        }
+        return res.status(200).json({ success: true })
+    } catch (err) {
+        return res.status(404).json({ success: false, error: "Website cracked" })
+    }
+}
+
 const uploadImage = async (req, res) => {
     try {
         let photo = {
@@ -81,4 +99,4 @@ const uploadImage = async (req, res) => {
     }
 
 }
-module.exports = { editInfo, uploadImage }
+module.exports = { editInfo, uploadImage, initInfo }
