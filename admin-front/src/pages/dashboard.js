@@ -1,9 +1,9 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Dropdown } from 'antd';
+import { Layout, Menu, Dropdown, Space, Spin } from 'antd';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
-import { Row, Col, Button, Space, Spin } from 'antd';
+import { Row, Col, Button} from 'antd';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
 import { message, Divider, Typography, Table } from 'antd';
 import Cookies from 'universal-cookie';
@@ -12,7 +12,7 @@ import Cookies from 'universal-cookie';
 export default class Dashboard extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { profile: undefined, loading: true, data: undefined, banID: "", unbanID: "" };
+    this.state = { profile: undefined, loading: true, data: undefined};
   }
 
   componentDidMount() {
@@ -68,8 +68,15 @@ export default class Dashboard extends React.Component {
     // Define the variable
     const { Header, Content } = Layout;
     // remember to add loading back!
-    const { profile, loading, data, banID, unbanID } = this.state;
+    const { profile, loading, data } = this.state;
     const home = '/dashboard';
+
+    if (loading) {
+      return <Space size='middle' style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
+          <Spin size='large' />
+          <h3>Loading</h3>
+      </Space>;
+    }
 
 
 
@@ -79,7 +86,7 @@ export default class Dashboard extends React.Component {
         title: 'Status',
         key: 'ban',
         render (record) {
-          if (record.ban == true) {
+          if (record.ban === true) {
             return (
               <div align = 'center'>
                   <Avatar size={30} icon={<CloseCircleFilled />} style={{ color: 'red', background: 'rgba(255, 255, 255, 0)' }} />
@@ -116,14 +123,12 @@ export default class Dashboard extends React.Component {
         title: 'Action',
         key: 'action',
         render(record) {
-          const id = record._id;
-          const flag = 0;
-          console.log(id)
+          console.log(record._id)
 
           const OnBan = () => {
-            console.log(id)
+            console.log(record._id)
             console.log("click ban");
-            axios.post(home + '/banUser', { _id: id }).then(res => {
+            axios.post(home + '/banUser', { _id: record._id }).then(res => {
               if (res.data.success) {
                 message.success("ban successfully")
               }
@@ -139,10 +144,10 @@ export default class Dashboard extends React.Component {
           }
 
           const OnUnban = () => {
-            console.log(id)
+            console.log(record._id)
             console.log("click unban");
 
-            axios.post(home + '/unBanUser', { _id: id }).then(res => {
+            axios.post(home + '/unBanUser', { _id: record._id }).then(res => {
               if (res.data.success) {
                 message.success("unban successfully")
               }
@@ -156,7 +161,7 @@ export default class Dashboard extends React.Component {
             })
           }
 
-          if (record.ban == true) {
+          if (record.ban === true) {
             return (
               <div align='center'>
                 <Button type="dashed" onClick={OnUnban} size={20}>
