@@ -191,9 +191,9 @@ function SignIn(props) {
                     <br />
                     <div>
 
-                        <Typography component="h1" variant='body1' align='center'>Who controls the past controls the future.</Typography>
-                        <Typography component="h1" variant='body1' align='center'>Who controls the present controls the past.</Typography>
-                        <Typography component="h1" variant='body1' align='right'>― George Orwell, 1984</Typography>
+                        <p align='center'>Who controls the past controls the future.</p>
+                        <p align='center'>Who controls the present controls the past.</p>
+                        <p align='right'>― George Orwell, 1984</p>
                     </div>
                     <br />
                     <div>

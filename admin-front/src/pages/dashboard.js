@@ -50,10 +50,10 @@ export default class Dashboard extends React.Component {
 
 
   render() {
-    const test = () => {
-      console.log("haha");
-      console.log(banID);
-    }
+    // const test = () => {
+    //   console.log("haha");
+    //   console.log(banID);
+    // }
 
     const OnLogOut = () => {
       const cookies = new Cookies();
@@ -98,20 +98,15 @@ export default class Dashboard extends React.Component {
       {
         title: 'User ID',
         dataIndex: 'userID',
-        defaultSortOrder: 'descend',
-        sorter: (a, b) => a.userid - b.userid,
       },
       {
         title: 'First Name',
         dataIndex: 'givenName',
-        sorter: (a, b) => a.firstname.length - b.firstname.length,
-        sortDirections: ['descend'],
       },
       {
         title: 'Last Name',
         dataIndex: 'familyName',
-        sorter: (a, b) => a.lastname.length - b.lastname.length,
-        sortDirections: ['descend'],
+
       },
       {
         title: 'Email',
@@ -272,13 +267,13 @@ export default class Dashboard extends React.Component {
           <Content style={{ padding: '0 5vw' }}>
             <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
               <Typography component="h1" variant='h1' align='center'>Manage all the users</Typography>
-              <Typography component="body1" variant='body1' align='right'>"Big Brother is watching you!"</Typography>
+              <p align='left'>"Big Brother is watching you!"</p>
               <Divider />
-              <Table columns={columns} dataSource={data} onChange={onChange} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
-              <Button type="dashed" onClick={test} size={20}>
+              <Table columns={columns} rowKey='_id' dataSource={data} onChange={onChange} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
+              {/* <Button type="dashed" onClick={test} size={20}>
 
                 test
-              </Button>
+              </Button> */}
 
 
             </div>
