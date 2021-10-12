@@ -4,10 +4,9 @@ import { Layout, Menu, Dropdown } from 'antd';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Row, Col, Button, Space, Spin } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
 import { message, Divider, Typography, Table } from 'antd';
 import Cookies from 'universal-cookie';
-import { Components } from 'antd/lib/date-picker/generatePicker';
 
 
 export default class Dashboard extends React.Component {
@@ -37,6 +36,7 @@ export default class Dashboard extends React.Component {
         console.log("users info");
         console.log(response.data.users);
         this.setState({ data: response.data.users })
+
       }
     }).catch(error => {
       console.log(error.response.data.error)
@@ -75,6 +75,26 @@ export default class Dashboard extends React.Component {
 
 
     const columns = [
+      {
+        title: 'Status',
+        key: 'ban',
+        render (record) {
+          if (record.ban == true) {
+            return (
+              <div align = 'center'>
+                  <Avatar size={30} icon={<CloseCircleFilled />} style={{ color: 'red', background: 'rgba(255, 255, 255, 0)' }} />
+              </div>
+            )
+          }
+          else {
+            return (
+              <div align = 'center'>
+                  <Avatar size={30} icon={<CheckCircleFilled />} style={{ color: 'green', background: 'rgba(255, 255, 255, 0)' }} />
+              </div>
+            )
+          }
+        }
+      },
       {
         title: 'User ID',
         dataIndex: 'userID',
@@ -120,6 +140,7 @@ export default class Dashboard extends React.Component {
               message.error(error.response.data.error)
               // or throw(error.respond)
             })
+            //this.setState({banID: id})
           }
 
           const OnUnban = () => {
@@ -140,19 +161,25 @@ export default class Dashboard extends React.Component {
             })
           }
 
-
-          return (
-            <div>
-              <Button type="dashed" onClick={OnBan} size={20}>
-                Ban
-              </Button>
-
-              <Button type="dashed" onClick={OnUnban} size={20}>
-                Unban
-              </Button>
-            </div>
-
-          )
+          if (record.ban == true) {
+            return (
+              <div align='center'>
+                <Button type="dashed" onClick={OnUnban} size={20}>
+                  Unban
+                </Button>
+              </div>
+            )
+          }
+          else {
+            return (
+              <div align='center'>
+                <Button type="dashed" onClick={OnBan} size={20}>
+                  Ban
+                </Button>
+              </div>
+            )
+          }
+          
         }
 
       }
