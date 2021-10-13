@@ -19,7 +19,15 @@ export default class RegisterFillInfo extends React.Component{
         this.state = { gender: undefined, mobieNumber: '', dob: undefined, address: [], company: undefined, job: undefined};
     }
 
-    
+    componentDidMount() {
+        const cookies = new Cookies()
+        axios.get('/register/fillInfo', {
+            headers: {
+                Authorization: `Bearer ${cookies.get('token')}`
+            }
+        })
+    }
+
     render() {
         const { Content } = Layout;
         
@@ -92,7 +100,7 @@ export default class RegisterFillInfo extends React.Component{
         };
 
         return (
-            <Layout style={{ padding: '0 5vw', backgroundImage: 'url("../pics/background9.jpg")', minHeight: '100vh'}}>
+            <Layout style={{ backgroundImage: 'url("../pics/background9.jpg")', minHeight: '100vh'}}>
                 <Row style = {{marginTop: "2%"}}> 
                     <Col offset = {9}>
                     </Col>
@@ -104,7 +112,7 @@ export default class RegisterFillInfo extends React.Component{
                 </Row>
                 <Content style={{ width: '40vw', marginTop: '3vh',  alignSelf: 'center'}}>
                     
-                    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2vw', marginTop: '2vh' }}>
+                    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2vw', marginTop: '2vh', minHeight: '60vh'}}>
 
                         <Typography component="h2" variant="h2" align="center">
                             Fill In Your Detaill
