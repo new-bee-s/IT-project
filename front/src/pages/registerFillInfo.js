@@ -19,14 +19,6 @@ export default class RegisterFillInfo extends React.Component{
         this.state = { gender: undefined, mobieNumber: '', dob: undefined, address: [], company: undefined, job: undefined};
     }
 
-    componentDidMount() {
-        const cookies = new Cookies()
-        axios.get('/register/fillInfo', {
-            headers: {
-                Authorization: `Bearer ${cookies.get('token')}`
-            }
-        })
-    }
 
     render() {
         const { Content } = Layout;
@@ -50,7 +42,11 @@ export default class RegisterFillInfo extends React.Component{
                 message.error("Please Enter your mobie number")
             }
             // use axios connect back-end and push personal information to back-end
+            const cookies = new Cookies()
             axios.post('/register/fillInfo', {
+                headers: {
+                    Authorization: `Bearer ${cookies.get('token')}`
+                },
                 gender: this.state.gender,
                 mobile: this.state.mobieNumber,
                 dob: this.state.dob,
