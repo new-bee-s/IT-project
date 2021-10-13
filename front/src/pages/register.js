@@ -1,7 +1,6 @@
 // import libraries
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -9,9 +8,11 @@ import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
 import { useState } from 'react';
 import { message } from 'antd';
+import { Row, Col, Button} from 'antd'; 
+import Cookies from 'universal-cookie';
 
 //web page style design
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     header: {
         display: 'flex',
         alignItems: 'center',
@@ -87,8 +88,10 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+
+
 // register page
-function Register(props) {
+export default function Register(props) {
 
     const classes = useStyles();
     const [email, setEmail] = useState('');
@@ -97,9 +100,10 @@ function Register(props) {
     const [familyName, setFamilyName] = useState('');
     const [confirmedPassword, ConfirmedPassword] = useState('');
 
+
+
     //using on onchange
     const onSignUp = () => {
-
         //use axios connect back-end and push personal information to back-end
         axios.post('/register', {
             email: email,
@@ -109,7 +113,9 @@ function Register(props) {
             confirmPassword: confirmedPassword
         }).then(res => {
             if (res.data.success) {
-                props.history.push('/login')
+                const cookies = new Cookies();
+                cookies.set('token', res.data.token, { maxAge: 24 * 60 * 60 })
+                props.history.push('/register/fillInfo')
             }
             else {
                 // if error
@@ -120,9 +126,11 @@ function Register(props) {
             console.log(error.response.data.error)
             message.error(error.response.data.error)
         })
+        
     }
 
 
+    
     return (
         <div className={classes.background} style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
             <div className={classes.middle}>
@@ -132,7 +140,7 @@ function Register(props) {
                             <img src='./pics/logo_full.png' title="go back to home page" alt="logo pic" style={{ width: '75%' }}></img>
                         </a>
                     </span>
-
+        
                 </div>
                 <div className={classes.column} style={{ textAlign: 'center', paddingRight: '15vh', minHeight: '82vh' }}>
                     <Container component="main" maxWidth="xs">
@@ -145,84 +153,102 @@ function Register(props) {
                                 Welcome to be the new menber!
                             </Typography>
                             <br />
-                            <form noValidate>
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="givenName"
-                                    label="First Name"
-                                    name="firstname"
-                                    autoComplete="email"
-                                    autoFocus
-                                    onChange={e => setGivenName(e.target.value)}
-                                />
+                            <div>
+                                <Row gutter = {20}>
+                                    <Col span = {12}>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="givenName"
+                                        label="First Name"
+                                        name="firstname"
+                                        autoComplete="email"
+                                        size = "medium"
+                                        autoFocus
+                                        onChange={e => setGivenName(e.target.value)}
+                                    />
+                                    </Col>
 
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="familyName"
-                                    label="Last Name"
-                                    name="lastname"
-                                    autoComplete="email"
-                                    onChange={e => setFamilyName(e.target.value)}
-                                />
-
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    onChange={e => setEmail(e.target.value)}
-                                />
-
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                    onChange={e => setPassword(e.target.value)}
-                                />
-
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="comfirmed password"
-                                    label="Comfirmed Password"
-                                    type="password"
-                                    id="confirmPassword"
-                                    autoComplete="current-password"
-                                    onChange={e => ConfirmedPassword(e.target.value)}
-                                />
-
-                                <blocks className={classes.blocks}>
-                                    <Button variant="contained" className={classes.button} onClick={onSignUp}>
-                                        Register
+                                    <Col span = {12}>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="familyName"
+                                        label="Last Name"
+                                        name="lastname"
+                                        size = "medium"
+                                        autoComplete="email"
+                                        onChange={e => setFamilyName(e.target.value)}
+                                    />
+                                    </Col>
+                                </Row>
+                    
+                                <Row>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        size = "medium"
+                                        autoComplete="email"
+                                        onChange={e => setEmail(e.target.value)}
+                                    />
+                                </Row>
+                    
+                                <Row>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
+                                        size = "medium"
+                                        autoComplete="current-password"
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                </Row>
+                    
+                                <Row>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        name="comfirmed password"
+                                        label="Comfirmed Password"
+                                        type="password"
+                                        id="confirmPassword"
+                                        size = "medium"
+                                        autoComplete="current-password"
+                                        onChange={e => ConfirmedPassword(e.target.value)}
+                                    />
+                                </Row>   
+                                
+                                <div className={classes.blocks}>
+                                    <Button variant="contained" className={classes.button} onClick={e => onSignUp()} style = {{alignItems: 'center'}}>
+                                        Next
                                     </Button>
-                                </blocks>
-                            </form>
+                                </div>
+                            </div>
                         </div>
                     </Container>
                 </div>
             </div>
         </div>
-    )
-};
+    );
+}
 
 
 
-export default Register;
+
+

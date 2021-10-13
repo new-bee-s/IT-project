@@ -310,6 +310,7 @@ export default class ContactBrief extends React.Component {
             type="text"
             size="small"
             className="tag-input"
+            maxLength = "20"
             value={inputValue}
             onChange={this.handleInputChange}
             onBlur={this.handleInputConfirm}
@@ -322,7 +323,8 @@ export default class ContactBrief extends React.Component {
           </Tag>
         )}
 
-
+        <br />
+        <br />
         <Button
           
           icon={<CheckCircleFilled/>}

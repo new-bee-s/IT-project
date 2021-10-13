@@ -8,13 +8,15 @@ const cors = require('cors')
 const passport = require('passport')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
+
 //app.use(module)
 app.use(express.json())
 app.use(bodyParser.json())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false })) // replaces body-parser
-app.use(express.static('public'))
 app.use(cookieParser())
+
+// Define allowed origins
 let allowedOrigins = ['http://localhost:3000', 'https://new-bees.netlify.app'];
 
 app.use(cors({
@@ -49,12 +51,14 @@ const contactRouter = require('./routers/contactRouter')
 const infoRouter = require('./routers/infoRouter')
 const searchRouter = require('./routers/searchRouter')
 require('./config/passport')(passport)
+
 // Use Routers
 app.use('/', userRouter)
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), contactRouter)
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), infoRouter)
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), searchRouter)
 
+// Use port 8000 to listen
 const port = process.env.PORT || 8000
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')
