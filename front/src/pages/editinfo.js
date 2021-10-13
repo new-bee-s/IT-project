@@ -495,7 +495,14 @@ export default function EditInfo(props) {
                                     </label>
                                 </Button>
     
+                                <div>
+                                    &nbsp;
+                                </div>
     
+                                <Button type="primary" size='large' variant="contained" onClick={changingPrivacy}>
+                                    Change Privacy
+                                </Button>
+                                
                                 <div>
                                     &nbsp;
                                 </div>
@@ -504,13 +511,7 @@ export default function EditInfo(props) {
                                     Change Password
                                 </Button>
     
-                                <div>
-                                    &nbsp;
-                                </div>
-    
-                                <Button type="primary" size='large' variant="contained" onClick={changingPrivacy}>
-                                    Change Privacy
-                                </Button>
+                                
     
                                 
                             </div>
