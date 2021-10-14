@@ -33,8 +33,7 @@ export default class AddFriend extends React.Component {
 
     render() {
         const OnLogOut = () => {
-            const cookies = new Cookies()
-            cookies.remove('token')
+            Cookies.remove('token')
             this.props.history.push('/login');
         }
 

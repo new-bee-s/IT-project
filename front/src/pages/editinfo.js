@@ -4,7 +4,7 @@ import { Layout, Menu, Avatar, Row, Col, Button, Input, Space, Spin, message, To
 import { UserOutlined } from '@ant-design/icons';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 export default function EditInfo(props) {
 
@@ -54,8 +54,7 @@ export default function EditInfo(props) {
 
     // logout
     const OnLogOut = () => {
-        const cookies = new Cookies()
-        cookies.remove('token')
+        Cookies.remove('token')
         props.history.push('/login');
     }
 

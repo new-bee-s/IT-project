@@ -8,8 +8,8 @@ import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
 import { useState } from 'react';
 import { message } from 'antd';
-import { Row, Col, Button} from 'antd'; 
-import Cookies from 'universal-cookie';
+import { Row, Col, Button } from 'antd';
+import Cookies from 'js-cookie';
 
 //web page style design
 const useStyles = makeStyles(theme => ({
@@ -111,8 +111,7 @@ export default function Register(props) {
             confirmPassword: confirmedPassword
         }).then(res => {
             if (res.data.success) {
-                const cookies = new Cookies();
-                cookies.set('token', res.data.token, { maxAge: 24 * 60 * 60 })
+                Cookies.set('token', res.data.token, { expires: 1 })
                 props.history.push('/register/fillInfo')
             }
             else {
@@ -124,11 +123,11 @@ export default function Register(props) {
             console.log(error.response.data.error)
             message.error(error.response.data.error)
         })
-        
+
     }
 
 
-    
+
     return (
         <div style={{ width: '100vw', height: '100vw, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
             <div className={classes.middle}>
@@ -138,7 +137,7 @@ export default function Register(props) {
                             <img src='./pics/logo_full.png' title="go back to home page" alt="logo pic" style={{ width: '75%' }}></img>
                         </a>
                     </span>
-        
+
                 </div>
                 <div className={classes.background}></div>
                 <div className={classes.column} style={{ textAlign: 'center', paddingRight: '15vh', minHeight: '82vh' }}>
@@ -153,39 +152,39 @@ export default function Register(props) {
                             </Typography>
                             <br />
                             <div>
-                                <Row gutter = {20}>
-                                    <Col span = {12}>
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="givenName"
-                                        label="First Name"
-                                        name="firstname"
-                                        autoComplete="email"
-                                        size = "medium"
-                                        autoFocus
-                                        onChange={e => setGivenName(e.target.value)}
-                                    />
+                                <Row gutter={20}>
+                                    <Col span={12}>
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="givenName"
+                                            label="First Name"
+                                            name="firstname"
+                                            autoComplete="email"
+                                            size="medium"
+                                            autoFocus
+                                            onChange={e => setGivenName(e.target.value)}
+                                        />
                                     </Col>
 
-                                    <Col span = {12}>
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="familyName"
-                                        label="Last Name"
-                                        name="lastname"
-                                        size = "medium"
-                                        autoComplete="email"
-                                        onChange={e => setFamilyName(e.target.value)}
-                                    />
+                                    <Col span={12}>
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="familyName"
+                                            label="Last Name"
+                                            name="lastname"
+                                            size="medium"
+                                            autoComplete="email"
+                                            onChange={e => setFamilyName(e.target.value)}
+                                        />
                                     </Col>
                                 </Row>
-                    
+
                                 <Row>
                                     <TextField
                                         variant="outlined"
@@ -195,12 +194,12 @@ export default function Register(props) {
                                         id="email"
                                         label="Email Address"
                                         name="email"
-                                        size = "medium"
+                                        size="medium"
                                         autoComplete="email"
                                         onChange={e => setEmail(e.target.value)}
                                     />
                                 </Row>
-                    
+
                                 <Row>
                                     <TextField
                                         variant="outlined"
@@ -211,12 +210,12 @@ export default function Register(props) {
                                         label="Password"
                                         type="password"
                                         id="password"
-                                        size = "medium"
+                                        size="medium"
                                         autoComplete="current-password"
                                         onChange={e => setPassword(e.target.value)}
                                     />
                                 </Row>
-                    
+
                                 <Row>
                                     <TextField
                                         variant="outlined"
@@ -227,14 +226,14 @@ export default function Register(props) {
                                         label="Comfirmed Password"
                                         type="password"
                                         id="confirmPassword"
-                                        size = "medium"
+                                        size="medium"
                                         autoComplete="current-password"
                                         onChange={e => ConfirmedPassword(e.target.value)}
                                     />
-                                </Row>   
-                                
+                                </Row>
+
                                 <div className={classes.blocks}>
-                                    <Button variant="contained" className={classes.button} onClick={e => onSignUp()} style = {{alignItems: 'center'}}>
+                                    <Button variant="contained" className={classes.button} onClick={e => onSignUp()} style={{ alignItems: 'center' }}>
                                         Next
                                     </Button>
                                 </div>

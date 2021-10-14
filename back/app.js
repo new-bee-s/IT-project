@@ -50,9 +50,10 @@ const userRouter = require('./routers/userRouter')
 const contactRouter = require('./routers/contactRouter')
 const infoRouter = require('./routers/infoRouter')
 const searchRouter = require('./routers/searchRouter')
-require('./config/passport')(passport)
+
 
 // Use Routers
+require('./config/passport')(passport)
 app.use('/', userRouter)
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), contactRouter)
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), infoRouter)

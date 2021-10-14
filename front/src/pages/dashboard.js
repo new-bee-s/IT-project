@@ -5,7 +5,7 @@ import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Row, Col, Button, Space, Spin } from 'antd';
 import { message } from 'antd';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 
 export default class Dashboard extends React.Component {
@@ -16,10 +16,9 @@ export default class Dashboard extends React.Component {
 
     componentDidMount() {
         const home = '/dashboard';
-        const cookies = new Cookies()
         axios.get(home, {
             headers: {
-                Authorization: `Bearer ${cookies.get('token')}`
+                Authorization: `Bearer ${Cookies.get('token')}`
             }
         }).then(response => {
             if (response.data.success) {
@@ -36,8 +35,7 @@ export default class Dashboard extends React.Component {
 
     render() {
         const OnLogOut = () => {
-            const cookies = new Cookies();
-            cookies.remove('token');
+            Cookies.remove('token');
             this.props.history.push('/login', { replace: true });
         }
 
