@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Avatar, Row, Col, Button, Space, Spin, message, Dropdown } from 'antd';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 export default function ChangePassword(props) {
 
@@ -107,7 +107,7 @@ export default function ChangePassword(props) {
 
     }
 
-    
+
 
     // if the page is loading, draw a loading animation
     if (loading) {
@@ -177,9 +177,9 @@ export default function ChangePassword(props) {
                 <Content style={{ padding: '0 5vw', backgroundImage: 'url("/../pics/background4.jpg")' }}>
                     <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
 
-                    <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '8vw', paddingTop: '5vh' }}>
+                        <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '8vw', paddingTop: '5vh' }}>
                             <Avatar size={140} src={profile.photo.data} />
-                            
+
                             <div>
                                 &nbsp;
                             </div>
@@ -196,7 +196,7 @@ export default function ChangePassword(props) {
                                 &nbsp;
                             </div>
 
-                            <a href={home+"/changeprivacy"}>
+                            <a href={home + "/changeprivacy"}>
                                 <Button type="primary" size='large' variant="contained">
                                     Change Privacy
                                 </Button>
@@ -206,19 +206,19 @@ export default function ChangePassword(props) {
                                 &nbsp;
                             </div>
 
-                            <a href={home+"/changeinfo"}>
+                            <a href={home + "/changeinfo"}>
                                 <Button type="primary" size='large' variant="contained">
                                     Change Information
                                 </Button>
                             </a>
-                            
+
                         </div>
 
                         <div id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
                         </div>
 
 
-                        <div id="middle" style={{ width: '45vw',float:'right', paddingTop: '5vh', margin: '0 atuo' }}>
+                        <div id="middle" style={{ width: '45vw', float: 'right', paddingTop: '5vh', margin: '0 atuo' }}>
                             <div style={{ color: 'black', verticalAlign: 'middle', paddingLeft: '13px', fontSize: '47px' }}>
                                 Change your password
                             </div>
@@ -253,7 +253,7 @@ export default function ChangePassword(props) {
                                     />
 
                                     <div style={{ paddingTop: '3vh' }}>
-                                        
+
                                         <Button type="primary" size='large' onClick={changePassword}>
                                             Save
                                         </Button>
@@ -261,8 +261,8 @@ export default function ChangePassword(props) {
                                         <span>
                                             &nbsp;&nbsp;
                                         </span>
-                                        
-                                        <a href = {home}>
+
+                                        <a href={home}>
                                             <Button type="primary" size='large'>
                                                 Cancel
                                             </Button>
@@ -277,9 +277,9 @@ export default function ChangePassword(props) {
         </Layout >
     )
 }
-    
-    
-    
-    
+
+
+
+
 
 
