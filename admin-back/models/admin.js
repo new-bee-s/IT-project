@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const bcrypt = require('bcrypt-nodejs')
+const bcrypt = require('bcrypt')
 
 const adminSchema = new mongoose.Schema({
     account: { type: String, require: true },
