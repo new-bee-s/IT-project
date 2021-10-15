@@ -156,7 +156,6 @@ export default class ContactBrief extends React.Component {
     const { Text } = Typography;
     const { Content } = Layout;
     const { tags, inputVisible, inputValue, editInputIndex, editInputValue } = this.state;
-    console.log(this.props.contact.friend)
     // Description item components
     const DescriptionItem = ({ title, content }) => (
       <div className="site-description-item-profile-wrapper">
@@ -174,34 +173,18 @@ export default class ContactBrief extends React.Component {
         <h2>Personal</h2>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="Gven Name" content={this.props.contact.friend.givenName} />
+            <DescriptionItem title="Friend Name" content={this.props.contact.friend.givenName+' '+this.props.contact.friend.familyName} />
           </Col>
-          <Col span={12}>
-            <DescriptionItem title="Family Name" content={this.props.contact.friend.familyName} />
-          </Col>
-        </Row>
-        <Row style={{ marginTop: 24 }}>
           <Col span={12}>
             <DescriptionItem title="User id" content={this.props.contact.friend.userID} />
           </Col>
+        </Row>
+        <Row style={{ marginTop: 24 }}>
+          <Col span={12}>
+          <DescriptionItem title="Birthday" content={this.props.contact.friend.dob.year+'-'+this.props.contact.friend.dob.month+'-'+this.props.contact.friend.dob.date} />
+          </Col>
           <Col span={12}>
             <DescriptionItem title="Gender" content={this.props.contact.friend.gender} />
-          </Col>
-        </Row>
-        <Row style={{ marginTop: 24 }}>
-          <Col span={12}>
-            <DescriptionItem title="Birthday" content={this.props.contact.friend.dob.year+'-'+this.props.contact.friend.dob.month+'-'+this.props.contact.friend.dob.day} />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="County" content={this.props.contact.friend.region.country} />
-          </Col>
-        </Row>
-        <Row style={{ marginTop: 24 }}>
-          <Col span={12}>
-            <DescriptionItem title="City" content={this.props.contact.friend.region.city} />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="State" content={this.props.contact.friend.region.state} />
           </Col>
         </Row>
         <Row style={{ marginTop: 24 }}>
@@ -210,6 +193,11 @@ export default class ContactBrief extends React.Component {
           </Col>
           <Col span={12}>
             <DescriptionItem title="Occupation" content={this.props.contact.friend.occupation} />
+          </Col>
+        </Row>
+        <Row style={{ marginTop: 24 }}>
+          <Col span={24}>
+            <DescriptionItem title="Region" content={this.props.contact.friend.region.country+' '+this.props.contact.friend.region.city+' '+this.props.contact.friend.region.state}/>
           </Col>
         </Row>
         <Row style={{ marginTop: 24}}>
