@@ -119,7 +119,7 @@ export default class Dashboard extends React.Component {
                             </div>
 
                             <div id='right' style={{ width: '15vw', float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
-                                <a href={home + '/editinfo'}>
+                                <a href={home + '/changeinfo'}>
                                     <Button type='primary' size='large'>change profile</Button>
                                 </a>
                             </div>
