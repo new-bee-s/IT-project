@@ -60,7 +60,7 @@ export default function ChangeInfo(props) {
         axios.post(home + '/editInfo', { userID: userID, introduction: introduction }).then(res => {
             if (res.data.success) {
                 message.success("successfully changed profile!")
-                props.history.push('/dashboard', { replace: true });
+                //props.history.push('/dashboard', { replace: true });
             }
             else {
                 // if error
@@ -71,23 +71,21 @@ export default function ChangeInfo(props) {
             message.error(error.response.data.error)
             // or throw(error.respond)
         })
-    }
 
-    const changeDisplay = () => {
+
         // const cookies = new Cookies()
         axios.post('/register/fillInfo', {
             // headers: {
             //     Authorization: `Bearer ${cookies.get('token')}`
             // },
             gender: gender,
-            mobile: this.state.mobieNumber,
-            dob: this.state.dob,
-            region: {city: this.state.address[2], state: this.state.address[1], country: this.state.address[0]},
-            company: this.state.company,
-            occupation: this.state.job
+            mobile: mobile,
+            dob: dob,
+            company: company,
+            occupation: job
         }).then(res => {
             if (res.data.success) {
-                this.props.history.push('/login')
+                message.success("success");
             }
             else {
                 // if error
@@ -98,7 +96,27 @@ export default function ChangeInfo(props) {
             console.log(error.response.data.error)
             message.error(error.response.data.error)
         })
+        if(address!==undefined) {
+            // const cookies = new Cookies()
+            axios.post('/register/fillInfo', {
+                region: {city: address[2], state: address[1], country: address[0]},
+            }).then(res => {
+                if (res.data.success) {
+                    message.success("success");
+                }
+                else {
+                    // if error
+                    message.error(res.data.error)
+                }
+
+            }).catch(error => {
+                console.log(error.response.data.error)
+                message.error(error.response.data.error)
+            })
+        }
+        
     }
+
 
     const setAddress = (value) => {
         setAdd(value);
