@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Avatar, Row, Col, Button, Space, Spin, message, Dropdown } from 'antd';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 export default function ChangePrivacy(props) {
 
@@ -49,7 +49,7 @@ export default function ChangePrivacy(props) {
     // change personal infos
     const changeInformation = () => {
 
-        axios.post(home + '/editInfo', { givenName: givenName, familyName: familyName}).then(res => {
+        axios.post(home + '/editInfo', { givenName: givenName, familyName: familyName }).then(res => {
             if (res.data.success) {
                 message.success("successfully changed profile!")
                 props.history.push('/dashboard', { replace: true });
@@ -94,7 +94,7 @@ export default function ChangePrivacy(props) {
 
     }
 
-    
+
 
     // if the page is loading, draw a loading animation
     if (loading) {
@@ -104,7 +104,7 @@ export default function ChangePrivacy(props) {
         </Space>;
     }
 
-    
+
     return (
         <Layout >
             <Header style={{ padding: '0 10px' }}>
@@ -163,7 +163,7 @@ export default function ChangePrivacy(props) {
 
                         <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '8vw', paddingTop: '5vh' }}>
                             <Avatar size={140} src={profile.photo.data} />
-                            
+
                             <div>
                                 &nbsp;
                             </div>
@@ -180,7 +180,7 @@ export default function ChangePrivacy(props) {
                                 &nbsp;
                             </div>
 
-                            <a href={home+"/changepassword"}>
+                            <a href={home + "/changepassword"}>
                                 <Button type="primary" size='large' variant="contained">
                                     Change Password
                                 </Button>
@@ -190,18 +190,18 @@ export default function ChangePrivacy(props) {
                                 &nbsp;
                             </div>
 
-                            <a href={home+"/changeinfo"}>
+                            <a href={home + "/changeinfo"}>
                                 <Button type="primary" size='large' variant="contained">
                                     Change Information
                                 </Button>
                             </a>
-                            
+
                         </div>
 
                         <div id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
                         </div>
 
-                        <div id="middle" style={{ width: '45vw', float:'right', paddingTop: '5vh', margin: '0 auto' }}>
+                        <div id="middle" style={{ width: '45vw', float: 'right', paddingTop: '5vh', margin: '0 auto' }}>
 
                             <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px' }}>
                                 Change your privacy
@@ -210,7 +210,7 @@ export default function ChangePrivacy(props) {
 
                             <div>
                                 <form noValidate>
-                                    
+
 
                                     <TextField
                                         variant="outlined"

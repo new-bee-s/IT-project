@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Avatar, Row, Col, Button, Space, Spin, message, Tooltip, Dropdown, Radio, DatePicker} from 'antd';
+import { Layout, Menu, Avatar, Row, Col, Button, Space, Spin, message, Tooltip, Dropdown, Radio, DatePicker } from 'antd';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 import FillDetaillAddress from '../components/fillDetailAddress.js';
 
 export default function ChangeInfo(props) {
@@ -15,12 +15,12 @@ export default function ChangeInfo(props) {
     const [profile, setProfile] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [ gender, setGender ] = useState('');
-    const [ mobile, setMobile ] = useState('');
-    const [ dob, setDob ] = useState('');
-    const [ address, setAdd ] = useState([]);
-    const [ company, setCompany ] = useState('');
-    const [ job, setJob ] = useState('');
+    const [gender, setGender] = useState('');
+    const [mobile, setMobile] = useState('');
+    const [dob, setDob] = useState('');
+    const [address, setAdd] = useState([]);
+    const [company, setCompany] = useState('');
+    const [job, setJob] = useState('');
 
     // store input data for changing profile
     const [userID, setUserID] = useState('');
@@ -57,7 +57,7 @@ export default function ChangeInfo(props) {
     // change personal infos
     const changeInformation = () => {
 
-        axios.post(home + '/editInfo', { 
+        axios.post(home + '/editInfo', {
             userID: userID,
             introduction: introduction,
             gender: gender,
@@ -79,7 +79,7 @@ export default function ChangeInfo(props) {
             message.error(error.response.data.error)
             // or throw(error.respond)
         })
-        
+
     }
 
 
@@ -116,7 +116,7 @@ export default function ChangeInfo(props) {
 
     }
 
-    
+
 
     // if the page is loading, draw a loading animation
     if (loading) {
@@ -126,7 +126,7 @@ export default function ChangeInfo(props) {
         </Space>;
     }
 
-    
+
     return (
         <Layout >
             <Header style={{ padding: '0 10px' }}>
@@ -183,9 +183,9 @@ export default function ChangeInfo(props) {
                 <Content style={{ padding: '0 5vw', backgroundImage: 'url("/../pics/background4.jpg")' }}>
                     <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
 
-                    <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '8vw', paddingTop: '5vh' }}>
+                        <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '8vw', paddingTop: '5vh' }}>
                             <Avatar size={140} src={profile.photo.data} />
-                            
+
                             <div>
                                 &nbsp;
                             </div>
@@ -202,7 +202,7 @@ export default function ChangeInfo(props) {
                                 &nbsp;
                             </div>
 
-                            <a href={home+"/changepassword"}>
+                            <a href={home + "/changepassword"}>
                                 <Button type="primary" size='large' variant="contained">
                                     Change Password
                                 </Button>
@@ -212,18 +212,18 @@ export default function ChangeInfo(props) {
                                 &nbsp;
                             </div>
 
-                            <a href={home+"/changeprivacy"}>
+                            <a href={home + "/changeprivacy"}>
                                 <Button type="primary" size='large' variant="contained">
                                     Change Privacy
                                 </Button>
                             </a>
-                            
+
                         </div>
 
                         <div id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
                         </div>
 
-                        <div id="middle" style={{ width: '45vw', float:'right', paddingTop: '5vh', margin: '0 auto' }}>
+                        <div id="middle" style={{ width: '45vw', float: 'right', paddingTop: '5vh', margin: '0 auto' }}>
 
                             <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px' }}>
                                 Manage Your Profile
@@ -234,13 +234,13 @@ export default function ChangeInfo(props) {
                                 <form noValidate>
 
                                     <Row>
-                                        <Col span = {4} offset = {1} style = {{verticalAlign: "middle"}}>
+                                        <Col span={4} offset={1} style={{ verticalAlign: "middle" }}>
                                             <h2> Gender: </h2>
                                         </Col>
-                                        <Col span = {19}>
+                                        <Col span={19}>
                                             <Space>
-                                                <Radio.Group onChange={e => setGender(e.target.value)} size = "large" style = {{verticalAlign: "middle", width: '100%'}}>
-                                                {/* <Radio.Group onChange={e => this.state.gender = e.target.value} size = "large" style = {{verticalAlign: "middle", width: '100%'}}> */}
+                                                <Radio.Group onChange={e => setGender(e.target.value)} size="large" style={{ verticalAlign: "middle", width: '100%' }}>
+                                                    {/* <Radio.Group onChange={e => this.state.gender = e.target.value} size = "large" style = {{verticalAlign: "middle", width: '100%'}}> */}
                                                     <Radio.Button value="Male">Male</Radio.Button>
                                                     <Radio.Button value="Female">Female</Radio.Button>
                                                     <Radio.Button value="Prefer not to say"> Prefer not to say </Radio.Button>
@@ -251,16 +251,16 @@ export default function ChangeInfo(props) {
 
                                     <br />
                                     <Row>
-                                        <Col span = {4} offset = {1} style = {{textAlign: "left"}}>
-                                            <h2 style = {{verticalAlign: "middle"}}> Birthday: </h2>
+                                        <Col span={4} offset={1} style={{ textAlign: "left" }}>
+                                            <h2 style={{ verticalAlign: "middle" }}> Birthday: </h2>
                                         </Col>
-                                        <Col span = {19}>
-                                            <DatePicker onChange = {e => setDob(new Date(e._d))} size = "large" style={{ width: '100%' }}/>
+                                        <Col span={19}>
+                                            <DatePicker onChange={e => setDob(new Date(e._d))} size="large" style={{ width: '100%' }} />
                                         </Col>
                                     </Row>
                                     <br />
-                                
-                                    <FillDetaillAddress sendData = {setAddress}></FillDetaillAddress>
+
+                                    <FillDetaillAddress sendData={setAddress}></FillDetaillAddress>
 
                                     <Tooltip title={
                                         <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px' }}>
@@ -301,7 +301,7 @@ export default function ChangeInfo(props) {
                                         autoComplete="introduction"
                                         onChange={e => setIntroduction(e.target.value)}
                                     />
-                                
+
                                     <TextField
                                         variant="outlined"
                                         margin="normal"
@@ -310,7 +310,7 @@ export default function ChangeInfo(props) {
                                         id="Mobile"
                                         label="Phone Number"
                                         name="Mobile"
-                                        onChange = {e => setMobile(e.target.value)}
+                                        onChange={e => setMobile(e.target.value)}
                                     />
 
                                     <TextField
@@ -331,9 +331,9 @@ export default function ChangeInfo(props) {
                                         id="Mobile"
                                         label="Job:"
                                         name="Job"
-                                        onChange={e => setJob(e.target.value) }
+                                        onChange={e => setJob(e.target.value)}
                                     />
-                                    
+
 
                                     <div style={{ paddingTop: '3vh' }}>
                                         <Button type="primary" size='large' onClick={changeInformation}>
@@ -360,6 +360,6 @@ export default function ChangeInfo(props) {
             </Layout >
         </Layout >
     )
-    
+
 }
 
