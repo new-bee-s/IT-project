@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Avatar, Row, Col, Button, Space, Spin, message, Tooltip, Dropdown } from 'antd';
+import { Layout, Menu, Avatar, Row, Col, Button, Space, Spin, message, Tooltip, Dropdown, Radio, DatePicker} from 'antd';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
 import Cookies from 'universal-cookie';
+import FillDetaillAddress from '../components/fillDetailAddress.js';
 
 export default function ChangeInfo(props) {
 
@@ -13,6 +14,13 @@ export default function ChangeInfo(props) {
     // get data to display
     const [profile, setProfile] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const [ gender, setGender ] = useState(undefined);
+    const [ mobile, setMobile ] = useState('');
+    const [ dob, setDob ] = useState(undefined);
+    const [ address, setAdd ] = useState(undefined);
+    const [ company, setCompany ] = useState(undefined);
+    const [ job, setJob ] = useState(undefined);
 
     // store input data for changing profile
     const [userID, setUserID] = useState('');
@@ -63,6 +71,37 @@ export default function ChangeInfo(props) {
             message.error(error.response.data.error)
             // or throw(error.respond)
         })
+    }
+
+    const changeDisplay = () => {
+        // const cookies = new Cookies()
+        axios.post('/register/fillInfo', {
+            // headers: {
+            //     Authorization: `Bearer ${cookies.get('token')}`
+            // },
+            gender: gender,
+            mobile: this.state.mobieNumber,
+            dob: this.state.dob,
+            region: {city: this.state.address[2], state: this.state.address[1], country: this.state.address[0]},
+            company: this.state.company,
+            occupation: this.state.job
+        }).then(res => {
+            if (res.data.success) {
+                this.props.history.push('/login')
+            }
+            else {
+                // if error
+                message.error(res.data.error)
+            }
+
+        }).catch(error => {
+            console.log(error.response.data.error)
+            message.error(error.response.data.error)
+        })
+    }
+
+    const setAddress = (value) => {
+        setAdd(value);
     }
 
 
@@ -211,6 +250,35 @@ export default function ChangeInfo(props) {
                             <div>
                                 <form noValidate>
 
+                                    <Row>
+                                        <Col span = {4} offset = {1} style = {{verticalAlign: "middle"}}>
+                                            <h2> Gender: </h2>
+                                        </Col>
+                                        <Col span = {19}>
+                                            <Space>
+                                                <Radio.Group onChange={e => setGender(e.target.value)} size = "large" style = {{verticalAlign: "middle", width: '100%'}}>
+                                                {/* <Radio.Group onChange={e => this.state.gender = e.target.value} size = "large" style = {{verticalAlign: "middle", width: '100%'}}> */}
+                                                    <Radio.Button value="Male">Male</Radio.Button>
+                                                    <Radio.Button value="Female">Female</Radio.Button>
+                                                    <Radio.Button value="Prefer not to say"> Prefer not to say </Radio.Button>
+                                                </Radio.Group>
+                                            </Space>
+                                        </Col>
+                                    </Row>
+
+                                    <br />
+                                    <Row>
+                                        <Col span = {4} offset = {1} style = {{textAlign: "left"}}>
+                                            <h2 style = {{verticalAlign: "middle"}}> Birthday: </h2>
+                                        </Col>
+                                        <Col span = {19}>
+                                            <DatePicker onChange = {e => setDob(new Date(e._d))} size = "large" style={{ width: '100%' }}/>
+                                        </Col>
+                                    </Row>
+                                    <br />
+                                
+                                    <FillDetaillAddress sendData = {setAddress}></FillDetaillAddress>
+
                                     <Tooltip title={
                                         <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px' }}>
                                             Set a personal ID and people can use it to find you!
@@ -249,6 +317,44 @@ export default function ChangeInfo(props) {
                                         name="introduction"
                                         autoComplete="introduction"
                                         onChange={e => setIntroduction(e.target.value)}
+                                    />
+                                
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="Mobile"
+                                        label="Phone Number"
+                                        name="Mobile"
+                                        autoComplete="Mobile Number"
+                                        size = "medium"
+                                        onChange = {e => setMobile(e.target.value)}
+                                    />
+
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="Mobile"
+                                        label="Company: (Optional)"
+                                        name="Company"
+                                        autoComplete="Company"
+                                        size = "medium"
+                                        onChange={e => setCompany(e.target.value)}
+                                    />
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="Mobile"
+                                        label="Job: (Optional)"
+                                        name="Job"
+                                        autoComplete="Job"
+                                        size = "medium"
+                                        onChange={e => setJob(e.target.value) }
                                     />
                                     
 
