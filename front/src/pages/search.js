@@ -8,7 +8,7 @@ import { SearchOutlined, UserAddOutlined, CloseOutlined } from '@ant-design/icon
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Row, Col, Space, Spin, Carousel } from 'antd';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 
 export default class AddFriend extends React.Component {
@@ -33,8 +33,7 @@ export default class AddFriend extends React.Component {
 
     render() {
         const OnLogOut = () => {
-            const cookies = new Cookies()
-            cookies.remove('token')
+            Cookies.remove('token')
             this.props.history.push('/login');
         }
 

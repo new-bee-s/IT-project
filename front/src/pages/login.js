@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 
 ////web page style design
@@ -156,19 +156,15 @@ function SignIn(props) {
         //put user input to back-end and return status
         axios.post('/login', { email: email, password: password }).then(res => {
             if (res.data.success) {
-                const cookies = new Cookies();
-                cookies.set('token', res.data.token, { maxAge: 24 * 60 * 60 })
+                Cookies.set('token', res.data.token, { expires: 1 })
                 props.history.push('/dashboard')
             }
             else {
                 // if error
                 message.error(res.data.error)
             }
-        }).catch(error => {
-            console.log(error.response.data.error)
-            message.error(error.response.data.error)
-            // or throw(error.respond)
         })
+        // or throw(error.respond)
     };
 
 
