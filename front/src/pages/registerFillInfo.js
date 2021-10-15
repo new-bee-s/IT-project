@@ -16,7 +16,7 @@ export default class RegisterFillInfo extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { gender: undefined, mobieNumber: '', dob: undefined, address: [], company: undefined, job: undefined };
+        this.state = { gender: undefined, mobieNumber: '', dob: undefined, address: [], company: '', job: ''};
     }
 
 
@@ -43,17 +43,21 @@ export default class RegisterFillInfo extends React.Component {
             if (this.state.mobieNumber === '') {
                 message.error("Please Enter your mobie number")
             }
+
             // use axios connect back-end and push personal information to back-end
             axios.post('/register/fillInfo', {
                 gender: this.state.gender,
                 mobile: this.state.mobieNumber,
-                dob: this.state.dob,
+                dob: {year: this.state.dob.getFullYear(), month: this.state.dob.getMonth(), date: this.state.dob.getDate() },
                 region: { city: this.state.address[2], state: this.state.address[1], country: this.state.address[0] },
                 company: this.state.company,
                 occupation: this.state.job,
-
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('token')}`
+                }
             }).then(res => {
                 if (res.data.success) {
+                    console.log(res)
                     this.props.history.push('/dashboard')
                 }
                 else {
@@ -114,7 +118,7 @@ export default class RegisterFillInfo extends React.Component {
                         </Typography>
                         <br />
                         <Typography component="h1" variant="h5" align="center">
-                            Welcome to be the new menber!
+                            Welcome to be the new member!
                         </Typography>
                         <br />
 

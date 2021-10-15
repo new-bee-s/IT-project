@@ -7,7 +7,7 @@ import { Menu, Badge, Typography } from 'antd';
 import { UserOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Layout, Dropdown } from 'antd';
 import { Row, Col, Space, Spin } from 'antd';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 import { Avatar } from 'antd';
 import { message } from 'antd';
 

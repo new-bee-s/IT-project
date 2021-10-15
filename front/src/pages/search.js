@@ -8,7 +8,7 @@ import { SearchOutlined, UserAddOutlined, CloseOutlined } from '@ant-design/icon
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Row, Col, Space, Spin, Carousel } from 'antd';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 
 export default class AddFriend extends React.Component {
