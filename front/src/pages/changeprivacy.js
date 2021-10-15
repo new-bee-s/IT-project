@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Avatar, Row, Col, Button, Space, Spin, message, Tooltip, Dropdown } from 'antd';
+import { Layout, Menu, Avatar, Row, Col, Button, Space, Spin, message, Dropdown } from 'antd';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
 import Cookies from 'universal-cookie';
@@ -15,10 +15,8 @@ export default function ChangePrivacy(props) {
     const [loading, setLoading] = useState(true);
 
     // store input data for changing profile
-    const [userID, setUserID] = useState('');
     const [givenName, setGivenName] = useState('');
     const [familyName, setFamilyName] = useState('');
-    const [introduction, setIntroduction] = useState('');
 
     // get data from backend
     useEffect(() => {
@@ -51,7 +49,7 @@ export default function ChangePrivacy(props) {
     // change personal infos
     const changeInformation = () => {
 
-        axios.post(home + '/editInfo', { givenName: givenName, familyName: familyName, userID: userID, introduction: introduction}).then(res => {
+        axios.post(home + '/editInfo', { givenName: givenName, familyName: familyName}).then(res => {
             if (res.data.success) {
                 message.success("successfully changed profile!")
                 props.history.push('/dashboard', { replace: true });
@@ -200,7 +198,7 @@ export default function ChangePrivacy(props) {
                             
                         </div>
 
-                        <div id="right" style={{ width: "12vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
+                        <div id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
                         </div>
 
                         <div id="middle" style={{ width: '45vw', float:'right', paddingTop: '5vh', margin: '0 auto' }}>
@@ -212,48 +210,7 @@ export default function ChangePrivacy(props) {
 
                             <div>
                                 <form noValidate>
-
-
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        rows="3"
-                                        multiline="true"
-                                        id="introduction"
-                                        label={'Introduce yourself: '}
-                                        defaultValue={profile.introduction}
-                                        placeholder={profile.introduction}
-                                        name="introduction"
-                                        autoComplete="introduction"
-                                        onChange={e => setIntroduction(e.target.value)}
-                                    />
-
-
-                                    <Tooltip title={
-                                        <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px' }}>
-                                            Set a personal ID and people can use it to find you!
-                                            <br />
-                                            The ID must contain one uppercase, lowercase letter and digit and be more than 8 characters
-                                            <br />
-                                        </div>}
-                                        placement="right"
-                                        color="blue"
-                                    >
-
-                                        <TextField
-                                            variant="outlined"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="userID"
-                                            label={'Your current id: ' + profile.userID}
-                                            name="userID"
-                                            autoComplete="UserID"
-                                            onChange={e => setUserID(e.target.value)}
-                                        />
-                                    </Tooltip>
+                                    
 
                                     <TextField
                                         variant="outlined"

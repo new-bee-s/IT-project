@@ -16,8 +16,6 @@ export default function ChangeInfo(props) {
 
     // store input data for changing profile
     const [userID, setUserID] = useState('');
-    const [givenName, setGivenName] = useState('');
-    const [familyName, setFamilyName] = useState('');
     const [introduction, setIntroduction] = useState('');
 
     // get data from backend
@@ -51,7 +49,7 @@ export default function ChangeInfo(props) {
     // change personal infos
     const changeInformation = () => {
 
-        axios.post(home + '/editInfo', { givenName: givenName, familyName: familyName, userID: userID, introduction: introduction}).then(res => {
+        axios.post(home + '/editInfo', { userID: userID, introduction: introduction }).then(res => {
             if (res.data.success) {
                 message.success("successfully changed profile!")
                 props.history.push('/dashboard', { replace: true });
@@ -200,7 +198,7 @@ export default function ChangeInfo(props) {
                             
                         </div>
 
-                        <div id="right" style={{ width: "12vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
+                        <div id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
                         </div>
 
                         <div id="middle" style={{ width: '45vw', float:'right', paddingTop: '5vh', margin: '0 auto' }}>
@@ -212,24 +210,6 @@ export default function ChangeInfo(props) {
 
                             <div>
                                 <form noValidate>
-
-
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        rows="3"
-                                        multiline="true"
-                                        id="introduction"
-                                        label={'Introduce yourself: '}
-                                        defaultValue={profile.introduction}
-                                        placeholder={profile.introduction}
-                                        name="introduction"
-                                        autoComplete="introduction"
-                                        onChange={e => setIntroduction(e.target.value)}
-                                    />
-
 
                                     <Tooltip title={
                                         <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px' }}>
@@ -260,24 +240,17 @@ export default function ChangeInfo(props) {
                                         margin="normal"
                                         required
                                         fullWidth
-                                        id="givenName"
-                                        label={'Your current givenName: ' + profile.givenName}
-                                        name="givenName"
-                                        autoComplete="givenName"
-                                        onChange={e => setGivenName(e.target.value)}
+                                        rows="3"
+                                        multiline="true"
+                                        id="introduction"
+                                        label={'Introduce yourself: '}
+                                        defaultValue={profile.introduction}
+                                        placeholder={profile.introduction}
+                                        name="introduction"
+                                        autoComplete="introduction"
+                                        onChange={e => setIntroduction(e.target.value)}
                                     />
-
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="familyName"
-                                        label={'Your current familyName: ' + profile.familyName}
-                                        name="familyName"
-                                        autoComplete="familyName"
-                                        onChange={e => setFamilyName(e.target.value)}
-                                    />
+                                    
 
                                     <div style={{ paddingTop: '3vh' }}>
                                         <Button type="primary" size='large' onClick={changeInformation}>

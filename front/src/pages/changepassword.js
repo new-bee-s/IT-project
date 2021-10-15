@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Avatar, Row, Col, Button, Space, Spin, message, Tooltip, Dropdown } from 'antd';
+import { Layout, Menu, Avatar, Row, Col, Button, Space, Spin, message, Dropdown } from 'antd';
 import axios from '../commons/axios.js';
 import TextField from '@material-ui/core/TextField';
 import Cookies from 'universal-cookie';
@@ -214,7 +214,7 @@ export default function ChangePassword(props) {
                             
                         </div>
 
-                        <div id="right" style={{ width: "12vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
+                        <div id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
                         </div>
 
 
