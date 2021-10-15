@@ -156,7 +156,7 @@ export default class ContactBrief extends React.Component {
     const { Text } = Typography;
     const { Content } = Layout;
     const { tags, inputVisible, inputValue, editInputIndex, editInputValue } = this.state;
-
+    console.log(this.props.contact.friend)
     // Description item components
     const DescriptionItem = ({ title, content }) => (
       <div className="site-description-item-profile-wrapper">
@@ -193,15 +193,15 @@ export default class ContactBrief extends React.Component {
             <DescriptionItem title="Birthday" content={this.props.contact.friend.dob} />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="County" content={this.props.contact.friend.region} />
+            <DescriptionItem title="County" content={this.props.contact.friend.region.country} />
           </Col>
         </Row>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="City" content={this.props.contact.friend.region} />
+            <DescriptionItem title="City" content={this.props.contact.friend.region.city} />
           </Col>
           <Col span={12}>
-            <DescriptionItem title="State" content={this.props.contact.friend.region} />
+            <DescriptionItem title="State" content={this.props.contact.friend.region.state} />
           </Col>
         </Row>
         <Row style={{ marginTop: 24 }}>
