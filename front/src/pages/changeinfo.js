@@ -42,9 +42,8 @@ export default function ChangeInfo(props) {
 
     // logout
     const OnLogOut = () => {
-        const cookies = new Cookies()
-        cookies.remove('token')
-        props.history.push('/login');
+        Cookies.remove('token')
+        this.props.history.push('/login');
     }
 
     const logout = (

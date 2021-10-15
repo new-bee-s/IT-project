@@ -56,9 +56,8 @@ export default function Contact(props) {
 
     // logout function
     const OnLogOut = () => {
-        const cookies = new Cookies()
-        cookies.remove('token')
-        props.history.push('/login');
+        Cookies.remove('token')
+        this.props.history.push('/login');
     }
 
     //render logout
