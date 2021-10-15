@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { message } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
+
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -66,14 +66,16 @@ const useStyles = makeStyles((theme) => ({
 
     },
     background: {
+        display: 'flex',
         overflow: 'hidden',
         width: '100%',
-        height: '18%',
-        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
+        height: '100%',
+        backgroundImage: 'url("/../pics/ink1.jpeg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
+        resizeMethod: 'cover',
         position: 'absolute',
-        bottom: 0,
+        bottom: '0',
     },
     blocks_signin: {
         height: 'auto',
@@ -145,13 +147,13 @@ const useStyles = makeStyles((theme) => ({
 // signin page
 function SignIn(props) {
     const classes = useStyles();
-    const [email, setEmail] = useState('');
+    const [account, setaccount] = useState('');
     const [password, setPassword] = useState('');
 
     const onSignIn = () => {
 
         //put user input to back-end and return status
-        axios.post('/login', { email: email, password: password }).then(res => {
+        axios.post('/login', { account: account, password: password }).then(res => {
             if (res.data.success) {
                 // console.log(res.data.data)
                 const cookies = new Cookies();
@@ -166,81 +168,81 @@ function SignIn(props) {
             console.log("login axios errors")
             message.error(error)
             console.log(error)
-            
+
             // or throw(error.respond)
         })
     };
-    
 
-    
+
+
 
     return (
-        <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
+        <div className={classes.background} style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
 
             <div className={classes.middle}>
                 <Container component="main" maxWidth="xs">
                     <a href="/">
-                        <img src='../pics/logo_small.jpg' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle' }}></img>
+                        <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle' }}></img>
                     </a>
                     <br />
                     <br />
-                        <div>
-                            
-                            <Typography component="h1" variant="h3" align='center'>Admin Log In</Typography>
-                        </div>
-                        <br />
-                        <div>
+                    <div>
 
-                            <Typography component="h1" variant='body1' align='center'>Who controls the past controls the future.</Typography>
-                            <Typography component="h1" variant='body1' align='center'>Who controls the present controls the past.</Typography>
-                            <Typography component="h1" variant='body1' align='right'>― George Orwell, 1984</Typography>
-                        </div>
-                        <br />
-                        <div>
-                            <form noValidate>
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    autoFocus
-                                    onChange={e => setEmail(e.target.value)}
-                                />
+                        <Typography component="h1" variant="h3" align='center'>Admin Log In</Typography>
+                    </div>
+                    <br />
+                    <div>
 
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                    onChange={e => setPassword(e.target.value)}
-                                />
+                        <p align='center'>Who controls the past controls the future.</p>
+                        <p align='center'>Who controls the present controls the past.</p>
+                        <p align='right'>― George Orwell, 1984</p>
+                    </div>
+                    <br />
+                    <div>
+                        <form noValidate>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="account"
+                                label="Account"
+                                name="account"
+                                autoComplete="account"
+                                autoFocus
+                                onChange={e => setaccount(e.target.value)}
+                            />
+
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                onChange={e => setPassword(e.target.value)}
+                            />
 
 
-                                <div className={classes.blocks_signin}>
-                                    <Button
-                                        variant="contained"
-                                        onClick={onSignIn}
-                                        className={classes.button}
-                                    >
-                                        Log In
-                                    </Button>
+                            <div className={classes.blocks_signin}>
+                                <Button
+                                    variant="contained"
+                                    onClick={onSignIn}
+                                    className={classes.button}
+                                >
+                                    Log In
+                                </Button>
 
-                                </div>
+                            </div>
 
-                            </form>
-                        </div>
-                    </Container>
+                        </form>
+                    </div>
+                </Container>
             </div>
-            <div className={classes.background}> </div>
+            {/* <div className={classes.background}> </div> */}
 
         </div>
     )
