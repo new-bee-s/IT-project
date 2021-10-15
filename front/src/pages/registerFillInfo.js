@@ -16,7 +16,7 @@ export default class RegisterFillInfo extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { gender: undefined, mobieNumber: '', dob: undefined, address: [], company: '', job: ''};
+        this.state = { gender: undefined, mobieNumber: '', dob: undefined, address: [], company: '', job: '' };
     }
 
 
@@ -48,7 +48,7 @@ export default class RegisterFillInfo extends React.Component {
             axios.post('/register/fillInfo', {
                 gender: this.state.gender,
                 mobile: this.state.mobieNumber,
-                dob: {year: this.state.dob.getFullYear(), month: this.state.dob.getMonth(), date: this.state.dob.getDate() },
+                dob: { year: this.state.dob.getFullYear(), month: this.state.dob.getMonth(), date: this.state.dob.getDate() },
                 region: { city: this.state.address[2], state: this.state.address[1], country: this.state.address[0] },
                 company: this.state.company,
                 occupation: this.state.job,
