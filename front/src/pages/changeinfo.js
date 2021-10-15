@@ -15,12 +15,12 @@ export default function ChangeInfo(props) {
     const [profile, setProfile] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [ gender, setGender ] = useState(undefined);
+    const [ gender, setGender ] = useState('');
     const [ mobile, setMobile ] = useState('');
-    const [ dob, setDob ] = useState(undefined);
-    const [ address, setAdd ] = useState(undefined);
-    const [ company, setCompany ] = useState(undefined);
-    const [ job, setJob ] = useState(undefined);
+    const [ dob, setDob ] = useState('');
+    const [ address, setAdd ] = useState([]);
+    const [ company, setCompany ] = useState('');
+    const [ job, setJob ] = useState('');
 
     // store input data for changing profile
     const [userID, setUserID] = useState('');
@@ -57,10 +57,18 @@ export default function ChangeInfo(props) {
     // change personal infos
     const changeInformation = () => {
 
-        axios.post(home + '/editInfo', { userID: userID, introduction: introduction }).then(res => {
+        axios.post(home + '/editInfo', { 
+            userID: userID,
+            introduction: introduction,
+            gender: gender,
+            mobile: mobile,
+            dob: dob,
+            company: company,
+            occupation: job
+        }).then(res => {
             if (res.data.success) {
                 message.success("successfully changed profile!")
-                //props.history.push('/dashboard', { replace: true });
+                props.history.push('/dashboard', { replace: true });
             }
             else {
                 // if error
@@ -71,49 +79,6 @@ export default function ChangeInfo(props) {
             message.error(error.response.data.error)
             // or throw(error.respond)
         })
-
-
-        // const cookies = new Cookies()
-        axios.post('/register/fillInfo', {
-            // headers: {
-            //     Authorization: `Bearer ${cookies.get('token')}`
-            // },
-            gender: gender,
-            mobile: mobile,
-            dob: dob,
-            company: company,
-            occupation: job
-        }).then(res => {
-            if (res.data.success) {
-                message.success("success");
-            }
-            else {
-                // if error
-                message.error(res.data.error)
-            }
-
-        }).catch(error => {
-            console.log(error.response.data.error)
-            message.error(error.response.data.error)
-        })
-        if(address!==undefined) {
-            // const cookies = new Cookies()
-            axios.post('/register/fillInfo', {
-                region: {city: address[2], state: address[1], country: address[0]},
-            }).then(res => {
-                if (res.data.success) {
-                    message.success("success");
-                }
-                else {
-                    // if error
-                    message.error(res.data.error)
-                }
-
-            }).catch(error => {
-                console.log(error.response.data.error)
-                message.error(error.response.data.error)
-            })
-        }
         
     }
 
@@ -345,8 +310,6 @@ export default function ChangeInfo(props) {
                                         id="Mobile"
                                         label="Phone Number"
                                         name="Mobile"
-                                        autoComplete="Mobile Number"
-                                        size = "medium"
                                         onChange = {e => setMobile(e.target.value)}
                                     />
 
@@ -356,10 +319,8 @@ export default function ChangeInfo(props) {
                                         required
                                         fullWidth
                                         id="Mobile"
-                                        label="Company: (Optional)"
+                                        label="Company:"
                                         name="Company"
-                                        autoComplete="Company"
-                                        size = "medium"
                                         onChange={e => setCompany(e.target.value)}
                                     />
                                     <TextField
@@ -368,10 +329,8 @@ export default function ChangeInfo(props) {
                                         required
                                         fullWidth
                                         id="Mobile"
-                                        label="Job: (Optional)"
+                                        label="Job:"
                                         name="Job"
-                                        autoComplete="Job"
-                                        size = "medium"
                                         onChange={e => setJob(e.target.value) }
                                     />
                                     
