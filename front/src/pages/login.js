@@ -163,9 +163,11 @@ function SignIn(props) {
                 // if error
                 message.error(res.data.error)
             }
+        }).catch(error => {
+            console.log(error.response.data.error)
+            message.error(error.response.data.error)
         })
-        // or throw(error.respond)
-    };
+    }
 
 
     return (
