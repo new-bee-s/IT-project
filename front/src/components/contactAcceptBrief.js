@@ -190,7 +190,7 @@ export default class ContactBrief extends React.Component {
         </Row>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="Birthday" content={this.props.contact.friend.dob} />
+            <DescriptionItem title="Birthday" content={this.props.contact.friend.dob.year+'-'+this.props.contact.friend.dob.month+'-'+this.props.contact.friend.dob.day} />
           </Col>
           <Col span={12}>
             <DescriptionItem title="County" content={this.props.contact.friend.region.country} />
