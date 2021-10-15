@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     introduction: { type: String },
     mobile: { type: String },
     region: { city: String, state: String, country: String },
-    dob: { type: Date },
+    dob: { year: String, month: String, day: String },
     company: { type: String },
     occupation: { type: String },
     ban: { type: Boolean, require: true }
