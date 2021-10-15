@@ -38,7 +38,7 @@ export default function ChangePassword(props) {
     // logout
     const OnLogOut = () => {
         Cookies.remove('token')
-        this.props.history.push('/login');
+        props.history.push('/login');
     }
 
     const logout = (

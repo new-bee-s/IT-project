@@ -9,7 +9,7 @@ const deleteFriend = async (req, res) => {
     }
     catch (err) {
         console.log(err)
-        return res.status(404).json({ success: false, error: "delete failed, try again" })
+        return res.status(400).json({ success: false, error: "delete failed, try again" })
     }
 }
 
@@ -21,7 +21,7 @@ const acceptFriend = async (req, res) => {
         let contact = await Contact.find({ user: req.user._id, friend: req.body.userid })
         console.log(contact)
         if (contact.length != 0) {
-            return res.status(404).json({ success: false, error: "This user is already in your contact" })
+            return res.status(400).json({ success: false, error: "This user is already in your contact" })
         }
         else {
             // Creat a new contact 
@@ -40,7 +40,7 @@ const acceptFriend = async (req, res) => {
 
     } catch (err) {
         console.log(err)
-        return res.status(404).json({ success: false, error: "accept failed, try again" })
+        return res.status(400).json({ success: false, error: "accept failed, try again" })
     }
 }
 
@@ -54,7 +54,7 @@ const getContact = async (req, res) => {
         return res.status(200).json({ success: true, pending: pendingList, accepted: acceptedList })
     } catch (err) { // error occors
         console.log(err)
-        return res.status(404).json({ success: false, error: "Database query failed" })
+        return res.status(400).json({ success: false, error: "Database query failed" })
     }
 }
 
@@ -64,7 +64,7 @@ const changeRemark = async (req, res) => {
         await Contact.updateOne({ _id: req.body.contactid }, { $set: { remark: req.body.remark } })
         return res.status(200).json({ success: true })
     } catch (err) {
-        return res.status(404).json({ success: false, error: "Database query failed" })
+        return res.status(400).json({ success: false, error: "Database query failed" })
     }
 }
 
@@ -73,7 +73,7 @@ const editTag = async (req, res) => {
         await Contact.updateOne({ _id: req.body.contactid }, { $set: { tag: req.body.tag } })
         return res.status(200).json({ success: true })
     } catch (err) {
-        return res.status(404).json({ success: false, error: "Database query failed" })
+        return res.status(400).json({ success: false, error: "Database query failed" })
     }
 }
 

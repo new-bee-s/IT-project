@@ -14,7 +14,7 @@ const UserSignup = (req, res, next) => {
         }
         // If the user is not found or there is some mistakes in password, return error message
         else if (!user) {
-            return res.status(404).json({ success: false, error: info.message })
+            return res.status(400).json({ success: false, error: info.message })
         }
         req.login(user, { session: false }, async (error) => {
 
@@ -36,12 +36,12 @@ const UserLogin = (req, res, next) => {
         if (err) {
             return res.status(500).json({ success: false, error: info.message })
         } else if (!user) {
-            return res.status(404).json({ success: false, error: info.message })
+            return res.status(400).json({ success: false, error: info.message })
         }
         req.login(user, { session: false }, async (error) => {
             if (error) return next(error);
             if (user.ban) {
-                return res.status(404).json({ success: false, error: "Your account has been banned, Please contact with admin!" })
+                return res.status(400).json({ success: false, error: "Your account has been banned, Please contact with admin!" })
             }
             const body = { _id: user._id };
 
@@ -65,10 +65,10 @@ const SearchUserID = async (req, res) => {
             return res.status(200).json({ success: true, user: user })
         }
         else {
-            return res.status(404).json({ success: false, error: "User not found!" })
+            return res.status(400).json({ success: false, error: "User not found!" })
         }
     } catch (err) {
-        return res.status(404).json({ success: false })
+        return res.status(400).json({ success: false })
     }
 }
 
@@ -102,7 +102,7 @@ const getUserInfo = async (req, res) => {
         return res.status(200).json({ success: true, user: req.user })
 
     } catch (err) {
-        return res.status(404).json({ success: false })
+        return res.status(400).json({ success: false })
     }
 }
 
