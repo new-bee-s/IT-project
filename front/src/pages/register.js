@@ -142,7 +142,7 @@ export default function Register(props) {
 
                 </div>
                 <div className={classes.column} style={{ textAlign: 'center', paddingRight: '15vh', minHeight: '82vh' }}>
-                    <Container component="main" maxWidth="xs">
+                    <Container component="main" maxWidth="xs"style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: 10, padding: ' 2vh 2vw'}}>
                         <div>
                             <Typography component="h1" variant="h1" align="center">
                                 Register
