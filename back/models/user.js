@@ -17,8 +17,8 @@ const userSchema = new mongoose.Schema({
     mobile: { type: String },
     region: { city: String, state: String, country: String },
     dob: { year: String, month: String, date: String },
-    company: { type: String },
-    occupation: { type: String },
+    company: { type: String, default:"not set" },
+    occupation: { type: String, default:"not set"},
     ban: { type: Boolean, require: true }
 })
 
