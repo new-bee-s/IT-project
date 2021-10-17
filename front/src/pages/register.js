@@ -78,7 +78,7 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden',
         width: '100%',
         height: '100%',
-        backgroundImage: 'url("/../pics/beach.jpeg")',
+        backgroundImage: 'url("../pics/background9.jpg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         resizeMethod: 'cover',
