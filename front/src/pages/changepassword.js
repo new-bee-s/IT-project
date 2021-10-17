@@ -195,16 +195,6 @@ export default function ChangePassword(props) {
                                 &nbsp;
                             </div>
 
-                            <a href={home + "/changeprivacy"}>
-                                <Button type="primary" size='large' variant="contained">
-                                    Change Privacy
-                                </Button>
-                            </a>
-
-                            <div>
-                                &nbsp;
-                            </div>
-
                             <a href={home + "/changeinfo"}>
                                 <Button type="primary" size='large' variant="contained">
                                     Change Information

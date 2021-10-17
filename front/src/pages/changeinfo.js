@@ -15,6 +15,8 @@ export default function ChangeInfo(props) {
     const [profile, setProfile] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [givenName, setGivenName] = useState('');
+    const [familyName, setFamilyName] = useState('');
     const [gender, setGender] = useState('');
     const [mobile, setMobile] = useState('');
     const [dob, setDob] = useState('');
@@ -57,6 +59,8 @@ export default function ChangeInfo(props) {
     const changeInformation = () => {
 
         axios.post(home + '/editInfo', {
+            givenName: givenName,
+            familyName: familyName,
             userID: userID,
             introduction: introduction,
             gender: gender,
@@ -180,7 +184,7 @@ export default function ChangeInfo(props) {
 
             <Layout>
                 <Content style={{ padding: '0 5vw', backgroundImage: 'url("/../pics/background4.jpg")' }}>
-                    <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
+                    <div style={{ minHeight: '130vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
 
                         <div id="left" style={{ width: '20vw', float: 'left', paddingLeft: '8vw', paddingTop: '5vh' }}>
                             <Avatar size={140} src={profile.photo.data} />
@@ -207,16 +211,6 @@ export default function ChangeInfo(props) {
                                 </Button>
                             </a>
 
-                            <div>
-                                &nbsp;
-                            </div>
-
-                            <a href={home + "/changeprivacy"}>
-                                <Button type="primary" size='large' variant="contained">
-                                    Change Privacy
-                                </Button>
-                            </a>
-
                         </div>
 
                         <div id="right" style={{ width: "15vw", float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
@@ -232,6 +226,58 @@ export default function ChangeInfo(props) {
                             <div>
                                 <form noValidate>
 
+                                    
+
+                                    <Tooltip title={
+                                        <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px' }}>
+                                            Set a personal ID and people can use it to find you!
+                                            <br />
+                                            The ID must contain one uppercase, lowercase letter and digit and be more than 8 characters
+                                            <br />
+                                        </div>}
+                                        placement="right"
+                                        color="blue"
+                                    >
+
+                                        <TextField
+                                            variant="outlined"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="userID"
+                                            label={'Your current id: ' + profile.userID}
+                                            name="userID"
+                                            autoComplete="UserID"
+                                            onChange={e => setUserID(e.target.value)}
+                                        />
+                                    </Tooltip>
+
+
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="givenName"
+                                        label={'Your current givenName: ' + profile.givenName}
+                                        name="givenName"
+                                        autoComplete="givenName"
+                                        onChange={e => setGivenName(e.target.value)}
+                                    />
+
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="familyName"
+                                        label={'Your current familyName: ' + profile.familyName}
+                                        name="familyName"
+                                        autoComplete="familyName"
+                                        onChange={e => setFamilyName(e.target.value)}
+                                    />
+                                    <br />
+                                    <br />
                                     <Row>
                                         <Col span={4} offset={1} style={{ verticalAlign: "middle" }}>
                                             <h2> Gender: </h2>
@@ -259,31 +305,7 @@ export default function ChangeInfo(props) {
                                     </Row>
                                     <br />
 
-                                    <FillDetaillAddress sendData={setAddress}></FillDetaillAddress>
-
-                                    <Tooltip title={
-                                        <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px' }}>
-                                            Set a personal ID and people can use it to find you!
-                                            <br />
-                                            The ID must contain one uppercase, lowercase letter and digit and be more than 8 characters
-                                            <br />
-                                        </div>}
-                                        placement="right"
-                                        color="blue"
-                                    >
-
-                                        <TextField
-                                            variant="outlined"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="userID"
-                                            label={'Your current id: ' + profile.userID}
-                                            name="userID"
-                                            autoComplete="UserID"
-                                            onChange={e => setUserID(e.target.value)}
-                                        />
-                                    </Tooltip>
+                                    {/* <FillDetaillAddress sendData={setAddress}></FillDetaillAddress> */}
 
                                     <TextField
                                         variant="outlined"

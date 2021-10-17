@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Dropdown } from 'antd';
+import { Layout, Menu, Dropdown, Card, Descriptions, Badge } from 'antd';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Row, Col, Button, Space, Spin } from 'antd';
@@ -42,6 +42,7 @@ export default class Dashboard extends React.Component {
         // Define the variable
         const { Header, Content } = Layout;
         const { profile, loading } = this.state;
+        const { Meta } = Card;
         const home = '/dashboard';
         if (loading) {
             return <Space size='middle' style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
@@ -112,29 +113,51 @@ export default class Dashboard extends React.Component {
                     <Content style={{ padding: '0 5vw', backgroundImage: 'url("../pics/background2.jpg")' }}>
                         <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2vw', marginTop: '2vh' }}>
 
-                            <div id='left' style={{ width: '20vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
-                                <Avatar size={140} src={profile.photo.data} />
+                            <div id='left' style={{ width: '10vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
+                                <div style={{paddingLeft:'3vw'}}>
+                                    <Avatar size={140} src={profile.photo.data}/>
+                                </div>
+                                
+                                <br/>
+                                <br/>
+                                <br/>
+                                <Card
+                                    hoverable
+                                    style={{ width: 240 }}
+                                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+                                >
+                                    <Meta title="Europe Street beat" description="www.instagram.com" />
+                                </Card>
                             </div>
 
-                            <div id='right' style={{ width: '15vw', float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
-                                <a href={home + '/changeinfo'}>
-                                    <Button type='primary' size='large'>change profile</Button>
-                                </a>
-                            </div>
-
-                            <div style={{ width: '50vw', float:'right', paddingTop: '5vh', margin: '0 auto' }}>
-
-                                <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px' }}>
+                            <div id='right' style={{ width: '60vw', float:'right', paddingTop: '3vh', margin: '0 auto' }}>
+                                
+                                <span style={{ color: 'black', verticalAlign: 'middle', fontSize: '60px' }}>
                                     Hi!&nbsp;{profile.givenName}&nbsp;{profile.familyName}
-                                </div>
+                                </span>
 
-                                <div style={{ verticalAlign: 'middle', fontSize: '18px', color: 'rgba(0,0,0,0.6)' }}>
-                                    ID:&nbsp;{profile.userID}
-                                    <br />
-                                    Introduction:&nbsp;{profile.introduction}
+                                <span style={{float:'right', paddingRight:'3vw', paddingTop:'5vh'}}>
+                                    <a href={home + '/changeinfo'}>
+                                        <Button type='primary' size='large'>change profile</Button>
+                                    </a>
+                                </span>
 
-                                </div>
+                                <Descriptions layout="vertical" style={{paddingTop:'5vh'}} bordered>
+                                <Descriptions.Item label="UserID">{profile.userID}</Descriptions.Item>
+                                    <Descriptions.Item label="Given Name">{profile.givenName}</Descriptions.Item>
+                                    <Descriptions.Item label="Family Name">{profile.familyName}</Descriptions.Item>
+                                    <Descriptions.Item label="Email">{profile.email}</Descriptions.Item>
+                                    <Descriptions.Item label="Gender">{profile.gender}</Descriptions.Item>
+                                    <Descriptions.Item label="Mobile number">{profile.mobile}</Descriptions.Item>
+                                    {/* <Descriptions.Item label="Region">{profile.region}</Descriptions.Item>
+                                    <Descriptions.Item label="Date of Birth">{profile.dob}</Descriptions.Item>
+                                    <Descriptions.Item label="Company">{profile.company}</Descriptions.Item>
+                                    <Descriptions.Item label="Occupation">{profile.occupation}</Descriptions.Item> */}
+                                    <Descriptions.Item label="introduction">{profile.introduction}</Descriptions.Item>
+                                </Descriptions>
                             </div>
+
+
 
                         </div>
                     </Content>

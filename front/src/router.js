@@ -8,7 +8,6 @@ import Contact from './pages/contact.js';
 import Search from './pages/search.js';
 import ChangeInfo from './pages/changeinfo';
 import ChangePassword from './pages/changepassword.js';
-import ChangePrivacy from './pages/changeprivacy.js';
 import RegisterFillInfo from './pages/registerFillInfo.js';
 
 
@@ -26,7 +25,6 @@ class Router extends React.Component {
                     <Route path='/dashboard/search' exact component={Search}></Route>
                     <Route path='/dashboard/changeinfo' exact component={ChangeInfo}></Route>
                     <Route path='/dashboard/changepassword' exact component={ChangePassword}></Route>
-                    <Route path='/dashboard/changeprivacy' exact component={ChangePrivacy}></Route>
                     <Route path='/register/fillInfo' exact component={RegisterFillInfo}></Route>
                 </Switch>
             </BrowserRouter>
