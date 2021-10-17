@@ -149,7 +149,7 @@ export default function Register(props) {
                             </Typography>
                             <br />
                             <Typography component="h1" variant="h5" align="center">
-                                Welcome to be the new menber!
+                                Welcome to be the new member!
                             </Typography>
                             <br />
                             <div>

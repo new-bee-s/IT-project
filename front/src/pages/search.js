@@ -113,13 +113,12 @@ export default class AddFriend extends React.Component {
             axios.post(home + '/search', { userID: mysearch }).then(res => {
                 // sucessful scenario
                 if (res.data.success) {
-                    message.success("search sucessful")
+                    message.success("search sucessfully")
                     this.setState({ result: res.data.user });
                     this.setState({ visible: true })
                 }
                 // failed scenario
                 else {
-
                     message.error(res.data.error)
                 }
             }).catch(error => {
