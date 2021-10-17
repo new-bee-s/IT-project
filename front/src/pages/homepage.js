@@ -2,6 +2,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Layout} from 'antd';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 // homepage style 
 const useStyles = makeStyles((theme) => ({
@@ -69,13 +71,10 @@ function Homepage() {
 
     const classes = useStyles();
     const {Content} = Layout;
-
+    //className={classes.background} 
     return (
-        <Layout className={classes.background} style={{ padding: '2vh 2vh', paddingRight: '2vh' }}>
-        <Content>
+            <div style={{width: '100%',height: '100%', backgroundImage: 'url("/../pics/background13.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
             <div align="center">
-            <br/>
-            <br/>
             <br/>
             <br/>
             <br/>
@@ -83,10 +82,10 @@ function Homepage() {
             <img src='./pics/logo_full.png' alt='logo pic' height={100}/>
             <br/>
             <br/>
-            <img src='./pics/personalCRM.png' alt='crm pic' height={25}/>
             <br/>
             <br/>
-            
+            <br/>
+            <br/>                
             <br/>
             <br/>
             <br/>
@@ -94,16 +93,56 @@ function Homepage() {
             <br/>
             <br/><br/><br/><br/><br/><br/>
                 <a href={window.location.href + 'login'}>
-                    <img src='./pics/getstart.png' alt='getstart pic' height={40}/>
+                <Button variant="contained" className={classes.button}>
+                                        Get Start
+                </Button>
                 </a>
+                
                 <br/>
+
                 <br/>
                 <a href={window.location.href + 'register'}>
-                    <img src='./pics/joinus.png' alt='joinus pic' height={35}/>
+                <Button variant="contained" className={classes.button}>
+                                     Join Us
+                </Button>
                 </a>
             </div>
-        </Content>
-    </Layout>
+            </div>
+        // <div>
+        // <div style={{width: '50%',height: '100%', backgroundImage: 'url("/../pics/background24.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', left: '0vw', top:'0vh'}}></div>
+        // <div style={{width: '50%',height: '100%', backgroundColor: 'white', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
+        //     <div align="center">
+        //     <br/>
+        //     <br/>
+        //     <br/>
+        //     <br/>
+        //     <br/>
+        //     <br/>
+        //     <img src='./pics/logo_full.png' alt='logo pic' height={100}/>
+        //     <br/>
+        //     <br/>
+        //     <img src='./pics/personalCRM.png' alt='crm pic' height={25}/>
+        //     <br/>
+        //     <br/>
+            
+        //     <br/>
+        //     <br/>
+        //     <br/>
+        //     <br/>
+        //     <br/>
+        //     <br/><br/><br/><br/><br/><br/>
+        //         <a href={window.location.href + 'login'}>
+        //             <img src='./pics/getstart.png' alt='getstart pic' height={40}/>
+        //         </a>
+        //         <br/>
+        //         <br/>
+        //         <a href={window.location.href + 'register'}>
+        //             <img src='./pics/joinus.png' alt='joinus pic' height={35}/>
+        //         </a>
+        //     </div>
+
+        // </div>
+        // </div>
     )
 
 };
