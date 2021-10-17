@@ -114,7 +114,7 @@ export default class RegisterFillInfo extends React.Component {
                     <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2vw', marginTop: '2vh', minHeight: '60vh' }}>
 
                         <Typography component="h2" variant="h2" align="center">
-                            Fill In Your Detaill
+                            Fill In Your Detaills
                         </Typography>
                         <br />
                         <Typography component="h1" variant="h5" align="center">

@@ -57,12 +57,14 @@ const UserLogin = (req, res, next) => {
 // Search the user by id and return photo, givenName, familyName and email to front end
 const SearchUserID = async (req, res) => {
     try {
-        let user = await User.findOne({ userID: req.body.userID }, { photo: true, givenName: true, familyName: true, email: true });
+        let user = await User.findOne({ userID: req.body.userID }, {});
         if (user) {
-            if (user._id == req.user._id) {
-                return res.status(200).json({ success: false, error: "You cannot search yourself" })
+            if (user.userID === req.user.userID) {
+                return res.status(400).json({ success: false, error: "You cannot search yourself" })
+            } else {
+
+                return res.status(200).json({ success: true, user: user })
             }
-            return res.status(200).json({ success: true, user: user })
         }
         else {
             return res.status(400).json({ success: false, error: "User not found!" })
