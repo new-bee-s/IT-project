@@ -73,76 +73,80 @@ function Homepage() {
     const {Content} = Layout;
     //className={classes.background} 
     return (
-            <div style={{width: '100%',height: '100%', backgroundImage: 'url("/../pics/background13.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
+            // <div style={{width: '100%',height: '100%', backgroundImage: 'url("/../pics/background13.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
+            // <div align="center">
+            // <br/>
+            // <br/>
+            // <br/>
+            // <br/>
+            // <img src='./pics/logo_full.png' alt='logo pic' height={100}/>
+            // <br/>
+            // <br/>
+            // <br/>
+            // <br/>
+            // <br/>
+            // <br/>                
+            // <br/>
+            // <br/>
+            // <br/>
+            // <br/>
+            // <br/>
+            // <br/><br/><br/><br/><br/><br/>
+            //     <a href={window.location.href + 'login'}>
+            //     <Button variant="contained" className={classes.button}>
+            //                             Get Start
+            //     </Button>
+            //     </a>
+                
+            //     <br/>
+
+            //     <br/>
+            //     <a href={window.location.href + 'register'}>
+            //     <Button variant="contained" className={classes.button}>
+            //                          Join Us
+            //     </Button>
+            //     </a>
+            // </div>
+            // </div>
+        <div>
+        <div style={{width: '50%',height: '100%', backgroundImage: 'url("/../pics/background24.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', left: '0vw', top:'0vh'}}></div>
+        <div style={{width: '50%',height: '100%', backgroundColor: '#fffbf0', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
             <div align="center">
+            <br/>
+            <br/>
             <br/>
             <br/>
             <br/>
             <br/>
             <img src='./pics/logo_full.png' alt='logo pic' height={100}/>
             <br/>
+  
             <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>                
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <Typography component="h1" variant="h5" align='center'>Connect you and all </Typography>
+            <Typography component="h1" variant="h5" align='center'>your clients easily</Typography>
+
             <br/><br/><br/><br/><br/><br/>
-                <a href={window.location.href + 'login'}>
-                <Button variant="contained" className={classes.button}>
-                                        Get Start
-                </Button>
-                </a>
-                
-                <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <a href={window.location.href + 'login'}>    
+            <Button variant="contained" className={classes.button}>
+                                Get Start    
+            </Button>
+            </a>
+            <br/>
 
-                <br/>
-                <a href={window.location.href + 'register'}>
-                <Button variant="contained" className={classes.button}>
-                                     Join Us
-                </Button>
-                </a>
+            <br/>
+            <a href={window.location.href + 'register'}>
+            <Button variant="contained" className={classes.button}> 
+                          Join Us
+            </Button>
+            </a>
             </div>
-            </div>
-        // <div>
-        // <div style={{width: '50%',height: '100%', backgroundImage: 'url("/../pics/background24.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', left: '0vw', top:'0vh'}}></div>
-        // <div style={{width: '50%',height: '100%', backgroundColor: 'white', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
-        //     <div align="center">
-        //     <br/>
-        //     <br/>
-        //     <br/>
-        //     <br/>
-        //     <br/>
-        //     <br/>
-        //     <img src='./pics/logo_full.png' alt='logo pic' height={100}/>
-        //     <br/>
-        //     <br/>
-        //     <img src='./pics/personalCRM.png' alt='crm pic' height={25}/>
-        //     <br/>
-        //     <br/>
-            
-        //     <br/>
-        //     <br/>
-        //     <br/>
-        //     <br/>
-        //     <br/>
-        //     <br/><br/><br/><br/><br/><br/>
-        //         <a href={window.location.href + 'login'}>
-        //             <img src='./pics/getstart.png' alt='getstart pic' height={40}/>
-        //         </a>
-        //         <br/>
-        //         <br/>
-        //         <a href={window.location.href + 'register'}>
-        //             <img src='./pics/joinus.png' alt='joinus pic' height={35}/>
-        //         </a>
-        //     </div>
 
-        // </div>
-        // </div>
+        </div>
+        </div>
     )
 
 };
