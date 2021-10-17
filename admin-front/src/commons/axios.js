@@ -6,7 +6,7 @@ const cookies = new Cookies()
 
 const axios = baseUrl => {
     const instance = _axios.create({
-        baseURL: 'http://localhost:8000/admin',
+        baseURL: 'https://new-bee-crm.herokuapp.com/admin',
         withCredentials: true,
         headers: {
             Authorization: `Bearer ${cookies.get('token')}`
