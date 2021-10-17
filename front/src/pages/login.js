@@ -171,18 +171,20 @@ function SignIn(props) {
 
 
     return (
-        <div className={classes.background} style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
-
+        <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
+            
             <div className={classes.middle}>
                 <div className={classes.column}>
-                    <Container component="main" maxWidth="md">
+                <div style={{width: '50%',height: '100%', backgroundImage: 'url("/../pics/background24.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', left: '0vw', top:'0vh'}}>
                         <a href="/">
-                            <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle' }}></img>
+                            <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '80%', verticalAlign: 'middle',  position: 'absolute', left: '5vw', top:'34vh' }}></img>
                         </a>
-                        <CssBaseline />
-                    </Container>
-                </div>
-                <div className={classes.middle2} verticalalign='middle'>
+                        </div>
+                        </div>
+                        <div style={{width: '50%',height: '100%', backgroundColor: '#fffbf0', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
+                <div align = 'center' verticalalign='middle'>
+
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                     <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align='center'>Log In</Typography>
@@ -239,6 +241,7 @@ function SignIn(props) {
                             </form>
                         </div>
                     </Container>
+                </div>
                 </div>
             </div>
 
