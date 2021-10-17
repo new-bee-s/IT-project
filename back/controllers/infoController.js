@@ -10,6 +10,7 @@ const editInfo = async (req, res) => {
         let userID = req.body.userID
         let mobile = req.body.mobile
         let address = req.body.address
+        console.log(req.body)
         // Udpate the information that user has changed
         if (givenName) {
             await User.updateOne({ _id: userid }, { $set: { givenName: givenName } })
@@ -53,23 +54,22 @@ const editInfo = async (req, res) => {
         if (mobile) {
             await User.updateOne({ _id: userid }, { $set: { mobile: mobile } })
         }
-        if (address) {
-            await User.updateOne({ _id: userid }, { $set: { address: address } })
-        }
         if (req.body.company) {
-            await User.updateOne({ _id: userid }, { $set: { company: req.body.company } })
+            await User.updateOne({ userID: req.user.userID }, { $set: { company: req.body.company } })
         }
         if (req.body.occupation) {
-            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.occupation } })
+
+            await User.updateOne({ userID: req.user.userID }, { $set: { occupation: req.body.occupation } })
         }
         if (req.body.gender) {
-            await User.updateOne({ _id: userid }, { $set: { gender: req.body.gender } })
+            console.log(1)
+            await User.updateOne({ userID: req.user.userID }, { $set: { gender: req.body.gender } })
         }
         if (req.body.region) {
-            await User.updateOne({ _id: userid }, { $set: { region: req.body.region } })
+            await User.updateOne({ userID: req.user.userID }, { $set: { region: req.body.region } })
         }
         if (req.body.dob) {
-            await User.updateOne({ _id: userid }, { $set: { dob: req.body.dob } })
+            await User.updateOne({ userID: req.user.userID }, { $set: { dob: req.body.dob } })
         }
         // get user after updating
         return res.status(200).json({ success: true })
