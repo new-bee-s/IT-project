@@ -15,7 +15,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); // replaces body-parser
 app.use(cookieParser())
 // Define allowed origins
-let allowedOrigins = ['http://localhost:3000', 'https://new-bees.netlify.app', 'http://localhost:3001', 'https://new-bees-admin.netlify.app'];
+let allowedOrigins = ['http://localhost:3000', 'https://new-bee.netlify.app', 'http://localhost:3001', 'https://new-bee-admin.netlify.app'];
 
 app.use(cors({
     credentials: true, // add Access-Control-Allow-Credentials to header
