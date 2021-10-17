@@ -150,9 +150,9 @@ export default class Dashboard extends React.Component {
                                     <Descriptions.Item label="Gender">{profile.gender}</Descriptions.Item>
                                     <Descriptions.Item label="Mobile number">{profile.mobile}</Descriptions.Item>
                                     {/* <Descriptions.Item label="Region">{profile.region}</Descriptions.Item>
-                                    <Descriptions.Item label="Date of Birth">{profile.dob}</Descriptions.Item>
+                                    <Descriptions.Item label="Date of Birth">{profile.dob}</Descriptions.Item> */}
                                     <Descriptions.Item label="Company">{profile.company}</Descriptions.Item>
-                                    <Descriptions.Item label="Occupation">{profile.occupation}</Descriptions.Item> */}
+                                    <Descriptions.Item label="Occupation">{profile.occupation}</Descriptions.Item>
                                     <Descriptions.Item label="introduction">{profile.introduction}</Descriptions.Item>
                                 </Descriptions>
                             </div>
