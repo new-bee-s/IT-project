@@ -63,13 +63,13 @@ const editInfo = async (req, res) => {
             await User.updateOne({ _id: userid }, { $set: { occupation: req.body.occupation } })
         }
         if (req.body.gender) {
-            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.gender } })
+            await User.updateOne({ _id: userid }, { $set: { gender: req.body.gender } })
         }
         if (req.body.region) {
-            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.region } })
+            await User.updateOne({ _id: userid }, { $set: { region: req.body.region } })
         }
         if (req.body.dob) {
-            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.dob } })
+            await User.updateOne({ _id: userid }, { $set: { dob: req.body.dob } })
         }
         // get user after updating
         return res.status(200).json({ success: true })
@@ -90,7 +90,6 @@ const uploadImage = async (req, res) => {
         await User.updateOne({ _id: req.user._id }, { $set: { photo: photo } })
         return res.status(200).json({ success: true })
     } catch (err) {
-        console.log(err)
         return res.status(400).json({ success: false, error: "upload image error, failed" })
     }
 
