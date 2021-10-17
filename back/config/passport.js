@@ -4,7 +4,7 @@ require('dotenv').config()    // for JWT password key
 const LocalStrategy = require('passport-local').Strategy
 // our user model
 const User = require('../models/user')
-
+const Admin = require('../models/admin')
 // JSON Web Tokens
 const passportJWT = require("passport-jwt");
 const JwtStrategy = passportJWT.Strategy;
@@ -141,5 +141,98 @@ module.exports = function (passport) {
             return done(err)
         }
     }));
+    passport.use('admin-local-signup', new LocalStrategy({
+        usernameField: 'account',     // get account and password
+        passwordField: 'password',
+        passReqToCallback: true
+    }, async (req, account, password, done) => {
+        try {
+            await Admin.findOne({ 'account': account }, function (err, existingAdmin) {
+                // search a user by the account
+                // if user is not found or exists, exit with false indicating
+                // authentication failure
+                if (err) {
+                    return done(err, false, { message: "Database query failed" });
+                } else {
+                    if (account == "" || account == null) {
+                        console.log("Please enter your account")
+                        return done(null, false, { message: "Please enter your account" });
+                    }
+                    else if (req.body.name == "" || req.body.name == null) {
+                        console.log("Please enter your name")
+                        return done(null, false, { message: "Please enter your name" });
+                    }
+                    else if (!/^[a-zA-Z]+$/.test(account)) {
+                        return done(null, false, { message: "Your account must be alphabet letters" });
+                    }
+                    else if (password == "" || password == null) {
+                        return done(null, false, { message: "Please set your password" });
+                    }
+                    else if (req.body.confirmPassword == "" || req.body.confirmPassword == null) {
+                        return done(null, false, { message: "Please enter your confirmed password" });
+                    }
+                    else if (existingAdmin) {
+                        console.log("Admin signup failed:", account, "ALREADY REGISTERED!");
+                        return done(null, false, { message: "Admin has already Registered" });
+                    }
+                    else if (password != req.body.confirmPassword) {
+                        return done(null, false, { message: "Please enter the same password" });
+                    }
+                    else if (password.length < 8) {
+                        return done(null, false, { message: "Your password must be at least 8 characters" });
+                    }
+                    else if (!/^[0-9a-zA-Z]+$/.test(account)) {
+                        return done(null, false, { message: "Your password does not satisfy the requirement" });
+                    }
+
+                    else {
+                        // otherwise
+                        // create a new user
+                        let newAdmin = new Admin();
+                        newAdmin.account = account
+                        newAdmin.password = newAdmin.generateHash(password)
+                        newAdmin.name = req.body.name
+                        // and save the user
+                        newAdmin.save(function (err) {
+                            if (err)
+                                throw err;
+                            return done(null, newAdmin);
+                        })
+                    }
+                }
+            })
+        } catch (err) {
+            return done(err)
+        }
+    }));
+    passport.use('admin-local-login', new LocalStrategy({
+        usernameField: 'account',
+        passwordField: 'password',
+    }, // pass the req as the first arg to the callback for verification 
+        async (account, password, done) => {
+            try {
+                // see if the admin with the accountAddress exists
+                await Admin.findOne({ 'account': account }, function (err, admin) {
+                    // if there are errors, admin is not found or password
+                    // does match, send back errors
+                    if (err) {
+                        return done(err, false, { message: "Database query failed" });
+                    } else if (!admin) {
+                        return done(null, false, { message: 'Account not registered' });
+                    } else if (!admin.validPassword(password)) {
+                        // false in done() indicates to the strategy that authentication has
+                        // failed
+                        return done(null, false, { message: 'Password incorrect' });
+                    }
+                    else {
+                        return done(null, admin);
+                    }
+                });
+            } catch (err) {
+                console.log(err)
+                return done(err)
+            };
+
+        }));
 }
 

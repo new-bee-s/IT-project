@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 require('../config/passport')(passport)
 // admin log in function
 const AdminLogin = (req, res, next) => {
-    passport.authenticate('local-login', (err, admin, info) => {
+    passport.authenticate('admin-local-login', (err, admin, info) => {
         // If there were errors during executing the strategy or the admin was not found, we display and error
         if (err) {
             return res.status(500).json({ success: false, error: info.message })
@@ -24,7 +24,7 @@ const AdminLogin = (req, res, next) => {
 }
 
 const createAdmin = (req, res, next) => {
-    passport.authenticate('local-signup', (err, admin, info) => {
+    passport.authenticate('admin-local-signup', (err, admin, info) => {
         if (err) {
             return res.status(500).json({ success: false, error: info.message })
         }
