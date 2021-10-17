@@ -56,6 +56,21 @@ const editInfo = async (req, res) => {
         if (address) {
             await User.updateOne({ _id: userid }, { $set: { address: address } })
         }
+        if (req.body.company) {
+            await User.updateOne({ _id: userid }, { $set: { company: req.body.company } })
+        }
+        if (req.body.occupation) {
+            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.occupation } })
+        }
+        if (req.body.gender) {
+            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.gender } })
+        }
+        if (req.body.region) {
+            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.region } })
+        }
+        if (req.body.dob) {
+            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.dob } })
+        }
         // get user after updating
         return res.status(200).json({ success: true })
 
@@ -65,29 +80,6 @@ const editInfo = async (req, res) => {
     }
 }
 
-const initInfo = async (req, res) => {
-    try {
-        let userid = req.user._id
-        await User.updateOne({ _id: userid }, {
-            $set: {
-                gender: req.body.gender,
-                mobile: req.body.mobile,
-                region: req.body.region,
-                dob: req.body.dob
-            }
-        })
-        if (req.body.company) {
-            await User.updateOne({ _id: userid }, { $set: { company: req.body.company } })
-        }
-        if (req.body.occupation) {
-            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.occupation } })
-        }
-        return res.status(200).json({ success: true })
-    } catch (err) {
-        console.log(err)
-        return res.status(400).json({ success: false, error: "Website cracked" })
-    }
-}
 
 const uploadImage = async (req, res) => {
     try {
@@ -103,4 +95,4 @@ const uploadImage = async (req, res) => {
     }
 
 }
-module.exports = { editInfo, uploadImage, initInfo }
+module.exports = { editInfo, uploadImage }

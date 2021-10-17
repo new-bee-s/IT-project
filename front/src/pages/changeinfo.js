@@ -290,22 +290,6 @@ export default function ChangeInfo(props) {
                                         margin="normal"
                                         required
                                         fullWidth
-                                        rows="3"
-                                        multiline="true"
-                                        id="introduction"
-                                        label={'Introduce yourself: '}
-                                        defaultValue={profile.introduction}
-                                        placeholder={profile.introduction}
-                                        name="introduction"
-                                        autoComplete="introduction"
-                                        onChange={e => setIntroduction(e.target.value)}
-                                    />
-
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
                                         id="Mobile"
                                         label="Phone Number"
                                         name="Mobile"
@@ -332,7 +316,21 @@ export default function ChangeInfo(props) {
                                         name="Job"
                                         onChange={e => setJob(e.target.value)}
                                     />
-
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        rows="3"
+                                        multiline="true"
+                                        id="introduction"
+                                        label={'Introduce yourself: '}
+                                        defaultValue={profile.introduction}
+                                        placeholder={profile.introduction}
+                                        name="introduction"
+                                        autoComplete="introduction"
+                                        onChange={e => setIntroduction(e.target.value)}
+                                    />
 
                                     <div style={{ paddingTop: '3vh' }}>
                                         <Button type="primary" size='large' onClick={changeInformation}>
