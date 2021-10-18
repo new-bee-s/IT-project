@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
         resizeMethod: 'cover',
         position: 'absolute',
         bottom: '0',
+      
     },
 
 }));
