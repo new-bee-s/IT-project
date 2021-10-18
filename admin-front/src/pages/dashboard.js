@@ -9,21 +9,6 @@ import { message, Divider, Typography, Table } from 'antd';
 import Cookies from 'universal-cookie';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  background: {
-    display: 'flex',
-    overflow: 'hidden',
-    width: '100%',
-    height: '100%',
-    backgroundImage: 'url("/../pics/ink1.jpeg")',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    resizeMethod: 'cover',
-    position: 'absolute',
-    bottom: '0',
-}
-
-}));
 
 export default class Dashboard extends React.Component {
 
@@ -151,6 +136,7 @@ export default class Dashboard extends React.Component {
             axios.post(home + '/banUser', { _id: record._id }).then(res => {
               if (res.data.success) {
                 message.success("ban successfully")
+                record.ban = true;
               }
               else {
                 message.error(res.data.error)
@@ -170,6 +156,7 @@ export default class Dashboard extends React.Component {
             axios.post(home + '/unBanUser', { _id: record._id }).then(res => {
               if (res.data.success) {
                 message.success("unban successfully")
+                record.ban = false;
               }
               else {
                 message.error(res.data.error)
@@ -252,14 +239,10 @@ export default class Dashboard extends React.Component {
     */
 
 
-    function onChange(pagination, filters, sorter, extra) {
-      console.log('params', pagination, filters, sorter, extra);
-    }
-
-
-
-
-
+    // function onChange(pagination, filters, sorter, extra) {
+    //   console.log('params', pagination, filters, sorter, extra);
+    // }
+    
     return (
       <Layout >
         <Header style={{ padding: '0 10px' }}>
@@ -282,7 +265,13 @@ export default class Dashboard extends React.Component {
 
               </Menu>
             </Col>
-            
+            <Col span={3} offset={9}>
+              <Menu theme='dark' mode='horizontal'style={{ height: '64px' }}>
+                <Menu.Item key='2' onClick={e => OnLogOut()}>
+                  Log Out
+                </Menu.Item>
+              </Menu>
+            </Col>
           </Row>
         </Header>
         <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background2.jpg")' }}>
@@ -294,7 +283,7 @@ export default class Dashboard extends React.Component {
               <Typography component="h1" variant='h1' align='center'>Manage all the users</Typography>
               <p align='left'>"Big Brother is watching you!"</p>
               <Divider />
-              <Table columns={columns} rowKey='_id' dataSource={data} onChange={onChange} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
+              <Table columns={columns} rowKey='_id' dataSource={data} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
               {/* <Button type="dashed" onClick={test} size={20}>
 
                 test

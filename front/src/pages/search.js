@@ -267,7 +267,7 @@ export default class AddFriend extends React.Component {
                         </div>
                         <br />
                         <br />
-                        <div align='center'>
+                        <div align='center' style = {{height: '60px'}}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -276,12 +276,12 @@ export default class AddFriend extends React.Component {
                                 label={'Accompany a message to introduce yourself!'}
                                 name="msg"
                                 onChange={setmsg}
-                                style={{ width: 550 }}
+                                style={{ width: 550, height: '40px'}}
                             />
                         </div>
 
                         <div display="inline">
-                            <div align="left">
+                            <div align="left" style = {{height: '60px'}}>
                                 <TextField
                                     variant="outlined"
                                     margin="normal"
@@ -290,7 +290,7 @@ export default class AddFriend extends React.Component {
                                     label={'Set a remark!'}
                                     name="remark"
                                     onChange={setRemark}
-                                    style={{ width: '30%' }}
+                                    style={{ width: '30%', height: '40px'}}
                                 />
                             </div>
                             <div align="right">
