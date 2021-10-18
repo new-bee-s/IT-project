@@ -35,6 +35,8 @@ export default function ChangeInfo(props) {
             if (response.data.success) {
                 setProfile(response.data.user);
                 setLoading(false);
+                setAdd(response.data.user.address);
+                setDob(response.data.user.dob);
             }
         }).catch(error => {
             console.log(error.response.data.error)
@@ -66,7 +68,7 @@ export default function ChangeInfo(props) {
             gender: gender,
             mobile: mobile,
             dob: { year: dob.getFullYear(), month: dob.getMonth(), date: dob.getDate() },
-            //region: { city: address[2], state: address[1], country: address[0] },
+            region: { city: address[2], state: address[1], country: address[0] },
             company: company,
             occupation: job
         }).then(res => {
@@ -88,7 +90,19 @@ export default function ChangeInfo(props) {
 
 
     const setAddress = (value) => {
-        setAdd(value);
+        var address = value;
+        address[0] = value[0];
+        if (value[1] === undefined){
+            address[1] = '';
+        }else{
+            address[1] = value[1];
+        }
+        if (value[2] === undefined){
+            address[2] = '';
+        }else{
+            address[2] = value[2];
+        }
+        this.state.address = address;
     }
 
 
