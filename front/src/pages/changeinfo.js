@@ -66,7 +66,7 @@ export default function ChangeInfo(props) {
             gender: gender,
             mobile: mobile,
             dob: { year: dob.getFullYear(), month: dob.getMonth(), date: dob.getDate() },
-            region: { city: address[2], state: address[1], country: address[0] },
+            //region: { city: address[2], state: address[1], country: address[0] },
             company: company,
             occupation: job
         }).then(res => {

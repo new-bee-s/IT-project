@@ -74,7 +74,7 @@ export default class RegisterFillInfo extends React.Component {
                 }
                 else {
                     // if error
-                    this.prop.push('/register/fillInfo')
+                    //this.prop.push('/register/fillInfo')
                     message.error(res.data.error)
                 }
 
