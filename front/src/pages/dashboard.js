@@ -22,6 +22,7 @@ export default class Dashboard extends React.Component {
             }
         }).then(response => {
             if (response.data.success) {
+                console.log(response.data.user)
                 this.setState({ profile: response.data.user, loading: false });
             }
         }).catch(error => {
