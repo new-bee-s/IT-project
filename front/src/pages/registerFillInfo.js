@@ -49,7 +49,7 @@ export default class RegisterFillInfo extends React.Component {
             if (this.state.dob === undefined) {
                 message.error("Please Enter your Birthday")
             }
-            if (this.state.address === undefined) {
+            if (this.state.address === []) {
                 message.error("Please Enter your Address")
             }
             if (this.state.mobieNumber === '') {
