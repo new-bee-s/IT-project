@@ -19,7 +19,7 @@ export default function ChangeInfo(props) {
     const [familyName, setFamilyName] = useState('');
     const [gender, setGender] = useState('');
     const [mobile, setMobile] = useState('');
-    const [dob, setDob] = useState('');
+    const [dob, setDob] = useState(undefined);
     const [address, setAdd] = useState([]);
     const [company, setCompany] = useState('');
     const [job, setJob] = useState('');
@@ -65,7 +65,8 @@ export default function ChangeInfo(props) {
             introduction: introduction,
             gender: gender,
             mobile: mobile,
-            dob: dob,
+            dob: { year: dob.getFullYear(), month: dob.getMonth(), date: dob.getDate() },
+            region: { city: address[2], state: address[1], country: address[0] },
             company: company,
             occupation: job
         }).then(res => {

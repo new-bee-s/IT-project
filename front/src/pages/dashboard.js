@@ -1,6 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Dropdown, Card, Descriptions, Badge } from 'antd';
+import { Layout, Menu, Dropdown, Card, Descriptions } from 'antd';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Row, Col, Button, Space, Spin } from 'antd';
@@ -121,13 +121,15 @@ export default class Dashboard extends React.Component {
                                 <br/>
                                 <br/>
                                 <br/>
-                                <Card
-                                    hoverable
-                                    style={{ width: 240 }}
-                                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                                >
-                                    <Meta title="Europe Street beat" description="www.instagram.com" />
-                                </Card>
+                                <a href={home+'/contact'}>
+                                    <Card
+                                        hoverable
+                                        style={{ width: 240 }}
+                                        cover={<img alt="example" src="https://blmparis.files.wordpress.com/2014/07/angle.jpg" />}
+                                    >
+                                        <Meta title="Welcome!" description="Click to add new friend!" />
+                                    </Card>
+                                </a>
                             </div>
 
                             <div id='right' style={{ width: '60vw', float:'right', paddingTop: '3vh', margin: '0 auto' }}>
@@ -143,14 +145,15 @@ export default class Dashboard extends React.Component {
                                 </span>
 
                                 <Descriptions layout="vertical" style={{paddingTop:'5vh'}} bordered>
-                                <Descriptions.Item label="UserID">{profile.userID}</Descriptions.Item>
+                                    <Descriptions.Item label="UserID">{profile.userID}</Descriptions.Item>
+                                    <Descriptions.Item label="Email" span={2}>{profile.email}</Descriptions.Item>
                                     <Descriptions.Item label="Given Name">{profile.givenName}</Descriptions.Item>
-                                    <Descriptions.Item label="Family Name">{profile.familyName}</Descriptions.Item>
-                                    <Descriptions.Item label="Email">{profile.email}</Descriptions.Item>
+                                    <Descriptions.Item label="Family Name" span={2}>{profile.familyName}</Descriptions.Item>
+                                    
                                     <Descriptions.Item label="Gender">{profile.gender}</Descriptions.Item>
                                     <Descriptions.Item label="Mobile number">{profile.mobile}</Descriptions.Item>
-                                    {/* <Descriptions.Item label="Region">{profile.region}</Descriptions.Item>
-                                    <Descriptions.Item label="Date of Birth">{profile.dob}</Descriptions.Item> */}
+                                    <Descriptions.Item label="Region">{profile.region.country + " " + profile.region.state + " " +profile.region.city}</Descriptions.Item>
+                                    <Descriptions.Item label="Date of Birth">{profile.dob.date + '-' + profile.dob.month + '-' + profile.dob.year}</Descriptions.Item>
                                     <Descriptions.Item label="Company">{profile.company}</Descriptions.Item>
                                     <Descriptions.Item label="Occupation">{profile.occupation}</Descriptions.Item>
                                     <Descriptions.Item label="introduction">{profile.introduction}</Descriptions.Item>
