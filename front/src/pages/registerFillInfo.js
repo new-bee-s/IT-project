@@ -25,7 +25,19 @@ export default class RegisterFillInfo extends React.Component {
         const { Content } = Layout;
 
         const setAddress = (value) => {
-            this.state.address = value;
+            var address = value;
+            address[0] = value[0];
+            if (value[1] === undefined){
+                address[1] = '';
+            }else{
+                address[1] = value[1];
+            }
+            if (value[2] === undefined){
+                address[2] = '';
+            }else{
+                address[2] = value[2];
+            }
+            this.state.address = address;
         }
 
         //using on onchange
@@ -62,6 +74,7 @@ export default class RegisterFillInfo extends React.Component {
                 }
                 else {
                     // if error
+                    this.prop.push('/register/fillInfo')
                     message.error(res.data.error)
                 }
 
