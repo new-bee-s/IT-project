@@ -89,6 +89,7 @@ export default function ChangePassword(props) {
             axios.post(home + '/uploadImage', { image: reader.result }).then(res => {
                 if (res.data.success) {
                     message.success("successfully changed avatar!");
+                    props.history.push('/dashboard', { replace: true });
                 }
                 else {
                     // if error
