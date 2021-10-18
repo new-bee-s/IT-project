@@ -28,12 +28,12 @@ export default class RegisterFillInfo extends React.Component {
             var address = value;
             address[0] = value[0];
             if (value[1] === undefined){
-                address[1] = " ";
+                address[1] = '';
             }else{
                 address[1] = value[1];
             }
             if (value[2] === undefined){
-                address[2] = " ";
+                address[2] = '';
             }else{
                 address[2] = value[2];
             }
@@ -46,43 +46,43 @@ export default class RegisterFillInfo extends React.Component {
             if (this.state.gender === undefined) {
                 message.error("Please Enter your Gender")
             }
-            else if (this.state.dob === undefined) {
+            if (this.state.dob === undefined) {
                 message.error("Please Enter your Birthday")
             }
-            else if (this.state.address === undefined) {
+            if (this.state.address === []) {
                 message.error("Please Enter your Address")
             }
-            else if (this.state.mobieNumber === '') {
+            if (this.state.mobieNumber === '') {
                 message.error("Please Enter your mobie number")
             }
-            else{
-                // use axios connect back-end and push personal information to back-end
-                axios.post('/register/fillInfo', {
-                    gender: this.state.gender,
-                    mobile: this.state.mobieNumber,
-                    dob: { year: this.state.dob.getFullYear(), month: this.state.dob.getMonth(), date: this.state.dob.getDate() },
-                    region: { city: this.state.address[2], state: this.state.address[1], country: this.state.address[0] },
-                    company: this.state.company,
-                    occupation: this.state.job,
-                    headers: {
-                        Authorization: `Bearer ${Cookies.get('token')}`
-                    }
-                }).then(res => {
-                    if (res.data.success) {
-                        console.log(res)
-                        this.props.history.push('/dashboard')
-                    }
-                    else {
-                        // if error
-                        //this.prop.push('/register/fillInfo')
-                        message.error(res.data.error)
-                    }
 
-                }).catch(error => {
-                    console.log(error.response.data.error)
-                    message.error(error.response.data.error)
-                })
-            }
+            // use axios connect back-end and push personal information to back-end
+            axios.post('/register/fillInfo', {
+                gender: this.state.gender,
+                mobile: this.state.mobieNumber,
+                dob: { year: this.state.dob.getFullYear(), month: this.state.dob.getMonth(), date: this.state.dob.getDate() },
+                region: { city: this.state.address[2], state: this.state.address[1], country: this.state.address[0] },
+                company: this.state.company,
+                occupation: this.state.job,
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('token')}`
+                }
+            }).then(res => {
+                if (res.data.success) {
+                    console.log(res)
+                    this.props.history.push('/dashboard')
+                }
+                else {
+                    // if error
+                    //this.prop.push('/register/fillInfo')
+                    message.error(res.data.error)
+                }
+
+            }).catch(error => {
+                console.log(error.response.data.error)
+                message.error(error.response.data.error)
+            })
+
         }
 
         const button = {
