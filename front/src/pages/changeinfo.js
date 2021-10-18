@@ -19,7 +19,6 @@ export default function ChangeInfo(props) {
     const [familyName, setFamilyName] = useState('');
     const [gender, setGender] = useState('');
     const [mobile, setMobile] = useState('');
-    const [dob, setDob] = useState(undefined);
     const [address, setAdd] = useState([]);
     const [company, setCompany] = useState('');
     const [job, setJob] = useState('');
@@ -30,13 +29,10 @@ export default function ChangeInfo(props) {
 
     // get data from backend
     useEffect(() => {
-        axios.get(home
-        ).then(response => {
+        axios.get(home).then(response => {
             if (response.data.success) {
                 setProfile(response.data.user);
                 setLoading(false);
-                setAdd(response.data.user.address);
-                setDob(response.data.user.dob);
             }
         }).catch(error => {
             console.log(error.response.data.error)
@@ -67,8 +63,7 @@ export default function ChangeInfo(props) {
             introduction: introduction,
             gender: gender,
             mobile: mobile,
-            dob: { year: dob.getFullYear(), month: dob.getMonth(), date: dob.getDate() },
-            region: { city: address[2], state: address[1], country: address[0] },
+            // region: { city: address[2], state: address[1], country: address[0] },
             company: company,
             occupation: job
         }).then(res => {
@@ -102,7 +97,7 @@ export default function ChangeInfo(props) {
         }else{
             address[2] = value[2];
         }
-        this.state.address = address;
+        setAdd(address);
     }
 
 
@@ -117,6 +112,7 @@ export default function ChangeInfo(props) {
             axios.post(home + '/uploadImage', { image: reader.result }).then(res => {
                 if (res.data.success) {
                     message.success("successfully changed avatar!");
+                    props.history.push('/dashboard', { replace: true });
                 }
                 else {
                     // if error
@@ -308,17 +304,6 @@ export default function ChangeInfo(props) {
                                             </Space>
                                         </Col>
                                     </Row>
-
-                                    <br />
-                                    <Row>
-                                        <Col span={4} offset={1} style={{ textAlign: "left" }}>
-                                            <h2 style={{ verticalAlign: "middle" }}> Birthday: </h2>
-                                        </Col>
-                                        <Col span={19}>
-                                            <DatePicker onChange={e => setDob(new Date(e._d))} size="large" style={{ width: '100%' }} />
-                                        </Col>
-                                    </Row>
-                                    <br />
 
                                     {/* <FillDetaillAddress sendData={setAddress}></FillDetaillAddress> */}
 
