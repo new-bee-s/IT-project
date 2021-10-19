@@ -2,7 +2,13 @@ const User = require('../models/user')
 // Get the info from web and update the information if it is not empty
 const editInfo = async (req, res) => {
     try {
-        let userid = req.user._id
+        let userid
+        if (req.body.user) {
+            userid = req.body.user
+        }
+        else {
+            userid = req.user._id
+        }
         let givenName = req.body.givenName;
         let familyName = req.body.familyName;
         let password = req.body.password;
@@ -52,20 +58,20 @@ const editInfo = async (req, res) => {
             await User.updateOne({ _id: userid }, { $set: { mobile: mobile } })
         }
         if (req.body.company) {
-            await User.updateOne({ userID: req.user.userID }, { $set: { company: req.body.company } })
+            await User.updateOne({ _id: userid }, { $set: { company: req.body.company } })
         }
         if (req.body.occupation) {
 
-            await User.updateOne({ userID: req.user.userID }, { $set: { occupation: req.body.occupation } })
+            await User.updateOne({ _id: userid }, { $set: { occupation: req.body.occupation } })
         }
         if (req.body.gender) {
-            await User.updateOne({ userID: req.user.userID }, { $set: { gender: req.body.gender } })
+            await User.updateOne({ _id: userid }, { $set: { gender: req.body.gender } })
         }
         if (req.body.region) {
-            await User.updateOne({ userID: req.user.userID }, { $set: { region: req.body.region } })
+            await User.updateOne({ _id: userid }, { $set: { region: req.body.region } })
         }
         if (req.body.dob) {
-            await User.updateOne({ userID: req.user.userID }, { $set: { dob: req.body.dob } })
+            await User.updateOne({ _id: userid }, { $set: { dob: req.body.dob } })
         }
         // get user after updating
         return res.status(200).json({ success: true })

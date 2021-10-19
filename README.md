@@ -1,6 +1,6 @@
 # Welcome to New-Bee CRM!!  😄   
 This is the project for Unimelb COMP30019 IT-Project.  
-Website link :arrow_forward: [New-Bee CRM](https://new-bees.netlify.app):arrow_backward: 
+Website link :arrow_forward: [New-Bee Client](https://new-bee.netlify.app) [New-Bee Admin](https://new-bee-admin.netlify.app):arrow_backward: 
 To use our website, please start the server first arrow_forward:[NEW-BEE CRM SERVER](https://new-bee-crm.herokuapp.com/):arrow_backward:
 It is a website customer relationship managemenet system, which is able to store, search, manage and share your address book for business easily!  
 
@@ -18,17 +18,21 @@ Tutor:
 * back/
    The server of our web app, containing both admin server and client server
 * front/
-   The front-end of our web app
+   The front-end of our clinet web app
    /src
    Containing the components and web pages code of the web app
    /public
    Containg the pics and images used for the web app
+* admin-front/
+   The front-end of our admin web app
+
 
 ## Links to Tools
  * Confluence space - https://new-bees.atlassian.net/wiki/spaces/PROJ/overview
  * Trello board - https://trello.com/b/AXQhdvlp/new-bees-crm
  * server demo - https://new-bee-crm.herokuapp.com/
- * client demo - https://new-bees.netlify.app
+ * client demo - https://new-bee.netlify.app
+ * admin demo - https://new-bee-admin.netlify.app
 
 ## Deployment
 Algorithms in Action is written in JavaScript, using the React framework. To make it work locally, you need to install Node.js. NPM (Node package manager) will be installed alongside when you install Node.js. We use express framework to implement our back-end
@@ -42,20 +46,22 @@ Navigate into front and back folder seperately and run npm install to install al
 
 Running on local 
 Navigate into front and back folder separtely and run npm start, it will start both front and back-end side of web
-Front-end side of client will run in port 3000, and will be launched at browser http://localhost:3000
+Front-end side of client will run in port 3000, and will be launched at browser http://
+localhost:3000
+Front-end side of admin  will run in port 3001, and will be launched at browser http://localhost:3001
 Back-end of client side and admin will run in port 8000
-Front-end of admin side will run in 3001, and will be launched at browser http://localhost:3001
+
 
 ## Demo
-We have two demos that should activate simultaneously to run our app.
-First use https://new-bee-crm.herokuapp.com/ to start the server
-Then use https://new-bees.netlify.app to start the front-end of client side
+You can use https://new-bee.netlify.app to start the client website
+You can use https://new-bee-admin.netlify.app to start the admin website
+The server will automatically run in https://new-bee-crm.herokuapp.com
 
 We have enabled automatic deploying of both webites. If we commited changes on our repo, the website will automatically updated to the newest version.
 
-The CI of https://new-bees.netlify.app is CI=npm run build
+The CI of https://new-bee.netlify.app is CI=npm run build
 The CI of https://new-bee-crm.herokuapp.com/ is CI=npm start
-
+The CI of https://new-bee-admin.netlify.app is CI=npm run build
 ## Change Log
 ### SPRINT 1
  * US_01_REGISTER_FUNC 

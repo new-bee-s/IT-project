@@ -60,7 +60,7 @@ const SearchUserID = async (req, res) => {
         let user = await User.findOne({ userID: req.body.userID }, {});
         if (user) {
             // If a user is searching his own id, will return error message
-            if (user.userID === req.user.userID) {
+            if (user._id === req.user._id) {
                 return res.status(400).json({ success: false, error: "You cannot search yourself" })
             } else {
 
