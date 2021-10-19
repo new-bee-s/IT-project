@@ -11,6 +11,10 @@ import Cookies from 'js-cookie';
 import { Avatar } from 'antd';
 import { message } from 'antd';
 import { Input} from 'antd';
+import { Select } from 'antd';
+
+const { Option } = Select;
+
 
 
 
@@ -26,10 +30,11 @@ export default function Contact(props) {
     const [detailLoading, setDetailLoading] = useState(true);
     const [profileLoading, setProfileLoading] = useState(true);
     const [Detail, setDetail] = useState([]);
-    const home = '/dashboard';
+    const home = '/dashboard';      
     const [profile, setProfile] = useState([]);
-    const [word, setWord] = useState('');
-    const [searchDisplay, setSearchDisplay] = useState(acceptContact);
+    const [searchDisplay, setSearchDisplay] = useState([]);
+    const { Option } = Select;
+
     
     //console.log(acceptContact)
 
@@ -60,36 +65,47 @@ export default function Contact(props) {
             message.error(error.response.data.error)
         })
 
-    }, [acceptContact], [pendingContact],[word])
+    }, [acceptContact], [pendingContact])
 
     // logout function
     const OnLogOut = () => {
         Cookies.remove('token')
         props.history.push('/login');
     }
-
+   
+    
     const onSearch = e=>{
-        let oldList = acceptContact.map(contact=>{
-            return{ Name:contact.friend.givenName+contact.friend.familyName,email:contact.friend.email}
-            
+        let allFriendList = acceptContact.map(contact=>{
+            return{ givenName:contact.friend.givenName,
+                    familyName:contact.friend.familyName,
+                    email:contact.friend.email,
+                    userID:contact.friend.userID,
+                    tag:contact.tag,
+                    remark:contact.remark,
+                    _id:contact.friend._id
+                }
+       
+                
         });
-        console.log(e)
-        console.log(oldList)
-        if (e !==''){
-            let newList=[];
-            setWord(e)
-            console.log(word)
-            newList = oldList.filter(contact=>
-                contact.Name.includes(word)
+        if (e !== ''){
+            let searchList=[];
+            searchList = allFriendList.filter(contact=>
+                contact.givenName.includes(e)||
+                contact.familyName.includes(e)||
+                contact.email.includes(e)
+                //contact.userID.includes(e)||
+                //contact.remark.includes(e)||
+                //contact.tag.includes(e)
             );
-            console.log(newList)
-            setSearchDisplay(newList);
-         }
+            setSearchDisplay(searchList);
+        }
         else{
-            setSearchDisplay(acceptContact);
             
+            setSearchDisplay(allFriendList);  
         }
     };
+
+    console.log(searchDisplay)
 
     //render logout
     const logout = (
@@ -136,35 +152,27 @@ export default function Contact(props) {
                             </a>
                         </Col>
                         <Col span={6} offset={2}>
-                        <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['2']} style={{ height: '64px' }}>
-                                <Menu.Item key='1'>
+                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ height: '64px' }}>
+                                <Menu.Item key="1">
                                     <a href={home}>
-                                        <img src='../pics/manage1.png' alt='profile_icon' style={{ height: '28px', verticalAlign: 'middle' }} />
+                                        <img src='/../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                                     </a>
                                 </Menu.Item>
 
-                                <Menu.Item key='2'>
+                                <Menu.Item key="2">
                                     <a href={home + '/contact'}>
-                                        <img src='../pics/friend.png' alt='contact_icon' style={{ height: '24px' }} />
+                                        <img src='/../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
                                     </a>
                                 </Menu.Item>
 
-                                <Menu.Item key='3'>
+                                <Menu.Item key="3">
                                     <a href={home + '/search'}>
-                                        <img src='../pics/af1.png' alt='AddFriend' style={{ height: '26px' }} />
+                                        <img src='/../pics/AddFriend.png' alt='AddFriend' style={{ height: '19px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
                                     </a>
                                 </Menu.Item>
-
-                                <Menu.Item key='4'>
-                                    <a href={home + '/changeinfo'}>
-                                        <img src='../pics/edit.png' alt='ManageProfile' style={{ height: '28px' }} />
-                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage Profile</span>
-                                    </a>
-                                </Menu.Item>
-
                             </Menu>
 
                         </Col>
@@ -183,11 +191,17 @@ export default function Contact(props) {
                         </Col>
                         <Col span={4} >
                             <Menu theme="dark" mode="horizontal" style={{ margin:"10px 12px" }}>
-                                <Search placeholder="input friend name" onChange={e=>onSearch(e.target.value)} style={{ width: 200 }} />
-                               
-                                
-                            </Menu>
+                                <Select
+                                    showSearch
+                                    style={{ width: 200 }}
+                                    placeholder="Search to Select"
+                                    onSearch={onSearch}
+                                >
+                                    {searchDisplay.map(contact =><Option key={contact._id}>{contact.givenName} </Option>)}
 
+                                </Select>
+
+                            </Menu>
                         </Col>
                     </Row>
                 </Header>
