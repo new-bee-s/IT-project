@@ -75,12 +75,12 @@ export default class RegisterFillInfo extends React.Component {
                 region: { city: this.state.address[2], state: this.state.address[1], country: this.state.address[0] },
                 company: this.state.company,
                 occupation: this.state.job,
-                headers: {
-                    Authorization: `Bearer ${Cookies.get('token')}`
+            }, 
+                {headers: {
+                Authorization: `Bearer ${Cookies.get('token')}`
                 }
             }).then(res => {
                 if (res.data.success) {
-                    console.log(res)
                     this.props.history.push('/dashboard')
                 }
                 else {
