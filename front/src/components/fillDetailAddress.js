@@ -3,7 +3,7 @@ import { Country, State, City } from 'country-state-city';
 import 'antd/dist/antd.css';
 import { Row, Col, Cascader } from 'antd';
 
-
+// function to chech the region of user
 export default function fillDetaillAddress(props) {
 
     const setAddress = (e) => {
@@ -40,6 +40,7 @@ export default function fillDetaillAddress(props) {
 
     const options = initial_option();
 
+    // make the region selection menu
     return (
 
         <Row>

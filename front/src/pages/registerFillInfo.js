@@ -77,7 +77,7 @@ export default class RegisterFillInfo extends React.Component {
                 occupation: this.state.job,
             }, 
                 {headers: {
-                Authorization: `Bearer ${Cookies.get('token')}`
+                    Authorization: `Bearer ${Cookies.get('token')}`
                 }
             }).then(res => {
                 if (res.data.success) {
@@ -171,6 +171,7 @@ export default class RegisterFillInfo extends React.Component {
                         </Row>
                         <br />
 
+                        {/* the address selection menu */}
                         <FillDetaillAddress sendData={setAddress}></FillDetaillAddress>
 
 

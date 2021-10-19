@@ -22,7 +22,6 @@ export default class Dashboard extends React.Component {
             }
         }).then(response => {
             if (response.data.success) {
-                console.log(response.data.user)
                 this.setState({ profile: response.data.user, loading: false });
             }
         }).catch(error => {
@@ -154,7 +153,7 @@ export default class Dashboard extends React.Component {
                                     <Descriptions.Item label="Gender">{profile.gender}</Descriptions.Item>
                                     <Descriptions.Item label="Mobile number">{profile.mobile}</Descriptions.Item>
                                     <Descriptions.Item label="Region">{profile.region.country + " " + profile.region.state + " " +profile.region.city}</Descriptions.Item>
-                                    <Descriptions.Item label="Date of Birth">{profile.dob.date + '-' + profile.dob.month + '-' + profile.dob.year}</Descriptions.Item>
+                                    <Descriptions.Item label="Date of Birth">{profile.dob.year + '-' + profile.dob.month + '-' + profile.dob.date}</Descriptions.Item>
                                     <Descriptions.Item label="Company">{profile.company}</Descriptions.Item>
                                     <Descriptions.Item label="Occupation">{profile.occupation}</Descriptions.Item>
                                     <Descriptions.Item label="introduction">{profile.introduction}</Descriptions.Item>

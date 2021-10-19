@@ -269,7 +269,7 @@ export default class ContactBrief extends React.Component {
               onClose={() => this.handleClose(tag)}
             >
               <span
-                onDoubleClick={e => {
+                onClick={e => {
                   if (index) {
                     this.setState({ editInputIndex: index, editInputValue: tag }, () => {
                       this.editInput.focus();
@@ -303,6 +303,7 @@ export default class ContactBrief extends React.Component {
             onChange={this.handleInputChange}
             onBlur={this.handleInputConfirm}
             onPressEnter={this.handleInputConfirm}
+            style = {{marginTop: '10px'}}
           />
         )}
         {!inputVisible && (
