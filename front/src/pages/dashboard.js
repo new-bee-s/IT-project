@@ -111,7 +111,7 @@ export default class Dashboard extends React.Component {
                 </Header>
                 <Layout>
                     <Content style={{ padding: '0 5vw', backgroundImage: 'url("../pics/background2.jpg")' }}>
-                        <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2vw', marginTop: '2vh' }}>
+                        <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.9)', padding: '2vw', marginTop: '2vh' }}>
 
                             <div id='left' style={{ width: '10vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
                                 <div style={{paddingLeft:'3vw'}}>
@@ -132,30 +132,32 @@ export default class Dashboard extends React.Component {
                                 </a>
                             </div>
 
-                            <div id='right' style={{ width: '60vw', float:'right', paddingTop: '3vh', margin: '0 auto' }}>
+                            <div id='right' style={{ width: '60vw', float:'right', paddingTop: '3vh', paddingRight:'10vw' }}>
                                 
-                                <span style={{ color: 'black', verticalAlign: 'middle', fontSize: '60px' }}>
+                                <span style={{ color: 'black', verticalAlign: 'middle', fontSize: '65px' }}>
                                     Hi!&nbsp;{profile.givenName}&nbsp;{profile.familyName}
                                 </span>
 
-                                <span style={{float:'right', paddingRight:'3vw', paddingTop:'5vh'}}>
+                                <span style={{float:'right', paddingTop:'5vh'}}>
                                     <a href={home + '/changeinfo'}>
                                         <Button type='primary' size='large'>change profile</Button>
                                     </a>
                                 </span>
 
-                                <Descriptions layout="vertical" style={{paddingTop:'5vh'}} bordered>
+                                <Descriptions layout="vertical" style={{paddingTop:'8vh'}} bordered>
                                     <Descriptions.Item label="UserID">{profile.userID}</Descriptions.Item>
-                                    <Descriptions.Item label="Email" span={2}>{profile.email}</Descriptions.Item>
-                                    <Descriptions.Item label="Given Name">{profile.givenName}</Descriptions.Item>
-                                    <Descriptions.Item label="Family Name" span={2}>{profile.familyName}</Descriptions.Item>
-                                    
-                                    <Descriptions.Item label="Gender">{profile.gender}</Descriptions.Item>
+                                    <Descriptions.Item label="Name" span={2}>{profile.givenName + " " + profile.familyName}</Descriptions.Item>
+
                                     <Descriptions.Item label="Mobile number">{profile.mobile}</Descriptions.Item>
-                                    <Descriptions.Item label="Region">{profile.region.country + " " + profile.region.state + " " +profile.region.city}</Descriptions.Item>
-                                    <Descriptions.Item label="Date of Birth">{profile.dob.date + '-' + profile.dob.month + '-' + profile.dob.year}</Descriptions.Item>
+                                    <Descriptions.Item label="Email" span={2}>{profile.email}</Descriptions.Item>
+                                    
                                     <Descriptions.Item label="Company">{profile.company}</Descriptions.Item>
+                                    <Descriptions.Item label="Region" span={2}>{profile.region.country + " " + profile.region.state + " " +profile.region.city}</Descriptions.Item>
+                                    
                                     <Descriptions.Item label="Occupation">{profile.occupation}</Descriptions.Item>
+                                    <Descriptions.Item label="Date of Birth">{profile.dob.date + '-' + profile.dob.month + '-' + profile.dob.year}</Descriptions.Item>
+                                    <Descriptions.Item label="Gender">{profile.gender}</Descriptions.Item>
+                                    
                                     <Descriptions.Item label="introduction">{profile.introduction}</Descriptions.Item>
                                 </Descriptions>
                             </div>
