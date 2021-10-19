@@ -9,8 +9,6 @@ const editInfo = async (req, res) => {
         let introduction = req.body.introduction;
         let userID = req.body.userID
         let mobile = req.body.mobile
-        let address = req.body.address
-        console.log(req.body)
         // Udpate the information that user has changed
         if (givenName) {
             await User.updateOne({ _id: userid }, { $set: { givenName: givenName } })
@@ -33,7 +31,6 @@ const editInfo = async (req, res) => {
         }
         if (userID) {
             let found = await User.findOne({ userID: userID })
-            console.log(found)
             if (found) {
                 return res.status(400).json({ success: false, error: "This UserID has been used" })
             }
@@ -62,7 +59,6 @@ const editInfo = async (req, res) => {
             await User.updateOne({ userID: req.user.userID }, { $set: { occupation: req.body.occupation } })
         }
         if (req.body.gender) {
-            console.log(1)
             await User.updateOne({ userID: req.user.userID }, { $set: { gender: req.body.gender } })
         }
         if (req.body.region) {
@@ -80,7 +76,7 @@ const editInfo = async (req, res) => {
     }
 }
 
-
+// Upload image into database
 const uploadImage = async (req, res) => {
     try {
         let photo = {

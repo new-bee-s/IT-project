@@ -19,7 +19,6 @@ const acceptFriend = async (req, res) => {
         await Contact.updateOne({ user: req.body.userid, friend: req.user._id }, { $set: { status: "accepted" } })
         // Creat a new contact 
         let contact = await Contact.find({ user: req.user._id, friend: req.body.userid })
-        console.log(contact)
         if (contact.length != 0) {
             return res.status(400).json({ success: false, error: "This user is already in your contact" })
         }
@@ -39,7 +38,6 @@ const acceptFriend = async (req, res) => {
         }
 
     } catch (err) {
-        console.log(err)
         return res.status(400).json({ success: false, error: "accept failed, try again" })
     }
 }
@@ -53,7 +51,6 @@ const getContact = async (req, res) => {
         let acceptedList = await Contact.find({ user: req.user._id, status: "accepted" }, {}).populate('friend')
         return res.status(200).json({ success: true, pending: pendingList, accepted: acceptedList })
     } catch (err) { // error occors
-        console.log(err)
         return res.status(400).json({ success: false, error: "Database query failed" })
     }
 }
@@ -68,6 +65,7 @@ const changeRemark = async (req, res) => {
     }
 }
 
+// Edit the tag
 const editTag = async (req, res) => {
     try {
         await Contact.updateOne({ _id: req.body.contactid }, { $set: { tag: req.body.tag } })

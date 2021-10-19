@@ -1,14 +1,17 @@
-require('dotenv').config()    // for JWT password key
+require('dotenv').config()
+// for JWT password key
 // used to create our local strategy for authenticating
 // using email and password
 const LocalStrategy = require('passport-local').Strategy
 // our user model
 const User = require('../models/user')
+// our admin model
 const Admin = require('../models/admin')
 // JSON Web Tokens
 const passportJWT = require("passport-jwt");
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
+
 module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
         done(null, user._id);
@@ -43,14 +46,14 @@ module.exports = function (passport) {
         });
     }));
 
-
+    // Local login strategy for the users
     passport.use('local-login', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
-    }, // pass the req as the first arg to the callback for verification 
+    },
         async (email, password, done) => {
             try {
-                // see if the user with the emailAddress exists
+                // see if the user with the email exists
                 await User.findOne({ 'email': email }, function (err, user) {
                     // if there are errors, user is not found or password
                     // does match, send back errors
@@ -75,20 +78,20 @@ module.exports = function (passport) {
         }));
 
 
-    // for signup
+    // local signp strategy for users
     passport.use('local-signup', new LocalStrategy({
         usernameField: 'email',     // get email and password
         passwordField: 'password',
-        passReqToCallback: true
+        passReqToCallback: true    // pass req variables
     }, async (req, email, password, done) => {
         try {
             await User.findOne({ 'email': email }, function (err, existingUser) {
                 // search a user by the email
-                // if user is not found or exists, exit with false indicating
                 // authentication failure
                 if (err) {
                     return done(err, false, { message: "Database query failed" });
                 } else {
+                    // If the information is not entered, will return with the wrong message
                     if (email == "" || email == null) {
                         console.log("Please enter your email")
                         return done(null, false, { message: "Please enter your email" });
@@ -106,6 +109,7 @@ module.exports = function (passport) {
                     else if (req.body.confirmPassword == "" || req.body.confirmPassword == null) {
                         return done(null, false, { message: "Please enter your confirmed password" });
                     }
+                    // If the email has already been used, send message and return false
                     else if (existingUser) {
                         console.log("Customer signup failed:", email, "ALREADY REGISTERED!");
                         return done(null, false, { message: "Email has already Registered" });
@@ -124,8 +128,6 @@ module.exports = function (passport) {
                         newUser.password = newUser.generateHash(password);
                         newUser.familyName = req.body.familyName;
                         newUser.givenName = req.body.givenName;
-                        newUser.contact = [];
-                        newUser.groups = [];
                         newUser.introduction = "";
                         newUser.ban = false
                         // and save the user
@@ -141,6 +143,8 @@ module.exports = function (passport) {
             return done(err)
         }
     }));
+
+    // Local create strategy for admins
     passport.use('admin-local-signup', new LocalStrategy({
         usernameField: 'account',     // get account and password
         passwordField: 'password',
@@ -205,6 +209,7 @@ module.exports = function (passport) {
             return done(err)
         }
     }));
+    // Local login strategy for admins
     passport.use('admin-local-login', new LocalStrategy({
         usernameField: 'account',
         passwordField: 'password',
@@ -233,6 +238,7 @@ module.exports = function (passport) {
                 return done(err)
             };
 
-        }));
+        })
+    );
 }
 

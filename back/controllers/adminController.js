@@ -2,8 +2,9 @@ const Admin = require('../models/admin')
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 require('../config/passport')(passport)
-// admin log in function
-const AdminLogin = (req, res, next) => {
+
+// Admin log in function
+const adminLogin = (req, res, next) => {
     passport.authenticate('admin-local-login', (err, admin, info) => {
         // If there were errors during executing the strategy or the admin was not found, we display and error
         if (err) {
@@ -23,6 +24,7 @@ const AdminLogin = (req, res, next) => {
     })(req, res, next)
 }
 
+// Create an admin function
 const createAdmin = (req, res, next) => {
     passport.authenticate('admin-local-signup', (err, admin, info) => {
         if (err) {
@@ -43,4 +45,4 @@ const createAdmin = (req, res, next) => {
 }
 
 
-module.exports = { AdminLogin, createAdmin }
+module.exports = { adminLogin, createAdmin }

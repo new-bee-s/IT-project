@@ -54,11 +54,12 @@ const UserLogin = (req, res, next) => {
 }
 
 
-// Search the user by id and return photo, givenName, familyName and email to front end
+// Search the user by id
 const SearchUserID = async (req, res) => {
     try {
         let user = await User.findOne({ userID: req.body.userID }, {});
         if (user) {
+            // If a user is searching his own id, will return error message
             if (user.userID === req.user.userID) {
                 return res.status(400).json({ success: false, error: "You cannot search yourself" })
             } else {
@@ -81,6 +82,7 @@ const addFriend = async (req, res) => {
         if (existingContact) {
             return res.status(200).json({ success: false, error: "You have added this user" })
         }
+        // Add a new contact for the requester
         let newContact = new Contact({
             user: req.user._id,
             friend: req.body.friend,
@@ -108,16 +110,18 @@ const getUserInfo = async (req, res) => {
     }
 }
 
+// Return all the users 
 const viewUsers = async (req, res) => {
     try {
         let users = await User.find({})
         return res.status(200).json({ success: true, users: users })
     }
     catch (err) {
-        return res.status(404).json({ success: false, error: "Web carshed" })
+        return res.status(404).json({ success: false, error: "Web crashed" })
     }
 }
 
+// Ban the User
 const banUser = async (req, res) => {
     try {
         await User.updateOne({ _id: req.body._id }, { $set: { ban: true } })
@@ -129,6 +133,7 @@ const banUser = async (req, res) => {
     }
 }
 
+// Unban the user
 const unbanUser = async (req, res) => {
     try {
         await User.updateOne({ _id: req.body._id }, { $set: { ban: false } })
@@ -138,4 +143,5 @@ const unbanUser = async (req, res) => {
         return res.status(404).json({ success: false, error: "Web carshed" })
     }
 }
+
 module.exports = { UserSignup, UserLogin, addFriend, getUserInfo, SearchUserID, viewUsers, banUser, unbanUser }

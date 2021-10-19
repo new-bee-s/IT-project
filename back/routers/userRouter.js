@@ -11,7 +11,7 @@ userRouter.post('/register', userController.UserSignup)
 // Signin router
 userRouter.post('/login', userController.UserLogin)
 
-
+// Fill info after registering
 userRouter.post('/register/fillInfo',
     passport.authenticate('jwt', { session: false }), (req, res) => infoController.editInfo(req, res))
 module.exports = userRouter

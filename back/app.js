@@ -57,6 +57,7 @@ app.use('/dashboard', passport.authenticate('jwt', { session: false }), contactR
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), infoRouter)
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), searchRouter)
 app.use('/admin/', adminRouter)
+
 // Use port 8000 to listen
 const port = process.env.PORT || 8000
 app.listen(port, () => {

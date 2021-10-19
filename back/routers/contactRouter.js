@@ -3,7 +3,6 @@ const contactController = require('../controllers/contactController')
 const contactRouter = express.Router()
 const passport = require('passport')
 require('../config/passport')(passport)
-// Add friend router
 
 // Delete friend router
 contactRouter.post('/deleteFriend', contactController.deleteFriend)
