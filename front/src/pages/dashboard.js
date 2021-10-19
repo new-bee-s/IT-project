@@ -155,7 +155,7 @@ export default class Dashboard extends React.Component {
                                     <Descriptions.Item label="Region" span={2}>{profile.region.country + " " + profile.region.state + " " +profile.region.city}</Descriptions.Item>
                                     
                                     <Descriptions.Item label="Occupation">{profile.occupation}</Descriptions.Item>
-                                    <Descriptions.Item label="Date of Birth">{profile.dob.date + '-' + profile.dob.month + '-' + profile.dob.year}</Descriptions.Item>
+                                    <Descriptions.Item label="Date of Birth">{profile.dob.year + '-' + profile.dob.month + '-' + profile.dob.date}</Descriptions.Item>
                                     <Descriptions.Item label="Gender">{profile.gender}</Descriptions.Item>
                                     
                                     <Descriptions.Item label="introduction">{profile.introduction}</Descriptions.Item>
