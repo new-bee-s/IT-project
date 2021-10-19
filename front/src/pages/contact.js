@@ -10,9 +10,13 @@ import { Row, Col, Space, Spin } from 'antd';
 import Cookies from 'js-cookie';
 import { Avatar } from 'antd';
 import { message } from 'antd';
+import { Input} from 'antd';
+
+
 
 
 export default function Contact(props) {
+    const { Search } = Input;
     const { Text } = Typography;
     const { SubMenu } = Menu;
     const [acceptContact, setAcceptContacts] = useState([]);
@@ -24,7 +28,10 @@ export default function Contact(props) {
     const [Detail, setDetail] = useState([]);
     const home = '/dashboard';
     const [profile, setProfile] = useState([]);
-
+    const [word, setWord] = useState('');
+    const [searchDisplay, setSearchDisplay] = useState(acceptContact);
+    
+    //console.log(acceptContact)
 
     useEffect(() => {
 
@@ -36,6 +43,7 @@ export default function Contact(props) {
                 setPendingContact(response.data.pending)
                 setLength(response.data.pending.length)
                 setDetailLoading(false)
+                
             }
         }).catch(error => {
             console.log(error.response.data.error)
@@ -52,7 +60,7 @@ export default function Contact(props) {
             message.error(error.response.data.error)
         })
 
-    }, [acceptContact], [pendingContact])
+    }, [acceptContact], [pendingContact],[word])
 
     // logout function
     const OnLogOut = () => {
@@ -60,13 +68,37 @@ export default function Contact(props) {
         props.history.push('/login');
     }
 
+    const onSearch = e=>{
+        let oldList = acceptContact.map(contact=>{
+            return{ Name:contact.friend.givenName+contact.friend.familyName,email:contact.friend.email}
+            
+        });
+        console.log(e)
+        console.log(oldList)
+        if (e !==''){
+            let newList=[];
+            setWord(e)
+            console.log(word)
+            newList = oldList.filter(contact=>
+                contact.Name.includes(word)
+            );
+            console.log(newList)
+            setSearchDisplay(newList);
+         }
+        else{
+            setSearchDisplay(acceptContact);
+            
+        }
+    };
+
     //render logout
     const logout = (
         <Menu>
             <Menu.Item key="1" onClick={OnLogOut}>Log Out</Menu.Item>
         </Menu>
     );
-
+    
+    
     // separate each contact list with index
     const renderContact = acceptContact.map((contact, index) => {
         if (Detail.id === undefined) {
@@ -103,7 +135,7 @@ export default function Contact(props) {
                                 </div>
                             </a>
                         </Col>
-                        <Col span={7} offset={2}>
+                        <Col span={6} offset={2}>
                             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ height: '64px' }}>
                                 <Menu.Item key="1">
                                     <a href={home}>
@@ -125,11 +157,13 @@ export default function Contact(props) {
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
                                     </a>
                                 </Menu.Item>
+                                
 
                             </Menu>
+
                         </Col>
 
-                        <Col span={7} offset={1}>
+                        <Col span={4} offset={1}>
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key="1">
@@ -141,6 +175,14 @@ export default function Contact(props) {
                                 </Dropdown>
                             </Menu>
                         </Col>
+                        <Col span={4} >
+                            <Menu theme="dark" mode="horizontal" style={{ margin:"10px 12px" }}>
+                                <Search placeholder="input friend name" onChange={e=>onSearch(e.target.value)} style={{ width: 200 }} />
+                               
+                                
+                            </Menu>
+
+                        </Col>
                     </Row>
                 </Header>
                 <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background1.jpg")' }}>
@@ -151,7 +193,10 @@ export default function Contact(props) {
                         >
                             <SubMenu key="sub1" icon={<Badge count={length} size="small" offset={[2, -1]}>
                                 <UserAddOutlined />
-                            </Badge>} title="New friend" >
+
+                                </Badge>}
+                                title="New friend" 
+                            >
                                 {pendingContact.map((contact, index) => <Menu.Item key={contact._id} icon={
                                     <Avatar icon={<UserOutlined />} />} style={{ paddingLeft: '20px', height: '100px' }}  >
                                     <ContactPendingBrief
