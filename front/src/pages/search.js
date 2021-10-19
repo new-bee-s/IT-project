@@ -150,24 +150,32 @@ export default class AddFriend extends React.Component {
                             </a>
                         </Col>
                         <Col span={7} offset={2}>
-                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['3']} style={{ height: '64px' }}>
-                                <Menu.Item key="1">
+                        <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['3']} style={{ height: '64px' }}>
+                                <Menu.Item key='1'>
                                     <a href={home}>
-                                        <img src="/../pics/user_icon.png" alt="profile_icon" style={{ height: '24px', verticalAlign: 'middle' }} />
+                                        <img src='../pics/manage1.png' alt='profile_icon' style={{ height: '28px', verticalAlign: 'middle' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                                     </a>
                                 </Menu.Item>
-                                <Menu.Item key="2">
+
+                                <Menu.Item key='2'>
                                     <a href={home + '/contact'}>
-                                        <img src="/../pics/contact_icon.png" alt='contact_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
+                                        <img src='../pics/friend.png' alt='contact_icon' style={{ height: '24px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
                                     </a>
                                 </Menu.Item>
 
-                                <Menu.Item key="3">
+                                <Menu.Item key='3'>
                                     <a href={home + '/search'}>
-                                        <img src="/../pics/AddFriend.png" alt="AddFriend" style={{ height: '19px' }} />
+                                        <img src='../pics/af1.png' alt='AddFriend' style={{ height: '26px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
+                                    </a>
+                                </Menu.Item>
+
+                                <Menu.Item key='4'>
+                                    <a href={home + '/changeinfo'}>
+                                        <img src='../pics/edit.png' alt='ManageProfile' style={{ height: '28px' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage Profile</span>
                                     </a>
                                 </Menu.Item>
 
