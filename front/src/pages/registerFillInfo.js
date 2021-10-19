@@ -16,7 +16,7 @@ export default class RegisterFillInfo extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { gender: undefined, mobieNumber: '', dob: undefined, address: [], company: '', job: '' };
+        this.state = { gender: undefined, mobieNumber: '', dob: undefined, address: undefined, company: '', job: '' };
     }
 
 
@@ -40,21 +40,32 @@ export default class RegisterFillInfo extends React.Component {
             this.state.address = address;
         }
 
-        //using on onchange
-        const fillDetaill = () => {
-            console.log(Cookies.get('token'))
+        const checkInfo = () =>{
             if (this.state.gender === undefined) {
                 message.error("Please Enter your Gender")
             }
-            if (this.state.dob === undefined) {
+            else if (this.state.dob === undefined) {
                 message.error("Please Enter your Birthday")
             }
-            if (this.state.address === []) {
+            
+            else if (this.state.address === undefined) {
                 message.error("Please Enter your Address")
-            }
-            if (this.state.mobieNumber === '') {
+            } 
+            
+            else if (this.state.mobieNumber === '') {
                 message.error("Please Enter your mobie number")
+            } 
+            else {
+                console.log(this.state.address)
+                uploadInfo();
             }
+           
+        }
+
+
+
+        //using on onchange
+        const uploadInfo = () => {
 
             // use axios connect back-end and push personal information to back-end
             axios.post('/register/fillInfo', {
@@ -64,12 +75,12 @@ export default class RegisterFillInfo extends React.Component {
                 region: { city: this.state.address[2], state: this.state.address[1], country: this.state.address[0] },
                 company: this.state.company,
                 occupation: this.state.job,
-                headers: {
+            }, 
+                {headers: {
                     Authorization: `Bearer ${Cookies.get('token')}`
                 }
             }).then(res => {
                 if (res.data.success) {
-                    console.log(res)
                     this.props.history.push('/dashboard')
                 }
                 else {
@@ -160,6 +171,7 @@ export default class RegisterFillInfo extends React.Component {
                         </Row>
                         <br />
 
+                        {/* the address selection menu */}
                         <FillDetaillAddress sendData={setAddress}></FillDetaillAddress>
 
 
@@ -214,7 +226,7 @@ export default class RegisterFillInfo extends React.Component {
                         </Row>
 
                         <div style={blocks}>
-                            <Button variant="contained" style={button} onClick={e => fillDetaill()}>
+                            <Button variant="contained" style={button} onClick={e => checkInfo()}>
                                 Register
                             </Button>
                         </div>
