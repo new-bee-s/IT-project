@@ -225,7 +225,7 @@ export default function Contact(props) {
                             </SubMenu>
                             <SubMenu key="sub2" icon={<UserOutlined />} title="My friend">
                                 {acceptContact.map((contact, index) => <Menu.Item key={index} icon={
-                                    <Avatar icon={<UserOutlined />} />
+                                    <Avatar src={contact.friend.photo.data} />
                                 } style={{ paddingLeft: '20px' }}>
                                     <div
                                         onClick={e => setDetail(e.target)}
