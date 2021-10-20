@@ -65,11 +65,11 @@ export default class ContactBrief extends React.Component {
         );
         // render pending  page
         return (
-            <Content style={{ minHeight: 280, background: '#fff', padding: '3vh 3vh', margin: '10px 10px' }}>
+            <Content style={{ minHeight: '100vh', background: '#fff', padding: '3vh 3vh', margin: '10px 10px' }}>
                     <h1 style={{ margin: '20px 330px' }}>
                       User request
                     </h1>
-                    <h2>User information</h2>
+                    <h3>User information</h3>
                     <Row style={{ marginTop: 24 }}>
                         <Col span={12}>
                             <DescriptionItem title="User Name" content={this.props.contact.user.givenName+' '+this.props.contact.user.familyName} />

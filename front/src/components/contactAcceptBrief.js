@@ -9,7 +9,8 @@ import { Layout } from 'antd';
 
 export default class ContactBrief extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
+    console.log(props);
   }
 
   state = {
@@ -163,7 +164,6 @@ export default class ContactBrief extends React.Component {
         {content}
       </div>
     );
-
     return (
       // render accept 
       <Content style={{ minHeight: 280, background: '#fff', padding: '3vh 3vh', margin: '10px 10px' }}>
