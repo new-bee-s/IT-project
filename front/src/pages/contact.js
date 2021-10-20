@@ -4,7 +4,7 @@ import axios from '../commons/axios.js'
 import ContactPendingBrief from '../components/contactPendingBrief.js'
 import ContactBrief from '../components/contactAcceptBrief.js'
 import { Menu, Badge, Typography } from 'antd';
-import { UserOutlined, UserAddOutlined } from '@ant-design/icons';
+import { UserOutlined, UserAddOutlined, SearchOutlined} from '@ant-design/icons';
 import { Layout, Dropdown } from 'antd';
 import { Row, Col, Space, Spin } from 'antd';
 import Cookies from 'js-cookie';
@@ -248,20 +248,20 @@ export default function Contact(props) {
                             </Menu>
 
                         </Col>
-
-                        <Col span={4} offset={1}>
-                            <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
-                                <Dropdown overlay={logout}>
-                                    <Menu.Item key="1">
-                                        <Avatar src={profile.photo.data} />
-                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                            {profile.email}
-                                        </span>
-                                    </Menu.Item>
-                                </Dropdown>
-                            </Menu>
+                        <Col span={12}>
+                            <div style = {{float: 'right'}}>
+                                <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                                    <Dropdown overlay={logout}>
+                                        <Menu.Item key="1">
+                                            <Avatar src={profile.photo.data} />
+                                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                                {profile.email}
+                                            </span>
+                                        </Menu.Item>
+                                    </Dropdown>
+                                </Menu>
+                            </div>
                         </Col>
-                        
                     </Row>
                 </Header>
                 <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background1.jpg")' }}>
@@ -270,7 +270,7 @@ export default function Contact(props) {
                             mode="inline"
                             style={{ minHeight: '100vh' }}
                         >   
-                            <SubMenu key="3" icon={<img src='/../pics/search.png' alt='contact_icon' style={{ height: '16px' }} />} title="Search friend">
+                            <SubMenu key="3" icon={<SearchOutlined />} title="Search friend">
                                 <MenuItem key = "4" style = {{paddingLeft: '10px'}}>
                                     <Input.Group compact style={{ alignSelf: 'center', padding: '10px 20px'}}>
                                         <Select defaultValue="Email" onChange = {setSearch} style = {{width: "90px"}}>
