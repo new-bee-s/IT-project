@@ -62,7 +62,7 @@ export default class ContactBrief extends React.Component {
                     <List.Item style={{ paddingTop: '20px' }}>
                         <List.Item.Meta
                             title={this.props.contact.user.givenName + ' ' + this.props.contact.user.familyName}
-                            description={this.props.contact.user.email}
+                            description={this.props.contact.user.company}
                         />
                     </List.Item>
 
