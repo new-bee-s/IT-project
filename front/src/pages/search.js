@@ -68,7 +68,7 @@ export default class AddFriend extends React.Component {
 
         // perform send friend request functionality
         const sendRequest = () => {
-            axios.post(home + '/addFriend', { friend: result._id, remark: myremark }).then(res => {
+            axios.post(home + '/addFriend', { friend: result._id, remark: myremark, message: mymsg }).then(res => {
                 if (res.data.success) {
                     message.success("request successfully")
                 }
@@ -152,8 +152,8 @@ export default class AddFriend extends React.Component {
                             </a>
                         </Col>
                         <Col span={7} offset={2}>
-                            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['3']} style={{ height: '64px' }}>
-                                <Menu.Item key="1">
+                            <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['3']} style={{ height: '64px' }}>
+                                <Menu.Item key='1'>
                                     <a href={home}>
                                         <img src="/../pics/user_icon.png" alt="profile_icon" style={{ height: '24px', verticalAlign: 'middle' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
@@ -269,7 +269,7 @@ export default class AddFriend extends React.Component {
                         </div>
                         <br />
                         <br />
-                        <div align='center'>
+                        <div align='center' style={{ height: '60px' }}>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -278,12 +278,12 @@ export default class AddFriend extends React.Component {
                                 label={'Accompany a message to introduce yourself!'}
                                 name="msg"
                                 onChange={setmsg}
-                                style={{ width: 550 }}
+                                style={{ width: 550, height: '40px' }}
                             />
                         </div>
 
                         <div display="inline">
-                            <div align="left">
+                            <div align="left" style={{ height: '60px' }}>
                                 <TextField
                                     variant="outlined"
                                     margin="normal"
@@ -292,7 +292,7 @@ export default class AddFriend extends React.Component {
                                     label={'Set a remark!'}
                                     name="remark"
                                     onChange={setRemark}
-                                    style={{ width: '30%' }}
+                                    style={{ width: '30%', height: '40px' }}
                                 />
                             </div>
                             <div align="right">
