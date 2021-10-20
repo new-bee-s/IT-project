@@ -10,7 +10,7 @@ import Cookies from 'universal-cookie';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-export default class Dashboard extends React.Component {
+export default class ChangeInfo extends React.Component {
 
 
   constructor(props) {
@@ -210,7 +210,7 @@ export default class Dashboard extends React.Component {
               </a>
             </Col>
             <Col span={7} offset={2}>
-              <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ height: '64px' }}>
+              <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['2']} style={{ height: '64px' }}>
                 <Menu.Item key='1'>
                   <a href={home}>
                     <img src='../pics/manage.png' alt='manage_icon' style={{ height: '24px', verticalAlign: 'middle' }} />

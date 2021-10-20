@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Homepage from './pages/homepage.js';
 import LogIn from './pages/login.js';
 import Dashboard from './pages/dashboard.js';
+import ChangeInfo from './pages/changeinfo.js';
 
 // router switch 
 class Router extends React.Component {
@@ -12,7 +13,8 @@ class Router extends React.Component {
                 <Switch>
                     <Route path='/' exact component={Homepage}></Route>
                     <Route path='/login' exact component={LogIn}></Route>
-                    <Route path='/dashboard/' exact component={Dashboard}></Route>
+                    <Route path='/dashboard' exact component={Dashboard}></Route>
+                    <Route path='/dashboard/changeinfo' exact component={ChangeInfo}></Route>
                 </Switch>
             </BrowserRouter>
         )
