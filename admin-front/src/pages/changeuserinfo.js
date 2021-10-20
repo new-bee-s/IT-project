@@ -55,10 +55,6 @@ export default class ChangeUserInfo extends React.Component {
 
 
   render() {
-    // const test = () => {
-    //   console.log("haha");
-    //   console.log(banID);
-    // }
 
     const OnLogOut = () => {
       const cookies = new Cookies();
@@ -84,136 +80,6 @@ export default class ChangeUserInfo extends React.Component {
     }
 
 
-
-
-    const columns = [
-      {
-        title: 'Status',
-        key: 'ban',
-        render (record) {
-          if (record.ban === true) {
-            return (
-              <div align = 'center'>
-                  <Avatar size={30} icon={<CloseCircleFilled />} style={{ color: 'red', background: 'rgba(255, 255, 255, 0)' }} />
-              </div>
-            )
-          }
-          else {
-            return (
-              <div align = 'center'>
-                  <Avatar size={30} icon={<CheckCircleFilled />} style={{ color: 'green', background: 'rgba(255, 255, 255, 0)' }} />
-              </div>
-            )
-          }
-        }
-      },
-      {
-        title: 'User ID',
-        dataIndex: 'userID',
-      },
-      {
-        title: 'First Name',
-        dataIndex: 'givenName',
-      },
-      {
-        title: 'Last Name',
-        dataIndex: 'familyName',
-
-      },
-      {
-        title: 'Email',
-        dataIndex: 'email',
-      },
-      {
-        title: 'Action',
-        key: 'action',
-        render(record) {
-          console.log(record._id)
-
-          const OnBan = () => {
-            console.log(profile.email);
-            console.log("click ban");
-            axios.post(home + '/banUser', { _id: record._id }).then(res => {
-              if (res.data.success) {
-                message.success("ban successfully")
-                record.ban = true;
-              }
-              else {
-                message.error(res.data.error)
-              }
-            }).catch(error => {
-              console.log(error.response.data.error)
-              message.error(error.response.data.error)
-              // or throw(error.respond)
-            })
-            //this.setState({banID: id})
-          }
-
-          const OnUnban = () => {
-            console.log(record._id)
-            console.log("click unban");
-
-            axios.post(home + '/unBanUser', { _id: record._id }).then(res => {
-              if (res.data.success) {
-                message.success("unban successfully")
-                record.ban = false;
-              }
-              else {
-                message.error(res.data.error)
-              }
-            }).catch(error => {
-              console.log(error.response.data.error)
-              message.error(error.response.data.error)
-              // or throw(error.respond)
-            })
-          }
-
-          const Edit = () => {
-            
-          }
-
-          if (record.ban === true) {
-            return (
-              <div>
-                <Button type="dashed" onClick={OnUnban} size={20}>
-                  Edit
-                </Button>
-
-                <span style={{paddingRight:'2vw'}}></span>
-
-                <Button type="dashed" onClick={OnUnban} size={20}>
-                  Unban
-                </Button>
-              </div>
-            )
-          }
-          else {
-            return (
-              <div>
-                <Button type="dashed" onClick={OnUnban} size={20}>
-                  Edit
-                </Button>
-
-                <span style={{paddingRight:'2vw'}}></span>
-
-                <Button type="dashed" onClick={OnBan} size={20}>
-                  Ban
-                </Button>
-              </div>
-            )
-          }
-          
-        }
-
-      }
-
-    ];
-
-
-
-
-
-
     return (
       <Layout >
         <Header style={{ padding: '0 10px' }}>
@@ -229,14 +95,14 @@ export default class ChangeUserInfo extends React.Component {
             <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ height: '64px' }}>
                 <Menu.Item key='1'>
                   <a href={home}>
-                    <img src='../pics/manager11.png' alt='manage_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
+                    <img src='/../pics/manager11.png' alt='manage_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage</span>
                   </a>
                 </Menu.Item>
 
                 <Menu.Item key='2'>
                   <a href={home+'/changeinfo'}>
-                    <img src='../pics/manage1.png' alt='changeinfo icon' style={{ height: '24px', verticalAlign: 'middle' }} />
+                    <img src='/../pics/manage1.png' alt='changeinfo icon' style={{ height: '24px', verticalAlign: 'middle' }} />
                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                   </a>
                 </Menu.Item>
@@ -256,13 +122,9 @@ export default class ChangeUserInfo extends React.Component {
 
 
 
-          <Content style={{ padding: '0 5vw' }}>
-            <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
-              <Typography component="h1" variant='h1' align='center'>Manage all the users</Typography>
-              <p align='left'>"Big Brother is watching you!"</p>
-              <Divider />
-              <Table columns={columns} rowKey='_id' dataSource={data} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
-            </div>
+          <Content style={{ padding: '0 5vw', height:'100vh'}}>
+              hahahahahahhaha
+              hahahah
           </Content>
         </Layout >
       </Layout >

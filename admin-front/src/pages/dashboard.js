@@ -55,10 +55,6 @@ export default class Dashboard extends React.Component {
 
 
   render() {
-    // const test = () => {
-    //   console.log("haha");
-    //   console.log(banID);
-    // }
 
     const OnLogOut = () => {
       const cookies = new Cookies();
@@ -168,16 +164,14 @@ export default class Dashboard extends React.Component {
             })
           }
 
-          const Edit = () => {
-            this.props.history.push(home+'/changeuserinfo'+record._id, { replace: true });
-          }
-
           if (record.ban === true) {
             return (
               <div>
-                <Button type="dashed" onClick={Edit} size={20}>
-                  Edit
-                </Button>
+                <a href={home+'/changeuserinfo/'+record._id}>
+                  <Button type="dashed" size={20}>
+                    Edit
+                  </Button>
+                </a>
 
                 <span style={{paddingRight:'2vw'}}></span>
 
@@ -190,9 +184,11 @@ export default class Dashboard extends React.Component {
           else {
             return (
               <div>
-                <Button type="dashed" onClick={Edit} size={20}>
-                  Edit
-                </Button>
+                <a href={home+'/changeuserinfo/'+record._id}>
+                  <Button type="dashed" size={20}>
+                    Edit
+                  </Button>
+                </a>
 
                 <span style={{paddingRight:'2vw'}}></span>
 
