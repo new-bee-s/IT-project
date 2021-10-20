@@ -12,7 +12,7 @@ adminRouter.post('/login', adminController.adminLogin)
 adminRouter.post('/create', adminController.createAdmin)
 
 // Admin dashboard would view all users
-adminRouter.get('/dashboard', passport.authenticate('jwt', { session: false }), (req, res) => userController.viewUsers(req, res))
+adminRouter.get('/dashboard', passport.authenticate('admin-jwt', { session: false }), (req, res) => userController.viewUsers(req, res))
 
 // Admin ban users
 adminRouter.post('/dashboard/banUser', userController.banUser)

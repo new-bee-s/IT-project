@@ -26,6 +26,7 @@ export default class Dashboard extends React.Component {
       headers: {
         Authorization: `Bearer ${cookies.get('token')}`
       }
+
     }).then(response => {
       if (response.data.success) {
         this.setState({ profile: response.data.users, loading: false });
@@ -37,7 +38,11 @@ export default class Dashboard extends React.Component {
 
 
 
-    axios.get(home).then(response => {
+    axios.get(home, {
+      headers: {
+        Authorization: `Bearer ${cookies.get('token')}`
+      }
+    }).then(response => {
       if (response.data.success) {
         console.log("users info");
         console.log(response.data.users);
