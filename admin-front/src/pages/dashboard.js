@@ -169,7 +169,7 @@ export default class Dashboard extends React.Component {
           }
 
           const Edit = () => {
-            this.props.history.push(home+'/changeuserinfo', { replace: true });
+            this.props.history.push(home+'/changeuserinfo'+record._id, { replace: true });
           }
 
           if (record.ban === true) {
