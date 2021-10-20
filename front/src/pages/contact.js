@@ -12,6 +12,7 @@ import { Avatar } from 'antd';
 import { message } from 'antd';
 import { Input} from 'antd';
 import { Select } from 'antd';
+import { MenuItem } from 'rc-menu'
 const { Option } = Select;
 
 
@@ -31,6 +32,7 @@ export default function Contact(props) {
     const [Detail, setDetail] = useState([]);
     const home = '/dashboard';      
     const [profile, setProfile] = useState([]);
+    const [searchOption, setSearchOption] = useState("Email" );
     const [searchDisplay, setSearchDisplay] = useState([]);
     const { Option } = Select;
 
@@ -71,41 +73,58 @@ export default function Contact(props) {
         Cookies.remove('token')
         props.history.push('/login');
     }
-   
     
-    const onSearch = e=>{
-        let allFriendList = acceptContact.map(contact=>{
-            return{ givenName:contact.friend.givenName,
-                    familyName:contact.friend.familyName,
-                    email:contact.friend.email,
-                    userID:contact.friend.userID,
-                    tag:contact.tag,
-                    remark:contact.remark,
-                    _id:contact.friend._id
-                }
-       
-                
-        });
+    const setSearch = e => {
+        console.log(e)
+        setSearchOption(e)
+    }
+
+    
+    const onSearch = e =>{
         if (e !== ''){
             let searchList=[];
-            searchList = allFriendList.filter(contact=>
-                contact.givenName.includes(e)||
-                contact.familyName.includes(e)||
-                contact.email.includes(e)
-                //contact.userID.includes(e)||
-                //contact.remark.includes(e)||
-                //contact.tag.includes(e)
-            );
+            if (searchOption === 'Email'){
+                searchList = acceptContact.filter(contact=>
+                    contact.friend.email.toString().toLowerCase().includes(e)
+                );
+            }
+            else if (searchOption === 'Name'){
+                searchList = acceptContact.filter(contact=>
+                    contact.contact.friend.givenName.toString().toLowerCase().includes(e)||
+                    contact.friend.familyName.toString().toLowerCase().includes(e)
+                );
+            }
+            else if (searchOption === 'Remark'){
+                searchList = acceptContact.filter(contact=>
+                    contact.remark.toString().toLowerCase().includes(e)
+                );
+            }
+            else if (searchOption === 'UserID'){
+                searchList = acceptContact.filter(contact=>
+                    contact.friend.userID.toString().toLowerCase().includes(e)
+                );
+            }
+            else if (searchOption === 'Tag'){
+                searchList = searchTag(acceptContact, e);
+            }
             setSearchDisplay(searchList);
         }
-        else{
-            
-            setSearchDisplay(allFriendList);  
-        }
-        console.log(e)
     };
 
-    console.log(searchDisplay)
+    const searchTag = (allFriendList, e) => {
+        var searchList = [];
+        allFriendList.map(contact=>{
+            contact.tag.map(tag => {
+                if (tag.toLowerCase().includes(e)){
+                    searchList.push(contact)
+                }
+            })
+        })
+        return searchList;
+    };
+
+
+
 
     //render logout
     const logout = (
@@ -118,13 +137,13 @@ export default function Contact(props) {
     // separate each contact list with index
     const renderContact = acceptContact.map((contact, index) => {
         if (Detail.id === undefined) {
-            return (<> </>)
+            return (<div key = {index}> </div>)
         }
 
         if (contact.friend._id === Detail.id) {
             return (
                 <ContactBrief
-                    key={index}
+                    key= {index}
                     contact={contact} />
             )
 
@@ -190,32 +209,56 @@ export default function Contact(props) {
                                 </Dropdown>
                             </Menu>
                         </Col>
-                        <Col span={4} >
-                            <Menu theme="dark" mode="horizontal" style={{ margin:"10px 12px" }}>
-                                <Search
-                                    showSearch
-                                    style={{ width: 200 }}
-                                    placeholder="Search to Select"
-                                    onSearch={onSearch}
-                                />
-                                    
-                            </Menu>
-                        </Col>
+                        
                     </Row>
                 </Header>
                 <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background1.jpg")' }}>
-                    <Sider width={'20vw'} style={{ background: '#fff' }}>
+                    <Sider width={'400px'} style={{ background: '#fff' }}>
                         <Menu
                             mode="inline"
                             style={{ minHeight: '100vh' }}
-                        >
+                        >   
+                            <SubMenu key="3" icon={<img src='/../pics/search.png' alt='contact_icon' style={{ height: '16px' }} />} title="Search friend">
+                                <MenuItem key = "4" style = {{paddingLeft: '10px'}}>
+                                    <Input.Group compact style={{ alignSelf: 'center', padding: '10px 20px'}}>
+                                        <Select defaultValue="Email" onChange = {setSearch} style = {{width: "90px"}}>
+                                            <Option value="Email">Email</Option>
+                                            <Option value="UserID">UserID</Option>
+                                            <Option value="Remark">Remark</Option>
+                                            <Option value="Name">Name</Option>
+                                            <Option value="Tag">Tag</Option>
+                                        </Select>
+                                        <Search style = {{width: "250px"}}
+                                            placeholder="Search to Select"
+                                            onSearch={onSearch}
+                                        />
+                                    </Input.Group>
+                                </MenuItem>
+                                {searchDisplay.map(contact => <Menu.Item icon={
+                                    <Avatar icon={<UserOutlined />} key = {contact.friend._id}/>
+                                } style={{ paddingLeft: '20px' }}>
+                                    <div
+                                        onClick={e => setDetail(e.target)}
+                                        id={contact.friend._id}
+                                    >
+                                        {contact.friend.givenName}
+                                        <Text
+                                            type="secondary"
+                                            style={{ margin: '5px' }}
+                                        >
+                                            {contact.remark}
+                                        </Text>
+
+                                    </div>
+                                </Menu.Item>)}
+                            </SubMenu>
                             <SubMenu key="sub1" icon={<Badge count={length} size="small" offset={[2, -1]}>
                                 <UserAddOutlined />
 
                                 </Badge>}
                                 title="New friend" 
                             >
-                                {pendingContact.map((contact, index) => <Menu.Item key={contact._id} icon={
+                                {pendingContact.map((contact, index) => <Menu.Item key={index} icon={
                                     <Avatar icon={<UserOutlined />} />} style={{ paddingLeft: '20px', height: '100px' }}  >
                                     <ContactPendingBrief
                                         key={contact._id}
