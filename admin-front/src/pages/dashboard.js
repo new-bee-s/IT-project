@@ -41,7 +41,6 @@ export default class Dashboard extends React.Component {
 
 
 
-
   render() {
 
     const OnLogOut = () => {
@@ -67,8 +66,53 @@ export default class Dashboard extends React.Component {
       </Space>;
     }
 
+    const OnUnban = (record) => {
 
+      axios.post(home + '/unBanUser', { _id: record._id }).then(res => {
+          if (res.data.success) {
+          message.success("unban successfully")
+        }
+        else {
+          message.error(res.data.error)
+        }
+      }).catch(error => {
+        console.log(error.response.data.error)
+        message.error(error.response.data.error)
+        // or throw(error.respond)
+      })
 
+      let datalist = data.map(data =>{
+        if (record._id === data._id){
+          data.ban = false
+        }
+        return data;
+      })
+      this.setState({data: [...datalist]})
+    }
+
+    const OnBan = (record) => {
+      console.log("click ban");
+      axios.post(home + '/banUser', { _id: record._id }).then(res => {
+        if (res.data.success) {
+          message.success("ban successfully")
+          record.ban = true;
+          
+        }
+        else {
+          message.error(res.data.error)
+        }
+      }).catch(error => {
+        console.log(error.response.data.error)
+        message.error(error.response.data.error)
+      })
+      let datalist = data.map(data =>{
+        if (record._id === data._id){
+          data.ban = true;
+        }
+        return data;
+      })
+      this.setState({data: [...datalist]})
+    }
 
     const columns = [
       {
@@ -112,44 +156,6 @@ export default class Dashboard extends React.Component {
         title: 'Action',
         key: 'action',
         render(record) {
-          console.log(record._id)
-
-          const OnBan = () => {
-            console.log("click ban");
-            axios.post(home + '/banUser', { _id: record._id }).then(res => {
-              if (res.data.success) {
-                message.success("ban successfully")
-                record.ban = true;
-              }
-              else {
-                message.error(res.data.error)
-              }
-            }).catch(error => {
-              console.log(error.response.data.error)
-              message.error(error.response.data.error)
-              // or throw(error.respond)
-            })
-            //this.setState({banID: id})
-          }
-
-          const OnUnban = () => {
-            console.log(record._id)
-            console.log("click unban");
-
-            axios.post(home + '/unBanUser', { _id: record._id }).then(res => {
-              if (res.data.success) {
-                message.success("unban successfully")
-                record.ban = false;
-              }
-              else {
-                message.error(res.data.error)
-              }
-            }).catch(error => {
-              console.log(error.response.data.error)
-              message.error(error.response.data.error)
-              // or throw(error.respond)
-            })
-          }
 
           if (record.ban === true) {
             return (
@@ -168,7 +174,7 @@ export default class Dashboard extends React.Component {
 
                 <span style={{ paddingRight: '2vw' }}></span>
 
-                <Button type="dashed" onClick={OnUnban} size={20}>
+                <Button type="dashed" onClick={e => OnUnban(record)} size={20}>
                   Unban
                 </Button>
               </div >
@@ -191,7 +197,7 @@ export default class Dashboard extends React.Component {
 
                 <span style={{ paddingRight: '2vw' }}></span>
 
-                <Button type="dashed" onClick={OnBan} size={20}>
+                <Button type="dashed" onClick={e => OnBan(record)} size={20}>
                   Ban
                 </Button>
               </div>
