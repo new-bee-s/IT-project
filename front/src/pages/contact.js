@@ -13,9 +13,6 @@ import { message } from 'antd';
 import { Input} from 'antd';
 import { Select } from 'antd';
 
-const { Option } = Select;
-
-
 
 
 
@@ -103,6 +100,7 @@ export default function Contact(props) {
             
             setSearchDisplay(allFriendList);  
         }
+        console.log(e)
     };
 
     console.log(searchDisplay)
@@ -131,6 +129,7 @@ export default function Contact(props) {
         }
         return (<> </>)
     })
+
     // loading page if waiting 
     if (detailLoading || profileLoading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
@@ -189,20 +188,7 @@ export default function Contact(props) {
                                 </Dropdown>
                             </Menu>
                         </Col>
-                        <Col span={4} >
-                            <Menu theme="dark" mode="horizontal" style={{ margin:"10px 12px" }}>
-                                <Select
-                                    showSearch
-                                    style={{ width: 200 }}
-                                    placeholder="Search to Select"
-                                    onSearch={onSearch}
-                                >
-                                    {searchDisplay.map(contact =><Option key={contact._id}>{contact.givenName} </Option>)}
-
-                                </Select>
-
-                            </Menu>
-                        </Col>
+      
                     </Row>
                 </Header>
                 <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background1.jpg")' }}>
@@ -227,7 +213,7 @@ export default function Contact(props) {
                             </SubMenu>
                             <SubMenu key="sub2" icon={<UserOutlined />} title="My friend">
                                 {acceptContact.map((contact, index) => <Menu.Item key={index} icon={
-                                    <Avatar icon={<UserOutlined />} />
+                                    <Avatar src={contact.friend.photo.data} />
                                 } style={{ paddingLeft: '20px' }}>
                                     <div
                                         onClick={e => setDetail(e.target)}
