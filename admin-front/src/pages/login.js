@@ -155,7 +155,7 @@ function SignIn(props) {
         //put user input to back-end and return status
         axios.post('/login', { account: account, password: password }).then(res => {
             if (res.data.success) {
-                // console.log(res.data.data)
+                console.log(res.data.data)
                 const cookies = new Cookies();
                 cookies.set('token', res.data.token, { maxAge: 24 * 60 * 60 })
                 props.history.push('/dashboard')

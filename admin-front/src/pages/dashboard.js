@@ -21,7 +21,7 @@ export default class Dashboard extends React.Component {
 
   componentDidMount() {
     const home = '/dashboard';
-    const cookies = new Cookies()
+    const cookies = new Cookies();
     axios.get(home, {
       headers: {
         Authorization: `Bearer ${cookies.get('token')}`
@@ -29,31 +29,13 @@ export default class Dashboard extends React.Component {
 
     }).then(response => {
       if (response.data.success) {
-        this.setState({ profile: response.data.users, loading: false });
+        console.log(response);
+        this.setState({ data: response.data.users, loading: false, profile: response.data.admin });
       }
     }).catch(error => {
       console.log(error.response.data.error)
       message.error(error.response.data.error);
     })
-
-
-
-    axios.get(home, {
-      headers: {
-        Authorization: `Bearer ${cookies.get('token')}`
-      }
-    }).then(response => {
-      if (response.data.success) {
-        console.log("users info");
-        console.log(response.data.users);
-        this.setState({ data: response.data.users })
-
-      }
-    }).catch(error => {
-      console.log(error.response.data.error)
-      message.error(error.response.data.error)
-    })
-
 
   }
 
@@ -75,7 +57,7 @@ export default class Dashboard extends React.Component {
     // Define the variable
     const { Header, Content } = Layout;
     // remember to add loading back!
-    const { profile, loading, data } = this.state;
+    const { loading, data, profile} = this.state;
     const home = '/dashboard';
 
     if (loading) {
@@ -133,7 +115,6 @@ export default class Dashboard extends React.Component {
           console.log(record._id)
 
           const OnBan = () => {
-            console.log(profile.email);
             console.log("click ban");
             axios.post(home + '/banUser', { _id: record._id }).then(res => {
               if (res.data.success) {
@@ -273,7 +254,7 @@ export default class Dashboard extends React.Component {
           <Content style={{ padding: '0 5vw' }}>
             <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
               <Typography component="h1" variant='h1' align='center'>Manage all the users</Typography>
-              <p align='left'>"Big Brother is watching you!"</p>
+              <p align='left'>"{profile.name} is watching you!"</p>
               <Divider />
               <Table columns={columns} rowKey='_id' dataSource={data} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
             </div>
