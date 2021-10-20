@@ -3,10 +3,11 @@ import 'antd/dist/antd.css';
 import { Layout, Menu, Dropdown, Space, Spin } from 'antd';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
-import { Row, Col, Button} from 'antd';
+import { Row, Col, Button } from 'antd';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
 import { message, Divider, Typography, Table } from 'antd';
 import Cookies from 'universal-cookie';
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -15,7 +16,7 @@ export default class Dashboard extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { profile: undefined, loading: true, data: undefined};
+    this.state = { profile: undefined, loading: true, data: undefined };
   }
 
   componentDidMount() {
@@ -34,7 +35,7 @@ export default class Dashboard extends React.Component {
       message.error(error.response.data.error);
     })
 
-    
+
 
     axios.get(home).then(response => {
       if (response.data.success) {
@@ -74,8 +75,8 @@ export default class Dashboard extends React.Component {
 
     if (loading) {
       return <Space size='middle' style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
-          <Spin size='large' />
-          <h3>Loading</h3>
+        <Spin size='large' />
+        <h3>Loading</h3>
       </Space>;
     }
 
@@ -86,18 +87,18 @@ export default class Dashboard extends React.Component {
       {
         title: 'Status',
         key: 'ban',
-        render (record) {
+        render(record) {
           if (record.ban === true) {
             return (
-              <div align = 'center'>
-                  <Avatar size={30} icon={<CloseCircleFilled />} style={{ color: 'red', background: 'rgba(255, 255, 255, 0)' }} />
+              <div align='center'>
+                <Avatar size={30} icon={<CloseCircleFilled />} style={{ color: 'red', background: 'rgba(255, 255, 255, 0)' }} />
               </div>
             )
           }
           else {
             return (
-              <div align = 'center'>
-                  <Avatar size={30} icon={<CheckCircleFilled />} style={{ color: 'green', background: 'rgba(255, 255, 255, 0)' }} />
+              <div align='center'>
+                <Avatar size={30} icon={<CheckCircleFilled />} style={{ color: 'green', background: 'rgba(255, 255, 255, 0)' }} />
               </div>
             )
           }
@@ -167,30 +168,42 @@ export default class Dashboard extends React.Component {
           if (record.ban === true) {
             return (
               <div>
-                <a href={home+'/changeuserinfo/'+record._id}>
+                <Link
+                  to={
+                    {
+                      pathname: '/dashbord/changeuserinfo',
+                      state: record
+                    }
+                  }>
                   <Button type="dashed" size={20}>
                     Edit
                   </Button>
-                </a>
+                </Link>
 
-                <span style={{paddingRight:'2vw'}}></span>
+                <span style={{ paddingRight: '2vw' }}></span>
 
                 <Button type="dashed" onClick={OnUnban} size={20}>
                   Unban
                 </Button>
-              </div>
+              </div >
             )
           }
           else {
             return (
               <div>
-                <a href={home+'/changeuserinfo/'+record._id}>
+                <Link
+                  to={
+                    {
+                      pathname: '/dashboard/changeuserinfo',
+                      state: record
+                    }
+                  }>
                   <Button type="dashed" size={20}>
                     Edit
                   </Button>
-                </a>
+                </Link>
 
-                <span style={{paddingRight:'2vw'}}></span>
+                <span style={{ paddingRight: '2vw' }}></span>
 
                 <Button type="dashed" onClick={OnBan} size={20}>
                   Ban
@@ -198,7 +211,7 @@ export default class Dashboard extends React.Component {
               </div>
             )
           }
-          
+
         }
 
       }
@@ -231,7 +244,7 @@ export default class Dashboard extends React.Component {
                 </Menu.Item>
 
                 <Menu.Item key='2'>
-                  <a href={home+'/changeinfo'}>
+                  <a href={home + '/changeinfo'}>
                     <img src='../pics/manage1.png' alt='changeinfo icon' style={{ height: '24px', verticalAlign: 'middle' }} />
                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                   </a>
@@ -240,7 +253,7 @@ export default class Dashboard extends React.Component {
               </Menu>
             </Col>
             <Col span={3} offset={9}>
-              <Menu theme='dark' mode='horizontal'style={{ height: '64px' }}>
+              <Menu theme='dark' mode='horizontal' style={{ height: '64px' }}>
                 <Menu.Item key='2' onClick={e => OnLogOut()}>
                   Log Out
                 </Menu.Item>

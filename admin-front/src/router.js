@@ -16,7 +16,7 @@ class Router extends React.Component {
                     <Route path='/login' exact component={LogIn}></Route>
                     <Route path='/dashboard' exact component={Dashboard}></Route>
                     <Route path='/dashboard/changeinfo' exact component={ChangeInfo}></Route>
-                    <Route path='/dashboard/changeuserinfo/:_id' exact component={ChangeUserInfo}></Route>
+                    <Route path='/dashboard/changeuserinfo' exact component={ChangeUserInfo}></Route>
                 </Switch>
             </BrowserRouter>
         )
