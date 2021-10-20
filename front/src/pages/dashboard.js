@@ -102,26 +102,18 @@ export default class Dashboard extends React.Component {
 
                             </Menu>
                         </Col>
-
-
                         <Col span={7} offset={1}>
                             <Menu theme='dark' mode='horizontal' style={{ height: '64px' }}>
+                                <Dropdown overlay={logout}>
                                     <Menu.Item key='1'>
                                         <Avatar src={profile.photo.data} />
-                                        
                                         <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                             {profile.email}
                                         </span>
                                     </Menu.Item>
-                                    <Menu.Item key='2' onClick={e => OnLogOut()}>
-                                        <img src='../pics/logout.png' alt='logout_icon' style={{ height: '24px' }} />
-                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Log Out</span>
-                                    </Menu.Item>
+                                </Dropdown>
                             </Menu>
-                            
                         </Col>
-
-
                     </Row>
                 </Header>
                 <Layout>
