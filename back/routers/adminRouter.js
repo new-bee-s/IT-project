@@ -3,6 +3,7 @@ const adminRouter = express.Router()
 
 const adminController = require('../controllers/adminController')
 const userController = require('../controllers/userController')
+const infoController = require('../controllers/infoController')
 const passport = require('passport')
 require('../config/passport')(passport)
 // Admin login
@@ -19,5 +20,9 @@ adminRouter.post('/dashboard/banUser', userController.banUser)
 
 // Admin unban users
 adminRouter.post('/dashboard/unBanUser', userController.unbanUser)
+
+adminRouter.post('/dashboard/editinfo',
+    passport.authenticate('admin-jwt', { session: false }), (req, res) => infoController.editInfo(req, res))
+
 
 module.exports = adminRouter

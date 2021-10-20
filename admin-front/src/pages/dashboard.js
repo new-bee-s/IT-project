@@ -1,14 +1,11 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Dropdown, Space, Spin } from 'antd';
-import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Row, Col, Button } from 'antd';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
-import { message, Divider, Typography, Table } from 'antd';
+import { Avatar, message, Divider, Typography, Table, Layout, Menu, Space, Spin } from 'antd';
 import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
 
 
 export default class Dashboard extends React.Component {
@@ -49,11 +46,6 @@ export default class Dashboard extends React.Component {
       cookies.remove('token');
       this.props.history.push('/login', { replace: true });
     }
-    const logout = (
-      <Menu>
-        <Menu.Item key='1' onClick={OnLogOut}>Log Out</Menu.Item>
-      </Menu>
-    );
     // Define the variable
     const { Header, Content } = Layout;
     // remember to add loading back!
@@ -211,7 +203,7 @@ export default class Dashboard extends React.Component {
 
     return (
       <Layout >
-        <Header style={{ padding: '0 10px' }}>
+        <Header>
           <Row style={{ height: '64px' }}>
             <Col span={2} offset={1}>
               <a href={home}>
@@ -221,22 +213,6 @@ export default class Dashboard extends React.Component {
               </a>
             </Col>
             <Col span={7} offset={2}>
-              <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ height: '64px' }}>
-                <Menu.Item key='1'>
-                  <a href={home}>
-                    <img src='../pics/manager11.png' alt='manage_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
-                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage</span>
-                  </a>
-                </Menu.Item>
-
-                <Menu.Item key='2'>
-                  <a href={home + '/changeinfo'}>
-                    <img src='../pics/manage1.png' alt='changeinfo icon' style={{ height: '24px', verticalAlign: 'middle' }} />
-                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
-                  </a>
-                </Menu.Item>
-
-              </Menu>
             </Col>
             <Col span={3} offset={9}>
               <Menu theme='dark' mode='horizontal' style={{ height: '64px' }}>
@@ -254,7 +230,7 @@ export default class Dashboard extends React.Component {
           <Content style={{ padding: '0 5vw' }}>
             <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
               <Typography component="h1" variant='h1' align='center'>Manage all the users</Typography>
-              <p align='left'>"{profile.name} is watching you!"</p>
+                <p align='right' style={{fontSize:'20px',paddingRight:'10vw', color:'grey'}}>"{profile.name} is watching you!"</p>
               <Divider />
               <Table columns={columns} rowKey='_id' dataSource={data} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
             </div>
