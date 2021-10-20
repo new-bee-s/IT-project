@@ -35,6 +35,9 @@ export default function Contact(props) {
     const [searchOption, setSearchOption] = useState("Email" );
     const [searchDisplay, setSearchDisplay] = useState([]);
     const { Option } = Select;
+    const [pendingRequest,setPendingRequest] = useState([]);
+    const [showPending, setShowPending] = useState(false);
+    const [showAccept, setShowAccept] = useState(false);
 
     
     //console.log(acceptContact)
@@ -68,6 +71,16 @@ export default function Contact(props) {
 
     }, [acceptContact], [pendingContact])
 
+    const handleShowPending = () => { 
+        setShowPending(true)
+        setShowAccept(false)
+    }
+    const handleShowAccept = () => { 
+        setShowAccept(true)
+        setShowPending(false)
+    }
+    
+
     // logout function
     const OnLogOut = () => {
         Cookies.remove('token')
@@ -90,7 +103,7 @@ export default function Contact(props) {
             }
             else if (searchOption === 'Name'){
                 searchList = acceptContact.filter(contact=>
-                    contact.contact.friend.givenName.toString().toLowerCase().includes(e)||
+                    contact.friend.givenName.toString().toLowerCase().includes(e)||
                     contact.friend.familyName.toString().toLowerCase().includes(e)
                 );
             }
@@ -133,23 +146,62 @@ export default function Contact(props) {
         </Menu>
     );
     
-    
+    // const renderPendingContact = pendingContact.map((contact, index) => {
+    //     if (pendingRequest.id === undefined) {
+    //         return (<div key = {index}> </div>)
+    //     }
+
+    //     if (contact.user._id === pendingRequest.id) {
+    //         return (
+    //             <ContactPendingBrief
+    //                 key= {contact.user._id}
+    //                 contact={contact} />
+    //         )
+
+    //     }
+    //     return (<> </>)
+    // })
+
+
     // separate each contact list with index
-    const renderContact = acceptContact.map((contact, index) => {
-        if (Detail.id === undefined) {
-            return (<div key = {index}> </div>)
-        }
+    const renderContact = ()=>{
+        console.log(showAccept)
+        console.log(showPending)
+        if (showAccept){
+            acceptContact.map((contact, index) => {
+            if (Detail.id === undefined) {
+                return (<div key = {index}> </div>)
+            }
 
-        if (contact.friend._id === Detail.id) {
-            return (
-                <ContactBrief
-                    key= {index}
-                    contact={contact} />
-            )
+            if (contact.friend._id === Detail.id) {
+                return (
+                    <ContactBrief
+                        key= {index}
+                        contact={contact} />
+                )
 
+            }
+            return (<> </>)
+            })
+        }else if(showPending){
+
+            pendingContact.map((contact, index) => {
+            if (pendingRequest.id === undefined) {
+                return (<div key = {index}> </div>)
+            }
+
+            if (contact.user._id === pendingRequest.id) {
+                return (
+                    <ContactPendingBrief
+                        key= {contact.user._id}
+                        contact={contact} />
+                )
+
+            }
+            return (<> </>)
+            })
         }
-        return (<> </>)
-    })
+}
 
     // loading page if waiting 
     if (detailLoading || profileLoading) {
@@ -252,21 +304,31 @@ export default function Contact(props) {
                                     </div>
                                 </Menu.Item>)}
                             </SubMenu>
-                            <SubMenu key="sub1" icon={<Badge count={length} size="small" offset={[2, -1]}>
+                            <SubMenu onTitleClick={() => {handleShowPending()}} key="sub1" icon={<Badge count={length} size="small" offset={[2, -1]}>
                                 <UserAddOutlined />
 
                                 </Badge>}
                                 title="New friend" 
                             >
                                 {pendingContact.map((contact, index) => <Menu.Item key={index} icon={
-                                    <Avatar icon={<UserOutlined />} />} style={{ paddingLeft: '20px', height: '100px' }}  >
-                                    <ContactPendingBrief
-                                        key={contact._id}
-                                        contact={contact} />
+                                    <Avatar src={contact.user.photo.data} />} style={{ paddingLeft: '20px', height: '100px' }}  >
+                                        <div
+                                            onClick={e => setPendingRequest(e.target)}
+                                            id={contact.user._id}
+                                        >
+                                            
+                                            <Text
+                                                type="secondary"
+                                                style={{ margin: '5px' }}
+                                            >
+                                                {contact.user.email}
+                                            </Text>
+
+                                        </div>
                                 </Menu.Item>)}
 
                             </SubMenu>
-                            <SubMenu key="sub2" icon={<UserOutlined />} title="My friend">
+                            <SubMenu key="sub2"  onTitleClick={() => {handleShowAccept()}} icon={<UserOutlined />} title="My friend">
                                 {acceptContact.map((contact, index) => <Menu.Item key={index} icon={
                                     <Avatar src={contact.friend.photo.data} />
                                 } style={{ paddingLeft: '20px' }}>
