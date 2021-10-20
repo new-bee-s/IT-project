@@ -1,7 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Dropdown, Space, Spin } from 'antd';
-import TextField from '@material-ui/core/TextField';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Row, Col, Button} from 'antd';
@@ -11,7 +10,7 @@ import Cookies from 'universal-cookie';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-export default class ChangeInfo extends React.Component {
+export default class ChangeUserInfo extends React.Component {
 
 
   constructor(props) {
@@ -169,9 +168,19 @@ export default class ChangeInfo extends React.Component {
             })
           }
 
+          const Edit = () => {
+            
+          }
+
           if (record.ban === true) {
             return (
-              <div align='center'>
+              <div>
+                <Button type="dashed" onClick={OnUnban} size={20}>
+                  Edit
+                </Button>
+
+                <span style={{paddingRight:'2vw'}}></span>
+
                 <Button type="dashed" onClick={OnUnban} size={20}>
                   Unban
                 </Button>
@@ -180,7 +189,13 @@ export default class ChangeInfo extends React.Component {
           }
           else {
             return (
-              <div align='center'>
+              <div>
+                <Button type="dashed" onClick={OnUnban} size={20}>
+                  Edit
+                </Button>
+
+                <span style={{paddingRight:'2vw'}}></span>
+
                 <Button type="dashed" onClick={OnBan} size={20}>
                   Ban
                 </Button>
@@ -211,7 +226,7 @@ export default class ChangeInfo extends React.Component {
               </a>
             </Col>
             <Col span={7} offset={2}>
-              <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['2']} style={{ height: '64px' }}>
+            <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ height: '64px' }}>
                 <Menu.Item key='1'>
                   <a href={home}>
                     <img src='../pics/manager11.png' alt='manage_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
@@ -237,34 +252,17 @@ export default class ChangeInfo extends React.Component {
             </Col>
           </Row>
         </Header>
-        <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background2.jpg")', height:'100vh'}}>
+        <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background2.jpg")' }}>
 
 
 
           <Content style={{ padding: '0 5vw' }}>
-          <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="givenName"
-                                        label={'Your current givenName: ' + profile.givenName}
-                                        name="givenName"
-                                        autoComplete="givenName"
-                                        // onChange={e => setGivenName(e.target.value)}
-                                    />
-
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="familyName"
-                                        label={'Your current familyName: ' + profile.familyName}
-                                        name="familyName"
-                                        autoComplete="familyName"
-                                        // onChange={e => setFamilyName(e.target.value)}
-                                    />
+            <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
+              <Typography component="h1" variant='h1' align='center'>Manage all the users</Typography>
+              <p align='left'>"Big Brother is watching you!"</p>
+              <Divider />
+              <Table columns={columns} rowKey='_id' dataSource={data} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
+            </div>
           </Content>
         </Layout >
       </Layout >

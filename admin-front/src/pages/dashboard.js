@@ -168,9 +168,19 @@ export default class Dashboard extends React.Component {
             })
           }
 
+          const Edit = () => {
+            this.props.history.push(home+'/changeuserinfo', { replace: true });
+          }
+
           if (record.ban === true) {
             return (
-              <div align='center'>
+              <div>
+                <Button type="dashed" onClick={Edit} size={20}>
+                  Edit
+                </Button>
+
+                <span style={{paddingRight:'2vw'}}></span>
+
                 <Button type="dashed" onClick={OnUnban} size={20}>
                   Unban
                 </Button>
@@ -179,7 +189,13 @@ export default class Dashboard extends React.Component {
           }
           else {
             return (
-              <div align='center'>
+              <div>
+                <Button type="dashed" onClick={Edit} size={20}>
+                  Edit
+                </Button>
+
+                <span style={{paddingRight:'2vw'}}></span>
+
                 <Button type="dashed" onClick={OnBan} size={20}>
                   Ban
                 </Button>
@@ -213,14 +229,14 @@ export default class Dashboard extends React.Component {
               <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ height: '64px' }}>
                 <Menu.Item key='1'>
                   <a href={home}>
-                    <img src='../pics/manage.png' alt='manage_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
+                    <img src='../pics/manager11.png' alt='manage_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage</span>
                   </a>
                 </Menu.Item>
 
                 <Menu.Item key='2'>
                   <a href={home+'/changeinfo'}>
-                    <img src='../pics/manage1.png' alt='manage_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
+                    <img src='../pics/manage1.png' alt='changeinfo icon' style={{ height: '24px', verticalAlign: 'middle' }} />
                     <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                   </a>
                 </Menu.Item>

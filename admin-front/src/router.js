@@ -4,6 +4,7 @@ import Homepage from './pages/homepage.js';
 import LogIn from './pages/login.js';
 import Dashboard from './pages/dashboard.js';
 import ChangeInfo from './pages/changeinfo.js';
+import ChangeUserInfo from './pages/changeuserinfo.js';
 
 // router switch 
 class Router extends React.Component {
@@ -15,6 +16,7 @@ class Router extends React.Component {
                     <Route path='/login' exact component={LogIn}></Route>
                     <Route path='/dashboard' exact component={Dashboard}></Route>
                     <Route path='/dashboard/changeinfo' exact component={ChangeInfo}></Route>
+                    <Route path='/dashboard/changeuserinfo' exact component={ChangeUserInfo}></Route>
                 </Switch>
             </BrowserRouter>
         )
