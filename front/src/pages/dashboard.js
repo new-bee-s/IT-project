@@ -1,11 +1,11 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Dropdown } from 'antd';
+import { Layout, Menu, Dropdown, Card, Descriptions } from 'antd';
 import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
 import { Row, Col, Button, Space, Spin } from 'antd';
 import { message } from 'antd';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 
 export default class Dashboard extends React.Component {
@@ -16,10 +16,9 @@ export default class Dashboard extends React.Component {
 
     componentDidMount() {
         const home = '/dashboard';
-        const cookies = new Cookies()
         axios.get(home, {
             headers: {
-                Authorization: `Bearer ${cookies.get('token')}`
+                Authorization: `Bearer ${Cookies.get('token')}`
             }
         }).then(response => {
             if (response.data.success) {
@@ -36,14 +35,14 @@ export default class Dashboard extends React.Component {
 
     render() {
         const OnLogOut = () => {
-            const cookies = new Cookies();
-            cookies.remove('token');
+            Cookies.remove('token');
             this.props.history.push('/login', { replace: true });
         }
 
         // Define the variable
         const { Header, Content } = Layout;
         const { profile, loading } = this.state;
+        const { Meta } = Card;
         const home = '/dashboard';
         if (loading) {
             return <Space size='middle' style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
@@ -75,22 +74,29 @@ export default class Dashboard extends React.Component {
                             <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ height: '64px' }}>
                                 <Menu.Item key='1'>
                                     <a href={home}>
-                                        <img src='../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
+                                        <img src='../pics/manage1.png' alt='profile_icon' style={{ height: '28px', verticalAlign: 'middle' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                                     </a>
                                 </Menu.Item>
 
                                 <Menu.Item key='2'>
                                     <a href={home + '/contact'}>
-                                        <img src='../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
+                                        <img src='../pics/friend.png' alt='contact_icon' style={{ height: '24px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
                                     </a>
                                 </Menu.Item>
 
                                 <Menu.Item key='3'>
                                     <a href={home + '/search'}>
-                                        <img src='../pics/AddFriend.png' alt='AddFriend' style={{ height: '19px' }} />
+                                        <img src='../pics/af1.png' alt='AddFriend' style={{ height: '26px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
+                                    </a>
+                                </Menu.Item>
+
+                                <Menu.Item key='3'>
+                                    <a href={home + '/changeinfo'}>
+                                        <img src='../pics/edit.png' alt='ManageProfile' style={{ height: '28px' }} />
+                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage Profile</span>
                                     </a>
                                 </Menu.Item>
 
@@ -112,31 +118,52 @@ export default class Dashboard extends React.Component {
                 </Header>
                 <Layout>
                     <Content style={{ padding: '0 5vw', backgroundImage: 'url("../pics/background2.jpg")' }}>
-                        <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '2vw', marginTop: '2vh' }}>
+                        <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.9)', padding: '2vw', marginTop: '2vh' }}>
 
-                            <div id='left' style={{ width: '20vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
-                                <Avatar size={140} src={profile.photo.data} />
-                            </div>
-
-                            <span id='right' style={{ width: '15vw', float: 'right', paddingRight: '5vw', paddingTop: '8vh' }}>
-                                <a href={home + '/editinfo'}>
-                                    <Button type='primary' size='large'>change profile</Button>
+                            <div id='left' style={{ width: '10vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
+                                <div style={{paddingLeft:'3vw'}}>
+                                    <Avatar size={140} src={profile.photo.data}/>
+                                </div>
+                                
+                                <br/>
+                                <br/>
+                                <br/>
+                                <a href={home+'/contact'}>
+                                    <Card
+                                        hoverable
+                                        style={{ width: 240 }}
+                                        cover={<img alt="example" src="https://blmparis.files.wordpress.com/2014/07/angle.jpg" />}
+                                    >
+                                        <Meta title="Welcome!" description="Click to add new friend!" />
+                                    </Card>
                                 </a>
-                            </span>
-
-                            <div style={{ width: '50vw', paddingTop: '5vh', margin: '0 auto' }}>
-
-                                <div style={{ color: 'black', verticalAlign: 'middle', fontSize: '47px' }}>
-                                    Hi!&nbsp;{profile.givenName}&nbsp;{profile.familyName}
-                                </div>
-
-                                <div style={{ verticalAlign: 'middle', fontSize: '18px', color: 'rgba(0,0,0,0.6)' }}>
-                                    ID:&nbsp;{profile.userID}
-                                    <br />
-                                    Introduction:&nbsp;{profile.introduction}
-
-                                </div>
                             </div>
+
+                            <div id='right' style={{ width: '60vw', float:'right', paddingTop: '3vh', paddingRight:'10vw' }}>
+                                
+                                <span style={{ color: 'black', verticalAlign: 'middle', fontSize: '65px' }}>
+                                    Hi!&nbsp;{profile.givenName}&nbsp;{profile.familyName}
+                                </span>
+
+                                <Descriptions layout="vertical" style={{paddingTop:'8vh'}} bordered>
+                                    <Descriptions.Item label="UserID">{profile.userID}</Descriptions.Item>
+                                    <Descriptions.Item label="Name" span={2}>{profile.givenName + " " + profile.familyName}</Descriptions.Item>
+
+                                    <Descriptions.Item label="Mobile number">{profile.mobile}</Descriptions.Item>
+                                    <Descriptions.Item label="Email" span={2}>{profile.email}</Descriptions.Item>
+                                    
+                                    <Descriptions.Item label="Company">{profile.company}</Descriptions.Item>
+                                    <Descriptions.Item label="Region" span={2}>{profile.region.country + " " + profile.region.state + " " +profile.region.city}</Descriptions.Item>
+                                    
+                                    <Descriptions.Item label="Occupation">{profile.occupation}</Descriptions.Item>
+                                    <Descriptions.Item label="Date of Birth">{profile.dob.year + '-' + profile.dob.month + '-' + profile.dob.date}</Descriptions.Item>
+                                    <Descriptions.Item label="Gender">{profile.gender}</Descriptions.Item>
+                                    
+                                    <Descriptions.Item label="introduction">{profile.introduction}</Descriptions.Item>
+                                </Descriptions>
+                            </div>
+
+
 
                         </div>
                     </Content>

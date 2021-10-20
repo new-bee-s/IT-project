@@ -8,14 +8,14 @@ const cors = require('cors')
 const passport = require('passport')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
+
 //app.use(module)
 app.use(express.json())
-app.use(bodyParser.json())
-app.use(express.static('public'))
-app.use(express.urlencoded({ extended: false })) // replaces body-parser
-app.use(express.static('public'))
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true })); // replaces body-parser
 app.use(cookieParser())
-let allowedOrigins = ['http://localhost:3000', 'https://new-bees.netlify.app'];
+// Define allowed origins
+let allowedOrigins = ['http://localhost:3000', 'https://new-bee.netlify.app', 'http://localhost:3001', 'https://new-bee-admin.netlify.app'];
 
 app.use(cors({
     credentials: true, // add Access-Control-Allow-Credentials to header
@@ -48,13 +48,17 @@ const userRouter = require('./routers/userRouter')
 const contactRouter = require('./routers/contactRouter')
 const infoRouter = require('./routers/infoRouter')
 const searchRouter = require('./routers/searchRouter')
-require('./config/passport')(passport)
+const adminRouter = require('./routers/adminRouter')
+
 // Use Routers
+require('./config/passport')(passport)
 app.use('/', userRouter)
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), contactRouter)
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), infoRouter)
 app.use('/dashboard', passport.authenticate('jwt', { session: false }), searchRouter)
+app.use('/admin/', adminRouter)
 
+// Use port 8000 to listen
 const port = process.env.PORT || 8000
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')

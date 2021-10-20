@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import 'antd/dist/antd.css';
 import axios from '../commons/axios.js';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 
 
 ////web page style design
@@ -66,14 +66,16 @@ const useStyles = makeStyles((theme) => ({
 
     },
     background: {
+        display: 'flex',
         overflow: 'hidden',
         width: '100%',
-        height: '18%',
-        backgroundImage: 'url("./pics/vectors_sign_in&sign_up_bottom.svg")',
+        height: '100%',
+        backgroundImage: 'url("/../pics/beach.jpeg")',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
+        resizeMethod: 'cover',
         position: 'absolute',
-        bottom: 0,
+        bottom: '0',
     },
     blocks_signin: {
         height: 'auto',
@@ -154,8 +156,7 @@ function SignIn(props) {
         //put user input to back-end and return status
         axios.post('/login', { email: email, password: password }).then(res => {
             if (res.data.success) {
-                const cookies = new Cookies();
-                cookies.set('token', res.data.token, { maxAge: 24 * 60 * 60 })
+                Cookies.set('token', res.data.token, { expires: 1 })
                 props.history.push('/dashboard')
             }
             else {
@@ -165,24 +166,25 @@ function SignIn(props) {
         }).catch(error => {
             console.log(error.response.data.error)
             message.error(error.response.data.error)
-            // or throw(error.respond)
         })
-    };
+    }
 
 
     return (
         <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
-
+            
             <div className={classes.middle}>
                 <div className={classes.column}>
-                    <Container component="main" maxWidth="md">
+                <div style={{width: '50%',height: '100%', backgroundImage: 'url("/../pics/background24.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', left: '0vw', top:'0vh'}}>
                         <a href="/">
-                            <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle' }}></img>
+                            <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '80%', verticalAlign: 'middle',  position: 'absolute', left: '5vw', top:'34vh' }}></img>
                         </a>
-                        <CssBaseline />
-                    </Container>
-                </div>
-                <div className={classes.middle2} verticalalign='middle'>
+                        </div>
+                        </div>
+                        <div style={{width: '50%',height: '100%', backgroundColor: '#fffbf0', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
+                <div align = 'center' verticalalign='middle'>
+
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                     <Container component="main" maxWidth="xs">
                         <div>
                             <Typography component="h1" variant="h1" align='center'>Log In</Typography>
@@ -240,8 +242,8 @@ function SignIn(props) {
                         </div>
                     </Container>
                 </div>
+                </div>
             </div>
-            <div className={classes.background}> </div>
 
         </div>
     )

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const bcrypt = require('bcrypt-nodejs')
+const bcrypt = require('bcrypt')
 const { nanoid } = require('nanoid')
 
 const userSchema = new mongoose.Schema({
@@ -16,9 +16,9 @@ const userSchema = new mongoose.Schema({
     introduction: { type: String },
     mobile: { type: String },
     region: { city: String, state: String, country: String },
-    dob: { type: Date },
-    company: { type: String },
-    occupation: { type: String },
+    dob: { year: String, month: String, date: String },
+    company: { type: String, default: "not set" },
+    occupation: { type: String, default: "not set" },
     ban: { type: Boolean, require: true }
 })
 

@@ -23,7 +23,8 @@ const UserSignup = (req, res, next) => {
             const body = { _id: user._id };
             //Sign the JWT token and populate the payload with the user email
             //Send back the token to the client
-            return res.status(200).json({ success: true });
+            const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
+            return res.status(200).json({ success: true, data: user._id, token: token });
         });
     })(req, res, next)
 }
@@ -35,7 +36,7 @@ const UserLogin = (req, res, next) => {
         if (err) {
             return res.status(500).json({ success: false, error: info.message })
         } else if (!user) {
-            return res.status(404).json({ success: false, error: info.message })
+            return res.status(400).json({ success: false, error: info.message })
         }
         req.login(user, { session: false }, async (error) => {
             if (error) return next(error);
@@ -53,21 +54,24 @@ const UserLogin = (req, res, next) => {
 }
 
 
-// Search the user by id and return photo, givenName, familyName and email to front end
+// Search the user by id
 const SearchUserID = async (req, res) => {
     try {
-        let user = await User.findOne({ userID: req.body.userID }, { photo: true, givenName: true, familyName: true, email: true });
+        let user = await User.findOne({ userID: req.body.userID }, {});
         if (user) {
-            if (user._id == req.user._id) {
-                return res.status(200).json({ success: false, error: "You cannot search yourself" })
+            // If a user is searching his own id, will return error message
+            if (user._id === req.user._id) {
+                return res.status(400).json({ success: false, error: "You cannot search yourself" })
+            } else {
+
+                return res.status(200).json({ success: true, user: user })
             }
-            return res.status(200).json({ success: true, user: user })
         }
         else {
             return res.status(400).json({ success: false, error: "User not found!" })
         }
     } catch (err) {
-        return res.status(404).json({ success: false })
+        return res.status(400).json({ success: false })
     }
 }
 
@@ -78,6 +82,7 @@ const addFriend = async (req, res) => {
         if (existingContact) {
             return res.status(200).json({ success: false, error: "You have added this user" })
         }
+        // Add a new contact for the requester
         let newContact = new Contact({
             user: req.user._id,
             friend: req.body.friend,
@@ -102,9 +107,42 @@ const getUserInfo = async (req, res) => {
         return res.status(200).json({ success: true, user: req.user })
 
     } catch (err) {
-        return res.status(404).json({ success: false })
+        return res.status(400).json({ success: false })
     }
 }
 
+// Return all the users 
+const viewUsers = async (req, res) => {
+    try {
+        let users = await User.find({})
+        return res.status(200).json({ success: true, users: users })
+    }
+    catch (err) {
+        return res.status(404).json({ success: false, error: "Web crashed" })
+    }
+}
 
-module.exports = { UserSignup, UserLogin, addFriend, getUserInfo, SearchUserID }
+// Ban the User
+const banUser = async (req, res) => {
+    try {
+        await User.updateOne({ _id: req.body._id }, { $set: { ban: true } })
+        return res.status(200).json({ success: true })
+    }
+    catch (err) {
+        console.log(err)
+        return res.status(404).json({ success: false, error: "Web carshed" })
+    }
+}
+
+// Unban the user
+const unbanUser = async (req, res) => {
+    try {
+        await User.updateOne({ _id: req.body._id }, { $set: { ban: false } })
+        return res.status(200).json({ success: true })
+    }
+    catch (err) {
+        return res.status(404).json({ success: false, error: "Web carshed" })
+    }
+}
+
+module.exports = { UserSignup, UserLogin, addFriend, getUserInfo, SearchUserID, viewUsers, banUser, unbanUser }

@@ -7,12 +7,17 @@ import { Menu, Badge, Typography } from 'antd';
 import { UserOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Layout, Dropdown } from 'antd';
 import { Row, Col, Space, Spin } from 'antd';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 import { Avatar } from 'antd';
 import { message } from 'antd';
+import { Input} from 'antd';
+import { Select } from 'antd';
+
+
 
 
 export default function Contact(props) {
+    const { Search } = Input;
     const { Text } = Typography;
     const { SubMenu } = Menu;
     const [acceptContact, setAcceptContacts] = useState([]);
@@ -22,9 +27,13 @@ export default function Contact(props) {
     const [detailLoading, setDetailLoading] = useState(true);
     const [profileLoading, setProfileLoading] = useState(true);
     const [Detail, setDetail] = useState([]);
-    const home = '/dashboard';
+    const home = '/dashboard';      
     const [profile, setProfile] = useState([]);
+    const [searchDisplay, setSearchDisplay] = useState([]);
+    const { Option } = Select;
 
+    
+    //console.log(acceptContact)
 
     useEffect(() => {
 
@@ -36,6 +45,7 @@ export default function Contact(props) {
                 setPendingContact(response.data.pending)
                 setLength(response.data.pending.length)
                 setDetailLoading(false)
+                
             }
         }).catch(error => {
             console.log(error.response.data.error)
@@ -56,10 +66,44 @@ export default function Contact(props) {
 
     // logout function
     const OnLogOut = () => {
-        const cookies = new Cookies()
-        cookies.remove('token')
+        Cookies.remove('token')
         props.history.push('/login');
     }
+   
+    
+    const onSearch = e=>{
+        let allFriendList = acceptContact.map(contact=>{
+            return{ givenName:contact.friend.givenName,
+                    familyName:contact.friend.familyName,
+                    email:contact.friend.email,
+                    userID:contact.friend.userID,
+                    tag:contact.tag,
+                    remark:contact.remark,
+                    _id:contact.friend._id
+                }
+       
+                
+        });
+        if (e !== ''){
+            let searchList=[];
+            searchList = allFriendList.filter(contact=>
+                contact.givenName.includes(e)||
+                contact.familyName.includes(e)||
+                contact.email.includes(e)
+                //contact.userID.includes(e)||
+                //contact.remark.includes(e)||
+                //contact.tag.includes(e)
+            );
+            setSearchDisplay(searchList);
+        }
+        else{
+            
+            setSearchDisplay(allFriendList);  
+        }
+        console.log(e)
+    };
+
+    console.log(searchDisplay)
 
     //render logout
     const logout = (
@@ -67,7 +111,8 @@ export default function Contact(props) {
             <Menu.Item key="1" onClick={OnLogOut}>Log Out</Menu.Item>
         </Menu>
     );
-
+    
+    
     // separate each contact list with index
     const renderContact = acceptContact.map((contact, index) => {
         if (Detail.id === undefined) {
@@ -84,6 +129,7 @@ export default function Contact(props) {
         }
         return (<> </>)
     })
+
     // loading page if waiting 
     if (detailLoading || profileLoading) {
         return <Space size="middle" style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
@@ -104,7 +150,7 @@ export default function Contact(props) {
                                 </div>
                             </a>
                         </Col>
-                        <Col span={7} offset={2}>
+                        <Col span={6} offset={2}>
                             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ height: '64px' }}>
                                 <Menu.Item key="1">
                                     <a href={home}>
@@ -126,11 +172,11 @@ export default function Contact(props) {
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
                                     </a>
                                 </Menu.Item>
-
                             </Menu>
+
                         </Col>
 
-                        <Col span={7} offset={1}>
+                        <Col span={4} offset={1}>
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Dropdown overlay={logout}>
                                     <Menu.Item key="1">
@@ -142,6 +188,7 @@ export default function Contact(props) {
                                 </Dropdown>
                             </Menu>
                         </Col>
+      
                     </Row>
                 </Header>
                 <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background1.jpg")' }}>
@@ -152,7 +199,10 @@ export default function Contact(props) {
                         >
                             <SubMenu key="sub1" icon={<Badge count={length} size="small" offset={[2, -1]}>
                                 <UserAddOutlined />
-                            </Badge>} title="New friend" >
+
+                                </Badge>}
+                                title="New friend" 
+                            >
                                 {pendingContact.map((contact, index) => <Menu.Item key={contact._id} icon={
                                     <Avatar icon={<UserOutlined />} />} style={{ paddingLeft: '20px', height: '100px' }}  >
                                     <ContactPendingBrief
@@ -163,7 +213,7 @@ export default function Contact(props) {
                             </SubMenu>
                             <SubMenu key="sub2" icon={<UserOutlined />} title="My friend">
                                 {acceptContact.map((contact, index) => <Menu.Item key={index} icon={
-                                    <Avatar icon={<UserOutlined />} />
+                                    <Avatar src={contact.friend.photo.data} />
                                 } style={{ paddingLeft: '20px' }}>
                                     <div
                                         onClick={e => setDetail(e.target)}

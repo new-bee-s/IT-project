@@ -1,9 +1,11 @@
 const Admin = require('../models/admin')
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 require('../config/passport')(passport)
-// admin log in function
-const AdminLogin = (req, res, next) => {
-    passport.authenticate('local-login', (err, admin, info) => {
+
+// Admin log in function
+const adminLogin = (req, res, next) => {
+    passport.authenticate('admin-local-login', (err, admin, info) => {
         // If there were errors during executing the strategy or the admin was not found, we display and error
         if (err) {
             return res.status(500).json({ success: false, error: info.message })
@@ -13,6 +15,7 @@ const AdminLogin = (req, res, next) => {
         req.login(admin, { session: false }, async (error) => {
             if (error) return next(error);
             const body = { _id: admin._id };
+            console.log(body)
             //Sign the JWT token and populate the payload with the admin email
             const token = jwt.sign({ body }, process.env.JWT_PASSWORD);
             //Send back the token to the client
@@ -21,8 +24,9 @@ const AdminLogin = (req, res, next) => {
     })(req, res, next)
 }
 
+// Create an admin function
 const createAdmin = (req, res, next) => {
-    passport.authenticate('local-signup', (err, admin, info) => {
+    passport.authenticate('admin-local-signup', (err, admin, info) => {
         if (err) {
             return res.status(500).json({ success: false, error: info.message })
         }
@@ -41,4 +45,4 @@ const createAdmin = (req, res, next) => {
 }
 
 
-module.exports = { AdminLogin, createAdmin }
+module.exports = { adminLogin, createAdmin }

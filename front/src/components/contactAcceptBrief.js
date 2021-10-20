@@ -156,7 +156,6 @@ export default class ContactBrief extends React.Component {
     const { Text } = Typography;
     const { Content } = Layout;
     const { tags, inputVisible, inputValue, editInputIndex, editInputValue } = this.state;
-
     // Description item components
     const DescriptionItem = ({ title, content }) => (
       <div className="site-description-item-profile-wrapper">
@@ -174,34 +173,18 @@ export default class ContactBrief extends React.Component {
         <h2>Personal</h2>
         <Row style={{ marginTop: 24 }}>
           <Col span={12}>
-            <DescriptionItem title="Gven Name" content={this.props.contact.friend.givenName} />
+            <DescriptionItem title="Friend Name" content={this.props.contact.friend.givenName+' '+this.props.contact.friend.familyName} />
           </Col>
-          <Col span={12}>
-            <DescriptionItem title="Family Name" content={this.props.contact.friend.familyName} />
-          </Col>
-        </Row>
-        <Row style={{ marginTop: 24 }}>
           <Col span={12}>
             <DescriptionItem title="User id" content={this.props.contact.friend.userID} />
           </Col>
+        </Row>
+        <Row style={{ marginTop: 24 }}>
+          <Col span={12}>
+          <DescriptionItem title="Birthday" content={this.props.contact.friend.dob.year+'-'+this.props.contact.friend.dob.month+'-'+this.props.contact.friend.dob.date} />
+          </Col>
           <Col span={12}>
             <DescriptionItem title="Gender" content={this.props.contact.friend.gender} />
-          </Col>
-        </Row>
-        <Row style={{ marginTop: 24 }}>
-          <Col span={12}>
-            <DescriptionItem title="Birthday" content={this.props.contact.friend.dob} />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="County" content={this.props.contact.friend.region} />
-          </Col>
-        </Row>
-        <Row style={{ marginTop: 24 }}>
-          <Col span={12}>
-            <DescriptionItem title="City" content={this.props.contact.friend.region} />
-          </Col>
-          <Col span={12}>
-            <DescriptionItem title="State" content={this.props.contact.friend.region} />
           </Col>
         </Row>
         <Row style={{ marginTop: 24 }}>
@@ -210,6 +193,11 @@ export default class ContactBrief extends React.Component {
           </Col>
           <Col span={12}>
             <DescriptionItem title="Occupation" content={this.props.contact.friend.occupation} />
+          </Col>
+        </Row>
+        <Row style={{ marginTop: 24 }}>
+          <Col span={24}>
+            <DescriptionItem title="Region" content={this.props.contact.friend.region.country+' '+this.props.contact.friend.region.city+' '+this.props.contact.friend.region.state}/>
           </Col>
         </Row>
         <Row style={{ marginTop: 24}}>
@@ -281,7 +269,7 @@ export default class ContactBrief extends React.Component {
               onClose={() => this.handleClose(tag)}
             >
               <span
-                onDoubleClick={e => {
+                onClick={e => {
                   if (index) {
                     this.setState({ editInputIndex: index, editInputValue: tag }, () => {
                       this.editInput.focus();
@@ -310,10 +298,12 @@ export default class ContactBrief extends React.Component {
             type="text"
             size="small"
             className="tag-input"
+            maxLength = "20"
             value={inputValue}
             onChange={this.handleInputChange}
             onBlur={this.handleInputConfirm}
             onPressEnter={this.handleInputConfirm}
+            style = {{marginTop: '10px'}}
           />
         )}
         {!inputVisible && (
@@ -322,7 +312,8 @@ export default class ContactBrief extends React.Component {
           </Tag>
         )}
 
-
+        <br />
+        <br />
         <Button
           
           icon={<CheckCircleFilled/>}
