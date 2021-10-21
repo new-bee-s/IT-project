@@ -63,14 +63,16 @@ const SearchUserID = async (req, res) => {
             if (user._id === req.user._id) {
                 return res.status(400).json({ success: false, error: "You cannot search yourself" })
             } else {
-
+                console.log("the user has found")
                 return res.status(200).json({ success: true, user: user })
             }
         }
         else {
+            console.log("User not found")
             return res.status(400).json({ success: false, error: "User not found!" })
         }
     } catch (err) {
+        console.log(err)
         return res.status(400).json({ success: false })
     }
 }
