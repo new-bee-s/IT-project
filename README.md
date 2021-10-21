@@ -102,6 +102,7 @@ The CI of https://new-bee-admin.netlify.app is CI=npm run build
  * Future work 
 
 ### Sprint 3
+* US_24_SEARCH_EXSIT_FRIEND
 * US_27_ADMIN_PAGE
 * US_28_ADMIN_SERVER 
 * US_29_ADMIN_DATABASE
@@ -115,6 +116,7 @@ The CI of https://new-bee-admin.netlify.app is CI=npm run build
 * Sprint 2 Review (client's advice for sprint 2)
 * Sprint 3 Task arrangement  
 * User stories update
+* Design model update
 * Project Deployment (success at sprint 3)
 
 
@@ -156,6 +158,7 @@ There are two user stories we haven't finished
 ### Sprint 3
 | Feature | Story ID | Task | Story Estimate | Prioroty | Contributor|
 | :---: | :---: | :---: | :---: | :---: | :---: |
+| Search | 24 | Search an exising user from contact list based on ID, name, tag and remark | 13 | HIGH | Shengjun Su Shenggang Qian |
 | Admin | 27 | Build an admin page to manage all users, admin need to log in with account and password | 5 | HIGH |  Yutong Sun (F)|
 |       | 28 | Build a server for admin web to complete the functions | 5 | HIGH | Ziyu Qian(B) |
 |       | 29 | Build a model for admin and save the admin in database | 5 | HIGH | Ziyu Qian(B)| 
