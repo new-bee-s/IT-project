@@ -28,7 +28,7 @@ const acceptFriend = async (req, res) => {
                 user: req.user._id,
                 friend: req.body.userid,
                 status: 'accepted',
-                tag: "",
+                tag: [],
                 remark: ""
             })
             newContact.save(err => {

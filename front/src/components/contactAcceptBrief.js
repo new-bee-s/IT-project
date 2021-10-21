@@ -9,7 +9,7 @@ import { Layout } from 'antd';
 
 export default class ContactBrief extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   state = {
@@ -21,6 +21,7 @@ export default class ContactBrief extends React.Component {
     editInputValue: '',
 
   }
+
   // set edit remark 
   editRemarkF = e => {
     this.setState({ changeRemark: e });
@@ -30,10 +31,10 @@ export default class ContactBrief extends React.Component {
 
   //click delete tag 
   handleClose = removedTag => {
-    const tags = this.state.tags.filter(tag => tag !== removedTag);
-    this.setState({ tags });
-    message.success('Delete successfull!')
+    let newTags = this.state.tags.filter(tag => tag !== removedTag);
+    this.editTags(newTags);
   };
+
 
   // show user input --tag
   showInput = () => {
@@ -42,21 +43,6 @@ export default class ContactBrief extends React.Component {
   // change input infon --tag
   handleInputChange = e => {
     this.setState({ inputValue: e.target.value });
-  };
-
-  // input comfirm --tag
-  handleInputConfirm = () => {
-    const { inputValue } = this.state;
-    let { tags } = this.state;
-    if (inputValue && tags.indexOf(inputValue) === -1) {
-      tags = [...tags, inputValue];
-    }
-    
-    this.setState({
-      tags,
-      inputVisible: false,
-      inputValue: '',
-    });
   };
 
   // edit change input --tag
@@ -69,12 +55,7 @@ export default class ContactBrief extends React.Component {
     this.setState(({ tags, editInputIndex, editInputValue }) => {
       const newTags = [...tags];
       newTags[editInputIndex] = editInputValue;
-
-      return {
-        tags: newTags,
-        editInputIndex: -1,
-        editInputValue: '',
-      };
+      this.editTags(newTags);
     });
   };
 
@@ -88,11 +69,14 @@ export default class ContactBrief extends React.Component {
     this.editInput = input;
   };
 
-
   // connect back-end for edit friend remark
   editRemark = () => {
+    var newRemark = this.state.changeRemark;
+    if (newRemark === undefined){
+      newRemark = ''
+    }
     axios.post('/dashboard/changeRemark', {
-      remark: this.state.changeRemark,
+      remark: newRemark,
       contactid: this.props.contact._id
     }).then(response => {
       if (response.data.success) {
@@ -106,19 +90,25 @@ export default class ContactBrief extends React.Component {
     }).catch(error => {
       message.error(error.response.data.error)
     })
-
+    this.props.sendRemark(newRemark, this.props.contact._id)
   }
 
   // connect back-end for edit tags(delete and add)
-  editTags = () => {
-    if(this.state.tags.length<4){
+  editTags = (newTags) => {
+    if(this.state.tags.length < 7){
       axios.post('/dashboard/editTag', {
-        tag: this.state.tags,
+        tag: newTags,
         contactid: this.props.contact._id
       }).then(response => {
         if (response.data.success) {
           message.success('Edit successfully')
-
+          this.setState({
+            tags: newTags,
+            inputVisible: false,
+            inputValue: '',
+            editInputIndex: -1,
+            editInputValue: '',
+          });
         }
         else {
           message.error(response.data.error)
@@ -128,10 +118,23 @@ export default class ContactBrief extends React.Component {
         message.error(error.response.data.error)
       })}
       else{
-        message.error(' Max THREE tags')
+        message.error(' Max SIX tags')
       }
-
+      
+      // Send data to contact
+      this.props.sendTags(newTags, this.props.contact._id);
   }
+
+  // input comfirm --tag
+  handleInputConfirm = () => {
+    const { inputValue } = this.state;
+    var newTags = this.state.tags;
+    if (inputValue && newTags.indexOf(inputValue) === -1) {
+      newTags = [...newTags, inputValue];
+    }
+    
+    this.editTags(newTags);
+  };
 
   // connect back-end for reject friend
   rejectFriend = () => {
@@ -140,7 +143,7 @@ export default class ContactBrief extends React.Component {
     }).then(response => {
       if (response.data.success) {
         message.success('Delete successfully')
-
+        this.props.sendDelete(this.props.contact._id)
       }
       else {
         message.error(response.data.error)
@@ -163,7 +166,6 @@ export default class ContactBrief extends React.Component {
         {content}
       </div>
     );
-
     return (
       // render accept 
       <Content style={{ minHeight: 280, background: '#fff', padding: '3vh 3vh', margin: '10px 10px' }}>
@@ -270,12 +272,11 @@ export default class ContactBrief extends React.Component {
             >
               <span
                 onClick={e => {
-                  if (index) {
                     this.setState({ editInputIndex: index, editInputValue: tag }, () => {
+                      console.log(1111)
                       this.editInput.focus();
                     });
                     e.preventDefault();
-                  }
                 }}
               >
                 {isLongTag ? `${tag.slice(0, 20)}...` : tag}
@@ -291,6 +292,8 @@ export default class ContactBrief extends React.Component {
             tagElem
           );
         })}
+
+        
         {inputVisible && (
           <Input
             color="blue"
@@ -311,19 +314,6 @@ export default class ContactBrief extends React.Component {
             <PlusOutlined /> New Tag
           </Tag>
         )}
-
-        <br />
-        <br />
-        <Button
-          
-          icon={<CheckCircleFilled/>}
-          shape="round"
-          type="primary"
-          onClick={this.editTags}
-        >
-          Comform
-        </Button>
-
 
 
         <Divider />

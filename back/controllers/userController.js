@@ -60,7 +60,7 @@ const SearchUserID = async (req, res) => {
         let user = await User.findOne({ userID: req.body.userID }, {});
         if (user) {
             // If a user is searching his own id, will return error message
-            if (user._id === req.user._id) {
+            if (user.userID === req.user.userID) {
                 return res.status(400).json({ success: false, error: "You cannot search yourself" })
             } else {
 
@@ -87,9 +87,8 @@ const addFriend = async (req, res) => {
             user: req.user._id,
             friend: req.body.friend,
             status: "pending",
-            tag: "",
-            remark: req.body.remark,
-            message: req.body.message
+            tag: [],
+            remark: req.body.remark
         })
         newContact.save(err => {
             if (err) throw err
@@ -115,7 +114,7 @@ const getUserInfo = async (req, res) => {
 const viewUsers = async (req, res) => {
     try {
         let users = await User.find({})
-        return res.status(200).json({ success: true, users: users, admin: req.user })
+        return res.status(200).json({ success: true, users: users })
     }
     catch (err) {
         return res.status(404).json({ success: false, error: "Web crashed" })
