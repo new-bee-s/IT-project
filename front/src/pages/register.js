@@ -104,27 +104,32 @@ export default function Register(props) {
 
     //using on onchange
     const onSignUp = () => {
-        //use axios connect back-end and push personal information to back-end
-        axios.post('/register', {
-            email: email,
-            givenName: givenName,
-            familyName: familyName,
-            password: password,
-            confirmPassword: confirmedPassword
-        }).then(res => {
-            if (res.data.success) {
-                Cookies.set('token', res.data.token, { expires: 1 })
-                props.history.push('/register/fillInfo')
-            }
-            else {
-                // if error
-                message.error(res.data.error)
-            }
+        if(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,5}$/.test(email)) {
+            //use axios connect back-end and push personal information to back-end
+            axios.post('/register', {
+                email: email,
+                givenName: givenName,
+                familyName: familyName,
+                password: password,
+                confirmPassword: confirmedPassword
+            }).then(res => {
+                if (res.data.success) {
+                    Cookies.set('token', res.data.token, { expires: 1 })
+                    props.history.push('/register/fillInfo')
+                }
+                else {
+                    // if error
+                    message.error(res.data.error)
+                }
 
-        }).catch(error => {
-            console.log(error.response.data.error)
-            message.error(error.response.data.error)
-        })
+            }).catch(error => {
+                
+            })
+        } else {
+            console.log()
+            message.error("please input a valid email address")
+        }
+        
 
     }
 
