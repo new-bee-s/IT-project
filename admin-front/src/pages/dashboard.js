@@ -1,13 +1,11 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Dropdown, Space, Spin } from 'antd';
-import { Avatar } from 'antd';
 import axios from '../commons/axios.js';
-import { Row, Col, Button} from 'antd';
+import { Row, Col, Button } from 'antd';
 import { CheckCircleFilled, CloseCircleFilled } from '@ant-design/icons';
-import { message, Divider, Typography, Table } from 'antd';
+import { Avatar, message, Divider, Typography, Table, Layout, Menu, Space, Spin } from 'antd';
 import Cookies from 'universal-cookie';
-import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom'
 
 
 export default class Dashboard extends React.Component {
@@ -15,93 +13,115 @@ export default class Dashboard extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { profile: undefined, loading: true, data: undefined};
+    this.state = { profile: undefined, loading: true, data: undefined };
   }
 
   componentDidMount() {
     const home = '/dashboard';
-    const cookies = new Cookies()
+    const cookies = new Cookies();
     axios.get(home, {
       headers: {
         Authorization: `Bearer ${cookies.get('token')}`
       }
+
     }).then(response => {
       if (response.data.success) {
-        this.setState({ profile: response.data.users, loading: false });
+        console.log(response);
+        this.setState({ data: response.data.users, loading: false, profile: response.data.admin });
       }
     }).catch(error => {
       console.log(error.response.data.error)
       message.error(error.response.data.error);
     })
 
-    
-
-    axios.get(home).then(response => {
-      if (response.data.success) {
-        console.log("users info");
-        console.log(response.data.users);
-        this.setState({ data: response.data.users })
-
-      }
-    }).catch(error => {
-      console.log(error.response.data.error)
-      message.error(error.response.data.error)
-    })
-
-
   }
 
 
 
-
   render() {
-    // const test = () => {
-    //   console.log("haha");
-    //   console.log(banID);
-    // }
 
     const OnLogOut = () => {
       const cookies = new Cookies();
       cookies.remove('token');
       this.props.history.push('/login', { replace: true });
     }
-    const logout = (
-      <Menu>
-        <Menu.Item key='1' onClick={OnLogOut}>Log Out</Menu.Item>
-      </Menu>
-    );
     // Define the variable
     const { Header, Content } = Layout;
     // remember to add loading back!
-    const { profile, loading, data } = this.state;
+    const { loading, data, profile} = this.state;
     const home = '/dashboard';
 
     if (loading) {
       return <Space size='middle' style={{ position: 'relative', marginLeft: '50vw', marginTop: '50vh' }}>
-          <Spin size='large' />
-          <h3>Loading</h3>
+        <Spin size='large' />
+        <h3>Loading</h3>
       </Space>;
     }
 
+    const OnUnban = (record) => {
 
+      axios.post(home + '/unBanUser', { _id: record._id }).then(res => {
+          if (res.data.success) {
+          message.success("unban successfully")
+        }
+        else {
+          message.error(res.data.error)
+        }
+      }).catch(error => {
+        console.log(error.response.data.error)
+        message.error(error.response.data.error)
+        // or throw(error.respond)
+      })
 
+      let datalist = data.map(data =>{
+        if (record._id === data._id){
+          data.ban = false
+        }
+        return data;
+      })
+      this.setState({data: [...datalist]})
+    }
+
+    const OnBan = (record) => {
+      console.log("click ban");
+      axios.post(home + '/banUser', { _id: record._id }).then(res => {
+        if (res.data.success) {
+          message.success("ban successfully")
+          record.ban = true;
+          
+        }
+        else {
+          message.error(res.data.error)
+        }
+      }).catch(error => {
+        console.log(error.response.data.error)
+        message.error(error.response.data.error)
+      })
+      let datalist = data.map(data =>{
+        if (record._id === data._id){
+          data.ban = true;
+        }
+        return data;
+      })
+      this.setState({data: [...datalist]})
+    }
 
     const columns = [
       {
         title: 'Status',
         key: 'ban',
-        render (record) {
+        render(record) {
           if (record.ban === true) {
             return (
-              <div align = 'center'>
-                  <Avatar size={30} icon={<CloseCircleFilled />} style={{ color: 'red', background: 'rgba(255, 255, 255, 0)' }} />
+              <div align='center'>
+                <Avatar size={30} icon={<CloseCircleFilled />} style={{ color: 'red', background: 'rgba(255, 255, 255, 0)' }} />
               </div>
             )
           }
           else {
             return (
-              <div align = 'center'>
-                  <Avatar size={30} icon={<CheckCircleFilled />} style={{ color: 'green', background: 'rgba(255, 255, 255, 0)' }} />
+              <div align='center'>
+                <Avatar size={30} icon={<CheckCircleFilled />} style={{ color: 'green', background: 'rgba(255, 255, 255, 0)' }} />
               </div>
             )
           }
@@ -128,83 +148,58 @@ export default class Dashboard extends React.Component {
         title: 'Action',
         key: 'action',
         render(record) {
-          console.log(record._id)
-
-          const OnBan = () => {
-            console.log(profile.email);
-            console.log("click ban");
-            axios.post(home + '/banUser', { _id: record._id }).then(res => {
-              if (res.data.success) {
-                message.success("ban successfully")
-                record.ban = true;
-              }
-              else {
-                message.error(res.data.error)
-              }
-            }).catch(error => {
-              console.log(error.response.data.error)
-              message.error(error.response.data.error)
-              // or throw(error.respond)
-            })
-            //this.setState({banID: id})
-          }
-
-          const OnUnban = () => {
-            console.log(record._id)
-            console.log("click unban");
-
-            axios.post(home + '/unBanUser', { _id: record._id }).then(res => {
-              if (res.data.success) {
-                message.success("unban successfully")
-                record.ban = false;
-              }
-              else {
-                message.error(res.data.error)
-              }
-            }).catch(error => {
-              console.log(error.response.data.error)
-              message.error(error.response.data.error)
-              // or throw(error.respond)
-            })
-          }
 
           if (record.ban === true) {
             return (
-              <div align='center'>
-                <Button type="dashed" onClick={OnUnban} size={20}>
+              <div>
+                <Link
+                  to={
+                    {
+                      pathname: '/dashbord/changeuserinfo',
+                      state: record
+                    }
+                  }>
+                  <Button type="dashed" size={20}>
+                    Edit
+                  </Button>
+                </Link>
+
+                <span style={{ paddingRight: '2vw' }}></span>
+
+                <Button type="dashed" onClick={e => OnUnban(record)} size={20}>
                   Unban
                 </Button>
-              </div>
+              </div >
             )
           }
           else {
             return (
-              <div align='center'>
-                <Button type="dashed" onClick={OnBan} size={20}>
+              <div>
+                <Link
+                  to={
+                    {
+                      pathname: '/dashboard/changeuserinfo',
+                      state: record
+                    }
+                  }>
+                  <Button type="dashed" size={20}>
+                    Edit
+                  </Button>
+                </Link>
+
+                <span style={{ paddingRight: '2vw' }}></span>
+
+                <Button type="dashed" onClick={e => OnBan(record)} size={20}>
                   Ban
                 </Button>
               </div>
             )
           }
-          
+
         }
 
       }
 
-      // {
-      //   title: 'Action',
-      //   key: 'action',
-      //   render: (text, record) => (
-      //     <Space size="middle">
-      //       <Button type="dashed" onClick = {OnBan} size={20} id>
-      //           Ban {record.userID}
-      //       </Button>
-      //       {/* <Button type="dashed" onClick = {OnUnban}  size={20}>
-      //           Unban
-      //       </Button> */}
-      //     </Space>
-      //   ) 
-      // },
     ];
 
 
@@ -212,40 +207,9 @@ export default class Dashboard extends React.Component {
 
 
 
-    /*
-    const data = [
-      {
-        key: '1',
-        firstname: 'John',
-        lastname: 'Brown',
-        userid: 111,
-        email: '111@a.com',
-      },
-      {
-        key: '2',
-        firstname: 'Jim',
-        lastname: 'Green',
-        userid: 222,
-        email: '222@a.com',
-      },
-      {
-        key: '3',
-        firstname: 'Joe',
-        lastname: 'Black',
-        userid: 333,
-        email: '333@a.com',
-      },
-    ];
-    */
-
-
-    // function onChange(pagination, filters, sorter, extra) {
-    //   console.log('params', pagination, filters, sorter, extra);
-    // }
-    
     return (
       <Layout >
-        <Header style={{ padding: '0 10px' }}>
+        <Header>
           <Row style={{ height: '64px' }}>
             <Col span={2} offset={1}>
               <a href={home}>
@@ -255,18 +219,9 @@ export default class Dashboard extends React.Component {
               </a>
             </Col>
             <Col span={7} offset={2}>
-              <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ height: '64px' }}>
-                <Menu.Item key='1'>
-                  <a href={home}>
-                    <img src='../pics/manage.png' alt='manage_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
-                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage</span>
-                  </a>
-                </Menu.Item>
-
-              </Menu>
             </Col>
             <Col span={3} offset={9}>
-              <Menu theme='dark' mode='horizontal'style={{ height: '64px' }}>
+              <Menu theme='dark' mode='horizontal' style={{ height: '64px' }}>
                 <Menu.Item key='2' onClick={e => OnLogOut()}>
                   Log Out
                 </Menu.Item>
@@ -281,15 +236,9 @@ export default class Dashboard extends React.Component {
           <Content style={{ padding: '0 5vw' }}>
             <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
               <Typography component="h1" variant='h1' align='center'>Manage all the users</Typography>
-              <p align='left'>"Big Brother is watching you!"</p>
+                <p align='right' style={{fontSize:'20px',paddingRight:'10vw', color:'grey'}}>"{profile.name} is watching you!"</p>
               <Divider />
               <Table columns={columns} rowKey='_id' dataSource={data} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
-              {/* <Button type="dashed" onClick={test} size={20}>
-
-                test
-              </Button> */}
-
-
             </div>
           </Content>
         </Layout >
