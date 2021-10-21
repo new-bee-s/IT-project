@@ -17,13 +17,12 @@ export default class ContactBrief extends React.Component {
 
     // connect bacl-end accept friend 
     acceptFriend = () => {
-
-        
         axios.post('/dashboard/acceptFriend', {
             userid: this.props.contact.user._id
         }).then(response => {
             if (response.data.success) {
                 message.success('Accept successfully')
+                this.props.sendAccept()
             }
             else {
                 message.error(response.data.error)
@@ -41,6 +40,7 @@ export default class ContactBrief extends React.Component {
         }).then(response => {
             if (response.data.success) {
                 message.success('Delete successfully')
+                this.props.sendReject(this.props.contact._id)
             }
             else {
                 message.error(response.data.error)
@@ -107,6 +107,7 @@ export default class ContactBrief extends React.Component {
                                 onClick={() => this.rejectFriend()}
                                 type="primary"
                                 shape="round"
+                                style={{ marginLeft: 24}}
                             >   
                             Reject        
                             </Button>

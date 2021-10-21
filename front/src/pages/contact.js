@@ -36,7 +36,7 @@ export default class Contact extends React.Component {
                 this.setState({acceptContact: response.data.accepted})
                 this.setState({pendingContact: response.data.pending})
                 this.setState({length: response.data.pending.length})
-                this.setState({detailLoading: false})                
+                this.setState({detailLoading: false})
             }
         }).catch(error => {
             console.log(error.response.data.error)
@@ -75,7 +75,6 @@ export default class Contact extends React.Component {
         }
         
         const setSearch = e => {
-            console.log(e)
             this.setState({searchOption: e})
         }
 
@@ -123,8 +122,68 @@ export default class Contact extends React.Component {
             return searchList;
         };
 
+        // Get the tags from component
+        const getTags = (tags, id) =>{
+            let newContacts = this.state.acceptContact.map(contact =>{
+                if (contact._id === id){
+                    contact.tag = tags
+                }
+                return contact
+            })
+            this.setState({acceptContact: newContacts})
+        }
 
+        // Get the remark from component
+        const getRemark = (remark, id) =>{
+            let newContacts = this.state.acceptContact.map(contact =>{
+                if (contact._id === id){
+                    contact.remark = remark
+                }
+                return contact
+            })
+            this.setState({acceptContact: newContacts})
+        }
 
+        // Get accept friend from component
+        const getAcceptFriend = () =>{
+            this.setState({detailLoading: true})
+            const home = '/dashboard'
+            // connect contact back-end and seting contact list information
+            axios.get(home + '/contact').then(response => {
+
+                if (response.data.success) {
+                    console.log(response.data.accepted)
+                    this.setState({acceptContact: response.data.accepted, 
+                        pendingContact: response.data.pending, length: 
+                        response.data.pending.length,
+                        length: response.data.pending.length,
+                        Detail: undefined,
+                        showStatus: 0}, 
+                        () => {this.setState({detailLoading: false})})
+                    
+                }
+            }).catch(error => {
+                console.log(error.response.data.error)
+                message.error(error.response.data.error)
+            })
+        }
+
+        // Get reject friend request from component
+        const getRejectFriend = (id) =>{
+            var newPendingContact = pendingContact.filter(contact => contact.user._id !== id);
+            this.setState({pendingContact: newPendingContact});
+            this.setState({Detail: undefined})
+            this.setState({showStatus: 0})
+        }
+
+        // Get Delete friend request from component
+        const getDeleteFriend = (id) =>{
+            var newAcceptContact = acceptContact.filter(contact => contact._id !== id);
+            this.setState({Detail: undefined})
+            this.setState({showStatus: 0})
+            this.setState({acceptContact: newAcceptContact});
+        }
+       
 
         //render logout
         const logout = (
@@ -137,7 +196,6 @@ export default class Contact extends React.Component {
             this.setState({Detail: Detail.id});
             this.setState({showStatus: status});
         }
-
 
         // separate each contact list with index
         const renderContact = () => {
@@ -152,13 +210,12 @@ export default class Contact extends React.Component {
                     }
                 })
                 return (
-                    <ContactBrief key= {showedAcceptedcontact._id} contact = {showedAcceptedcontact}></ContactBrief>);
+                    <ContactBrief key= {showedAcceptedcontact._id} contact = {showedAcceptedcontact} 
+                    sendTags = {getTags} sendRemark = {getRemark} sendDelete = {getDeleteFriend}/>);
             }   
             else if(showStatus === 1){
                 var showedPendingContact = undefined;
                 pendingContact.map(contact => {
-                    console.log(contact.user._id)
-                    console.log(Detail)
                     if (contact.user._id === Detail) {
                         showedPendingContact = contact
                     }
@@ -166,7 +223,10 @@ export default class Contact extends React.Component {
                 return (
                     <ContactPendingBrief
                         key= {showedPendingContact.user._id}
-                        contact={showedPendingContact} />
+                        contact={showedPendingContact}
+                        sendAccept = {getAcceptFriend}
+                        sendReject = {getRejectFriend}
+                        />
                 )
             }
         }
@@ -256,7 +316,7 @@ export default class Contact extends React.Component {
                                         </Input.Group>
                                     </MenuItem>
                                     {searchDisplay.map(contact => <Menu.Item icon={
-                                        <Avatar icon={<UserOutlined />} key = {contact.friend._id}/>
+                                        <Avatar icon={<Avatar src={contact.friend.photo.data}/>} key = {contact.friend._id}/>
                                     } style={{ paddingLeft: '20px' }}>
                                         <div
                                             onClick={e => contentDetail(e.target, 2)}
@@ -266,6 +326,8 @@ export default class Contact extends React.Component {
                                             <Text
                                                 type="secondary"
                                                 style={{ margin: '5px' }}
+                                                id={contact.friend._id}
+                                                onClick={e => contentDetail(e.target, 2)}
                                             >
                                                 {contact.remark}
                                             </Text>
@@ -288,6 +350,8 @@ export default class Contact extends React.Component {
                                                 <Text
                                                     type="secondary"
                                                     style={{ margin: '5px', fontWeight: 'bold' }}
+                                                    id={contact.user._id}
+                                                    onClick={e => contentDetail(e.target, 1)}
 
                                                 >
                                                     {contact.user.givenName + ' ' + contact.user.familyName}
@@ -295,6 +359,8 @@ export default class Contact extends React.Component {
                                                 <Text
                                                     type="secondary"
                                                     style={{ margin: '5px' }}
+                                                    id={contact.user._id}
+                                                    onClick={e => contentDetail(e.target, 1)}
                                                 >
                                                     {contact.user.email}
                                                 </Text>
@@ -305,20 +371,21 @@ export default class Contact extends React.Component {
                                 </SubMenu>
                                 <SubMenu key="sub2" icon={<UserOutlined />} title="My friend">
                                     {acceptContact.map((contact, index) => <Menu.Item key={contact.friend._id} icon={
-                                        <Avatar src={contact.friend.photo.data} />
+                                        <Avatar src={contact.friend.photo.data} id={contact.friend._id}/>
                                     } style={{ paddingLeft: '20px' }}>
                                         <div
-                                            onClick={e => contentDetail(e.target, 2)}
                                             id={contact.friend._id}
+                                            onClick={e => contentDetail(e.target, 2)}
                                         >
                                             {contact.friend.givenName}
                                             <Text
                                                 type="secondary"
                                                 style={{ margin: '5px' }}
+                                                id={contact.friend._id}
+                                                onClick={e => contentDetail(e.target, 2)}
                                             >
                                                 {contact.remark}
                                             </Text>
-
                                         </div>
                                     </Menu.Item>)}
                                 </SubMenu>
