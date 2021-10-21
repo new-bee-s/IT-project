@@ -62,7 +62,6 @@ export default class Contact extends React.Component {
         const { SubMenu } = Menu;
         const { Header, Content, Sider } = Layout;
         const { Option } = Select;
-
         const { acceptContact, pendingContact, detailLoading, 
             profileLoading, Detail, searchOption, profile, 
             searchDisplay, showStatus, length} = this.state;
@@ -77,7 +76,7 @@ export default class Contact extends React.Component {
         const setSearch = e => {
             this.setState({searchOption: e})
         }
-
+        console.log(pendingContact)
         
         const onSearch = e =>{
             if (e !== ''){
