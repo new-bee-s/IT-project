@@ -1,7 +1,6 @@
 # Welcome to New-Bee CRM!!  😄   
 This is the project for Unimelb COMP30019 IT-Project.  
-Website link :arrow_forward: [New-Bee Client](https://new-bee.netlify.app) [New-Bee Admin](https://new-bee-admin.netlify.app):arrow_backward: 
-To use our website, please start the server first arrow_forward:[NEW-BEE CRM SERVER](https://new-bee-crm.herokuapp.com/):arrow_backward:
+Website link :arrow_forward: [New-Bee CRM](https://www.google.com/):arrow_backward:  
 It is a website customer relationship managemenet system, which is able to store, search, manage and share your address book for business easily!  
 
 Contributors:  
@@ -89,7 +88,7 @@ The CI of https://new-bee-admin.netlify.app is CI=npm run build
  * US_17_DELE_FRIEND
  * US_22_INFO_PAGE
  * US_23_INFO_PRIVACY
- * US_24_SEARCH_EXSIT_FRIEND
+ * US_24_SEARCH_EXSITING_FRIEND
  * US_25_RETURN_FRIENDS_CONTACT
  * US_26_CHANGE_ID
  * Sprint 1 Retrospective (no work left for sprint 2)
@@ -150,7 +149,7 @@ The CI of https://new-bee-admin.netlify.app is CI=npm run build
 
 There are two user stories we haven't finished
  * US_23_INFO_PRIVACY
- * US_24_SEARCH_EXSIT_FRIEND
+ * US_24_SEARCH_EXSITING_FRIEND
  We think these two functions are challenging so we will finish it if we have time in sprint 3
  
 

@@ -4,7 +4,8 @@ const contactSchema = new mongoose.Schema({
     friend: { type: mongoose.Types.ObjectId, require: true, ref: 'User' },
     status: { type: String, enum: ["pending", "accepted"], require: true },
     tag: [String],
-    remark: { String }
+    remark: { String },
+    message: { String }
 })
 
 const Contact = mongoose.model('Contact', contactSchema)
