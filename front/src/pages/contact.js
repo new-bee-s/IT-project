@@ -292,7 +292,7 @@ export default class Contact extends React.Component {
                             </Col>
                         </Row>
                     </Header>
-                    <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background1.jpg")' }}>
+                    <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background1.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
                         <Sider width={'400px'} style={{ background: '#fff' }}>
                             <Menu
                                 mode="inline"

@@ -196,7 +196,7 @@ export default class AddFriend extends React.Component {
                         </Col>
                     </Row>
                 </Header>
-                <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background20.jpg")' }}>
+                <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background23.jpg")' , backgroundRepeat: 'no-repeat', backgroundSize: 'cover', }}>
 
 
 

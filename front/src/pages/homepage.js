@@ -72,33 +72,33 @@ const useStyles = makeStyles((theme) => ({
 function Homepage() {
 
     const classes = useStyles();
-    const [about, setabout] = useState(false);
-    const [support, setsupport] = useState(false);
-    const [admin, setadmin] = useState(false);
-    const [team, setteam] = useState(false);
+    const [about, setAbout] = useState(false);
+    const [support, setSupport] = useState(false);
+    const [admin, setAdmin] = useState(false);
+    const [team, setTeam] = useState(false);
     
 
     const showAbout = () => {
-        setabout(true);
+        setAbout(true);
     };
 
     const showSupport = () => {
-        setsupport(true);
+        setSupport(true);
     };
 
     const showAdmin = () => {
-        setadmin(true);
+        setAdmin(true);
     };
 
     const showTeam = () => {
-        setteam(true);
+        setTeam(true);
     };
 
     const onClose = () => {
-        setabout(false);
-        setsupport(false);
-        setadmin(false);
-        setteam(false);
+        setAbout(false);
+        setSupport(false);
+        setAdmin(false);
+        setTeam(false);
     };
 
     return (
@@ -186,6 +186,8 @@ function Homepage() {
                 <p>Admins reserve the rights of banning and unbanning any accounts that violate the community rules. Admins also reserves the right of modifying users information, but we guarantee that users private information will not be revealed to any third parties.</p>
                 <br/>
                 <p>For appeal of banned accounts please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
+                <br/>
+                <p>For current admins: Please log in with a different website!</p>
             </Drawer>
 
             <Drawer

@@ -1,10 +1,9 @@
 //import libraries
 import React from 'react';
 import { useState } from 'react'
-import { message } from 'antd';
+import { message, Drawer } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -149,6 +148,23 @@ function SignIn(props) {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [support, setSupport] = useState(false);
+    const [forgetPassword, setForgetPassword] = useState(false);
+
+    const showSupport = () => {
+        setSupport(true);
+    };
+
+    const showForgetPassword = () => {
+        setForgetPassword(true);
+    };
+
+    const onClose = () => {
+        setSupport(false);
+        setForgetPassword(false);
+    };
+
+
 
     //using on onchange
     const onSignIn = () => {
@@ -171,27 +187,64 @@ function SignIn(props) {
 
 
     return (
-        <div style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
-            
+        <div style={{ width: '100vw', height: '100vh', margin: '0', overflow: 'hidden' }}>
+
             <div className={classes.middle}>
-                <div className={classes.column}>
-                <div style={{width: '50%',height: '100%', backgroundImage: 'url("/../pics/background24.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', left: '0vw', top:'0vh'}}>
-                        <a href="/">
-                            <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '80%', verticalAlign: 'middle',  position: 'absolute', left: '5vw', top:'34vh' }}></img>
-                        </a>
-                        </div>
-                        </div>
-                        <div style={{width: '50%',height: '100%', backgroundColor: '#fffbf0', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
+
+                
+                <div style={{width: '50%',height: '100%', backgroundImage: 'url("/../pics/halfback.png")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', left: '0vw', top:'0vh'}}>
+                    <div align = 'center' style={{position: 'absolute', left: '10vw', top:'17vh' }}>
+                        <h1 style={{color: 'white', fontFamily: 'Ubuntu'}}> The best view comes after the hardest climb </h1>
+                    </div>
+                </div>
+                {/* orginal color '#fffbf0' */}
+                <div style={{width: '50%',height: '100%', backgroundColor: '#f0f0ea', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
+                    {/* logo image */}
+                    <a href="/">
+                        <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '20%', verticalAlign: 'middle',  position: 'absolute', right: '3vw', top:'3vh' }}></img>
+                    </a>
+                    {/* support and forget password*/}
+                    <div style={{position: 'absolute', right: '23vw', top:'3.8vh' }}>
+                        <h3 onClick = {showSupport} style={{color: 'black', fontFamily: 'Ubuntu'}}> Support </h3>              
+                    </div>
+                    <div style={{position: 'absolute', right: '15vw', top:'3.8vh' }}>
+                        <h3 onClick = {showForgetPassword} style={{color: 'Black', fontFamily: 'Ubuntu'}}> Forget Password </h3>              
+                    </div>
+
+                    <Drawer
+                        title="Support"
+                        placement={'left'}
+                        onClose={onClose}
+                        visible={support}
+                        key = {'d1'}
+                    >
+                        <p>Please enter valid email and password to continue using NEW-BEE Personal CRM.</p>
+                        <br/>
+                        <p>If currently you do not own an account, please click 'New user? Click here' to register</p>
+                    </Drawer>
+
+
+                    <Drawer
+                        title="Forget Password"
+                        placement={'left'}
+                        onClose={onClose}
+                        visible={forgetPassword}
+                        key = {'d2'}
+                    >
+                        <p>If you have forget your regiestered email or password, please contact any admins you know, or set a email to ziyuq@student.unimelb.edu.au. and describe the situation. Our frinedly team are happy to assist you to find your email or reset password </p>
+                    </Drawer>
+
+
                 <div align = 'center' verticalalign='middle'>
 
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/>
                     <Container component="main" maxWidth="xs">
                         <div>
-                            <Typography component="h1" variant="h1" align='center'>Log In</Typography>
+                            <Typography component="h1" variant="h1" align='center' style = {{fontFamily: 'Ubuntu'}}>Log In</Typography>
                         </div>
                         <br />
                         <div>
-                            <Typography component="h1" variant='body1' align='center'>Sign in and start managing your candidates!</Typography>
+                            <Typography component="h1" variant='body1' align='center' style = {{fontFamily: 'Ubuntu'}}>Sign in and start managing your candidates!</Typography>
                         </div>
                         <br />
                         <div>
@@ -233,7 +286,7 @@ function SignIn(props) {
                                         onClick={onSignIn}
                                         className={classes.button}
                                     >
-                                        Log In
+                                        Get Start
                                     </Button>
 
                                 </div>

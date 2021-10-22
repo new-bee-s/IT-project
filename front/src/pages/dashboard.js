@@ -117,7 +117,7 @@ export default class Dashboard extends React.Component {
                     </Row>
                 </Header>
                 <Layout>
-                    <Content style={{ padding: '0 5vw', backgroundImage: 'url("../pics/background2.jpg")' }}>
+                    <Content style={{ padding: '0 5vw', backgroundImage: 'url("../pics/background2.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
                         <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.9)', padding: '2vw', marginTop: '2vh' }}>
 
                             <div id='left' style={{ width: '10vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
