@@ -129,7 +129,7 @@ export default class AddFriend extends React.Component {
 
 
         }
-
+        
         // Close the search resulut
         const onClose = () => {
             this.setState({

@@ -88,7 +88,7 @@ export default class ContactBrief extends React.Component {
                     </Row>
                     <Row style={{ marginTop: 24 }}>
                         <Col span={24}>
-                            <DescriptionItem title="Request message" content={"I am your classmate, can u add me.ths"} />
+                            <DescriptionItem title="Request message" content={this.props.contact.message} />
                         </Col>
                     </Row>
                     <Row style={{ marginTop: 24 }}>
