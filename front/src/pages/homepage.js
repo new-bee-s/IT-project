@@ -151,9 +151,13 @@ function Homepage() {
                 visible={about}
                 key = {'d1'}
             >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                <p>This is NEW-BEE Personal CRM, developed by team New-Bees from University of Melbourne.</p>
+                <br/>
+                <p>We offer free CRM service to small business, private business, local vendor and freelancer.</p>
+                <br/>
+                <p>Our priorities are build friendly community that users can connect with other users easily and comfortably.</p>
+                <br/>
+                <p>The New-Bees team reserves the right of final interpretation of this CRM.</p>
             </Drawer>
 
             <Drawer
@@ -163,9 +167,11 @@ function Homepage() {
                 visible={support}
                 key = {'d2'}
             >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                <p>The New-Bees Team is glad to offer support with your account.</p>
+                <br/>
+                <p>Please comply with the internet rules and local laws, and show respect to other users. We do not tolerate racist or other types of discriminaition information/massage. Failed to comply with above terms may lead to your account being banned.</p>
+                <br/>
+                <p>For further assistance, please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
             </Drawer>
 
             <Drawer
@@ -175,9 +181,11 @@ function Homepage() {
                 visible={admin}
                 key = {'d3'}
             >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                <p>Administrators of NEW-BEE CRM are amicable partners that help New-Bees Team to maintain a friendly online community.</p>
+                <br/>
+                <p>Admins reserve the rights of banning and unbanning any accounts that violate the community rules. Admins also reserves the right of modifying users information, but we guarantee that users private information will not be revealed to any third parties.</p>
+                <br/>
+                <p>For appeal of banned accounts please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
             </Drawer>
 
             <Drawer
@@ -187,9 +195,11 @@ function Homepage() {
                 visible={team}
                 key = {'d4'}
             >
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                <p>This personal CRM is developed by the student team New-Bees</p>
+                <br/>
+                <p>The Team members are: Shenggang Qian, Shengjun Su, Xinyu Wu, Yutong Sun and Ziyu Qian. The supervisor of the team is Zhe Wang and the client is Haichao Song </p>
+                <br/>
+                <p>For any suggestions and potential future opportunities, please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
             </Drawer>
 
 
