@@ -1,7 +1,7 @@
 //import libraries
 import React from 'react';
 import { useState } from 'react'
-import { message } from 'antd';
+import { message, Drawer } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -147,7 +147,7 @@ const useStyles = makeStyles((theme) => ({
 // signin page
 function SignIn(props) {
     const classes = useStyles();
-    const [account, setaccount] = useState('');
+    const [account, setAccount] = useState('');
     const [password, setPassword] = useState('');
 
     const onSignIn = () => {
@@ -172,31 +172,58 @@ function SignIn(props) {
         })
     };
 
+    const [support, setSupport] = useState(false);
+
+    const showSupport = () => {
+        setSupport(true);
+    };
+    const onClose = () => {
+        setSupport(false);
+    };
+
 
 
 
     return (
         <div className={classes.background} style={{ width: '100vw', height: '100vh, maxWidth: 100%', margin: '0', overflow: 'hidden' }}>
+            <div style={{position: 'absolute', left: '19vw', top:'4.3vh' }}>
+                <h2 onClick = {showSupport} style={{color: 'black', fontFamily: 'Ubuntu'}}> Support </h2>              
+            </div>
+
+            <Drawer
+                title="Support"
+                placement={'right'}
+                onClose={onClose}
+                visible={support}
+                key = {'d2'}
+            >
+                <p>Welcome to the admin community! Let's maintain a friendly CRM environment together </p>
+                <br/>
+                <p>Please manage the users according to the rules of our website. Do not hesitate to ban them if their activities are offensive </p>
+                <br/>
+                <p>For further clarification, please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
+            </Drawer>
+
+            
 
             <div className={classes.middle}>
                 <Container component="main" maxWidth="xs">
+
                     <a href="/">
-                        <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '100%', verticalAlign: 'middle' }}></img>
+                        <img src='../pics/logo_full.png' alt="logo pic" style={{position: 'absolute', left: '3vw', top:'3vh', height: '50px' }}></img>
                     </a>
-                    <br />
-                    <br />
+ 
                     <div>
 
-                        <Typography component="h1" variant="h3" align='center'>Admin Log In</Typography>
+                        <Typography component="h1" variant="h3" align='center' style = {{fontFamily: 'Ubuntu'}}>Admin Log In</Typography>
                     </div>
-                    <br />
+
                     <div>
 
-                        <p align='center'>Who controls the past controls the future.</p>
-                        <p align='center'>Who controls the present controls the past.</p>
-                        <p align='right'>― George Orwell, 1984</p>
+                        <p align='center' style = {{fontFamily: 'Ubuntu'}}>Who controls the past controls the future.</p>
+                        <p align='center' style = {{fontFamily: 'Ubuntu'}}>Who controls the present controls the past.</p>
+                        <p align='right' style = {{fontFamily: 'Ubuntu'}}>― George Orwell, 1984</p>
                     </div>
-                    <br />
                     <div>
                         <form noValidate>
                             <TextField
@@ -209,7 +236,7 @@ function SignIn(props) {
                                 name="account"
                                 autoComplete="account"
                                 autoFocus
-                                onChange={e => setaccount(e.target.value)}
+                                onChange={e => setAccount(e.target.value)}
                             />
 
                             <TextField
