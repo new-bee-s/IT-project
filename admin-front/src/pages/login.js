@@ -151,7 +151,6 @@ function SignIn(props) {
     const [password, setPassword] = useState('');
 
     const onSignIn = () => {
-
         //put user input to back-end and return status
         axios.post('/login', { account: account, password: password }).then(res => {
             if (res.data.success) {
@@ -171,6 +170,21 @@ function SignIn(props) {
             // or throw(error.respond)
         })
     };
+
+
+    const checkEmpty = () => {
+        if (account === ''){
+            message.error("The account name can't be empty") 
+        }
+        else if (password === ''){
+            message.error("The password can't be empty")
+            
+        }
+        else{
+            onSignIn()
+        }
+
+    }
 
     const [support, setSupport] = useState(false);
 
@@ -256,7 +270,7 @@ function SignIn(props) {
                             <div className={classes.blocks_signin}>
                                 <Button
                                     variant="contained"
-                                    onClick={onSignIn}
+                                    onClick={() => checkEmpty()}
                                     className={classes.button}
                                 >
                                     Log In
