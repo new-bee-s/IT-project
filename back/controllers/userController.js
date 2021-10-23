@@ -115,7 +115,7 @@ const getUserInfo = async (req, res) => {
 const viewUsers = async (req, res) => {
     try {
         let users = await User.find({})
-        return res.status(200).json({ success: true, users: users })
+        return res.status(200).json({ success: true, users: users, admin: req.user})
     }
     catch (err) {
         return res.status(404).json({ success: false, error: "Web crashed" })
