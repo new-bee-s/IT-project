@@ -27,39 +27,39 @@ export default class RegisterFillInfo extends React.Component {
         const setAddress = (value) => {
             var address = value;
             address[0] = value[0];
-            if (value[1] === undefined){
+            if (value[1] === undefined) {
                 address[1] = '';
-            }else{
+            } else {
                 address[1] = value[1];
             }
-            if (value[2] === undefined){
+            if (value[2] === undefined) {
                 address[2] = '';
-            }else{
+            } else {
                 address[2] = value[2];
             }
             this.state.address = address;
         }
 
-        const checkInfo = () =>{
+        const checkInfo = () => {
             if (this.state.gender === undefined) {
                 message.error("Please Enter your Gender")
             }
             else if (this.state.dob === undefined) {
                 message.error("Please Enter your Birthday")
             }
-            
+
             else if (this.state.address === undefined) {
                 message.error("Please Enter your Address")
-            } 
-            
+            }
+
             else if (this.state.mobieNumber === '') {
                 message.error("Please Enter your mobie number")
-            } 
+            }
             else {
                 console.log(this.state.address)
                 uploadInfo();
             }
-           
+
         }
 
 
@@ -71,28 +71,29 @@ export default class RegisterFillInfo extends React.Component {
             axios.post('/register/fillInfo', {
                 gender: this.state.gender,
                 mobile: this.state.mobieNumber,
-                dob: { year: this.state.dob.getFullYear(), month: this.state.dob.getMonth(), date: this.state.dob.getDate() },
+                dob: { year: this.state.dob.getFullYear(), month: this.state.dob.getMonth() + 1, date: this.state.dob.getDate() },
                 region: { city: this.state.address[2], state: this.state.address[1], country: this.state.address[0] },
                 company: this.state.company,
                 occupation: this.state.job,
-            }, 
-                {headers: {
-                    Authorization: `Bearer ${Cookies.get('token')}`
-                }
-            }).then(res => {
-                if (res.data.success) {
-                    this.props.history.push('/dashboard')
-                }
-                else {
-                    // if error
-                    //this.prop.push('/register/fillInfo')
-                    message.error(res.data.error)
-                }
+            },
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('token')}`
+                    }
+                }).then(res => {
+                    if (res.data.success) {
+                        this.props.history.push('/dashboard')
+                    }
+                    else {
+                        // if error
+                        //this.prop.push('/register/fillInfo')
+                        message.error(res.data.error)
+                    }
 
-            }).catch(error => {
-                console.log(error.response.data.error)
-                message.error(error.response.data.error)
-            })
+                }).catch(error => {
+                    console.log(error.response.data.error)
+                    message.error(error.response.data.error)
+                })
 
         }
 
