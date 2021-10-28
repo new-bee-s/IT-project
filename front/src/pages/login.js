@@ -1,7 +1,7 @@
 //import libraries
 import React from 'react';
 import { useState } from 'react'
-import { message, Drawer } from 'antd';
+import { message, Drawer, Popover } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -148,21 +148,6 @@ function SignIn(props) {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [support, setSupport] = useState(false);
-    const [forgetPassword, setForgetPassword] = useState(false);
-
-    const showSupport = () => {
-        setSupport(true);
-    };
-
-    const showForgetPassword = () => {
-        setForgetPassword(true);
-    };
-
-    const onClose = () => {
-        setSupport(false);
-        setForgetPassword(false);
-    };
 
 
 
@@ -185,102 +170,99 @@ function SignIn(props) {
         })
     }
 
+    /* support and forget password*/
+    const support = (
+        <div style = {{width: '400px'}}>
+            <p>Please enter valid email and password to continue using NEW-BEE Personal CRM. 
+                If currently you do not own a account, please click 'New user? Click here' to register</p>
+        </div>
+    );
+
+    const forgetPassword = (
+        <div style = {{width: '400px'}}>
+            <p>
+                If you have forget your regiestered email or password, please contact any admins you know, or set a email to 
+                ziyuq@student.unimelb.edu.au. and describe the situation. Our frinedly team are 
+                happy to assist you to find your email or reset password
+            </p>
+        </div>
+    );
 
     return (
         <div style={{ width: '100vw', height: '100vh', margin: '0', overflow: 'hidden' }}>
 
             <div className={classes.middle}>
 
-                
+                {/* logo image */} 
                 <div style={{width: '50%',height: '100%', backgroundImage: 'url("/../pics/halfback.png")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', left: '0vw', top:'0vh'}}>
-                    <div align = 'center' style={{position: 'absolute', left: '10vw', top:'17vh' }}>
-                        <h1 style={{color: 'white', fontFamily: 'Ubuntu'}}> The best view comes after the hardest climb </h1>
+                    <div style = {{textAlign: 'center', alignItems: 'center', display: 'flex', width: '100%', height: '100%'}}>
+                        <a href="/"> 
+                            <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '75%'}}/>
+                        </a>
                     </div>
                 </div>
                 {/* orginal color '#fffbf0' */}
                 <div style={{width: '50%',height: '100%', backgroundColor: '#f0f0ea', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
-                    {/* logo image */}
-                    <a href="/">
-                        <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '20%', verticalAlign: 'middle',  position: 'absolute', right: '3vw', top:'3vh' }}></img>
-                    </a>
-                    {/* support and forget password*/}
-                    <div style={{position: 'absolute', right: '23vw', top:'3.8vh' }}>
-                        <h3 onClick = {showSupport} style={{color: 'black', fontFamily: 'Ubuntu'}}> Support </h3>              
-                    </div>
-                    <div style={{position: 'absolute', right: '15vw', top:'3.8vh' }}>
-                        <h3 onClick = {showForgetPassword} style={{color: 'Black', fontFamily: 'Ubuntu'}}> Forget Password </h3>              
-                    </div>
-
-                    <Drawer
-                        title="Support"
-                        placement={'left'}
-                        onClose={onClose}
-                        visible={support}
-                        key = {'d1'}
-                    >
-                        <p>Please enter valid email and password to continue using NEW-BEE Personal CRM.</p>
-                        <br/>
-                        <p>If currently you do not own an account, please click 'New user? Click here' to register</p>
-                    </Drawer>
 
 
-                    <Drawer
-                        title="Forget Password"
-                        placement={'left'}
-                        onClose={onClose}
-                        visible={forgetPassword}
-                        key = {'d2'}
-                    >
-                        <p>If you have forget your regiestered email or password, please contact any admins you know, or set a email to ziyuq@student.unimelb.edu.au. and describe the situation. Our frinedly team are happy to assist you to find your email or reset password </p>
-                    </Drawer>
+                    <div align = 'center' verticalalign='middle'>
 
+                        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                        <Container component="main" maxWidth="xs">
+                            <div>
+                                <Typography component="h1" variant="h1" align='center' style = {{fontFamily: 'Ubuntu'}}>Log In</Typography>
+                            </div>
+                            <br />
+                            <div>
+                                <Typography component="h1" variant='body1' align='center' style = {{fontFamily: 'Ubuntu'}}>Sign in and start managing your candidates!</Typography>
+                            </div>
+                            <br />
+                            <div>
+                                <form noValidate>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        autoComplete="email"
+                                        autoFocus
+                                        onChange={e => setEmail(e.target.value)}
+                                    />
 
-                <div align = 'center' verticalalign='middle'>
+                                    <a href={"register"} style={{ float: 'right' }}>
+                                        New user? Click here
+                                    </a>
 
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <Container component="main" maxWidth="xs">
-                        <div>
-                            <Typography component="h1" variant="h1" align='center' style = {{fontFamily: 'Ubuntu'}}>Log In</Typography>
-                        </div>
-                        <br />
-                        <div>
-                            <Typography component="h1" variant='body1' align='center' style = {{fontFamily: 'Ubuntu'}}>Sign in and start managing your candidates!</Typography>
-                        </div>
-                        <br />
-                        <div>
-                            <form noValidate>
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    autoFocus
-                                    onChange={e => setEmail(e.target.value)}
-                                />
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="current-password"
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
 
-                                <a href={"register"} style={{ float: 'right' }}>
-                                    New user? Click here
-                                </a>
-
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                    onChange={e => setPassword(e.target.value)}
-                                />
-
-
-                                <div className={classes.blocks_signin}>
+                                </form>
+                                <div style = {{float: 'left'}}>
+                                    <Popover content={support} title="Support" style = {{float: 'left'}}>
+                                        <Button type="primary">Support</Button>
+                                    </Popover>
+                                </div>
+                                <div style = {{float: 'left'}}>
+                                    <Popover content={forgetPassword} title="Forget Passward" style = {{float: 'left'}}>
+                                        <Button type="primary">Forget Passward</Button>
+                                    </Popover>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div>
                                     <Button
                                         variant="contained"
                                         onClick={onSignIn}
@@ -290,11 +272,9 @@ function SignIn(props) {
                                     </Button>
 
                                 </div>
-
-                            </form>
-                        </div>
-                    </Container>
-                </div>
+                            </div>
+                        </Container>
+                    </div>
                 </div>
             </div>
 
