@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { useState } from 'react';
 import { Drawer} from 'antd';
+import { Row, Col } from 'antd';
 
 
 // homepage style 
@@ -103,40 +104,54 @@ function Homepage() {
 
     return (
         <div style={{width: '100%', height: '100%', backgroundImage: 'url("/../pics/keyboard.png")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
-            {/* logo div */}
-            <div style={{position: 'absolute', left: '3vw', top:'3vh' }}>
-                <img src='./pics/logo_full.png' alt='logo pic' height={50}/>
-            </div>
-
-            {/* help divs */}
-            <div style={{position: 'absolute', right: '37.5vw', top:'3.8vh' }}>
-                <h2 onClick = {showAbout} style={{color: 'white', fontFamily: 'Ubuntu'}}> About </h2>      
-            </div>
-            
-            <div style={{position: 'absolute', right: '32vw', top:'3.8vh' }}>
-                <h2 onClick = {showSupport} style={{color: 'white', fontFamily: 'Ubuntu'}}> Support </h2>              
-            </div>
-            <div style={{position: 'absolute', right: '27vw', top:'3.8vh' }}>
-                <h2 onClick = {showAdmin} style={{color: 'white', fontFamily: 'Ubuntu'}}> Admin </h2>              
-            </div>
-            <div style={{position: 'absolute', right: '23vw', top:'3.8vh' }}>
-                <h2 onClick = {showTeam} style={{color: 'white', fontFamily: 'Ubuntu'}}> Team </h2>              
-            </div>
-
-            {/* continue div */}
-            <div style={{position: 'absolute', right: '3vw', top:'3.5vh' }}>
-                <a href={window.location.href + 'login'}>
-                    <Button variant="contained" className={classes.button}>
-                        Get Start
-                    </Button>
-                </a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href={window.location.href + 'register'}>
-                    <Button variant="contained" className={classes.button}>
-                        Join Us
-                    </Button>
-                </a>
-            </div>
+            <Row>
+                <Col span = {5}>
+                    {/* logo div */}
+                    <div style = {{justifyContent: 'center', display: 'flex', height: '90px', alignItems: 'center'}}>
+                        <img src='./pics/logo_full.png' alt='logo pic' height={50}/>
+                    </div>
+                </Col>
+                <Col span = {18}>
+                    <div style={{float: 'right', height: '90px', width: '100%'}}>
+                        {/* continue div */}
+                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                            <a href={window.location.href + 'register'}>
+                                <Button variant="contained" className={classes.button}>
+                                    Join Us
+                                </Button>
+                            </a>
+                        </div>
+                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                            <a href={window.location.href + 'login'}>
+                                <Button variant="contained" className={classes.button}>
+                                    Get Start
+                                </Button>
+                            </a>
+                        </div>
+                        {/* help divs */}
+                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                            <div>
+                                <h2 onClick = {showTeam} style={{color: 'white', fontFamily: 'Ubuntu', textAlign: 'center'}}> Team </h2>
+                            </div>
+                        </div>
+                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                            <div>
+                                <h2 onClick = {showAdmin} style={{color: 'white', fontFamily: 'Ubuntu'}}> Admin </h2>
+                            </div>           
+                        </div>
+                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                            <div>
+                                <h2 onClick = {showSupport} style={{color: 'white', fontFamily: 'Ubuntu'}}> Support </h2> 
+                            </div>                     
+                        </div>
+                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                            <div>
+                                <h2 onClick = {showAbout} style={{color: 'white', fontFamily: 'Ubuntu'}}> About </h2>
+                            </div> 
+                        </div>
+                    </div>
+                </Col>
+            </Row>
             
             {/* slogon div */}
             <div align = 'center' style={{position: 'absolute', left: '35vw', top:'40vh' }}>

@@ -51,11 +51,6 @@ export default class Dashboard extends React.Component {
             </Space>;
         }
 
-        const logout = (
-            <Menu>
-                <Menu.Item key='1' onClick={OnLogOut}>Log Out</Menu.Item>
-            </Menu>
-        );
 
 
 
@@ -70,7 +65,7 @@ export default class Dashboard extends React.Component {
                                 </div>
                             </a>
                         </Col>
-                        <Col span={7} offset={2}>
+                        <Col span={12}>
                             <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']} style={{ height: '64px' }}>
                                 <Menu.Item key='1'>
                                     <a href={home}>
@@ -93,7 +88,7 @@ export default class Dashboard extends React.Component {
                                     </a>
                                 </Menu.Item>
 
-                                <Menu.Item key='3'>
+                                <Menu.Item key='4'>
                                     <a href={home + '/changeinfo'}>
                                         <img src='../pics/edit.png' alt='ManageProfile' style={{ height: '28px' }} />
                                         <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage Profile</span>
@@ -102,16 +97,24 @@ export default class Dashboard extends React.Component {
 
                             </Menu>
                         </Col>
-                        <Col span={7} offset={1}>
-                            <Menu theme='dark' mode='horizontal' style={{ height: '64px' }}>
-                                <Dropdown overlay={logout}>
-                                    <Menu.Item key='1'>
-                                        <Avatar src={profile.photo.data} />
-                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                            {profile.email}
-                                        </span>
-                                    </Menu.Item>
-                                </Dropdown>
+                        <Col span={5}>
+                            <div style = {{float: 'right'}}>
+                                <Avatar src={profile.photo.data} />
+                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                    {profile.email}
+                                </span>
+                            </div>
+                        </Col>
+                        <Col span = {4} style = {{padding: "0 10px"}}>
+                            <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                                <Menu.Item key='logout'>
+                                <div onClick = {() => OnLogOut()}>
+                                    <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
+                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                        Log Out
+                                    </span>
+                                </div>
+                                </Menu.Item>
                             </Menu>
                         </Col>
                     </Row>

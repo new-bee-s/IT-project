@@ -46,12 +46,6 @@ export default function ChangeInfo(props) {
         props.history.push('/login');
     }
 
-    const logout = (
-        <Menu>
-            <Menu.Item key="1" onClick={OnLogOut}>Log Out</Menu.Item>
-        </Menu>
-    );
-
 
     // change personal infos
     const changeInformation = () => {
@@ -152,7 +146,7 @@ export default function ChangeInfo(props) {
                             </div>
                         </a>
                     </Col>
-                    <Col span={7} offset={2}>
+                    <Col span={12}>
                     <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['4']} style={{ height: '64px' }}>
                                 <Menu.Item key='1'>
                                     <a href={home}>
@@ -185,16 +179,24 @@ export default function ChangeInfo(props) {
                             </Menu>
                     </Col>
 
-                    <Col span={3} offset={1}>
+                    <Col span={5}>
+                        <div style = {{float: 'right'}}>
+                            <Avatar src={profile.photo.data} />
+                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                {profile.email}
+                            </span>
+                        </div>
+                    </Col>
+                    <Col span = {4} style = {{padding: "0 10px"}}>
                         <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
-                            <Dropdown overlay={logout}>
-                                <Menu.Item key="1">
-                                    <Avatar src={profile.photo.data} />
-                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                        {profile.email}
-                                    </span>
-                                </Menu.Item>
-                            </Dropdown>
+                            <Menu.Item key='logout'>
+                            <div onClick = {() => OnLogOut()}>
+                                <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
+                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                    Log Out
+                                </span>
+                            </div>
+                            </Menu.Item>
                         </Menu>
                     </Col>
                 </Row>

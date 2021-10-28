@@ -4,8 +4,8 @@ import axios from '../commons/axios.js'
 import ContactPendingBrief from '../components/contactPendingBrief.js'
 import ContactBrief from '../components/contactAcceptBrief.js'
 import { Menu, Badge, Typography } from 'antd';
-import { UserOutlined, UserAddOutlined, SearchOutlined} from '@ant-design/icons';
-import { Layout, Dropdown } from 'antd';
+import { UserOutlined, UserAddOutlined, SearchOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
 import { Row, Col, Space, Spin } from 'antd';
 import Cookies from 'js-cookie';
 import { Avatar } from 'antd';
@@ -183,13 +183,6 @@ export default class Contact extends React.Component {
             this.setState({acceptContact: newAcceptContact});
         }
        
-
-        //render logout
-        const logout = (
-            <Menu>
-                <Menu.Item key="1" onClick={OnLogOut}>Log Out</Menu.Item>
-            </Menu>
-        );
         
         const contentDetail = (Detail, status) => {
             this.setState({Detail: Detail.id});
@@ -251,44 +244,55 @@ export default class Contact extends React.Component {
                                     </div>
                                 </a>
                             </Col>
-                            <Col span={6} offset={2}>
+                            <Col span={12}>
                                 <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ height: '64px' }}>
-                                    <Menu.Item key="1">
+                                    <Menu.Item key="dashboard">
                                         <a href={home}>
                                             <img src='/../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
                                             <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
                                         </a>
                                     </Menu.Item>
 
-                                    <Menu.Item key="2">
+                                    <Menu.Item key="contact">
                                         <a href={home + '/contact'}>
                                             <img src='/../pics/contact_icon.png' alt='contact_icon' style={{ height: '24px' }} />
                                             <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
                                         </a>
                                     </Menu.Item>
 
-                                    <Menu.Item key="3">
+                                    <Menu.Item key="search">
                                         <a href={home + '/search'}>
                                             <img src='/../pics/AddFriend.png' alt='AddFriend' style={{ height: '19px' }} />
                                             <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
                                         </a>
                                     </Menu.Item>
+                                    <Menu.Item key='changeinfo'>
+                                        <a href={home + '/changeinfo'}>
+                                            <img src='../pics/edit.png' alt='ManageProfile' style={{ height: '28px' }} />
+                                            <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage Profile</span>
+                                        </a>
+                                    </Menu.Item>
                                 </Menu>
-
                             </Col>
-                            <Col span={12}>
+                            <Col span={5}>
                                 <div style = {{float: 'right'}}>
-                                    <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
-                                        <Dropdown overlay={logout}>
-                                            <Menu.Item key="1">
-                                                <Avatar src={profile.photo.data} />
-                                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                                    {profile.email}
-                                                </span>
-                                            </Menu.Item>
-                                        </Dropdown>
-                                    </Menu>
+                                    <Avatar src={profile.photo.data} />
+                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                        {profile.email}
+                                    </span>
                                 </div>
+                            </Col>
+                            <Col span = {4} style = {{padding: "0 10px"}}>
+                                <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
+                                    <Menu.Item key='logout'>
+                                    <div onClick = {() => OnLogOut()}>
+                                        <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                            Log Out
+                                        </span>
+                                    </div>
+                                    </Menu.Item>
+                                </Menu>
                             </Col>
                         </Row>
                     </Header>
