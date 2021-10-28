@@ -250,7 +250,7 @@ function SignIn(props) {
                                     />
 
                                 </form>
-
+                                {/*  support and forget password */}
                                 <div style = {{float: 'right'}}>
                                     <Popover content={forgetPassword} title="Forget Passward" style = {{float: 'left'}}>
                                         <Button variant="text" style = {{fontFamily: 'Ubuntu', fontSize: "13px", textTransform: 'none', color: '#1890ff', padding: '0px 0px'}}>
