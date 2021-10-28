@@ -1,7 +1,7 @@
 //import libraries
 import React from 'react';
 import { useState } from 'react'
-import { message, Drawer, Popover } from 'antd';
+import { message, Popover } from 'antd';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -170,13 +170,7 @@ function SignIn(props) {
         })
     }
 
-    /* support and forget password*/
-    const support = (
-        <div style = {{width: '400px'}}>
-            <p>Please enter valid email and password to continue using NEW-BEE Personal CRM. 
-                If currently you do not own a account, please click 'New user? Click here' to register</p>
-        </div>
-    );
+
 
     const forgetPassword = (
         <div style = {{width: '400px'}}>
@@ -232,7 +226,7 @@ function SignIn(props) {
                                         onChange={e => setEmail(e.target.value)}
                                     />
 
-                                    <a href={"register"} style={{ float: 'right' }}>
+                                    <a href={"register"} style={{ float: 'right', fontFamily: 'Ubuntu'}}>
                                         New user? Click here
                                     </a>
 

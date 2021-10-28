@@ -1,10 +1,9 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
 import axios from '../commons/axios.js'
 import ContactPendingBrief from '../components/contactPendingBrief.js'
 import ContactBrief from '../components/contactAcceptBrief.js'
 import { Menu, Badge, Typography } from 'antd';
-import { UserOutlined, UserAddOutlined, SearchOutlined, LogoutOutlined } from '@ant-design/icons';
+import { UserOutlined, UserAddOutlined, SearchOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import { Row, Col, Space, Spin } from 'antd';
 import Cookies from 'js-cookie';
@@ -13,7 +12,6 @@ import { message } from 'antd';
 import { Input} from 'antd';
 import { Select } from 'antd';
 import { MenuItem } from 'rc-menu'
-const { Option } = Select;
 
 
 
@@ -78,6 +76,7 @@ export default class Contact extends React.Component {
         }
         console.log(pendingContact)
         
+        // Search function
         const onSearch = e =>{
             e = e.toLowerCase()
             if (e !== ''){
@@ -110,14 +109,17 @@ export default class Contact extends React.Component {
             }
         };
 
+        // Search tag
         const searchTag = (allFriendList, e) => {
             var searchList = [];
-            allFriendList.map(contact=>{
+            allFriendList.map(contact => {
                 contact.tag.map(tag => {
                     if (tag.toLowerCase().includes(e)){
                         searchList.push(contact)
                     }
+                    return tag;
                 })
+                return contact;
             })
             return searchList;
         };
@@ -154,8 +156,7 @@ export default class Contact extends React.Component {
                 if (response.data.success) {
                     console.log(response.data.accepted)
                     this.setState({acceptContact: response.data.accepted, 
-                        pendingContact: response.data.pending, length: 
-                        response.data.pending.length,
+                        pendingContact: response.data.pending, 
                         length: response.data.pending.length,
                         Detail: undefined,
                         showStatus: 0}, 
@@ -201,6 +202,7 @@ export default class Contact extends React.Component {
                     if (contact.friend._id === Detail) {
                         showedAcceptedcontact = contact
                     }
+                    return contact;
                 })
                 return (
                     <ContactBrief key= {showedAcceptedcontact._id} contact = {showedAcceptedcontact} 
@@ -212,6 +214,7 @@ export default class Contact extends React.Component {
                     if (contact.user._id === Detail) {
                         showedPendingContact = contact
                     }
+                    return contact;
                 })
                 return (
                     <ContactPendingBrief
