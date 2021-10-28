@@ -250,14 +250,12 @@ function SignIn(props) {
                                     />
 
                                 </form>
-                                <div style = {{float: 'left'}}>
-                                    <Popover content={support} title="Support" style = {{float: 'left'}}>
-                                        <Button type="primary">Support</Button>
-                                    </Popover>
-                                </div>
-                                <div style = {{float: 'left'}}>
+
+                                <div style = {{float: 'right'}}>
                                     <Popover content={forgetPassword} title="Forget Passward" style = {{float: 'left'}}>
-                                        <Button type="primary">Forget Passward</Button>
+                                        <Button variant="text" style = {{fontFamily: 'Ubuntu', fontSize: "13px", textTransform: 'none', color: '#1890ff', padding: '0px 0px'}}>
+                                            Forget Passward?
+                                        </Button>
                                     </Popover>
                                 </div>
                                 <br/>
