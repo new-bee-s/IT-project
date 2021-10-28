@@ -79,6 +79,7 @@ export default class Contact extends React.Component {
         console.log(pendingContact)
         
         const onSearch = e =>{
+            e = e.toLowerCase()
             if (e !== ''){
                 let searchList=[];
                 if (searchOption === 'Email'){
