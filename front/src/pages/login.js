@@ -248,7 +248,9 @@ function SignIn(props) {
                                 <div style = {{float: 'right'}}>
                                     <Popover content={forgetPassword} title="Forget Passward" style = {{float: 'left'}}>
                                         <Button variant="text" style = {{fontFamily: 'Ubuntu', fontSize: "14px", textTransform: 'none', color: '#1890ff', padding: '0px 0px'}}>
+                                        <a style={{ float: 'right', fontFamily: 'Ubuntu'}}>
                                             Forget Passward?
+                                        </a>
                                         </Button>
                                     </Popover>
                                 </div>
