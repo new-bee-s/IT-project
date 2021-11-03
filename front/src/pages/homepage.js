@@ -186,7 +186,7 @@ function Homepage() {
                 <br />
                 <p>Please comply with the internet rules and local laws, and show respect to other users. We do not tolerate racist or other types of discriminaition information/massage. Failed to comply with above terms may lead to your account being banned.</p>
                 <br />
-                <p>For further assistance, please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
+                <p>For further assistance, please contact us via new.bee.crm@gmail.com。</p>
             </Drawer>
 
             <Drawer
@@ -200,7 +200,7 @@ function Homepage() {
                 <br />
                 <p>Admins reserve the rights of banning and unbanning any accounts that violate the community rules. Admins also reserves the right of modifying users information, but we guarantee that users private information will not be revealed to any third parties.</p>
                 <br />
-                <p>For appeal of banned accounts please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
+                <p>For appeal of banned accounts please contact us via new.bee.crm@gmail.com。</p>
                 <br />
                 <p>For current admins: Please log in with a different website!</p>
             </Drawer>
@@ -216,7 +216,7 @@ function Homepage() {
                 <br />
                 <p>The Team members are: Shenggang Qian, Shengjun Su, Xinyu Wu, Yutong Sun and Ziyu Qian. The supervisor of the team is Zhe Wang and the client is Haichao Song </p>
                 <br />
-                <p>For any suggestions and potential future opportunities, please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
+                <p>For any suggestions and potential future opportunities, please contact us via new.bee.crm@gmail.com.</p>
             </Drawer>
 
 
