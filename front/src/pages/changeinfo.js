@@ -81,14 +81,14 @@ export default function ChangeInfo(props) {
     const setAddress = (value) => {
         var address = value;
         address[0] = value[0];
-        if (value[1] === undefined){
+        if (value[1] === undefined) {
             address[1] = '';
-        }else{
+        } else {
             address[1] = value[1];
         }
-        if (value[2] === undefined){
+        if (value[2] === undefined) {
             address[2] = '';
-        }else{
+        } else {
             address[2] = value[2];
         }
         setAdd(address);
@@ -98,27 +98,39 @@ export default function ChangeInfo(props) {
 
     const changeAvatar = (e) => {
         e.preventDefault();
-
         var reader = new FileReader();
         var file = e.target.files[0];
+        var file_size = file.size;
+        file_size = file_size / 1024; //into kb
+        console.log(file_size);
+
         reader.onloadend = () => {
 
-            axios.post(home + '/uploadImage', { image: reader.result }).then(res => {
-                if (res.data.success) {
-                    message.success("successfully changed avatar!");
-                    props.history.push('/dashboard', { replace: true });
-                }
-                else {
-                    // if error
-                    message.error(res.data.error)
-                    return;
-                }
+            if (file_size > 200) {
+                message.error("File size too large. Please select another picture.");
+            }
+            // else if (a) {
 
-            }).catch(error => {
-                console.log(error.response.data.error)
-                message.error(error.response.data.error)
-                return;
-            })
+            // }
+            else {
+                axios.post(home + '/uploadImage', { image: reader.result }).then(res => {
+                    if (res.data.success) {
+                        message.success("successfully changed avatar!");
+                        props.history.push('/dashboard', { replace: true });
+                    }
+                    else {
+                        // if error
+                        message.error(res.data.error)
+                        return;
+                    }
+
+                }).catch(error => {
+                    console.log(error.response.data.error)
+                    message.error(error.response.data.error)
+                    return;
+                })
+            }
+
         }
         reader.readAsDataURL(file);
 
@@ -147,55 +159,55 @@ export default function ChangeInfo(props) {
                         </a>
                     </Col>
                     <Col span={12}>
-                    <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['4']} style={{ height: '64px' }}>
-                                <Menu.Item key='1'>
-                                    <a href={home}>
-                                        <img src='../pics/manage1.png' alt='profile_icon' style={{ height: '28px', verticalAlign: 'middle' }} />
-                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
-                                    </a>
-                                </Menu.Item>
+                        <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['4']} style={{ height: '64px' }}>
+                            <Menu.Item key='1'>
+                                <a href={home}>
+                                    <img src='../pics/manage1.png' alt='profile_icon' style={{ height: '28px', verticalAlign: 'middle' }} />
+                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Profile</span>
+                                </a>
+                            </Menu.Item>
 
-                                <Menu.Item key='2'>
-                                    <a href={home + '/contact'}>
-                                        <img src='../pics/friend.png' alt='contact_icon' style={{ height: '24px' }} />
-                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
-                                    </a>
-                                </Menu.Item>
+                            <Menu.Item key='2'>
+                                <a href={home + '/contact'}>
+                                    <img src='../pics/friend.png' alt='contact_icon' style={{ height: '24px' }} />
+                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Contact</span>
+                                </a>
+                            </Menu.Item>
 
-                                <Menu.Item key='3'>
-                                    <a href={home + '/search'}>
-                                        <img src='../pics/af1.png' alt='AddFriend' style={{ height: '26px' }} />
-                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
-                                    </a>
-                                </Menu.Item>
+                            <Menu.Item key='3'>
+                                <a href={home + '/search'}>
+                                    <img src='../pics/af1.png' alt='AddFriend' style={{ height: '26px' }} />
+                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Search</span>
+                                </a>
+                            </Menu.Item>
 
-                                <Menu.Item key='4'>
-                                    <a href={home + '/changeinfo'}>
-                                        <img src='../pics/edit.png' alt='ManageProfile' style={{ height: '28px' }} />
-                                        <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage Profile</span>
-                                    </a>
-                                </Menu.Item>
+                            <Menu.Item key='4'>
+                                <a href={home + '/changeinfo'}>
+                                    <img src='../pics/edit.png' alt='ManageProfile' style={{ height: '28px' }} />
+                                    <span style={{ verticalAlign: 'middle', paddingLeft: '10px' }}>Manage Profile</span>
+                                </a>
+                            </Menu.Item>
 
-                            </Menu>
+                        </Menu>
                     </Col>
 
                     <Col span={5}>
-                        <div style = {{float: 'right'}}>
+                        <div style={{ float: 'right' }}>
                             <Avatar src={profile.photo.data} />
                             <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                 {profile.email}
                             </span>
                         </div>
                     </Col>
-                    <Col span = {4} style = {{padding: "0 10px"}}>
+                    <Col span={4} style={{ padding: "0 10px" }}>
                         <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                             <Menu.Item key='logout'>
-                            <div onClick = {() => OnLogOut()}>
-                                <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
-                                <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                    Log Out
-                                </span>
-                            </div>
+                                <div onClick={() => OnLogOut()}>
+                                    <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
+                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                        Log Out
+                                    </span>
+                                </div>
                             </Menu.Item>
                         </Menu>
                     </Col>
@@ -214,7 +226,7 @@ export default function ChangeInfo(props) {
                             </div>
 
                             <Button type="primary" size='large'>
-                                <input id="inputAvatar" style={{ display: 'none' }} type="file" onChange={(e) => changeAvatar(e)} />
+                                <input id="inputAvatar" style={{ display: 'none' }} type="file" onChange={(e) => changeAvatar(e)} accept=".jpg, .png, .bmp, .jpeg" />
                                 <label style={{ color: "#FFF" }} htmlFor="inputAvatar">
                                     Change Avatar
                                 </label>
@@ -246,7 +258,7 @@ export default function ChangeInfo(props) {
                             <div>
                                 <form noValidate>
 
-                                    
+
 
                                     <Tooltip title={
                                         <div style={{ verticalAlign: 'middle', fontSize: '15px', paddingLeft: '0px' }}>
