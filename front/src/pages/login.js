@@ -177,7 +177,7 @@ function SignIn(props) {
             <p>
                 If you have forget your regiestered email or password, please contact admin or
                 new.bee.crm@gmail.com and state the situation. Our frinedly team are
-                happy to assist you to find your email or reset password
+                happy to assist you
             </p>
         </div>
     );
