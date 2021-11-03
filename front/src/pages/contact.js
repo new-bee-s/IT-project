@@ -9,7 +9,7 @@ import { Row, Col, Space, Spin } from 'antd';
 import Cookies from 'js-cookie';
 import { Avatar } from 'antd';
 import { message } from 'antd';
-import { Input} from 'antd';
+import { Input } from 'antd';
 import { Select } from 'antd';
 import { MenuItem } from 'rc-menu'
 
@@ -19,22 +19,24 @@ import { MenuItem } from 'rc-menu'
 
 export default class Contact extends React.Component {
     constructor(props) {
-      super(props);
-      this.state = {acceptContact: [], pendingContact: [], detailLoading: true, 
-            profileLoading: true, Detail: undefined, searchOption: 'Email', profile: [], 
-            searchDisplay: [], showStatus: 0, length: 0}
+        super(props);
+        this.state = {
+            acceptContact: [], pendingContact: [], detailLoading: true,
+            profileLoading: true, Detail: undefined, searchOption: 'Email', profile: [],
+            searchDisplay: [], showStatus: 0, length: 0
+        }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const home = '/dashboard'
         // connect contact back-end and seting contact list information
         axios.get(home + '/contact').then(response => {
 
             if (response.data.success) {
-                this.setState({acceptContact: response.data.accepted})
-                this.setState({pendingContact: response.data.pending})
-                this.setState({length: response.data.pending.length})
-                this.setState({detailLoading: false})
+                this.setState({ acceptContact: response.data.accepted })
+                this.setState({ pendingContact: response.data.pending })
+                this.setState({ length: response.data.pending.length })
+                this.setState({ detailLoading: false })
             }
         }).catch(error => {
             console.log(error.response.data.error)
@@ -43,8 +45,8 @@ export default class Contact extends React.Component {
 
         axios.get(home).then(response => {
             if (response.data.success) {
-                this.setState({profile: response.data.user})
-                this.setState({profileLoading: false})
+                this.setState({ profile: response.data.user })
+                this.setState({ profileLoading: false })
             }
         }).catch(error => {
             console.log(error.response.data.error)
@@ -52,17 +54,17 @@ export default class Contact extends React.Component {
         })
     }
 
-    
-   
+
+
     render() {
         const { Search } = Input;
         const { Text } = Typography;
         const { SubMenu } = Menu;
         const { Header, Content, Sider } = Layout;
         const { Option } = Select;
-        const { acceptContact, pendingContact, detailLoading, 
-            profileLoading, Detail, searchOption, profile, 
-            searchDisplay, showStatus, length} = this.state;
+        const { acceptContact, pendingContact, detailLoading,
+            profileLoading, Detail, searchOption, profile,
+            searchDisplay, showStatus, length } = this.state;
 
         const home = '/dashboard'
         // logout function
@@ -70,42 +72,42 @@ export default class Contact extends React.Component {
             Cookies.remove('token')
             this.props.history.push('/login');
         }
-        
+
         const setSearch = e => {
-            this.setState({searchOption: e})
+            this.setState({ searchOption: e })
         }
         console.log(pendingContact)
-        
+
         // Search function
-        const onSearch = e =>{
+        const onSearch = e => {
             e = e.toLowerCase()
-            if (e !== ''){
-                let searchList=[];
-                if (searchOption === 'Email'){
-                    searchList = acceptContact.filter(contact=>
+            if (e !== '') {
+                let searchList = [];
+                if (searchOption === 'Email') {
+                    searchList = acceptContact.filter(contact =>
                         contact.friend.email.toString().toLowerCase().includes(e)
                     );
                 }
-                else if (searchOption === 'Name'){
-                    searchList = acceptContact.filter(contact=>
-                        contact.friend.givenName.toString().toLowerCase().includes(e)||
+                else if (searchOption === 'Name') {
+                    searchList = acceptContact.filter(contact =>
+                        contact.friend.givenName.toString().toLowerCase().includes(e) ||
                         contact.friend.familyName.toString().toLowerCase().includes(e)
                     );
                 }
-                else if (searchOption === 'Remark'){
-                    searchList = acceptContact.filter(contact=>
+                else if (searchOption === 'Remark') {
+                    searchList = acceptContact.filter(contact =>
                         contact.remark.toString().toLowerCase().includes(e)
                     );
                 }
-                else if (searchOption === 'UserID'){
-                    searchList = acceptContact.filter(contact=>
+                else if (searchOption === 'UserID') {
+                    searchList = acceptContact.filter(contact =>
                         contact.friend.userID.toString().toLowerCase().includes(e)
                     );
                 }
-                else if (searchOption === 'Tag'){
+                else if (searchOption === 'Tag') {
                     searchList = searchTag(acceptContact, e);
                 }
-                this.setState({searchDisplay: searchList});
+                this.setState({ searchDisplay: searchList });
             }
         };
 
@@ -114,7 +116,7 @@ export default class Contact extends React.Component {
             var searchList = [];
             allFriendList.map(contact => {
                 contact.tag.map(tag => {
-                    if (tag.toLowerCase().includes(e)){
+                    if (tag.toLowerCase().includes(e)) {
                         searchList.push(contact)
                     }
                     return tag;
@@ -125,43 +127,45 @@ export default class Contact extends React.Component {
         };
 
         // Get the tags from component
-        const getTags = (tags, id) =>{
-            let newContacts = this.state.acceptContact.map(contact =>{
-                if (contact._id === id){
+        const getTags = (tags, id) => {
+            let newContacts = this.state.acceptContact.map(contact => {
+                if (contact._id === id) {
                     contact.tag = tags
                 }
                 return contact
             })
-            this.setState({acceptContact: newContacts})
+            this.setState({ acceptContact: newContacts })
         }
 
         // Get the remark from component
-        const getRemark = (remark, id) =>{
-            let newContacts = this.state.acceptContact.map(contact =>{
-                if (contact._id === id){
+        const getRemark = (remark, id) => {
+            let newContacts = this.state.acceptContact.map(contact => {
+                if (contact._id === id) {
                     contact.remark = remark
                 }
                 return contact
             })
-            this.setState({acceptContact: newContacts})
+            this.setState({ acceptContact: newContacts })
         }
 
         // Get accept friend from component
-        const getAcceptFriend = () =>{
-            this.setState({detailLoading: true})
+        const getAcceptFriend = () => {
+            this.setState({ detailLoading: true })
             const home = '/dashboard'
             // connect contact back-end and seting contact list information
             axios.get(home + '/contact').then(response => {
 
                 if (response.data.success) {
                     console.log(response.data.accepted)
-                    this.setState({acceptContact: response.data.accepted, 
-                        pendingContact: response.data.pending, 
+                    this.setState({
+                        acceptContact: response.data.accepted,
+                        pendingContact: response.data.pending,
                         length: response.data.pending.length,
                         Detail: undefined,
-                        showStatus: 0}, 
-                        () => {this.setState({detailLoading: false})})
-                    
+                        showStatus: 0
+                    },
+                        () => { this.setState({ detailLoading: false }) })
+
                 }
             }).catch(error => {
                 console.log(error.response.data.error)
@@ -170,25 +174,25 @@ export default class Contact extends React.Component {
         }
 
         // Get reject friend request from component
-        const getRejectFriend = (id) =>{
+        const getRejectFriend = (id) => {
             var newPendingContact = pendingContact.filter(contact => contact.user._id !== id);
-            this.setState({pendingContact: newPendingContact});
-            this.setState({Detail: undefined})
-            this.setState({showStatus: 0})
+            this.setState({ pendingContact: newPendingContact });
+            this.setState({ Detail: undefined })
+            this.setState({ showStatus: 0 })
         }
 
         // Get Delete friend request from component
-        const getDeleteFriend = (id) =>{
+        const getDeleteFriend = (id) => {
             var newAcceptContact = acceptContact.filter(contact => contact._id !== id);
-            this.setState({Detail: undefined})
-            this.setState({showStatus: 0})
-            this.setState({acceptContact: newAcceptContact});
+            this.setState({ Detail: undefined })
+            this.setState({ showStatus: 0 })
+            this.setState({ acceptContact: newAcceptContact });
         }
-       
-        
+
+
         const contentDetail = (Detail, status) => {
-            this.setState({Detail: Detail.id});
-            this.setState({showStatus: status});
+            this.setState({ Detail: Detail.id });
+            this.setState({ showStatus: status });
         }
 
         // separate each contact list with index
@@ -196,19 +200,19 @@ export default class Contact extends React.Component {
             if (Detail === undefined) {
                 return (<div> </div>)
             }
-            if (showStatus === 2){
+            if (showStatus === 2) {
                 var showedAcceptedcontact = undefined;
-                acceptContact.map(contact =>{
+                acceptContact.map(contact => {
                     if (contact.friend._id === Detail) {
                         showedAcceptedcontact = contact
                     }
                     return contact;
                 })
                 return (
-                    <ContactBrief key= {showedAcceptedcontact._id} contact = {showedAcceptedcontact} 
-                    sendTags = {getTags} sendRemark = {getRemark} sendDelete = {getDeleteFriend}/>);
-            }   
-            else if(showStatus === 1){
+                    <ContactBrief key={showedAcceptedcontact._id} contact={showedAcceptedcontact}
+                        sendTags={getTags} sendRemark={getRemark} sendDelete={getDeleteFriend} />);
+            }
+            else if (showStatus === 1) {
                 var showedPendingContact = undefined;
                 pendingContact.map(contact => {
                     if (contact.user._id === Detail) {
@@ -218,11 +222,11 @@ export default class Contact extends React.Component {
                 })
                 return (
                     <ContactPendingBrief
-                        key= {showedPendingContact.user._id}
+                        key={showedPendingContact.user._id}
                         contact={showedPendingContact}
-                        sendAccept = {getAcceptFriend}
-                        sendReject = {getRejectFriend}
-                        />
+                        sendAccept={getAcceptFriend}
+                        sendReject={getRejectFriend}
+                    />
                 )
             }
         }
@@ -279,22 +283,22 @@ export default class Contact extends React.Component {
                                 </Menu>
                             </Col>
                             <Col span={5}>
-                                <div style = {{float: 'right'}}>
+                                <div style={{ float: 'right' }}>
                                     <Avatar src={profile.photo.data} />
                                     <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                         {profile.email}
                                     </span>
                                 </div>
                             </Col>
-                            <Col span = {4} style = {{padding: "0 10px"}}>
+                            <Col span={4} style={{ padding: "0 10px" }}>
                                 <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                     <Menu.Item key='logout'>
-                                    <div onClick = {() => OnLogOut()}>
-                                        <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
-                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                            Log Out
-                                        </span>
-                                    </div>
+                                        <div onClick={() => OnLogOut()}>
+                                            <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
+                                            <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                                Log Out
+                                            </span>
+                                        </div>
                                     </Menu.Item>
                                 </Menu>
                             </Col>
@@ -305,25 +309,25 @@ export default class Contact extends React.Component {
                             <Menu
                                 mode="inline"
                                 style={{ minHeight: '100vh' }}
-                            >   
+                            >
                                 <SubMenu key="3" icon={<SearchOutlined />} title="Search friend">
-                                    <MenuItem key = "4" style = {{paddingLeft: '10px'}}>
-                                        <Input.Group compact style={{ alignSelf: 'center', padding: '10px 20px'}}>
-                                            <Select defaultValue="Email" onChange = {setSearch} style = {{width: "90px"}}>
+                                    <MenuItem key="4" style={{ paddingLeft: '10px' }}>
+                                        <Input.Group compact style={{ alignSelf: 'center', padding: '10px 20px' }}>
+                                            <Select defaultValue="Email" onChange={setSearch} style={{ width: "90px" }}>
                                                 <Option value="Email">Email</Option>
                                                 <Option value="UserID">UserID</Option>
                                                 <Option value="Remark">Remark</Option>
                                                 <Option value="Name">Name</Option>
                                                 <Option value="Tag">Tag</Option>
                                             </Select>
-                                            <Search style = {{width: "250px"}}
+                                            <Search style={{ width: "250px" }}
                                                 placeholder="Search to Select"
                                                 onSearch={onSearch}
                                             />
                                         </Input.Group>
                                     </MenuItem>
                                     {searchDisplay.map(contact => <Menu.Item icon={
-                                        <Avatar icon={<Avatar src={contact.friend.photo.data}/>} key = {contact.friend._id}/>
+                                        <Avatar icon={<Avatar src={contact.friend.photo.data} />} key={contact.friend._id} />
                                     } style={{ paddingLeft: '20px' }}>
                                         <div
                                             onClick={e => contentDetail(e.target, 2)}
@@ -345,40 +349,40 @@ export default class Contact extends React.Component {
                                 <SubMenu key="sub1" icon={<Badge count={length} size="small" offset={[2, -1]}>
                                     <UserAddOutlined />
 
-                                    </Badge>}
-                                    title="New friend" 
+                                </Badge>}
+                                    title="New friend"
                                 >
                                     {pendingContact.map((contact, index) => <Menu.Item key={contact.user._id} icon={
                                         <Avatar src={contact.user.photo.data} />} style={{ paddingLeft: '20px', height: '50px' }}  >
-                                            <div
-                                                onClick={e => contentDetail(e.target, 1)}
+                                        <div
+                                            onClick={e => contentDetail(e.target, 1)}
+                                            id={contact.user._id}
+                                        >
+                                            <Text
+                                                type="secondary"
+                                                style={{ margin: '5px', fontWeight: 'bold' }}
                                                 id={contact.user._id}
-                                            >
-                                                <Text
-                                                    type="secondary"
-                                                    style={{ margin: '5px', fontWeight: 'bold' }}
-                                                    id={contact.user._id}
-                                                    onClick={e => contentDetail(e.target, 1)}
+                                                onClick={e => contentDetail(e.target, 1)}
 
-                                                >
-                                                    {contact.user.givenName + ' ' + contact.user.familyName}
-                                                </Text>
-                                                <Text
-                                                    type="secondary"
-                                                    style={{ margin: '5px' }}
-                                                    id={contact.user._id}
-                                                    onClick={e => contentDetail(e.target, 1)}
-                                                >
-                                                    {contact.user.email}
-                                                </Text>
-                                                
-                                            </div>
+                                            >
+                                                {contact.user.givenName + ' ' + contact.user.familyName}
+                                            </Text>
+                                            <Text
+                                                type="secondary"
+                                                style={{ margin: '5px' }}
+                                                id={contact.user._id}
+                                                onClick={e => contentDetail(e.target, 1)}
+                                            >
+                                                {contact.user.email}
+                                            </Text>
+
+                                        </div>
                                     </Menu.Item>)}
 
                                 </SubMenu>
                                 <SubMenu key="sub2" icon={<UserOutlined />} title="My friend">
                                     {acceptContact.map((contact, index) => <Menu.Item key={contact.friend._id} icon={
-                                        <Avatar src={contact.friend.photo.data} id={contact.friend._id}/>
+                                        <Avatar src={contact.friend.photo.data} id={contact.friend._id} />
                                     } style={{ paddingLeft: '20px' }}>
                                         <div
                                             id={contact.friend._id}

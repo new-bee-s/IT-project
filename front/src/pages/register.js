@@ -104,7 +104,7 @@ export default function Register(props) {
 
     //using on onchange
     const onSignUp = () => {
-        if(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,5}$/.test(email)) {
+        if (/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,5}$/.test(email)) {
             //use axios connect back-end and push personal information to back-end
             axios.post('/register', {
                 email: email,
@@ -123,13 +123,13 @@ export default function Register(props) {
                 }
 
             }).catch(error => {
-                
+
             })
         } else {
             console.log()
             message.error("please input a valid email address")
         }
-        
+
 
     }
 
@@ -147,7 +147,7 @@ export default function Register(props) {
 
                 </div>
                 <div className={classes.column} style={{ textAlign: 'center', paddingRight: '15vh', minHeight: '82vh' }}>
-                    <Container component="main" maxWidth="xs"style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: 10, padding: ' 2vh 2vw'}}>
+                    <Container component="main" maxWidth="xs" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: 10, padding: ' 2vh 2vw' }}>
                         <div>
                             <Typography component="h1" variant="h1" align="center">
                                 Register

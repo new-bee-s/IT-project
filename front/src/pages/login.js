@@ -173,10 +173,10 @@ function SignIn(props) {
 
 
     const forgetPassword = (
-        <div style = {{width: '400px'}}>
+        <div style={{ width: '400px' }}>
             <p>
-                If you have forget your regiestered email or password, please contact any admins you know, or set a email to 
-                ziyuq@student.unimelb.edu.au. and describe the situation. Our frinedly team are 
+                If you have forget your regiestered email or password, please contact any admins you know, or set a email to
+                ziyuq@student.unimelb.edu.au. and describe the situation. Our frinedly team are
                 happy to assist you to find your email or reset password
             </p>
         </div>
@@ -187,28 +187,28 @@ function SignIn(props) {
 
             <div className={classes.middle}>
 
-                {/* logo image */} 
-                <div style={{width: '50%',height: '100%', backgroundImage: 'url("/../pics/halfback.png")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', left: '0vw', top:'0vh'}}>
-                    <div style = {{textAlign: 'center', alignItems: 'center', display: 'flex', width: '100%', height: '100%'}}>
-                        <a href="/"> 
-                            <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '75%'}}/>
+                {/* logo image */}
+                <div style={{ width: '50%', height: '100%', backgroundImage: 'url("/../pics/halfback.png")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', left: '0vw', top: '0vh' }}>
+                    <div style={{ textAlign: 'center', alignItems: 'center', display: 'flex', width: '100%', height: '100%' }}>
+                        <a href="/">
+                            <img src='../pics/logo_full.png' alt="logo pic" style={{ width: '75%' }} />
                         </a>
                     </div>
                 </div>
                 {/* orginal color '#fffbf0' */}
-                <div style={{width: '50%',height: '100%', backgroundColor: '#f0f0ea', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
+                <div style={{ width: '50%', height: '100%', backgroundColor: '#f0f0ea', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top: '0vh' }}>
 
 
-                    <div align = 'center' verticalalign='middle'>
+                    <div align='center' verticalalign='middle'>
 
-                        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                        <br /><br /><br /><br /><br /><br /><br /><br /><br />
                         <Container component="main" maxWidth="xs">
                             <div>
-                                <Typography component="h1" variant="h1" align='center' style = {{fontFamily: 'Ubuntu'}}>Log In</Typography>
+                                <Typography component="h1" variant="h1" align='center' style={{ fontFamily: 'Ubuntu' }}>Log In</Typography>
                             </div>
                             <br />
                             <div>
-                                <Typography component="h1" variant='body1' align='center' style = {{fontFamily: 'Ubuntu'}}>Sign in and start managing your candidates!</Typography>
+                                <Typography component="h1" variant='body1' align='center' style={{ fontFamily: 'Ubuntu' }}>Sign in and start managing your candidates!</Typography>
                             </div>
                             <br />
                             <div>
@@ -226,7 +226,7 @@ function SignIn(props) {
                                         onChange={e => setEmail(e.target.value)}
                                     />
 
-                                    <a href={"register"} style={{ float: 'right', fontFamily: 'Ubuntu'}}>
+                                    <a href={"register"} style={{ float: 'right', fontFamily: 'Ubuntu' }}>
                                         New user? Click here
                                     </a>
 
@@ -245,17 +245,17 @@ function SignIn(props) {
 
                                 </form>
                                 {/*  support and forget password */}
-                                <div style = {{float: 'right'}}>
-                                    <Popover content={forgetPassword} title="Forget Passward" style = {{float: 'left'}}>
-                                        <Button variant="text" style = {{fontFamily: 'Ubuntu', fontSize: "14px", textTransform: 'none', color: '#1890ff', padding: '0px 0px'}}>
-                                        <a style={{ float: 'right', fontFamily: 'Ubuntu'}}>
-                                            Forget Passward?
-                                        </a>
+                                <div style={{ float: 'right' }}>
+                                    <Popover content={forgetPassword} title="Forget Passward" style={{ float: 'left' }}>
+                                        <Button variant="text" style={{ fontFamily: 'Ubuntu', fontSize: "14px", textTransform: 'none', color: '#1890ff', padding: '0px 0px' }}>
+                                            <a style={{ float: 'right', fontFamily: 'Ubuntu' }}>
+                                                Forget Passward?
+                                            </a>
                                         </Button>
                                     </Popover>
                                 </div>
-                                <br/>
-                                <br/>
+                                <br />
+                                <br />
                                 <div>
                                     <Button
                                         variant="contained"

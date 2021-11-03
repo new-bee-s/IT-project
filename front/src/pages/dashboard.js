@@ -98,40 +98,40 @@ export default class Dashboard extends React.Component {
                             </Menu>
                         </Col>
                         <Col span={5}>
-                            <div style = {{float: 'right'}}>
+                            <div style={{ float: 'right' }}>
                                 <Avatar src={profile.photo.data} />
                                 <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                     {profile.email}
                                 </span>
                             </div>
                         </Col>
-                        <Col span = {4} style = {{padding: "0 10px"}}>
+                        <Col span={4} style={{ padding: "0 10px" }}>
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Menu.Item key='logout'>
-                                <div onClick = {() => OnLogOut()}>
-                                    <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
-                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                        Log Out
-                                    </span>
-                                </div>
+                                    <div onClick={() => OnLogOut()}>
+                                        <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                            Log Out
+                                        </span>
+                                    </div>
                                 </Menu.Item>
                             </Menu>
                         </Col>
                     </Row>
                 </Header>
                 <Layout>
-                    <Content style={{ padding: '0 5vw', backgroundImage: 'url("../pics/background2.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+                    <Content style={{ padding: '0 5vw', backgroundImage: 'url("../pics/background2.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
                         <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.9)', padding: '2vw', marginTop: '2vh' }}>
 
                             <div id='left' style={{ width: '10vw', float: 'left', paddingLeft: '5vw', paddingTop: '5vh' }}>
-                                <div style={{paddingLeft:'3vw'}}>
-                                    <Avatar size={140} src={profile.photo.data}/>
+                                <div style={{ paddingLeft: '3vw' }}>
+                                    <Avatar size={140} src={profile.photo.data} />
                                 </div>
-                                
-                                <br/>
-                                <br/>
-                                <br/>
-                                <a href={home+'/contact'}>
+
+                                <br />
+                                <br />
+                                <br />
+                                <a href={home + '/contact'}>
                                     <Card
                                         hoverable
                                         style={{ width: 240 }}
@@ -142,26 +142,26 @@ export default class Dashboard extends React.Component {
                                 </a>
                             </div>
 
-                            <div id='right' style={{ width: '60vw', float:'right', paddingTop: '3vh', paddingRight:'10vw' }}>
-                                
+                            <div id='right' style={{ width: '60vw', float: 'right', paddingTop: '3vh', paddingRight: '10vw' }}>
+
                                 <span style={{ color: 'black', verticalAlign: 'middle', fontSize: '65px' }}>
                                     Hi!&nbsp;{profile.givenName}&nbsp;{profile.familyName}
                                 </span>
 
-                                <Descriptions layout="vertical" style={{paddingTop:'8vh'}} bordered>
+                                <Descriptions layout="vertical" style={{ paddingTop: '8vh' }} bordered>
                                     <Descriptions.Item label="UserID">{profile.userID}</Descriptions.Item>
                                     <Descriptions.Item label="Name" span={2}>{profile.givenName + " " + profile.familyName}</Descriptions.Item>
 
                                     <Descriptions.Item label="Mobile number">{profile.mobile}</Descriptions.Item>
                                     <Descriptions.Item label="Email" span={2}>{profile.email}</Descriptions.Item>
-                                    
+
                                     <Descriptions.Item label="Company">{profile.company}</Descriptions.Item>
-                                    <Descriptions.Item label="Region" span={2}>{profile.region.country + " " + profile.region.state + " " +profile.region.city}</Descriptions.Item>
-                                    
+                                    <Descriptions.Item label="Region" span={2}>{profile.region.country + " " + profile.region.state + " " + profile.region.city}</Descriptions.Item>
+
                                     <Descriptions.Item label="Occupation">{profile.occupation}</Descriptions.Item>
                                     <Descriptions.Item label="Date of Birth">{profile.dob.year + '-' + profile.dob.month + '-' + profile.dob.date}</Descriptions.Item>
                                     <Descriptions.Item label="Gender">{profile.gender}</Descriptions.Item>
-                                    
+
                                     <Descriptions.Item label="introduction">{profile.introduction}</Descriptions.Item>
                                 </Descriptions>
                             </div>

@@ -124,7 +124,7 @@ export default class AddFriend extends React.Component {
 
 
         }
-        
+
         // Close the search resulut
         const onClose = () => {
             this.setState({
@@ -178,28 +178,28 @@ export default class AddFriend extends React.Component {
                         </Col>
 
                         <Col span={5}>
-                            <div style = {{float: 'right'}}>
+                            <div style={{ float: 'right' }}>
                                 <Avatar src={profile.photo.data} />
                                 <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
                                     {profile.email}
                                 </span>
                             </div>
                         </Col>
-                        <Col span = {4} style = {{padding: "0 10px"}}>
+                        <Col span={4} style={{ padding: "0 10px" }}>
                             <Menu theme="dark" mode="horizontal" style={{ height: '64px' }}>
                                 <Menu.Item key='logout'>
-                                <div onClick = {() => OnLogOut()}>
-                                    <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
-                                    <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
-                                        Log Out
-                                    </span>
-                                </div>
+                                    <div onClick={() => OnLogOut()}>
+                                        <img src='/../pics/logout.png' alt='AddFriend' style={{ height: '28px' }} />
+                                        <span style={{ color: 'white', verticalAlign: 'middle', paddingLeft: '10px' }}>
+                                            Log Out
+                                        </span>
+                                    </div>
                                 </Menu.Item>
                             </Menu>
                         </Col>
                     </Row>
                 </Header>
-                <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background23.jpg")' , backgroundRepeat: 'no-repeat', backgroundSize: 'cover', }}>
+                <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background23.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', }}>
 
 
 

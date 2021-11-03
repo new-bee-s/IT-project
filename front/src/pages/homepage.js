@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { useState } from 'react';
-import { Drawer} from 'antd';
+import { Drawer } from 'antd';
 import { Row, Col } from 'antd';
 
 
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
         resizeMethod: 'cover',
         position: 'absolute',
         bottom: '0',
-      
+
     },
 
 }));
@@ -77,7 +77,7 @@ function Homepage() {
     const [support, setSupport] = useState(false);
     const [admin, setAdmin] = useState(false);
     const [team, setTeam] = useState(false);
-    
+
 
     const showAbout = () => {
         setAbout(true);
@@ -103,25 +103,25 @@ function Homepage() {
     };
 
     return (
-        <div style={{width: '100%', height: '100%', backgroundImage: 'url("/../pics/keyboard.png")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top:'0vh'}}>
+        <div style={{ width: '100%', height: '100%', backgroundImage: 'url("/../pics/keyboard.png")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', position: 'absolute', right: '0vw', top: '0vh' }}>
             <Row>
-                <Col span = {5}>
+                <Col span={5}>
                     {/* logo div */}
-                    <div style = {{justifyContent: 'center', display: 'flex', height: '90px', alignItems: 'center'}}>
-                        <img src='./pics/logo_full.png' alt='logo pic' height={50}/>
+                    <div style={{ justifyContent: 'center', display: 'flex', height: '90px', alignItems: 'center' }}>
+                        <img src='./pics/logo_full.png' alt='logo pic' height={50} />
                     </div>
                 </Col>
-                <Col span = {18}>
-                    <div style={{float: 'right', height: '90px', width: '100%'}}>
+                <Col span={18}>
+                    <div style={{ float: 'right', height: '90px', width: '100%' }}>
                         {/* continue div */}
-                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                        <div style={{ float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center' }}>
                             <a href={window.location.href + 'register'}>
                                 <Button variant="contained" className={classes.button}>
                                     Join Us
                                 </Button>
                             </a>
                         </div>
-                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                        <div style={{ float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center' }}>
                             <a href={window.location.href + 'login'}>
                                 <Button variant="contained" className={classes.button}>
                                     Get Start
@@ -129,34 +129,34 @@ function Homepage() {
                             </a>
                         </div>
                         {/* help divs */}
-                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                        <div style={{ float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center' }}>
                             <div>
-                                <h2 onClick = {showTeam} style={{color: 'white', fontFamily: 'Ubuntu', textAlign: 'center'}}> Team </h2>
+                                <h2 onClick={showTeam} style={{ color: 'white', fontFamily: 'Ubuntu', textAlign: 'center' }}> Team </h2>
                             </div>
                         </div>
-                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                        <div style={{ float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center' }}>
                             <div>
-                                <h2 onClick = {showAdmin} style={{color: 'white', fontFamily: 'Ubuntu'}}> Admin </h2>
-                            </div>           
+                                <h2 onClick={showAdmin} style={{ color: 'white', fontFamily: 'Ubuntu' }}> Admin </h2>
+                            </div>
                         </div>
-                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                        <div style={{ float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center' }}>
                             <div>
-                                <h2 onClick = {showSupport} style={{color: 'white', fontFamily: 'Ubuntu'}}> Support </h2> 
-                            </div>                     
+                                <h2 onClick={showSupport} style={{ color: 'white', fontFamily: 'Ubuntu' }}> Support </h2>
+                            </div>
                         </div>
-                        <div style = {{float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center'}}>
+                        <div style={{ float: 'right', height: '90px', margin: "0 10px", display: 'flex', alignItems: 'center' }}>
                             <div>
-                                <h2 onClick = {showAbout} style={{color: 'white', fontFamily: 'Ubuntu'}}> About </h2>
-                            </div> 
+                                <h2 onClick={showAbout} style={{ color: 'white', fontFamily: 'Ubuntu' }}> About </h2>
+                            </div>
                         </div>
                     </div>
                 </Col>
             </Row>
-            
+
             {/* slogon div */}
-            <div align = 'center' style={{position: 'absolute', left: '35vw', top:'40vh' }}>
-                <h1 style={{color: 'white', fontFamily: 'Ubuntu'}}> Connect with Old Client and Meet New Client  </h1>
-                <h1 style={{color: 'white', fontFamily: 'Ubuntu'}}> All in New-Bee Personal CRM </h1>              
+            <div align='center' style={{ position: 'absolute', left: '35vw', top: '40vh' }}>
+                <h1 style={{ color: 'white', fontFamily: 'Ubuntu' }}> Connect with Old Client and Meet New Client  </h1>
+                <h1 style={{ color: 'white', fontFamily: 'Ubuntu' }}> All in New-Bee Personal CRM </h1>
             </div>
 
             <Drawer
@@ -164,14 +164,14 @@ function Homepage() {
                 placement={'left'}
                 onClose={onClose}
                 visible={about}
-                key = {'d1'}
+                key={'d1'}
             >
                 <p>This is NEW-BEE Personal CRM, developed by team New-Bees from University of Melbourne.</p>
-                <br/>
+                <br />
                 <p>We offer free CRM service to small business, private business, local vendor and freelancer.</p>
-                <br/>
+                <br />
                 <p>Our priorities are build friendly community that users can connect with other users easily and comfortably.</p>
-                <br/>
+                <br />
                 <p>The New-Bees team reserves the right of final interpretation of this CRM.</p>
             </Drawer>
 
@@ -180,12 +180,12 @@ function Homepage() {
                 placement={'left'}
                 onClose={onClose}
                 visible={support}
-                key = {'d2'}
+                key={'d2'}
             >
                 <p>The New-Bees Team is glad to offer support with your account.</p>
-                <br/>
+                <br />
                 <p>Please comply with the internet rules and local laws, and show respect to other users. We do not tolerate racist or other types of discriminaition information/massage. Failed to comply with above terms may lead to your account being banned.</p>
-                <br/>
+                <br />
                 <p>For further assistance, please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
             </Drawer>
 
@@ -194,14 +194,14 @@ function Homepage() {
                 placement={'left'}
                 onClose={onClose}
                 visible={admin}
-                key = {'d3'}
+                key={'d3'}
             >
                 <p>Administrators of NEW-BEE CRM are amicable partners that help New-Bees Team to maintain a friendly online community.</p>
-                <br/>
+                <br />
                 <p>Admins reserve the rights of banning and unbanning any accounts that violate the community rules. Admins also reserves the right of modifying users information, but we guarantee that users private information will not be revealed to any third parties.</p>
-                <br/>
+                <br />
                 <p>For appeal of banned accounts please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
-                <br/>
+                <br />
                 <p>For current admins: Please log in with a different website!</p>
             </Drawer>
 
@@ -210,12 +210,12 @@ function Homepage() {
                 placement={'left'}
                 onClose={onClose}
                 visible={team}
-                key = {'d4'}
+                key={'d4'}
             >
                 <p>This personal CRM is developed by the student team New-Bees</p>
-                <br/>
+                <br />
                 <p>The Team members are: Shenggang Qian, Shengjun Su, Xinyu Wu, Yutong Sun and Ziyu Qian. The supervisor of the team is Zhe Wang and the client is Haichao Song </p>
-                <br/>
+                <br />
                 <p>For any suggestions and potential future opportunities, please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
             </Drawer>
 

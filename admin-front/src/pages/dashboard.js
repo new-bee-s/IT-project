@@ -48,7 +48,7 @@ export default class Dashboard extends React.Component {
     // Define the variable
     const { Header, Content } = Layout;
     // remember to add loading back!
-    const { loading, data, profile} = this.state;
+    const { loading, data, profile } = this.state;
     const home = '/dashboard';
 
     if (loading) {
@@ -61,7 +61,7 @@ export default class Dashboard extends React.Component {
     const OnUnban = (record) => {
 
       axios.post(home + '/unBanUser', { _id: record._id }).then(res => {
-          if (res.data.success) {
+        if (res.data.success) {
           message.success("unban successfully")
         }
         else {
@@ -73,13 +73,13 @@ export default class Dashboard extends React.Component {
         // or throw(error.respond)
       })
 
-      let datalist = data.map(data =>{
-        if (record._id === data._id){
+      let datalist = data.map(data => {
+        if (record._id === data._id) {
           data.ban = false
         }
         return data;
       })
-      this.setState({data: [...datalist]})
+      this.setState({ data: [...datalist] })
     }
 
     const OnBan = (record) => {
@@ -88,7 +88,7 @@ export default class Dashboard extends React.Component {
         if (res.data.success) {
           message.success("ban successfully")
           record.ban = true;
-          
+
         }
         else {
           message.error(res.data.error)
@@ -97,13 +97,13 @@ export default class Dashboard extends React.Component {
         console.log(error.response.data.error)
         message.error(error.response.data.error)
       })
-      let datalist = data.map(data =>{
-        if (record._id === data._id){
+      let datalist = data.map(data => {
+        if (record._id === data._id) {
           data.ban = true;
         }
         return data;
       })
-      this.setState({data: [...datalist]})
+      this.setState({ data: [...datalist] })
     }
 
     const columns = [
@@ -236,7 +236,7 @@ export default class Dashboard extends React.Component {
           <Content style={{ padding: '0 5vw' }}>
             <div style={{ minHeight: '100vh', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '2vw', marginTop: '2vh' }}>
               <Typography component="h1" variant='h1' align='center'>Manage all the users</Typography>
-                <p align='right' style={{fontSize:'20px',paddingRight:'10vw', color:'grey'}}>"{profile.name} is watching you!"</p>
+              <p align='right' style={{ fontSize: '20px', paddingRight: '10vw', color: 'grey' }}>"{profile.name} is watching you!"</p>
               <Divider />
               <Table columns={columns} rowKey='_id' dataSource={data} style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }} />
             </div>
