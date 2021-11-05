@@ -3,7 +3,7 @@ require('dotenv').config()
 const User = require('../models/user');
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
-const Contact = require('../models/contact');
+const Contact = require('../models/contact')
 require('../config/passport')(passport)
 
 // Create a new user
@@ -82,14 +82,16 @@ const addFriend = async (req, res) => {
         if (existingContact) {
             return res.status(200).json({ success: false, error: "You have added this user" })
         }
+
+        console.log(req.body.message)
         // Add a new contact for the requester
         let newContact = new Contact({
+            remark: req.body.remark,
+            message: req.body.message,
             user: req.user._id,
             friend: req.body.friend,
             status: "pending",
             tag: [],
-            remark: req.body.remark,
-            message: req.body.message
         })
         newContact.save(err => {
             if (err) throw err
@@ -115,7 +117,7 @@ const getUserInfo = async (req, res) => {
 const viewUsers = async (req, res) => {
     try {
         let users = await User.find({})
-        return res.status(200).json({ success: true, users: users, admin: req.user})
+        return res.status(200).json({ success: true, users: users, admin: req.user })
     }
     catch (err) {
         return res.status(404).json({ success: false, error: "Web crashed" })
