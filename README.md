@@ -179,7 +179,7 @@ There are two user stories we haven't finished
  |User Name             |Password                  |Comment                   |
  |:---:                 |:---:                     |:---:                     |
  |admin                 |12345678                  |admin account             |
- |jsaonqian@gmail.com   |Qsg12345678               |Main user account         |
+ |jsaonqian@gmail.com   |Qsg12345678               |Normal user account       |
  |Yiyangqianxi@qq.com   |yiyangqianxi1128          |Normal user account       |
  |Wuxinyu@gmail.com     |Wuyinyu123                |Normal user account       |
  |sushengju@gmail.com   |ssjssjssj                 |Normal user account       |
