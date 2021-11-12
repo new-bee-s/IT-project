@@ -1,12 +1,13 @@
 # Welcome to New-Bee CRM!!  😄   
-This is the project for Unimelb COMP30019 IT-Project. 
+
 <h3>
    Website link:<br/>
    [New-Bee CRM](https://new-bee.netlify.app/)<br/>
    [New-Bee admin CRM](https://new-bee-admin.netlify.app/)
 </h3>
-
-It is a website customer relationship managemenet system, which is able to store, search, manage and share your address book for business easily!  
+This is the project for Unimelb COMP30019 IT-Project.
+<br/>
+A　website customer relationship managemenet system, which is able to store, search, manage and share your address book for business easily!  
 
 Contributors:  
 **Ziyu Qian**   ziyuq@student.unimelb.edu.au  
