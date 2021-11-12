@@ -123,7 +123,8 @@ export default function Register(props) {
                 }
 
             }).catch(error => {
-
+                console.log(error.response.data.error)
+                message.error(error.response.data.error)
             })
         } else {
             console.log()
