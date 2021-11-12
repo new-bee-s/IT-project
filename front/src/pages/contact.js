@@ -76,9 +76,8 @@ export default class Contact extends React.Component {
         const setSearch = e => {
             this.setState({ searchOption: e })
         }
-        console.log(pendingContact)
 
-        // Search function
+        // Search function 
         const onSearch = e => {
             e = e.toLowerCase()
             if (e !== '') {
@@ -200,6 +199,8 @@ export default class Contact extends React.Component {
             if (Detail === undefined) {
                 return (<div> </div>)
             }
+
+            // decide show detail showed for pending contact or accepting contact
             if (showStatus === 2) {
                 var showedAcceptedcontact = undefined;
                 acceptContact.map(contact => {
@@ -212,6 +213,7 @@ export default class Contact extends React.Component {
                     <ContactBrief key={showedAcceptedcontact._id} contact={showedAcceptedcontact}
                         sendTags={getTags} sendRemark={getRemark} sendDelete={getDeleteFriend} />);
             }
+            // pending contact
             else if (showStatus === 1) {
                 var showedPendingContact = undefined;
                 pendingContact.map(contact => {
@@ -305,10 +307,9 @@ export default class Contact extends React.Component {
                         </Row>
                     </Header>
                     <Layout style={{ padding: '2vh 2vh', paddingRight: '2vh', backgroundImage: 'url("/../pics/background1.jpg")', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
-                        <Sider width={'400px'} style={{ background: '#fff' }}>
+                        <Sider width={'405px'} style={{ background: '#fff', height: '100vh', overflow: 'auto'}}>
                             <Menu
                                 mode="inline"
-                                style={{ minHeight: '100vh' }}
                             >
                                 <SubMenu key="3" icon={<SearchOutlined />} title="Search friend">
                                     <MenuItem key="4" style={{ paddingLeft: '10px' }}>
