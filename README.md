@@ -11,13 +11,13 @@ A website customer relationship managemenet system, which is able to store, sear
 
 <h4>
    Contributors:<br/>
-   **Ziyu Qian**   ziyuq@student.unimelb.edu.au<br/>
-   **Shengjun Su** shengjuns@student.unimelb.edu.au<br/>
-   **Xinyu Wu** xinyu3@student.unimelb.edu.au<br/>
-   **Yutong Sun**  yssu3@student.unimelb.edu.au<br/>
-   **Shenggang Qian** shenggangq@student.unimelb.edu.au<br/>
+   Ziyu Qian   ziyuq@student.unimelb.edu.au<br/>
+   Shengjun Su shengjuns@student.unimelb.edu.au<br/>
+   Xinyu Wu xinyu3@student.unimelb.edu.au<br/>
+   Yutong Sun  yssu3@student.unimelb.edu.au<br/>
+   Shenggang Qian shenggangq@student.unimelb.edu.au<br/>
    Tutor:<br/>
-   **Zhe Wang** zoe.wang1@unimelb.edu.au<br/>
+   Zhe Wang zoe.wang1@unimelb.edu.au<br/>
 </h4>
 
 
