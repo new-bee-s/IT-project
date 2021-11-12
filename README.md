@@ -10,13 +10,13 @@ This is the project for Unimelb COMP30019 IT-Project.
 A website customer relationship managemenet system, which is able to store, search, manage and share your address book for business easily!  
 
 <h4>
-   **Contributors:**  
+   Contributors:  
    **Ziyu Qian**   ziyuq@student.unimelb.edu.au  
    **Shengjun Su** shengjuns@student.unimelb.edu.au  
    **Xinyu Wu** xinyu3@student.unimelb.edu.au  
    **Yutong Sun**  yssu3@student.unimelb.edu.au  
    **Shenggang Qian** shenggangq@student.unimelb.edu.au  
-   **Tutor:**  
+   Tutor:  
    **Zhe Wang** zoe.wang1@unimelb.edu.au
 </h4>
 
