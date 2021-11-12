@@ -152,7 +152,7 @@ export default class Contact extends React.Component {
         const getAcceptFriend = () => {
             this.setState({ detailLoading: true })
             const home = '/dashboard'
-            // connect contact back-end and seting contact list information
+            // Connect contact back-end and seting contact list information
             axios.get(home + '/contact').then(response => {
 
                 if (response.data.success) {
@@ -253,7 +253,7 @@ export default class Contact extends React.Component {
                                 </a>
                             </Col>
                             <Col span={12}>
-                                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ height: '64px' }}>
+                                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['contact']} style={{ height: '64px' }}>
                                     <Menu.Item key="dashboard">
                                         <a href={home}>
                                             <img src='/../pics/user_icon.png' alt='profile_icon' style={{ height: '24px', verticalAlign: 'middle' }} />
