@@ -215,7 +215,7 @@ function SignIn(props) {
                 <br />
                 <p>Please manage the users according to the rules of our website. Do not hesitate to ban them if their activities are offensive </p>
                 <br />
-                <p>For further clarification, please contact us via the email: ziyuq@student.unimelb.edu.au.</p>
+                <p>For further clarification, please contact us via the email: new.bee.crm@gmail.com.</p>
             </Drawer>
 
 
