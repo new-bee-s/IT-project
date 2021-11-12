@@ -175,3 +175,21 @@ There are two user stories we haven't finished
 | Deploy | 35 | We need to successfully deploy our app | 5 | HIGH | Shengjun Su,Ziyu Qian |
 
 
+### Test User account
+ |User Name             |Password                  |Comment                   |
+ |:---:                 |:---:                     |:---:                     |
+ |admin                 |12345678                  |admin account             |
+ |jsaonqian@gmail.com   |Qsg12345678               |Main user account         |
+ |Yiyangqianxi@qq.com   |yiyangqianxi1128          |Normal user account       |
+ |Wuxinyu@gmail.com     |Wuyinyu123                |Normal user account       |
+ |sushengju@gmail.com   |ssjssjssj                 |Normal user account       |
+ |qianziyu@gmail.com    |qzy228228                 |Normal user account       |
+ |suyuntong@gmail.com   |syt111111                 |Normal user account       |
+ |yangmi@qq.com         |yangmi100100              |Normal user account       |
+ |xiaomeng@gmail.com    |xm123321                  |Normal user account       |
+ |xiaoming@zoho.com     |xiaoming123!              |Normal user account       |
+ |zhaoshengdou@gmail.com|zhaoshengdong199?         |Normal user account       |
+ |zhaoxin@gmail.com     |zhaoxin898                |Normal user account       |
+ 
+
+
